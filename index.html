@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script>
+      window.__ENV = {
+        backendURL: "%VITE_BACKEND_URL%",
+        sandbox: "%VITE_SANDBOX_SDK%",
+      };
+    </script>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script>
+      // Make the decision whether Pi SDK should run in "Sandbox" mode or "Pi Browser" mode based on the
+      // dedicated environment variable:
+      var runSDKInSandboxMode = window.__ENV.sandbox === "true"; // treat env vars as strings, not booleans
+
+      // Init Pi SDK:
+      Pi.init({ version: "2.0", sandbox: runSDKInSandboxMode });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
