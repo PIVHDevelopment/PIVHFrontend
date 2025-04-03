@@ -78,7 +78,7 @@ function Home() {
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>}
             </div>
-            <div className="app-icon">
+            <div className="app-icon" style={{marginLeft: "26px"}}>
               <img src={pocketPi} alt="PocketPi" />
             </div>
             <div className="header-icons">
