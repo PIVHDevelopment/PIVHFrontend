@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Send() {
   const navigate = useNavigate();
   const [tab, setTab] = useState(1);
+  const [text, setText] = useState("");
   return (
     <div className="app-container">
       <header class="receive-center">
@@ -48,8 +49,20 @@ function Send() {
       <div class="send-form">
         <div class="input-group">
           <div class="input-wrapper send-input-box">
-            <input type="text" placeholder="Enter Wallet Address" />
-            <button class="paste-btn">Paste</button>
+            <input
+              type="text"
+              placeholder="Enter Wallet Address"
+              value={text}
+            />
+            <button
+              class="paste-btn"
+              onClick={async () => {
+                const res = await navigator.clipboard.readText();
+                setText(res);
+              }}
+            >
+              Paste
+            </button>
           </div>
           <button class="address-book-link">Select from Address Book</button>
         </div>
