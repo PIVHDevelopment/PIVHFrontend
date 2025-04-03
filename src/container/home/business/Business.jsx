@@ -1,7 +1,6 @@
 import React from "react";
-import receiveMoney from "../../../assets/images/receive-money.png";
-import downArrow from "../../../assets/images/down-arrow.png";
 import { useNavigate } from "react-router-dom";
+import Index from "../../Index";
 
 function Business() {
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ function Business() {
         onClick={() => navigate("/receive")}
       >
         <span className="btn-icon">
-          <img src={receiveMoney} alt="Receive Money" />
+          <img src={Index.receiveMoney} alt="Receive Money" />
         </span>
         Receive
       </button>
@@ -26,7 +25,7 @@ function Business() {
           <div className="stats-dropdown">
             Stats for: last 7 days
             <span>
-              <img src={downArrow} alt="Down Arrow" />
+              <img src={Index.downArrow} alt="Down Arrow" />
             </span>
           </div>
         </div>

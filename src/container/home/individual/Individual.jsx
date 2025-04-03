@@ -1,10 +1,8 @@
 import React from "react";
-import sendMoney from "../../../assets/images/send-money.png";
-import receiveMoney from "../../../assets/images/receive-money.png";
-import { useNavigate } from "react-router-dom";
+import Index from "../../Index";
 
 function Individual() {
-  const navigate = useNavigate();
+  const navigate = Index.useNavigate();
   return (
     <>
       <div className="action-buttons">
@@ -14,7 +12,7 @@ function Individual() {
           onClick={() => navigate("/send")}
         >
           <span className="btn-icon">
-            <img src={sendMoney} alt="Send Money" />
+            <img src={Index.sendMoney} alt="Send Money" />
           </span>
           Send
         </button>
@@ -24,7 +22,7 @@ function Individual() {
           onClick={() => navigate("/receive-merchant")}
         >
           <span className="btn-icon">
-            <img src={receiveMoney} alt="Receive Money" />
+            <img src={Index.receiveMoney} alt="Receive Money" />
           </span>
           Receive
         </button>

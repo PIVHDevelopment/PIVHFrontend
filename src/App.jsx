@@ -5,12 +5,7 @@ import Shop from "./Shop";
 import Routers from "./routes/Routes";
 
 function App() {
-  return (
-    <>
-      <Routers />
-      {/* <Shop />; */}
-    </>
-  );
+  return <Routers />;
 }
 
 export default App;

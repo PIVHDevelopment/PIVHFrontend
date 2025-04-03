@@ -696,3 +696,7 @@ button.address-book-btn {
   gap: 16px;
   margin-bottom: 26px;
 }
+
+.signin-header{
+  justify-content: center;
+}

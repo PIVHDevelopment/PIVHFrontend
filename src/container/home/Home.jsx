@@ -1,19 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import pocketPi from "../../assets/images/pocketPi.png";
-import profile from "../../assets/images/Profile.png";
-import scan from "../../assets/images/Scan.png";
-import setting from "../../assets/images/Setting.png";
-import copy from "../../assets/images/Copy.png";
-import income from "../../assets/images/income.png";
-import expense from "../../assets/images/expense.png";
-import suitcase from "../../assets/images/Suitcase.png";
-import employee from "../../assets/images/Employee.png";
-import autopay from "../../assets/images/Autopay.png";
-import configure from "../../assets/images/Configure.png";
 import Individual from "./individual/Individual";
 import Business from "./business/Business";
-import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
+import Index from "../Index";
 
 const transactions = [
   {
@@ -74,7 +62,7 @@ function Home() {
           <header>
             <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
               <div className="profile-pic">
-                <img src={profile} alt="Profile" />
+                <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>}
             </div>
@@ -82,11 +70,11 @@ function Home() {
               className="app-icon"
               style={{ textAlign: "center", flex: "0 0 33.3%" }}
             >
-              <img src={pocketPi} alt="PocketPi" />
+              <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
               <button className="icon-btn" id="syncBtn">
-                <img src={scan} alt="Scan" />
+                <img src={Index.scan} alt="Scan" />
               </button>
               <button
                 className="icon-btn"
@@ -94,11 +82,11 @@ function Home() {
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
               >
-                <img src={setting} alt="Setting" />
+                <img src={Index.setting} alt="Setting" />
               </button>
             </div>
           </header>
-          <TabContainer
+          <Index.TabContainer
             id="left-tabs-example"
             defaultActiveKey="individual"
             activeKey={tab}
@@ -122,22 +110,22 @@ function Home() {
             <div className="wallet-id">
               <span id="walletAddress">hs7229dhsdhsj2987475</span>
               <button className="copy-btn" onClick={handleCopy}>
-                {copied ? <span>✓</span> : <img src={copy} alt="Copy" />}
+                {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
             </div>
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">31.4159 Pi</h1>
             </div>
-            <TabContent>
-              <TabPane eventKey={1}>
+            <Index.TabContent>
+              <Index.TabPane eventKey={1}>
                 <Individual />
-              </TabPane>
-              <TabPane eventKey={2}>
+              </Index.TabPane>
+              <Index.TabPane eventKey={2}>
                 <Business />
-              </TabPane>
-            </TabContent>
-          </TabContainer>
+              </Index.TabPane>
+            </Index.TabContent>
+          </Index.TabContainer>
         </div>
 
         <div
@@ -154,7 +142,7 @@ function Home() {
                 <div className="transaction-main-box">
                   <div className="transaction-details">
                     <img
-                      src={isPositive ? income : expense}
+                      src={isPositive ? Index.income : Index.expense}
                       alt="expense"
                       className="transaction-icon"
                     />
@@ -184,8 +172,8 @@ function Home() {
           </div>
         </div>
       </div>
-      <Modal className="user-setting-modal" show={open} onHide={handleClose}>
-        <Modal.Header>
+      <Index.Modal className="user-setting-modal" show={open} onHide={handleClose}>
+        <Index.Modal.Header>
           <h1 class="modal-title fs-5" id="exampleModalLabel">
             Settings
           </h1>
@@ -196,34 +184,34 @@ function Home() {
             aria-label="Close"
             onClick={handleClose}
           ></button>
-        </Modal.Header>
-        <Modal.Body>
+        </Index.Modal.Header>
+        <Index.Modal.Body>
           <div class="setting-cont-box">
             <div class="setting-icon-box">
-              <img src={suitcase} alt="" />
+              <img src={Index.suitcase} alt="" />
             </div>
             <h6 class="setting-cont-title">Add Business Address</h6>
           </div>
           <div class="setting-cont-box">
             <div class="setting-icon-box">
-              <img src={employee} alt="" />
+              <img src={Index.employee} alt="" />
             </div>
             <h6 class="setting-cont-title">Add Employee Address</h6>
           </div>
           <div class="setting-cont-box">
             <div class="setting-icon-box">
-              <img src={autopay} alt="" />
+              <img src={Index.autopay} alt="" />
             </div>
             <h6 class="setting-cont-title">Set Autopay</h6>
           </div>
           <div class="setting-cont-box">
             <div class="setting-icon-box">
-              <img src={configure} alt="" />
+              <img src={Index.configure} alt="" />
             </div>
             <h6 class="setting-cont-title">Configure Salary Disbursement</h6>
           </div>
-        </Modal.Body>
-      </Modal>
+        </Index.Modal.Body>
+      </Index.Modal>
     </>
   );
 }

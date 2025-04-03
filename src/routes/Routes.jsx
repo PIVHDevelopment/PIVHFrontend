@@ -5,6 +5,8 @@ import Receive from "../container/receive/Receive";
 import Home from "../container/home/Home";
 import ReceiveMerchant from "../container/receiveMerchant/ReceiveMerchant";
 import Send from "../container/send/Send";
+import Shop from "../Shop";
+import SignIn from "../container/auth/SignIn";
 
 function ErrorBoundary() {
   const error = PagesIndex.useRouteError(); // Assuming useRouteError is defined somewhere
@@ -19,7 +21,15 @@ const Routers = () => {
   const appRoutes = [
     {
       path: "/",
+      element: <SignIn />,
+    },
+    {
+      path: "/home",
       element: <Home />,
+    },
+    {
+      path: "/shop",
+      element: <Shop />,
     },
     {
       path: "/send",

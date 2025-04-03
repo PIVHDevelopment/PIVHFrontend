@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Index from "../Index";
 
 function TermsAndConditions() {
-  const navigate = useNavigate();
+  const navigate = Index.useNavigate();
   return (
     <div className="app-container settings-page">
       <header>
-        <button className="back-btn" onClick={() => navigate("/privacy-policy")}>
+        <button className="back-btn" onClick={() => navigate(-1)}>
           ←
         </button>
         <h1>Terms and Conditions</h1>

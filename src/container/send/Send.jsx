@@ -1,25 +1,23 @@
 import React, { useState } from "react";
-import pocketPi from "../../assets/images/PocketPi.png";
-import back from "../../assets/images/Back.png";
-import { TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import Index from "../Index";
+
 function Send() {
-  const navigate = useNavigate();
+  const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
   return (
     <div className="app-container">
       <header class="receive-center">
         <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={back} alt="Back" />
+          <img src={Index.back} alt="Back" />
         </button>
         <div class="app-icon" style={{ marginLeft: -"26px" }}>
-          <img src={pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt="PocketPi" />
         </div>
         <div class="header-right"></div>
       </header>
 
-      <TabContainer
+      <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
         activeKey={tab}
@@ -40,11 +38,11 @@ function Send() {
             Scan QR
           </button>
         </div>
-        <TabContent>
-          <TabPane eventKey={1}></TabPane>
-          <TabPane eventKey={2}></TabPane>
-        </TabContent>
-      </TabContainer>
+        <Index.TabContent>
+          <Index.TabPane eventKey={1}></Index.TabPane>
+          <Index.TabPane eventKey={2}></Index.TabPane>
+        </Index.TabContent>
+      </Index.TabContainer>
 
       <div class="send-form">
         <div class="input-group">
