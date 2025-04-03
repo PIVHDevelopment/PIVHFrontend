@@ -72,16 +72,19 @@ function Home() {
       <div className="app-container p-20-0">
         <div className="p-20">
           <header>
-            <div className="profile-section">
+            <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
               <div className="profile-pic">
                 <img src={profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>}
             </div>
-            <div className="app-icon" style={{marginLeft: "26px"}}>
+            <div
+              className="app-icon"
+              style={{ textAlign: "center", flex: "0 0 33.3%" }}
+            >
               <img src={pocketPi} alt="PocketPi" />
             </div>
-            <div className="header-icons">
+            <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
               <button className="icon-btn" id="syncBtn">
                 <img src={scan} alt="Scan" />
               </button>
