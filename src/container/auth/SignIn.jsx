@@ -14,6 +14,7 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
+    console.log(authResult)
     signInUser(authResult);
     setUser(authResult.user);
   };
