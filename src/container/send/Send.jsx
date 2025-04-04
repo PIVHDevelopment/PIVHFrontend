@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function Send() {
+  const formRef = useRef();
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
@@ -13,12 +14,30 @@ function Send() {
     };
     const callbacks = {
       onReadyForServerApproval,
+      onReadyForServerCompletion,
+      onCancel,
+      onError,
     };
     await window.Pi.createPayment(paymentData, callbacks);
   };
+  const onReadyForServerCompletion = (paymentId, txid) => {
+    console.log("onReadyForServerCompletion", paymentId, txid);
+  };
+
+  const onCancel = (paymentId) => {
+    console.log("onCancel", paymentId);
+  };
+
+  const onError = (error, payment) => {
+    console.log("onError", error);
+    if (payment) {
+      console.log(payment);
+      // handle the error accordingly
+    }
+  };
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_SEND, {
-      ...values,
+      ...formRef?.current?.values,
       paymentId,
     }).then(() => {});
   };
@@ -68,6 +87,7 @@ function Send() {
         }}
         onSubmit={handleSubmitFunction}
         validationSchema={Index.sendPiFormSchema}
+        innerRef={formRef}
       >
         {(formik) => (
           <form onSubmit={formik.handleSubmit} className="send-form">
