@@ -55,7 +55,6 @@ function Home() {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(JSON.parse(sessionStorage.getItem("pi_user_data")));
   return (
     <>
       <div className="app-container p-20-0">

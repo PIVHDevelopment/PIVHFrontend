@@ -20,6 +20,7 @@ import back from "../assets/images/Back.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DataService from "../utils/DataService";
+import Api from "../utils/Api";
 
 const Index = {
   Modal,
@@ -47,6 +48,7 @@ const Index = {
   share,
   back,
   DataService,
+  Api,
 };
 
 export default Index;

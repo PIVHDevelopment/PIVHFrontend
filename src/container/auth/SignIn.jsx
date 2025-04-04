@@ -4,8 +4,7 @@ import Index from "../Index";
 function SignIn() {
   const navigate = Index.useNavigate();
   const onIncompletePaymentFound = (payment) => {
-    console.log("onIncompletePaymentFound", payment);
-    return Index.DataService.post("/payments/incomplete", { payment });
+    return Index.DataService.post(Index.Api.PAYMENT_INCOMPLETE, { payment });
   };
   const signIn = async () => {
     const scopes = ["username", "payments", "wallet_address"];
@@ -17,7 +16,7 @@ function SignIn() {
     sessionStorage.setItem("pi_user_data", JSON.stringify(authResult.user));
   };
   const signInUser = (authResult) => {
-    Index.DataService.post("user/sign-in", { authResult }).then((res) => {
+    Index.DataService.post(Index.Api.SIGN_IN, { authResult }).then((res) => {
       navigate("/home");
     });
   };

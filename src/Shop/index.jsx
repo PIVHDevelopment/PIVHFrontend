@@ -3,6 +3,7 @@ import axios from "axios";
 import ProductCard from "./components/ProductCard";
 import SignIn from "./components/SignIn";
 import Header from "./components/Header";
+import Index from "../container/Index";
 
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
@@ -39,12 +40,12 @@ export default function Shop() {
   };
 
   const signInUser = (authResult) => {
-    axiosClient.post("/user/sign-in", { authResult });
+    axiosClient.post(Index.Api.SIGN_IN, { authResult });
     return setShowModal(false);
   };
 
   const signOutUser = () => {
-    return axiosClient.get("/user/sign-out");
+    return axiosClient.get(Index.Api.SIGN_OUT);
   };
 
   const onModalClose = () => {
@@ -68,22 +69,22 @@ export default function Shop() {
 
   const onIncompletePaymentFound = (payment) => {
     console.log("onIncompletePaymentFound", payment);
-    return axiosClient.post("/payments/payment-incomplete", { payment });
+    return axiosClient.post(Index.Api.PAYMENT_INCOMPLETE, { payment });
   };
 
   const onReadyForServerApproval = (paymentId) => {
     console.log("onReadyForServerApproval", paymentId);
-    axiosClient.post("/payments/payment-approve", { paymentId }, config);
+    axiosClient.post(Index.Api.PAYMENT_APPROVE, { paymentId }, config);
   };
 
   const onReadyForServerCompletion = (paymentId, txid) => {
     console.log("onReadyForServerCompletion", paymentId, txid);
-    axiosClient.post("/payments/payment-complete", { paymentId, txid }, config);
+    axiosClient.post(Index.Api.PAYMENT_COMPLETE, { paymentId, txid }, config);
   };
 
   const onCancel = (paymentId) => {
     console.log("onCancel", paymentId);
-    return axiosClient.post("/payments/payment-cancel", { paymentId });
+    return axiosClient.post(PAYMENT_CANCEL, { paymentId });
   };
 
   const onError = (error, payment) => {
