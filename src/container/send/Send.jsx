@@ -5,12 +5,22 @@ function Send() {
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
-  const handleSubmitFunction = (values) => {
-    const urlEncoded = new URLSearchParams();
-    urlEncoded.append("userName", values?.userName);
-    urlEncoded.append("amount", values?.amount);
-    urlEncoded.append("memo", values?.memo);
-    Index.DataService.post(Index.Api.PAYMENT_SEND, urlEncoded).then(() => {});
+  const handleSubmitFunction = async (values) => {
+    const paymentData = {
+      amount: values?.amount,
+      memo: values?.amount,
+      metadata: { userName: values?.userName },
+    };
+    const callbacks = {
+      onReadyForServerApproval,
+    };
+    await window.Pi.createPayment(paymentData, callbacks);
+  };
+  const onReadyForServerApproval = (paymentId) => {
+    Index.DataService.post(Index.Api.PAYMENT_SEND, {
+      ...values,
+      paymentId,
+    }).then(() => {});
   };
   return (
     <div className="app-container">
