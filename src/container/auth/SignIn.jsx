@@ -14,12 +14,11 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
-    console.log(authResult)
     signInUser(authResult);
     setUser(authResult.user);
   };
   const signInUser = (authResult) => {
-    Index.DataService.post("/signin", { authResult });
+    Index.DataService.post("user/signin", { authResult });
   };
   return (
     <div className="app-container p-20-0">
