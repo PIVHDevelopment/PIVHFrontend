@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import Index from "../Index";
 
 function SignIn() {
-  const [user, setUser] = useState(null);
-
+  const navigate = Index.useNavigate();
   const onIncompletePaymentFound = (payment) => {
     console.log("onIncompletePaymentFound", payment);
     return Index.DataService.post("/payments/incomplete", { payment });
   };
   const signIn = async () => {
-    const scopes = ["username", "payments"];
+    const scopes = ["username", "payments", "wallet_address"];
     const authResult = await window.Pi.authenticate(
       scopes,
       onIncompletePaymentFound
     );
     signInUser(authResult);
-    setUser(authResult.user);
+    sessionStorage.setItem("pi_user_data", JSON.stringify(authResult.user));
   };
   const signInUser = (authResult) => {
-    Index.DataService.post("user/signin", { authResult });
+    Index.DataService.post("user/sign-in", { authResult }).then((res) => {
+      navigate("/home");
+    });
   };
   return (
     <div className="app-container p-20-0">

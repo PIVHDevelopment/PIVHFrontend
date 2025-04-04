@@ -55,6 +55,7 @@ function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(JSON.parse(sessionStorage.getItem("pi_user_data")));
   return (
     <>
       <div className="app-container p-20-0">
@@ -172,7 +173,11 @@ function Home() {
           </div>
         </div>
       </div>
-      <Index.Modal className="user-setting-modal" show={open} onHide={handleClose}>
+      <Index.Modal
+        className="user-setting-modal"
+        show={open}
+        onHide={handleClose}
+      >
         <Index.Modal.Header>
           <h1 class="modal-title fs-5" id="exampleModalLabel">
             Settings
