@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useRouteError,
+} from "react-router-dom";
 import PrivacyPolicy from "../container/privacyPolicy/PrivacyPolicy";
 import TermsAndConditions from "../container/termsAndConditions/TermsAndConditions";
 import Receive from "../container/receive/Receive";
@@ -11,7 +15,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AdminLayOut from "../container/adminLayout/AdminLayOut";
 
 function ErrorBoundary() {
-  const error = PagesIndex.useRouteError(); // Assuming useRouteError is defined somewhere
+  const error = useRouteError(); // Assuming useRouteError is defined somewhere
   return (
     <div className="container">
       <h1>Oh Dang!!</h1> <p>{error?.data}</p>

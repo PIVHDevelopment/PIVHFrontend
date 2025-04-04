@@ -41,11 +41,12 @@ const transactions = [
   },
 ];
 function Home() {
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const handleCopy = () => {
-    navigator.clipboard.writeText("hs7229dhsdhsj2987475");
+    navigator.clipboard.writeText(userData?.username);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
@@ -108,7 +109,7 @@ function Home() {
               </button>
             </div>
             <div className="wallet-id">
-              <span id="walletAddress">hs7229dhsdhsj2987475</span>
+              <span id="walletAddress">{userData?.username}</span>
               <button className="copy-btn" onClick={handleCopy}>
                 {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
@@ -178,41 +179,41 @@ function Home() {
         onHide={handleClose}
       >
         <Index.Modal.Header>
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <h1 className="modal-title fs-5" id="exampleModalLabel">
             Settings
           </h1>
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
             onClick={handleClose}
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.suitcase} alt="" />
             </div>
-            <h6 class="setting-cont-title">Add Business Address</h6>
+            <h6 className="setting-cont-title">Add Business Address</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.employee} alt="" />
             </div>
-            <h6 class="setting-cont-title">Add Employee Address</h6>
+            <h6 className="setting-cont-title">Add Employee Address</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.autopay} alt="" />
             </div>
-            <h6 class="setting-cont-title">Set Autopay</h6>
+            <h6 className="setting-cont-title">Set Autopay</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
-            <h6 class="setting-cont-title">Configure Salary Disbursement</h6>
+            <h6 className="setting-cont-title">Configure Salary Disbursement</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

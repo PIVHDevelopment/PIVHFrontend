@@ -21,6 +21,8 @@ import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
+import { Formik } from "formik";
+import { sendPiFormSchema } from "../utils/Validation";
 
 const Index = {
   Modal,
@@ -49,6 +51,8 @@ const Index = {
   back,
   DataService,
   Api,
+  Formik,
+  sendPiFormSchema,
 };
 
 export default Index;

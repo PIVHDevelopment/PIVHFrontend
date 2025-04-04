@@ -5,6 +5,7 @@ const Api = {
   PAYMENT_APPROVE: "/payments/payment-approve",
   PAYMENT_COMPLETE: "/payments/payment-complete",
   PAYMENT_CANCEL: "/payments/payment-cancel",
+  PAYMENT_SEND: "/payments/payment-send",
 };
 
 export default Api;

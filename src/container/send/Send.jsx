@@ -5,16 +5,23 @@ function Send() {
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
+  const handleSubmitFunction = (values) => {
+    const urlEncoded = new URLSearchParams();
+    urlEncoded.append("userName", values?.userName);
+    urlEncoded.append("amount", values?.amount);
+    urlEncoded.append("memo", values?.memo);
+    Index.DataService.post(Index.Api.PAYMENT_SEND, urlEncoded).then(() => {});
+  };
   return (
     <div className="app-container">
-      <header class="receive-center">
+      <header className="receive-center">
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt="Back" />
         </button>
-        <div class="app-icon" style={{ marginLeft: -"26px" }}>
+        <div className="app-icon" style={{ marginLeft: "-26px" }}>
           <img src={Index.pocketPi} alt="PocketPi" />
         </div>
-        <div class="header-right"></div>
+        <div className="header-right"></div>
       </header>
 
       <Index.TabContainer
@@ -43,43 +50,90 @@ function Send() {
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
       </Index.TabContainer>
+      <Index.Formik
+        initialValues={{
+          userName: text,
+          amount: "",
+          memo: "",
+        }}
+        onSubmit={handleSubmitFunction}
+        validationSchema={Index.sendPiFormSchema}
+      >
+        {(formik) => (
+          <form onSubmit={formik.handleSubmit} className="send-form">
+            <div className="input-group">
+              <div className="input-wrapper send-input-box">
+                <input
+                  type="text"
+                  placeholder="Enter User Name"
+                  name="userName"
+                  value={formik.values.userName}
+                  onChange={formik.handleChange}
+                />
+                <button
+                  className="paste-btn"
+                  onClick={async () => {
+                    const res = await navigator.clipboard.readText();
+                    setText(res);
+                  }}
+                >
+                  Paste
+                </button>
+              </div>
+              <div>
+                {formik.errors?.userName && formik.touched?.userName
+                  ? formik.errors?.userName
+                  : null}
+              </div>
+              <button className="address-book-link">
+                Select from Address Book
+              </button>
+            </div>
 
-      <div class="send-form">
-        <div class="input-group">
-          <div class="input-wrapper send-input-box">
-            <input
-              type="text"
-              placeholder="Enter Wallet Address"
-              value={text}
-            />
-            <button
-              class="paste-btn"
-              onClick={async () => {
-                const res = await navigator.clipboard.readText();
-                setText(res);
-              }}
-            >
-              Paste
+            <div className="">
+              <input
+                type="text"
+                className="notes-input"
+                placeholder="Enter Amount"
+                name="amount"
+                value={formik.values.amount}
+                onChange={formik.handleChange}
+              />
+              <div>
+                {formik.errors?.amount && formik.touched?.amount
+                  ? formik.errors?.amount
+                  : null}
+              </div>
+            </div>
+            <div className="">
+              <input
+                type="text"
+                className="notes-input"
+                placeholder="Enter Memo"
+                name="memo"
+                value={formik.values.memo}
+                onChange={formik.handleChange}
+              />
+              <div>
+                {formik.errors?.memo && formik.touched?.memo
+                  ? formik.errors?.memo
+                  : null}
+              </div>
+            </div>
+
+            <div className="amount-section">
+              <label>Enter Pi Amount</label>
+              <div className="amount-display">
+                {formik.values.amount || "0"} Pi
+              </div>
+            </div>
+
+            <button className="action-btn full-width send-pi-btn" type="submit">
+              Send Pi
             </button>
-          </div>
-          <button class="address-book-link">Select from Address Book</button>
-        </div>
-
-        <div class="input-group">
-          <input
-            type="text"
-            placeholder="Enter Notes (optional)"
-            class="notes-input"
-          />
-        </div>
-
-        <div class="amount-section">
-          <label>Enter Pi Amount</label>
-          <div class="amount-display">31.415 Pi</div>
-        </div>
-
-        <button class="action-btn full-width send-pi-btn">Send Pi</button>
-      </div>
+          </form>
+        )}
+      </Index.Formik>
     </div>
   );
 }
