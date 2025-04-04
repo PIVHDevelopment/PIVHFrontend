@@ -7,6 +7,8 @@ import ReceiveMerchant from "../container/receiveMerchant/ReceiveMerchant";
 import Send from "../container/send/Send";
 import Shop from "../Shop";
 import SignIn from "../container/auth/SignIn";
+import PrivateRoutes from "./PrivateRoutes";
+import AdminLayOut from "../container/adminLayout/AdminLayOut";
 
 function ErrorBoundary() {
   const error = PagesIndex.useRouteError(); // Assuming useRouteError is defined somewhere
@@ -24,24 +26,8 @@ const Routers = () => {
       element: <SignIn />,
     },
     {
-      path: "/home",
-      element: <Home />,
-    },
-    {
       path: "/shop",
       element: <Shop />,
-    },
-    {
-      path: "/send",
-      element: <Send />,
-    },
-    {
-      path: "/receive",
-      element: <Receive />,
-    },
-    {
-      path: "/receive-merchant",
-      element: <ReceiveMerchant />,
     },
     {
       path: "/privacy-policy",
@@ -50,6 +36,33 @@ const Routers = () => {
     {
       path: "/term-conditions",
       element: <TermsAndConditions />,
+    },
+    {
+      path: "",
+      element: (
+        <PrivateRoutes>
+          <AdminLayOut />
+        </PrivateRoutes>
+      ),
+      errorElement: <ErrorBoundary />,
+      children: [
+        {
+          path: "/home",
+          element: <Home />,
+        },
+        {
+          path: "/send",
+          element: <Send />,
+        },
+        {
+          path: "/receive",
+          element: <Receive />,
+        },
+        {
+          path: "/receive-merchant",
+          element: <ReceiveMerchant />,
+        },
+      ],
     },
   ];
 

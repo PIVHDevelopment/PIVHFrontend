@@ -16,7 +16,6 @@ const axiosClient = axios.create({
 const config = {
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
   },
 };
 
@@ -84,7 +83,7 @@ export default function Shop() {
 
   const onCancel = (paymentId) => {
     console.log("onCancel", paymentId);
-    return axiosClient.post(PAYMENT_CANCEL, { paymentId });
+    return axiosClient.post(Index.Api.PAYMENT_CANCEL, { paymentId });
   };
 
   const onError = (error, payment) => {
