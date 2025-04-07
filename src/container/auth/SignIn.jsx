@@ -14,14 +14,19 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
+    
     signInUser(authResult);
     sessionStorage.setItem("pi_user_data", JSON.stringify(authResult.user));
+    console.log({authResult});
+    
+    sessionStorage.setItem("user_token", JSON.stringify(authResult.accessToken));
   };
   const signInUser = (authResult) => {
     Index.DataService.post(Index.Api.SIGN_IN, { authResult }).then((res) => {
       navigate("/home");
     });
   };
+
   return (
     <div className="app-container p-20-0">
       <div className="p-20">
