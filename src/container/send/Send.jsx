@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function Send() {
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
@@ -10,7 +11,7 @@ function Send() {
     const paymentData = {
       amount: values?.amount,
       memo: values?.amount,
-      metadata: { userName: values?.userName },
+      metadata: { userName: values?.userName, uid: userData?.uid },
     };
     const callbacks = {
       onReadyForServerApproval,
@@ -20,12 +21,27 @@ function Send() {
     };
     await window.Pi.createPayment(paymentData, callbacks);
   };
+  const onReadyForServerApproval = (paymentId) => {
+    Index.DataService.post(Index.Api.PAYMENT_SEND, {
+      ...formRef?.current?.values,
+      paymentId,
+    }).then(() => {});
+  };
   const onReadyForServerCompletion = (paymentId, txid) => {
     console.log("onReadyForServerCompletion", paymentId, txid);
+    Index.DataService.post(Index.Api.PAYMENT_SEND_COMPLETE, {
+      paymentId,
+      txid,
+    }).then((res) => {
+      if (res?.data?.status) {
+        navigate("/home");
+      }
+    });
   };
 
   const onCancel = (paymentId) => {
     console.log("onCancel", paymentId);
+    return Index.DataService.post(Index.Api.PAYMENT_SEND_CANCEL, { paymentId });
   };
 
   const onError = (error, payment) => {
@@ -34,12 +50,6 @@ function Send() {
       console.log(payment);
       // handle the error accordingly
     }
-  };
-  const onReadyForServerApproval = (paymentId) => {
-    Index.DataService.post(Index.Api.PAYMENT_SEND, {
-      ...formRef?.current?.values,
-      paymentId,
-    }).then(() => {});
   };
   return (
     <div className="app-container">

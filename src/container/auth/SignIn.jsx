@@ -4,7 +4,9 @@ import Index from "../Index";
 function SignIn() {
   const navigate = Index.useNavigate();
   const onIncompletePaymentFound = (payment) => {
-    return Index.DataService.post(Index.Api.PAYMENT_INCOMPLETE, { payment });
+    return Index.DataService.post(Index.Api.PAYMENT_SEND_INCOMPLETE, {
+      payment,
+    });
   };
   const signIn = async () => {
     const scopes = ["username", "payments", "wallet_address"];
