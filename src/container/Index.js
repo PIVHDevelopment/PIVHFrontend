@@ -1,6 +1,7 @@
 import pocketPi from "../assets/images/pocketPi.png";
 import profile from "../assets/images/Profile.png";
 import scan from "../assets/images/Scan.png";
+import logout from "../assets/images/logout.png";
 import setting from "../assets/images/Setting.png";
 import copy from "../assets/images/Copy.png";
 import income from "../assets/images/income.png";
@@ -31,6 +32,7 @@ const Index = {
   TabPane,
   pocketPi,
   profile,
+  logout,
   scan,
   setting,
   copy,

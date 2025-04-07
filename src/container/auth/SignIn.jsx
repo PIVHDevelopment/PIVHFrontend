@@ -28,12 +28,12 @@ function SignIn() {
   };
 
   return (
-    <div className="app-container p-20-0">
+    <div className="app-container p-20-0 signin-main">
       <div className="p-20">
         <header className="signin-header">
           <div
             className="app-icon"
-            style={{ textAlign: "center", flex: "0 0 33.3%" }}
+            style={{ textAlign: "center", flex: "0 0 33.3%", height:"80px" }}
           >
             <img src={Index.pocketPi} alt="PocketPi" />
           </div>
