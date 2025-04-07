@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
+
+const _window = window;
+const backendURL = _window.__ENV && _window.__ENV.backendURL;
+
+const axiosClient = axios.create({
+  baseURL: `${backendURL}`,
+  timeout: 20000,
+  withCredentials: true,
+});
 
 const transactions = [
   {
@@ -41,30 +52,70 @@ const transactions = [
   },
 ];
 function Home() {
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
+  const navigate = Index.useNavigate();
+  const [transactionList, setTransactionList] = useState([]);
+  const [balance, setBalance] = useState("0");
+
   const handleCopy = () => {
-    navigator.clipboard.writeText("hs7229dhsdhsj2987475");
+    navigator.clipboard.writeText(userData?.userName);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
+
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const signOutUser = () => {
+    return axiosClient.post(Index.Api.SIGN_OUT);
+  };
+  const handleLogout = async () => {
+    await signOutUser();
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/");
+  };
+  const handleGetTransactions = () => {
+    Index.DataService.get(
+      Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
+    ).then((res) => {
+      setTransactionList(res?.data?.data);
+    });
+  };
+
+  const handleGetBalance = () => {
+    axios
+      .get(`https://api.testnet.minepi.com/accounts/${userData?.walletAddress}`)
+      .then((res) => {
+        setBalance(res?.data?.balances[0]?.balance);
+      });
+  };
+
+  useEffect(() => {
+    handleGetTransactions();
+    if (userData?.walletAddress) {
+      handleGetBalance();
+    }
+  }, []);
+
   return (
     <>
       <div className="app-container p-20-0">
         <div className="p-20">
           <header>
             <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
-              <div className="profile-pic">
+              {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
-              {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>}
+              {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
             </div>
             <div
               className="app-icon"
@@ -73,9 +124,9 @@ function Home() {
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
-              <button className="icon-btn" id="syncBtn">
+              {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
-              </button>
+              </button> */}
               <button
                 className="icon-btn"
                 data-bs-toggle="modal"
@@ -84,6 +135,9 @@ function Home() {
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
+              <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
+                <img src={Index.logout} alt="logout" />
+              </button>
             </div>
           </header>
           <Index.TabContainer
@@ -91,7 +145,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            <div className="wallet-tabs">
+            {/* <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -106,16 +160,29 @@ function Home() {
               >
                 Business
               </button>
-            </div>
+            </div> */}
             <div className="wallet-id">
-              <span id="walletAddress">hs7229dhsdhsj2987475</span>
+              <span id="walletAddress">{userData?.userName}</span>
               <button className="copy-btn" onClick={handleCopy}>
                 {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
             </div>
             <div className="balance-section">
-              <p className="balance-label">Current Balance</p>
-              <h1 className="balance-amount">31.4159 Pi</h1>
+              {userData?.walletAddress ? (
+                <>
+                  <p className="balance-label">Current Balance</p>
+                  <h1 className="balance-amount">
+                    {parseFloat(balance).toFixed(2)} Pi
+                  </h1>
+                </>
+              ) : (
+                <>
+                  <p className="balance-label">Note:</p>
+                  <p className="balance-label">
+                    Please update your wallet address to check balance
+                  </p>
+                </>
+              )}
             </div>
             <Index.TabContent>
               <Index.TabPane eventKey={1}>
@@ -135,8 +202,8 @@ function Home() {
         >
           <h2>Transaction History</h2>
           <div className="transaction-list">
-            {transactions?.map((transaction) => {
-              const isPositive = transaction.type === "income";
+            {transactionList?.map((transaction) => {
+              const isPositive = transaction.type === "received";
               const amountPrefix = isPositive ? "+" : "-";
               return (
                 <div className="transaction-main-box">
@@ -148,10 +215,10 @@ function Home() {
                     />
                     <div className="transaction-info">
                       <span className="transaction-title">
-                        {transaction.title}
+                        {transaction.memo}
                       </span>
                       <span className="transaction-time">
-                        {transaction.time}
+                        {Index.moment(transaction.createdAt).format("hh:mm A")}
                       </span>
                     </div>
                   </div>
@@ -164,7 +231,11 @@ function Home() {
                       {amountPrefix}
                       {Math.abs(transaction.amount)} Pi
                     </span>
-                    <span className="transaction-date">{transaction.date}</span>
+                    <span className="transaction-date">
+                      {Index.moment(transaction.createdAt).format(
+                        "DD MMM, YYYY"
+                      )}
+                    </span>
                   </div>
                 </div>
               );
@@ -172,43 +243,55 @@ function Home() {
           </div>
         </div>
       </div>
-      <Index.Modal className="user-setting-modal" show={open} onHide={handleClose}>
+      <Index.Modal
+        className="user-setting-modal"
+        show={open}
+        onHide={handleClose}
+      >
         <Index.Modal.Header>
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <h1 className="modal-title fs-5" id="exampleModalLabel">
             Settings
           </h1>
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
             onClick={handleClose}
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <NavLink className="setting-cont-box" to={"/add-wallet"}>
+            <div className="setting-icon-box">
               <img src={Index.suitcase} alt="" />
             </div>
-            <h6 class="setting-cont-title">Add Business Address</h6>
+            <h6 className="setting-cont-title">Add Wallet Address</h6>
+          </NavLink>
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
+              <img src={Index.suitcase} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Add Business Address</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.employee} alt="" />
             </div>
-            <h6 class="setting-cont-title">Add Employee Address</h6>
+            <h6 className="setting-cont-title">Add Employee Address</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.autopay} alt="" />
             </div>
-            <h6 class="setting-cont-title">Set Autopay</h6>
+            <h6 className="setting-cont-title">Set Autopay</h6>
           </div>
-          <div class="setting-cont-box">
-            <div class="setting-icon-box">
+          <div className="setting-cont-box">
+            <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
-            <h6 class="setting-cont-title">Configure Salary Disbursement</h6>
+            <h6 className="setting-cont-title">
+              Configure Salary Disbursement
+            </h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

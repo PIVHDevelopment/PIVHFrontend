@@ -1,6 +1,7 @@
 import pocketPi from "../assets/images/pocketPi.png";
 import profile from "../assets/images/Profile.png";
 import scan from "../assets/images/Scan.png";
+import logout from "../assets/images/logout.png";
 import setting from "../assets/images/Setting.png";
 import copy from "../assets/images/Copy.png";
 import income from "../assets/images/income.png";
@@ -20,6 +21,13 @@ import back from "../assets/images/Back.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DataService from "../utils/DataService";
+import Api from "../utils/Api";
+import { Formik } from "formik";
+import {
+  sendPiFormSchema,
+  addWalletAddressFormSchema,
+} from "../utils/Validation";
+import moment from "moment";
 
 const Index = {
   Modal,
@@ -28,6 +36,7 @@ const Index = {
   TabPane,
   pocketPi,
   profile,
+  logout,
   scan,
   setting,
   copy,
@@ -47,6 +56,11 @@ const Index = {
   share,
   back,
   DataService,
+  Api,
+  Formik,
+  sendPiFormSchema,
+  moment,
+  addWalletAddressFormSchema,
 };
 
 export default Index;

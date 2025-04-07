@@ -16,7 +16,7 @@ function Individual() {
           </span>
           Send
         </button>
-        <button
+        {/* <button
           className="action-btn receive-btn"
           id="receive-merchant"
           onClick={() => navigate("/receive-merchant")}
@@ -25,9 +25,9 @@ function Individual() {
             <img src={Index.receiveMoney} alt="Receive Money" />
           </span>
           Receive
-        </button>
+        </button> */}
       </div>
-      <button className="address-book-btn">Address Book</button>
+      {/* <button className="address-book-btn">Address Book</button> */}
     </>
   );
 }

@@ -1,32 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import Index from "../Index";
 
 function SignIn() {
-  const [user, setUser] = useState(null);
-
+  const navigate = Index.useNavigate();
   const onIncompletePaymentFound = (payment) => {
-    console.log("onIncompletePaymentFound", payment);
-    return Index.DataService.post("/payments/incomplete", { payment });
+    return Index.DataService.post(Index.Api.PAYMENT_SEND_INCOMPLETE, {
+      payment,
+    });
   };
   const signIn = async () => {
-    const scopes = ["username", "payments"];
+    const scopes = ["username", "payments", "wallet_address"];
     const authResult = await window.Pi.authenticate(
       scopes,
       onIncompletePaymentFound
     );
+
     signInUser(authResult);
-    setUser(authResult.user);
+    sessionStorage.setItem(
+      "user_token",
+      JSON.stringify(authResult.accessToken)
+    );
   };
   const signInUser = (authResult) => {
-    Index.DataService.post("user/signin", { authResult });
+    Index.DataService.post(Index.Api.SIGN_IN, { authResult }).then((res) => {
+      sessionStorage.setItem("pi_user_data", JSON.stringify(res?.data?.data));
+      navigate("/home");
+    });
   };
+
   return (
-    <div className="app-container p-20-0">
+    <div className="app-container p-20-0 signin-main">
       <div className="p-20">
         <header className="signin-header">
           <div
             className="app-icon"
-            style={{ textAlign: "center", flex: "0 0 33.3%" }}
+            style={{ textAlign: "center", flex: "0 0 33.3%", height: "80px" }}
           >
             <img src={Index.pocketPi} alt="PocketPi" />
           </div>

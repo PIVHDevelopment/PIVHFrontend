@@ -428,7 +428,7 @@ header {
 
 .input-wrapper {
   display: flex;
-  gap: 12px;
+  /* gap: 12px; */
 }
 
 .input-wrapper input {
@@ -573,13 +573,11 @@ header {
 }
 
 .share-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
   border-radius: 36px;
   margin-top: auto;
   background-color: #ffffff45;
+  max-width: 250px;
 }
 
 /* Custom scrollbar */
@@ -693,8 +691,25 @@ button.address-book-btn {
   align-items: center;
   gap: 16px;
   margin-bottom: 26px;
+  text-decoration: none;
 }
 
 .signin-header{
   justify-content: center;
+}
+
+.app-container.signin-main{
+  display: flex;
+  justify-content: center;
+}
+
+.sigin-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.app-icon img{
+  height: 100%;
 }
