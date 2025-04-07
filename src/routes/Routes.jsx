@@ -13,6 +13,7 @@ import Shop from "../Shop";
 import SignIn from "../container/auth/SignIn";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminLayOut from "../container/adminLayout/AdminLayOut";
+import PublicRoute from "./PublicRoute";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -27,7 +28,11 @@ const Routers = () => {
   const appRoutes = [
     {
       path: "/",
-      element: <SignIn />,
+      element: (
+        <PublicRoute>
+          <SignIn />
+        </PublicRoute>
+      ),
     },
     {
       path: "/shop",
