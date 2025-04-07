@@ -23,6 +23,7 @@ import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
 import { sendPiFormSchema } from "../utils/Validation";
+import moment from "moment";
 
 const Index = {
   Modal,
@@ -53,6 +54,7 @@ const Index = {
   Api,
   Formik,
   sendPiFormSchema,
+  moment,
 };
 
 export default Index;
