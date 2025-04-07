@@ -573,13 +573,11 @@ header {
 }
 
 .share-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
   border-radius: 36px;
   margin-top: auto;
   background-color: #ffffff45;
+  max-width: 250px;
 }
 
 /* Custom scrollbar */
@@ -697,4 +695,20 @@ button.address-book-btn {
 
 .signin-header{
   justify-content: center;
+}
+
+.app-container.signin-main{
+  display: flex;
+  justify-content: center;
+}
+
+.sigin-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.app-icon img{
+  height: 100%;
 }

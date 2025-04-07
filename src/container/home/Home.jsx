@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
+import axios from "axios";
+
+const _window = window;
+const backendURL = _window.__ENV && _window.__ENV.backendURL;
+
+const axiosClient = axios.create({
+  baseURL: `${backendURL}`,
+  timeout: 20000,
+  withCredentials: true,
+});
 
 const transactions = [
   {
@@ -45,11 +55,10 @@ function Home() {
   const [tab, setTab] = useState(1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
+  const navigate = Index.useNavigate();
   const [transactionList, setTransactionList] = useState([]);
 
-  useEffect(() => {
-    handleGetTransactions();
-  }, []);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.username);
@@ -65,6 +74,15 @@ function Home() {
     setOpen(false);
   };
 
+  const signOutUser = () => {
+    return axiosClient.post(Index.Api.SIGN_OUT);
+  };
+  const handleLogout = async () => {
+    await signOutUser(); 
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/");
+  };
   const handleGetTransactions = () => {
     Index.DataService.get(
       Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
@@ -73,6 +91,10 @@ function Home() {
     });
   };
 
+  useEffect(() => {
+    handleGetTransactions();
+  }, []);
+  
   return (
     <>
       <div className="app-container p-20-0">
@@ -102,6 +124,9 @@ function Home() {
               >
                 <img src={Index.setting} alt="Setting" />
               </button> */}
+              <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
+                <img src={Index.logout} alt="logout" />
+              </button>
             </div>
           </header>
           <Index.TabContainer
