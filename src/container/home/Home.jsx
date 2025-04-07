@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
@@ -56,14 +56,20 @@ function Home() {
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
+  const [transactionList, setTransactionList] = useState([]);
+
+
+
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.username);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
+
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -77,16 +83,28 @@ function Home() {
     sessionStorage.clear();
     navigate("/");
   };
-  return (  
+  const handleGetTransactions = () => {
+    Index.DataService.get(
+      Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
+    ).then((res) => {
+      setTransactionList(res?.data?.data);
+    });
+  };
+
+  useEffect(() => {
+    handleGetTransactions();
+  }, []);
+  
+  return (
     <>
       <div className="app-container p-20-0">
         <div className="p-20">
           <header>
             <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
-              <div className="profile-pic">
+              {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
-              {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>}
+              {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
             </div>
             <div
               className="app-icon"
@@ -95,7 +113,7 @@ function Home() {
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
-              <button className="icon-btn" id="syncBtn">
+              {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button>
               <button
@@ -105,7 +123,7 @@ function Home() {
                 onClick={handleOpen}
               >
                 <img src={Index.setting} alt="Setting" />
-              </button>
+              </button> */}
               <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
                 <img src={Index.logout} alt="logout" />
               </button>
@@ -116,7 +134,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            <div className="wallet-tabs">
+            {/* <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -131,7 +149,7 @@ function Home() {
               >
                 Business
               </button>
-            </div>
+            </div> */}
             <div className="wallet-id">
               <span id="walletAddress">{userData?.username}</span>
               <button className="copy-btn" onClick={handleCopy}>
@@ -160,8 +178,8 @@ function Home() {
         >
           <h2>Transaction History</h2>
           <div className="transaction-list">
-            {transactions?.map((transaction) => {
-              const isPositive = transaction.type === "income";
+            {transactionList?.map((transaction) => {
+              const isPositive = transaction.type === "received";
               const amountPrefix = isPositive ? "+" : "-";
               return (
                 <div className="transaction-main-box">
@@ -173,10 +191,10 @@ function Home() {
                     />
                     <div className="transaction-info">
                       <span className="transaction-title">
-                        {transaction.title}
+                        {transaction.memo}
                       </span>
                       <span className="transaction-time">
-                        {transaction.time}
+                        {Index.moment(transaction.createdAt).format("hh:mm A")}
                       </span>
                     </div>
                   </div>
@@ -189,7 +207,11 @@ function Home() {
                       {amountPrefix}
                       {Math.abs(transaction.amount)} Pi
                     </span>
-                    <span className="transaction-date">{transaction.date}</span>
+                    <span className="transaction-date">
+                      {Index.moment(transaction.createdAt).format(
+                        "DD MMM, YYYY"
+                      )}
+                    </span>
                   </div>
                 </div>
               );
@@ -237,7 +259,9 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
-            <h6 className="setting-cont-title">Configure Salary Disbursement</h6>
+            <h6 className="setting-cont-title">
+              Configure Salary Disbursement
+            </h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

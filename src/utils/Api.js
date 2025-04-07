@@ -7,6 +7,7 @@ const Api = {
   PAYMENT_COMPLETE: "/payments/payment-complete",
   PAYMENT_CANCEL: "/payments/payment-cancel",
 
+  GET_TRANSACTIONS: "/payments/get-transactions",
   PAYMENT_SEND_INCOMPLETE: "/payments/payment-send-incomplete",
   PAYMENT_SEND: "/payments/payment-send",
   PAYMENT_SEND_COMPLETE: "/payments/payment-send-complete",
