@@ -195,53 +195,59 @@ function Home() {
           </Index.TabContainer>
         </div>
 
-        <div
-          className={`transaction-section${
-            tab === 2 ? " transaction-section-top" : ""
-          }`}
-        >
-          <h2>Transaction History</h2>
-          <div className="transaction-list">
-            {transactionList?.map((transaction) => {
-              const isPositive = transaction.type === "received";
-              const amountPrefix = isPositive ? "+" : "-";
-              return (
-                <div className="transaction-main-box">
-                  <div className="transaction-details">
-                    <img
-                      src={isPositive ? Index.income : Index.expense}
-                      alt="expense"
-                      className="transaction-icon"
-                    />
-                    <div className="transaction-info">
-                      <span className="transaction-title">
-                        {transaction.memo}
+        {transactionList?.length ? (
+          <div
+            className={`transaction-section${
+              tab === 2 ? " transaction-section-top" : ""
+            }`}
+          >
+            <h2>Transaction History</h2>
+            <div className="transaction-list">
+              {transactionList?.map((transaction) => {
+                const isPositive = transaction.type === "received";
+                const amountPrefix = isPositive ? "+" : "-";
+                return (
+                  <div className="transaction-main-box">
+                    <div className="transaction-details">
+                      <img
+                        src={isPositive ? Index.income : Index.expense}
+                        alt="expense"
+                        className="transaction-icon"
+                      />
+                      <div className="transaction-info">
+                        <span className="transaction-title">
+                          {transaction.memo}
+                        </span>
+                        <span className="transaction-time">
+                          {Index.moment(transaction.createdAt).format(
+                            "hh:mm A"
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className={`transaction-amount ${
+                        isPositive ? "positive" : "negative"
+                      }`}
+                    >
+                      <span>
+                        {amountPrefix}
+                        {Math.abs(transaction.amount)} Pi
                       </span>
-                      <span className="transaction-time">
-                        {Index.moment(transaction.createdAt).format("hh:mm A")}
+                      <span className="transaction-date">
+                        {Index.moment(transaction.createdAt).format(
+                          "DD MMM, YYYY"
+                        )}
                       </span>
                     </div>
                   </div>
-                  <div
-                    className={`transaction-amount ${
-                      isPositive ? "positive" : "negative"
-                    }`}
-                  >
-                    <span>
-                      {amountPrefix}
-                      {Math.abs(transaction.amount)} Pi
-                    </span>
-                    <span className="transaction-date">
-                      {Index.moment(transaction.createdAt).format(
-                        "DD MMM, YYYY"
-                      )}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
       <Index.Modal
         className="user-setting-modal"
