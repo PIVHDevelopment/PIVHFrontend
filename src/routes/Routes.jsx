@@ -14,6 +14,7 @@ import SignIn from "../container/auth/SignIn";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminLayOut from "../container/adminLayout/AdminLayOut";
 import PublicRoute from "./PublicRoute";
+import AddWallet from "../container/addWallet/AddWallet";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -70,6 +71,10 @@ const Routers = () => {
         {
           path: "/receive-merchant",
           element: <ReceiveMerchant />,
+        },
+        {
+          path: "/add-wallet",
+          element: <AddWallet />,
         },
       ],
     },

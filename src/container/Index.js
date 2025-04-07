@@ -23,7 +23,10 @@ import { useNavigate } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
-import { sendPiFormSchema } from "../utils/Validation";
+import {
+  sendPiFormSchema,
+  addWalletAddressFormSchema,
+} from "../utils/Validation";
 import moment from "moment";
 
 const Index = {
@@ -57,6 +60,7 @@ const Index = {
   Formik,
   sendPiFormSchema,
   moment,
+  addWalletAddressFormSchema,
 };
 
 export default Index;

@@ -14,15 +14,16 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
-    
+
     signInUser(authResult);
-    sessionStorage.setItem("pi_user_data", JSON.stringify(authResult.user));
-    console.log({authResult});
-    
-    sessionStorage.setItem("user_token", JSON.stringify(authResult.accessToken));
+    sessionStorage.setItem(
+      "user_token",
+      JSON.stringify(authResult.accessToken)
+    );
   };
   const signInUser = (authResult) => {
     Index.DataService.post(Index.Api.SIGN_IN, { authResult }).then((res) => {
+      sessionStorage.setItem("pi_user_data", JSON.stringify(res?.data?.data));
       navigate("/home");
     });
   };
@@ -33,7 +34,7 @@ function SignIn() {
         <header className="signin-header">
           <div
             className="app-icon"
-            style={{ textAlign: "center", flex: "0 0 33.3%", height:"80px" }}
+            style={{ textAlign: "center", flex: "0 0 33.3%", height: "80px" }}
           >
             <img src={Index.pocketPi} alt="PocketPi" />
           </div>

@@ -125,39 +125,42 @@ function Send() {
                   ? formik.errors?.userName
                   : null}
               </div>
-              <button className="address-book-link">
+              {/* <button className="address-book-link">
                 Select from Address Book
-              </button>
+              </button> */}
             </div>
-
-            <div className="">
-              <input
-                type="text"
-                className="notes-input"
-                placeholder="Enter Amount"
-                name="amount"
-                value={formik.values.amount}
-                onChange={formik.handleChange}
-              />
-              <div>
-                {formik.errors?.amount && formik.touched?.amount
-                  ? formik.errors?.amount
-                  : null}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  className="notes-input"
+                  placeholder="Enter Amount"
+                  name="amount"
+                  value={formik.values.amount}
+                  onChange={formik.handleChange}
+                />
+                <div>
+                  {formik.errors?.amount && formik.touched?.amount
+                    ? formik.errors?.amount
+                    : null}
+                </div>
               </div>
             </div>
-            <div className="">
-              <input
-                type="text"
-                className="notes-input"
-                placeholder="Enter Memo"
-                name="memo"
-                value={formik.values.memo}
-                onChange={formik.handleChange}
-              />
-              <div>
-                {formik.errors?.memo && formik.touched?.memo
-                  ? formik.errors?.memo
-                  : null}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  className="notes-input"
+                  placeholder="Enter Memo"
+                  name="memo"
+                  value={formik.values.memo}
+                  onChange={formik.handleChange}
+                />
+                <div>
+                  {formik.errors?.memo && formik.touched?.memo
+                    ? formik.errors?.memo
+                    : null}
+                </div>
               </div>
             </div>
 

@@ -428,7 +428,7 @@ header {
 
 .input-wrapper {
   display: flex;
-  gap: 12px;
+  /* gap: 12px; */
 }
 
 .input-wrapper input {
@@ -691,6 +691,7 @@ button.address-book-btn {
   align-items: center;
   gap: 16px;
   margin-bottom: 26px;
+  text-decoration: none;
 }
 
 .signin-header{
