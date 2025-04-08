@@ -88,7 +88,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 36px;
   padding: 0 4px;
 }
 
@@ -712,4 +712,27 @@ button.address-book-btn {
 
 .app-icon img{
   height: 100%;
+}
+
+.sigin-footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px 0 30px;
+  position: absolute;
+  bottom: 0;
+  max-width: 480px;
+  width: 100%;
+}
+
+.sigin-footer p {
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  line-height: 12px;
+  border-bottom: 1px solid;
+  cursor: pointer;
+}
+
+.sigin-footer p:hover{
+  color: lightgray;
 }

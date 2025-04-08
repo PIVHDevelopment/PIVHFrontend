@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Index from "../Index";
 import { Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const navigate = Index.useNavigate();
@@ -48,7 +49,7 @@ function SignIn() {
             className="app-icon"
             style={{ textAlign: "center", flex: "0 0 33.3%", height: "80px" }}
           >
-            <img src={Index.pocketPi} alt="PocketPi" />
+            <img src={Index.pocketPi2} alt="PocketPi" />
           </div>
         </header>
         <div className="sigin-body">
@@ -61,6 +62,10 @@ function SignIn() {
           </button>
         </div>
       </div>
+        <div className="sigin-footer">
+          <p onClick={()=>navigate("/term-conditions")}>Terms & Conditions</p>
+          <p onClick={()=>navigate("/privacy-policy")}>Privacy Policy</p>
+        </div>
     </div>
   );
 }
