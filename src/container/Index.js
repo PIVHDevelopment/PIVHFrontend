@@ -1,4 +1,4 @@
-import pocketPi from "../assets/images/pocketPi.png";
+import pocketPi from "../assets/images/PocketPi.png";
 import pocketPi2 from "../assets/images/pocketPi2.png";
 import profile from "../assets/images/Profile.png";
 import scan from "../assets/images/Scan.png";
