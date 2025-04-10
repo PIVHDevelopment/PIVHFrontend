@@ -18,7 +18,7 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
-    alert("HHHHHH");
+    // alert("HHHHHH");
     console.log("TESTSTTS", authResult);
     signInUser(authResult);
     sessionStorage.setItem(
@@ -27,7 +27,7 @@ function SignIn() {
     );
   };
   const signInUser = (authResult) => {
-    alert("Hey : ");
+    // alert("Hey : ");
     Index.DataService.post(Index.Api.SIGN_IN, { authResult })
       .then((res) => {
         sessionStorage.setItem("pi_user_data", JSON.stringify(res?.data?.data));
