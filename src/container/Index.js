@@ -27,6 +27,7 @@ import { Formik } from "formik";
 import {
   sendPiFormSchema,
   addWalletAddressFormSchema,
+  depositPiFormSchema,
 } from "../utils/Validation";
 import moment from "moment";
 
@@ -63,6 +64,7 @@ const Index = {
   sendPiFormSchema,
   moment,
   addWalletAddressFormSchema,
+  depositPiFormSchema,
 };
 
 export default Index;

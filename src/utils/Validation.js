@@ -10,6 +10,9 @@ export const sendPiFormSchema = Yup.object({
   amount: Yup.string().required("Please enter amount"),
   memo: Yup.string().required("Please enter memo"),
 });
+export const depositPiFormSchema = Yup.object({
+  amount: Yup.string().required("Please enter amount"),
+});
 export const addWalletAddressFormSchema = Yup.object({
   walletAddress: Yup.string().required("Please enter wallet address"),
 });

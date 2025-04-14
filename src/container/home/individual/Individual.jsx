@@ -9,6 +9,16 @@ function Individual() {
         <button
           className="action-btn send-btn"
           id="sendBtn"
+          onClick={() => navigate("/deposit")}
+        >
+          <span className="btn-icon">
+            <img src={Index.sendMoney} alt="Send Money" />
+          </span>
+          Deposit
+        </button>
+        <button
+          className="action-btn send-btn"
+          id="sendBtn"
           onClick={() => navigate("/send")}
         >
           <span className="btn-icon">

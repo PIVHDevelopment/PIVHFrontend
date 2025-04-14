@@ -58,7 +58,7 @@ function Home() {
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
   const [transactionList, setTransactionList] = useState([]);
-  const [balance, setBalance] = useState("0");
+  // const [balance, setBalance] = useState("0");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
@@ -91,13 +91,13 @@ function Home() {
     });
   };
 
-  const handleGetBalance = () => {
-    axios
-      .get(`https://api.testnet.minepi.com/accounts/${userData?.walletAddress}`)
-      .then((res) => {
-        setBalance(res?.data?.balances[0]?.balance);
-      });
-  };
+  // const handleGetBalance = () => {
+  //   axios
+  //     .get(`https://api.testnet.minepi.com/accounts/${userData?.walletAddress}`)
+  //     .then((res) => {
+  //       setBalance(res?.data?.balances[0]?.balance);
+  //     });
+  // };
 
   useEffect(() => {
     handleGetTransactions();
@@ -168,21 +168,10 @@ function Home() {
               </button>
             </div>
             <div className="balance-section">
-              {userData?.walletAddress ? (
-                <>
-                  <p className="balance-label">Current Balance</p>
-                  <h1 className="balance-amount">
-                    {parseFloat(balance).toFixed(2)} Pi
-                  </h1>
-                </>
-              ) : (
-                <>
-                  <p className="balance-label">Note:</p>
-                  <p className="balance-label">
-                    Please update your wallet address to check balance
-                  </p>
-                </>
-              )}
+              <p className="balance-label">Current Balance</p>
+              <h1 className="balance-amount">
+                {parseFloat(userData?.balance).toFixed(2)} Pi
+              </h1>
             </div>
             <Index.TabContent>
               <Index.TabPane eventKey={1}>
@@ -204,7 +193,7 @@ function Home() {
             <h2>Transaction History</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction) => {
-                const isPositive = transaction.type === "received";
+                const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
                   <div className="transaction-main-box">
@@ -216,7 +205,7 @@ function Home() {
                       />
                       <div className="transaction-info">
                         <span className="transaction-title">
-                          {transaction.memo}
+                          {transaction?.memo || transaction?.type}
                         </span>
                         <span className="transaction-time">
                           {Index.moment(transaction.createdAt).format(

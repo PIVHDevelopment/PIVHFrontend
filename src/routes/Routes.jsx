@@ -15,6 +15,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AdminLayOut from "../container/adminLayout/AdminLayOut";
 import PublicRoute from "./PublicRoute";
 import AddWallet from "../container/addWallet/AddWallet";
+import Deposit from "../container/deposit/Deposit";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -59,6 +60,10 @@ const Routers = () => {
         {
           path: "/home",
           element: <Home />,
+        },
+        {
+          path: "/deposit",
+          element: <Deposit />,
         },
         {
           path: "/send",

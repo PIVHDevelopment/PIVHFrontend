@@ -7,7 +7,7 @@ function SignIn() {
   const navigate = Index.useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const onIncompletePaymentFound = (payment) => {
-    return Index.DataService.post(Index.Api.PAYMENT_SEND_INCOMPLETE, {
+    return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_INCOMPLETE, {
       payment,
     });
   };
@@ -18,8 +18,6 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
-    // alert("HHHHHH");
-    console.log("TESTSTTS", authResult);
     signInUser(authResult);
     sessionStorage.setItem(
       "user_token",
