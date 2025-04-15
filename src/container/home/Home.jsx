@@ -14,43 +14,6 @@ const axiosClient = axios.create({
   withCredentials: true,
 });
 
-const transactions = [
-  {
-    title: "Bills and groceries",
-    time: "05:26 am",
-    date: "21 Sep, 2024",
-    amount: -31.415,
-    type: "expense",
-  },
-  {
-    title: "Savings",
-    time: "05:26 am",
-    date: "21 Sep, 2024",
-    amount: -31.415,
-    type: "expense",
-  },
-  {
-    title: "Money received",
-    time: "05:26 am",
-    date: "21 Sep, 2024",
-    amount: -3.1415,
-    type: "income",
-  },
-  {
-    title: "Money sent to Lorem",
-    time: "05:26 am",
-    date: "21 Sep, 2024",
-    amount: -31.415,
-    type: "expense",
-  },
-  {
-    title: "Money received",
-    time: "05:26 am",
-    date: "21 Sep, 2024",
-    amount: 31.4159,
-    type: "income",
-  },
-];
 function Home() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(1);
@@ -58,7 +21,7 @@ function Home() {
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
   const [transactionList, setTransactionList] = useState([]);
-  // const [balance, setBalance] = useState("0");
+  const [balance, setBalance] = useState("0");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
@@ -87,7 +50,8 @@ function Home() {
     Index.DataService.get(
       Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
     ).then((res) => {
-      setTransactionList(res?.data?.data);
+      setTransactionList(res?.data?.data?.updatedList);
+      setBalance(res?.data?.data?.balance);
     });
   };
 
@@ -170,7 +134,7 @@ function Home() {
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
-                {parseFloat(userData?.balance).toFixed(2)} Pi
+                {parseFloat(balance).toFixed(2)} Pi
               </h1>
             </div>
             <Index.TabContent>

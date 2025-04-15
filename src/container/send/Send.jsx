@@ -10,7 +10,7 @@ function Send() {
   const handleSubmitFunction = async (values) => {
     const paymentData = {
       amount: values?.amount,
-      memo: values?.amount,
+      memo: values?.memo,
       metadata: {
         userName: values?.userName,
         uid: userData?.uid,
