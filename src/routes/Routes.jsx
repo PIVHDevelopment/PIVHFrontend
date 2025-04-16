@@ -16,6 +16,7 @@ import AdminLayOut from "../container/adminLayout/AdminLayOut";
 import PublicRoute from "./PublicRoute";
 import AddWallet from "../container/addWallet/AddWallet";
 import Deposit from "../container/deposit/Deposit";
+import Withdraw from "../container/withdraw/Withdraw";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -64,6 +65,10 @@ const Routers = () => {
         {
           path: "/deposit",
           element: <Deposit />,
+        },
+        {
+          path: "/withdraw",
+          element: <Withdraw />,
         },
         {
           path: "/send",

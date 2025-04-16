@@ -7,11 +7,30 @@ export const sendPiFormSchema = Yup.object({
       const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
       return val !== userData?.userName;
     }),
-  amount: Yup.string().required("Please enter amount"),
+  amount: Yup.string()
+    .required("Please enter amount")
+    .test("min-amount", "Amount must be at least 0.001", (value) => {
+      const num = parseFloat(value || "0");
+      return num >= 0.001;
+    }),
   memo: Yup.string().required("Please enter memo"),
 });
 export const depositPiFormSchema = Yup.object({
-  amount: Yup.string().required("Please enter amount"),
+  amount: Yup.string()
+    .required("Please enter amount")
+    .test("min-amount", "Amount must be at least 0.001", (value) => {
+      const num = parseFloat(value || "0");
+      return num >= 0.0001;
+    }),
+});
+export const withdrawPiFormSchema = Yup.object({
+  amount: Yup.string()
+    .required("Please enter amount")
+    .test("min-amount", "Amount must be at least 0.001", (value) => {
+      const num = parseFloat(value || "0");
+      return num >= 0.0001;
+    }),
+  address: Yup.string().required("Please enter wallet address"),
 });
 export const addWalletAddressFormSchema = Yup.object({
   walletAddress: Yup.string().required("Please enter wallet address"),

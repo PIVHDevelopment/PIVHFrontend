@@ -36,6 +36,16 @@ function Individual() {
           </span>
           Receive
         </button> */}
+         <button
+          className="action-btn receive-btn"
+          id="withdraw"
+          onClick={() => navigate("/withdraw")}
+        >
+          <span className="btn-icon">
+            <img src={Index.receiveMoney} alt="Receive Money" />
+          </span>
+          Withdraw
+        </button>
       </div>
       {/* <button className="address-book-btn">Address Book</button> */}
     </>

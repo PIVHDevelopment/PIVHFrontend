@@ -47,7 +47,9 @@ function Deposit() {
 
   const onCancel = (paymentId) => {
     console.log("onCancel", paymentId);
-    return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, { paymentId });
+    return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, {
+      paymentId,
+    });
   };
 
   const onError = (error, payment) => {
@@ -109,17 +111,24 @@ function Deposit() {
               <div className="input-wrapper">
                 <input
                   type="text"
+                  inputMode="numeric" // shows numeric keyboard on mobile
                   className="notes-input"
                   placeholder="Enter Amount"
                   name="amount"
                   value={formik.values.amount}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Only allow digits
+                    if (/^\d*\.?\d{0,6}$/.test(value)) {
+                      formik.setFieldValue("amount", value);
+                    }
+                  }}
                 />
-                <div>
-                  {formik.errors?.amount && formik.touched?.amount
-                    ? formik.errors?.amount
-                    : null}
-                </div>
+              </div>
+              <div>
+                {formik.errors?.amount && formik.touched?.amount
+                  ? formik.errors?.amount
+                  : null}
               </div>
             </div>
             <div className="amount-section">
