@@ -1,12 +1,16 @@
 import React, { useRef, useState } from "react";
 import Index from "../Index";
+import { CircularProgress } from "@mui/material";
 
 function Deposit() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
+  const [buttonLoader, setButtonLoader] = useState(false);
+
   const handleSubmitFunction = async (values) => {
+    setButtonLoader(true);
     const paymentData = {
       amount: values?.amount,
       memo: "deposit",
@@ -41,6 +45,7 @@ function Deposit() {
           JSON.stringify(res?.data?.data?.user)
         );
         navigate("/home");
+        setButtonLoader(false);
       }
     });
   };
@@ -138,8 +143,16 @@ function Deposit() {
               </div>
             </div>
 
-            <button className="action-btn full-width send-pi-btn" type="submit">
+            {/* <button className="action-btn full-width send-pi-btn" type="submit">
               Deposit
+            </button> */}
+            <button
+              className="action-btn full-width send-pi-btn"
+              type="submit"
+              disabled={buttonLoader}
+              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+            >
+              {buttonLoader ? "Processing..." : "Deposit"}
             </button>
           </form>
         )}

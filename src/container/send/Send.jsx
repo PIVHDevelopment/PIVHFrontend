@@ -1,13 +1,17 @@
 import React, { useRef, useState } from "react";
 import Index from "../Index";
+import { CircularProgress } from "@mui/material";
 
 function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const [buttonLoader, setButtonLoader] = useState(false);
+
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
   const handleSubmitFunction = async (values) => {
+    setButtonLoader(true);
     const paymentData = {
       amount: values?.amount,
       memo: values?.memo,
@@ -20,6 +24,9 @@ function Send() {
     Index.DataService.post(Index.Api.PAYMENT_SEND, paymentData).then((res) => {
       if (res?.data?.status) {
         navigate("/home");
+        setButtonLoader(false);
+      } else {
+        setButtonLoader(false);
       }
     });
   };
@@ -118,11 +125,11 @@ function Send() {
                     }
                   }}
                 />
-                </div>
-                <div>
-                  {formik.errors?.amount && formik.touched?.amount
-                    ? formik.errors?.amount
-                    : null}
+              </div>
+              <div>
+                {formik.errors?.amount && formik.touched?.amount
+                  ? formik.errors?.amount
+                  : null}
               </div>
             </div>
             <div className="input-group">
@@ -135,12 +142,11 @@ function Send() {
                   value={formik.values.memo}
                   onChange={formik.handleChange}
                 />
-                <div>
+                <div></div>
               </div>
-                </div>
-                  {formik.errors?.memo && formik.touched?.memo
-                    ? formik.errors?.memo
-                    : null}
+              {formik.errors?.memo && formik.touched?.memo
+                ? formik.errors?.memo
+                : null}
             </div>
 
             <div className="amount-section">
@@ -150,8 +156,16 @@ function Send() {
               </div>
             </div>
 
-            <button className="action-btn full-width send-pi-btn" type="submit">
+            {/* <button className="action-btn full-width send-pi-btn" type="submit">
               Send Pi
+            </button> */}
+            <button
+              className="action-btn full-width send-pi-btn"
+              type="submit"
+              disabled={buttonLoader}
+              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+            >
+              {buttonLoader ? "Processing..." : "Send Pi"}
             </button>
           </form>
         )}

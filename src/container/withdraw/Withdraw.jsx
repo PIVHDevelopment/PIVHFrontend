@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
+import { CircularProgress } from "@mui/material";
 
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
@@ -20,17 +21,18 @@ function Withdraw() {
       };
 
       const res = await Index.DataService.post(Index.Api.WITHDRAW, paymentData);
-      console.log("res1", res)
-      setButtonLoader(false)
+      setButtonLoader(false);
       if (res?.data?.status === 200) {
         Index.toasterSuccess(res?.data?.message);
+        navigate("/home");
       } else {
         Index.toasterError(res?.data?.message);
-        setButtonLoader(false)
+        setButtonLoader(false);
       }
     } catch (error) {
       // console.log("error", error?.response?.data?.message)
       Index.toasterError(error?.response?.data?.message);
+      setButtonLoader(false);
     } finally {
       setButtonLoader(false);
     }
@@ -136,7 +138,7 @@ function Withdraw() {
             <div className="input-group">
               {console.log("onCancel", formik.errors)}
               <div className="amount-section">
-              <label>Available Balance</label>
+                <label>Available Balance</label>
                 <div className="amount-display">
                   {parseFloat(balance).toFixed(2)} Pi
                 </div>
@@ -182,12 +184,20 @@ function Withdraw() {
                   : null}
               </div>
             </div>
-            <button
+            {/* <button
               className="action-btn full-width send-pi-btn"
               type="submit"
               disabled={buttonLoader}
             >
               Withdraw
+            </button> */}
+            <button
+              className="action-btn full-width send-pi-btn"
+              type="submit"
+              disabled={buttonLoader}
+              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+            >
+              {buttonLoader ? "Processing..." : "Withdraw"}
             </button>
           </form>
         )}

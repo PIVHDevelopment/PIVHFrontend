@@ -12,7 +12,7 @@ function Individual() {
           onClick={() => navigate("/deposit")}
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Send Money" />
+            <img src={Index.receiveMoney} alt="Send Money" />
           </span>
           Deposit
         </button>
@@ -36,13 +36,13 @@ function Individual() {
           </span>
           Receive
         </button> */}
-         <button
+        <button
           className="action-btn receive-btn"
           id="withdraw"
           onClick={() => navigate("/withdraw")}
         >
           <span className="btn-icon">
-            <img src={Index.receiveMoney} alt="Receive Money" />
+            <img src={Index.sendMoney} alt="Receive Money" />
           </span>
           Withdraw
         </button>
