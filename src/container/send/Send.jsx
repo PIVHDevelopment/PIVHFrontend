@@ -110,13 +110,19 @@ function Send() {
                   placeholder="Enter Amount"
                   name="amount"
                   value={formik.values.amount}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Only allow digits
+                    if (/^\d*\.?\d{0,6}$/.test(value)) {
+                      formik.setFieldValue("amount", value);
+                    }
+                  }}
                 />
+                </div>
                 <div>
                   {formik.errors?.amount && formik.touched?.amount
                     ? formik.errors?.amount
                     : null}
-                </div>
               </div>
             </div>
             <div className="input-group">
@@ -130,11 +136,11 @@ function Send() {
                   onChange={formik.handleChange}
                 />
                 <div>
+              </div>
+                </div>
                   {formik.errors?.memo && formik.touched?.memo
                     ? formik.errors?.memo
                     : null}
-                </div>
-              </div>
             </div>
 
             <div className="amount-section">
