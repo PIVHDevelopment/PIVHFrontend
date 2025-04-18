@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
+import { Autocomplete, TextField } from "@mui/material";
 
 function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -7,6 +8,7 @@ function Send() {
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
+  const [users, setUsers] = useState([]);
   const handleSubmitFunction = async (values) => {
     const paymentData = {
       amount: values?.amount,
@@ -24,6 +26,19 @@ function Send() {
     });
   };
 
+  const getUsers = async () => {
+    Index.DataService.get(Index.Api.GET_USERS).then((res) => {
+      if (res?.data?.status) {
+        setUsers(res?.data?.data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+  console.log("user", users);
+
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -35,7 +50,7 @@ function Send() {
         </div>
         <div className="header-right"></div>
       </header>
-
+      {/* 
       <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
@@ -61,7 +76,7 @@ function Send() {
           <Index.TabPane eventKey={1}></Index.TabPane>
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
-      </Index.TabContainer>
+      </Index.TabContainer> */}
       <Index.Formik
         initialValues={{
           userName: text,
@@ -76,13 +91,35 @@ function Send() {
           <form onSubmit={formik.handleSubmit} className="send-form">
             <div className="input-group">
               <div className="input-wrapper send-input-box">
-                <input
-                  type="text"
-                  placeholder="Enter User Name"
-                  name="userName"
-                  value={formik.values.userName}
-                  onChange={formik.handleChange}
+                <Autocomplete
+                  id="userName"
+                  className="notes-input"
+                  options={users}
+                  getOptionLabel={(option) => option.userName}
+                  value={
+                    users.find(
+                      (user) => user.userName === formik.values.userName
+                    ) || null
+                  }
+                  onChange={(e, selectedUser) => {
+                    formik.setFieldValue(
+                      "userName",
+                      selectedUser?.userName || ""
+                    );
+                  }}
+                  onBlur={formik.handleBlur}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="userName"
+                      // label="Select User"
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                    />
+                  )}
                 />
+
                 <button
                   className="paste-btn"
                   onClick={async () => {
@@ -118,11 +155,11 @@ function Send() {
                     }
                   }}
                 />
-                </div>
-                <div>
-                  {formik.errors?.amount && formik.touched?.amount
-                    ? formik.errors?.amount
-                    : null}
+              </div>
+              <div>
+                {formik.errors?.amount && formik.touched?.amount
+                  ? formik.errors?.amount
+                  : null}
               </div>
             </div>
             <div className="input-group">
@@ -135,12 +172,11 @@ function Send() {
                   value={formik.values.memo}
                   onChange={formik.handleChange}
                 />
-                <div>
+                <div></div>
               </div>
-                </div>
-                  {formik.errors?.memo && formik.touched?.memo
-                    ? formik.errors?.memo
-                    : null}
+              {formik.errors?.memo && formik.touched?.memo
+                ? formik.errors?.memo
+                : null}
             </div>
 
             <div className="amount-section">
