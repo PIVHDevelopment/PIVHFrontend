@@ -20,7 +20,7 @@ import downloadImg from "../assets/images/Download-Btn.png";
 import share from "../assets/images/Share.png";
 import back from "../assets/images/Back.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
@@ -55,6 +55,7 @@ const Index = {
   autopay,
   configure,
   useNavigate,
+  useLocation,
   receiveMoney,
   sendMoney,
   downArrow,

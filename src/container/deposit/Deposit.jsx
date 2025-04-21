@@ -60,7 +60,6 @@ function Deposit() {
   const onError = (error, payment) => {
     console.log("onError", error);
     if (payment) {
-      console.log(payment);
       // handle the error accordingly
     }
   };
@@ -130,7 +129,7 @@ function Deposit() {
                   }}
                 />
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.amount && formik.touched?.amount
                   ? formik.errors?.amount
                   : null}

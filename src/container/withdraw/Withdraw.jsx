@@ -154,12 +154,16 @@ function Withdraw() {
                   onChange={(e) => {
                     const value = e.target.value;
                     if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      formik.setFieldValue("amount", value);
+                      if (value > balance) {
+                        formik.setFieldValue("amount", balance);
+                      } else {
+                        formik.setFieldValue("amount", value);
+                      }
                     }
                   }}
                 />
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.amount && formik.touched?.amount
                   ? formik.errors?.amount
                   : null}
@@ -178,7 +182,7 @@ function Withdraw() {
                   }}
                 />
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.address && formik.touched?.address
                   ? formik.errors?.address
                   : null}

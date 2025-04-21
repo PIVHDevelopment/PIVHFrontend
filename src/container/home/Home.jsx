@@ -140,7 +140,7 @@ function Home() {
             </div>
             <Index.TabContent>
               <Index.TabPane eventKey={1}>
-                <Individual />
+                <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
                 <Business />
