@@ -757,3 +757,8 @@ button.address-book-btn {
 .sigin-footer p:hover{
   color: lightgray;
 }
+
+.input-error{
+  color: #b90005;
+  font-size: 13px;
+}

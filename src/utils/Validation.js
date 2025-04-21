@@ -18,9 +18,9 @@ export const sendPiFormSchema = Yup.object({
 export const depositPiFormSchema = Yup.object({
   amount: Yup.string()
     .required("Please enter amount")
-    .test("min-amount", "Amount must be at least 0.001", (value) => {
+    .test("min-amount", "Amount must be at least 0.05", (value) => {
       const num = parseFloat(value || "0");
-      return num >= 0.0001;
+      return num >= 0.05;
     }),
 });
 export const withdrawPiFormSchema = Yup.object({

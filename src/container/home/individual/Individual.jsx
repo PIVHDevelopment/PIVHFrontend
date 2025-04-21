@@ -1,7 +1,7 @@
 import React from "react";
 import Index from "../../Index";
 
-function Individual() {
+function Individual({ balance }) {
   const navigate = Index.useNavigate();
   return (
     <>
@@ -19,7 +19,12 @@ function Individual() {
         <button
           className="action-btn send-btn"
           id="sendBtn"
-          onClick={() => navigate("/send")}
+          disabled={balance <= 0}
+          onClick={() =>
+            navigate("/send", {
+              state: { balance: balance },
+            })
+          }
         >
           <span className="btn-icon">
             <img src={Index.sendMoney} alt="Send Money" />
@@ -39,6 +44,7 @@ function Individual() {
         <button
           className="action-btn receive-btn"
           id="withdraw"
+          disabled={balance <= 0}
           onClick={() => navigate("/withdraw")}
         >
           <span className="btn-icon">

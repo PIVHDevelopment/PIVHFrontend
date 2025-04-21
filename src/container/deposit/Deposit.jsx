@@ -130,7 +130,7 @@ function Deposit() {
                   }}
                 />
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.amount && formik.touched?.amount
                   ? formik.errors?.amount
                   : null}

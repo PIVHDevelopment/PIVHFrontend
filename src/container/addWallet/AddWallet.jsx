@@ -69,7 +69,7 @@ function AddWallet() {
                   </button>
                 )}
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.walletAddress && formik.touched?.walletAddress
                   ? formik.errors?.walletAddress
                   : null}

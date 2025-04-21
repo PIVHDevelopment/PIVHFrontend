@@ -6,14 +6,18 @@ function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const location = Index.useLocation();
+  const balance = location?.state?.balance;
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
 
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
+
   const handleSubmitFunction = async (values) => {
     setButtonLoader(true);
+
     const paymentData = {
       amount: values?.amount,
       memo: values?.memo,
@@ -23,20 +27,35 @@ function Send() {
         type: "Send",
       },
     };
-    Index.DataService.post(Index.Api.PAYMENT_SEND, paymentData).then((res) => {
+
+    try {
+      const res = await Index.DataService.post(
+        Index.Api.PAYMENT_SEND,
+        paymentData
+      );
+
       if (res?.data?.status) {
+        Index.toasterSuccess(res?.data?.message);
         navigate("/home");
-        setButtonLoader(false);
       } else {
-        setButtonLoader(false);
+        Index.toasterError(res?.data?.message || "Something went wrong.");
       }
-    });
+    } catch (error) {
+      Index.toasterError(
+        error?.response?.data?.message || "An unexpected error occurred."
+      );
+    } finally {
+      setButtonLoader(false);
+    }
   };
 
   const getUsers = async () => {
     Index.DataService.get(Index.Api.GET_USERS).then((res) => {
       if (res?.data?.status) {
-        setUsers(res?.data?.data);
+        let filteredUsers = res?.data?.data?.filter(
+          (item) => item?.uid !== userData?.uid
+        );
+        setUsers(filteredUsers);
       }
     });
   };
@@ -113,8 +132,7 @@ function Send() {
                   onClose={() => setUserDropDown(false)}
                   onInputChange={(event, newInputValue, reason) => {
                     if (reason === "input") {
-                      setUserDropDown(true); 
-
+                      setUserDropDown(true);
                     }
                   }}
                   onChange={(e, selectedUser) => {
@@ -149,7 +167,7 @@ function Send() {
                   Paste
                 </button> */}
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.userName && formik.touched?.userName
                   ? formik.errors?.userName
                   : null}
@@ -170,12 +188,16 @@ function Send() {
                     const value = e.target.value;
                     // Only allow digits
                     if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      formik.setFieldValue("amount", value);
+                      if (value > balance) {
+                        formik.setFieldValue("amount", balance);
+                      } else {
+                        formik.setFieldValue("amount", value);
+                      }
                     }
                   }}
                 />
               </div>
-              <div>
+              <div className="input-error">
                 {formik.errors?.amount && formik.touched?.amount
                   ? formik.errors?.amount
                   : null}
@@ -191,11 +213,12 @@ function Send() {
                   value={formik.values.memo}
                   onChange={formik.handleChange}
                 />
-                <div></div>
               </div>
-              {formik.errors?.memo && formik.touched?.memo
-                ? formik.errors?.memo
-                : null}
+              <div className="input-error">
+                {formik.errors?.memo && formik.touched?.memo
+                  ? formik.errors?.memo
+                  : null}
+              </div>
             </div>
 
             <div className="amount-section">
