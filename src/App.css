@@ -476,6 +476,15 @@ header {
   font-size: 15px;
 }
 
+.notes-input-box{
+  width: 100%;
+  background: var(--dark-bg);
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+}
+
 .amount-section {
   text-align: center;
   margin: 20px 0;

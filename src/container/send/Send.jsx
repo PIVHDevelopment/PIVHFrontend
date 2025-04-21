@@ -93,7 +93,7 @@ function Send() {
               <div className="input-wrapper send-input-box">
                 <Autocomplete
                   id="userName"
-                  className="notes-input"
+                  className="notes-input-box"
                   options={users}
                   getOptionLabel={(option) => option.userName}
                   value={
@@ -112,7 +112,10 @@ function Send() {
                     <TextField
                       {...params}
                       name="userName"
-                      // label="Select User"
+                      className="notes-input"
+                      placeholder={
+                        formik?.values?.userName ? "" : "Select User"
+                      }
                       variant="outlined"
                       size="small"
                       fullWidth
@@ -120,7 +123,7 @@ function Send() {
                   )}
                 />
 
-                <button
+                {/* <button
                   className="paste-btn"
                   onClick={async () => {
                     const res = await navigator.clipboard.readText();
@@ -128,7 +131,7 @@ function Send() {
                   }}
                 >
                   Paste
-                </button>
+                </button> */}
               </div>
               <div>
                 {formik.errors?.userName && formik.touched?.userName
@@ -182,8 +185,9 @@ function Send() {
             <div className="amount-section">
               <label>Enter Pi Amount</label>
               <div className="amount-display">
-                {formik.values.amount || "0"} Pi
+                {formik.values.amount ? parseFloat(formik.values.amount) + 0.05 : "0"} Pi
               </div>
+              {formik.values.amount ? <label>0.05 Pi will be deducted as platform fees</label> : ""}
             </div>
 
             <button className="action-btn full-width send-pi-btn" type="submit">
