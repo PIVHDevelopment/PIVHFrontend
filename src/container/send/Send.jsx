@@ -107,6 +107,7 @@ function Send() {
                       selectedUser?.userName || ""
                     );
                   }}
+                
                   onBlur={formik.handleBlur}
                   renderInput={(params) => (
                     <TextField
@@ -114,7 +115,9 @@ function Send() {
                       name="userName"
                       className="notes-input"
                       placeholder={
-                        formik?.values?.userName ? "" : "Select User"
+                        formik?.values?.userName
+                          ? ""
+                          : "Select User"
                       }
                       variant="outlined"
                       size="small"
@@ -185,9 +188,8 @@ function Send() {
             <div className="amount-section">
               <label>Enter Pi Amount</label>
               <div className="amount-display">
-                {formik.values.amount ? parseFloat(formik.values.amount) + 0.05 : "0"} Pi
+                {formik.values.amount || "0"} Pi
               </div>
-              {formik.values.amount ? <label>0.05 Pi will be deducted as platform fees</label> : ""}
             </div>
 
             <button className="action-btn full-width send-pi-btn" type="submit">

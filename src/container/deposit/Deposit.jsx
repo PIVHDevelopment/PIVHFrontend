@@ -136,6 +136,11 @@ function Deposit() {
               <div className="amount-display">
                 {formik.values.amount || "0"} Pi
               </div>
+              {formik.values.amount ? (
+                <label>0.05 Pi will be deducted as platform fees</label>
+              ) : (
+                ""
+              )}
             </div>
 
             <button className="action-btn full-width send-pi-btn" type="submit">
