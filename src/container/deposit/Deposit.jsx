@@ -60,7 +60,6 @@ function Deposit() {
   const onError = (error, payment) => {
     console.log("onError", error);
     if (payment) {
-      console.log(payment);
       // handle the error accordingly
     }
   };
