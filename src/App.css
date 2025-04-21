@@ -757,3 +757,6 @@ button.address-book-btn {
 .sigin-footer p:hover{
   color: lightgray;
 }
+.send-input-box input {
+  background-color: transparent;
+}
