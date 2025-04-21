@@ -7,6 +7,7 @@ function Send() {
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const [buttonLoader, setButtonLoader] = useState(false);
+  const [userDropDown, setUserDropDown] = useState(false);
 
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
@@ -107,6 +108,15 @@ function Send() {
                       (user) => user.userName === formik.values.userName
                     ) || null
                   }
+                  open={userDropDown}
+                  // onOpen={() => setUserDropDown(true)}
+                  onClose={() => setUserDropDown(false)}
+                  onInputChange={(event, newInputValue, reason) => {
+                    if (reason === "input") {
+                      setUserDropDown(true); 
+
+                    }
+                  }}
                   onChange={(e, selectedUser) => {
                     formik.setFieldValue(
                       "userName",

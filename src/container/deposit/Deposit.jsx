@@ -142,7 +142,7 @@ function Deposit() {
                 {formik.values.amount || "0"} Pi
               </div>
               {formik.values.amount ? (
-                <label>0.05 Pi will be deducted as platform fees</label>
+                <label className="text-color">0.05 Pi will be deducted as platform fees</label>
               ) : (
                 ""
               )}
