@@ -421,6 +421,12 @@ header {
   gap: 8px;
 }
 
+.input-group fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .input-group label {
   font-size: 14px;
   opacity: 0.9;
