@@ -188,7 +188,8 @@ function Send() {
                     const value = e.target.value;
                     // Only allow digits
                     if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      if (value > balance) {
+                      console.log(value, balance, value > balance);
+                      if (parseFloat(value) > parseFloat(balance)) {
                         formik.setFieldValue("amount", balance);
                       } else {
                         formik.setFieldValue("amount", value);

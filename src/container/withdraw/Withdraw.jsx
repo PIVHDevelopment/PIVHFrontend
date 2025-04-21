@@ -154,7 +154,7 @@ function Withdraw() {
                   onChange={(e) => {
                     const value = e.target.value;
                     if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      if (value > balance) {
+                      if (parseFloat(value) > parseFloat(balance)) {
                         formik.setFieldValue("amount", balance);
                       } else {
                         formik.setFieldValue("amount", value);
