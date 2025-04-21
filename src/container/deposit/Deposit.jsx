@@ -6,10 +6,17 @@ function Deposit() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const location = Index.useLocation();
+  const balance = location?.state?.balance;
   const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
 
   const handleSubmitFunction = async (values) => {
+    console.log(parseFloat(balance) + parseFloat(values?.amount));
+    if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
+      Index.toasterError("Your balance is exceeding the limit of 314");
+      return false;
+    }
     setButtonLoader(true);
     const paymentData = {
       amount: values?.amount,
@@ -141,7 +148,9 @@ function Deposit() {
                 {formik.values.amount || "0"} Pi
               </div>
               {formik.values.amount ? (
-                <label className="text-color">0.05 Pi will be deducted as platform fees</label>
+                <label className="text-color">
+                  0.05 Pi will be deducted as platform fees
+                </label>
               ) : (
                 ""
               )}

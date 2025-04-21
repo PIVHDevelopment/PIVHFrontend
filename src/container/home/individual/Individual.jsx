@@ -9,7 +9,11 @@ function Individual({ balance }) {
         <button
           className="action-btn send-btn"
           id="sendBtn"
-          onClick={() => navigate("/deposit")}
+          onClick={() =>
+            navigate("/deposit", {
+              state: { balance: balance },
+            })
+          }
         >
           <span className="btn-icon">
             <img src={Index.receiveMoney} alt="Send Money" />
