@@ -65,9 +65,9 @@ function Home() {
 
   useEffect(() => {
     handleGetTransactions();
-    if (userData?.walletAddress) {
-      handleGetBalance();
-    }
+    // if (userData?.walletAddress) {
+    //   handleGetBalance();
+    // }
   }, []);
 
   return (

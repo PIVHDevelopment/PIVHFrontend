@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 
 function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -113,7 +113,6 @@ function Send() {
                       selectedUser?.userName || ""
                     );
                   }}
-                
                   onBlur={formik.handleBlur}
                   renderInput={(params) => (
                     <TextField
@@ -121,9 +120,7 @@ function Send() {
                       name="userName"
                       className="notes-input"
                       placeholder={
-                        formik?.values?.userName
-                          ? ""
-                          : "Select User"
+                        formik?.values?.userName ? "" : "Select User"
                       }
                       variant="outlined"
                       size="small"
