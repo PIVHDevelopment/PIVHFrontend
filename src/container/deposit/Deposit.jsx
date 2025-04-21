@@ -76,7 +76,7 @@ function Deposit() {
         <div className="header-right"></div>
       </header>
 
-      <Index.TabContainer
+      {/* <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
         activeKey={tab}
@@ -101,7 +101,7 @@ function Deposit() {
           <Index.TabPane eventKey={1}></Index.TabPane>
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
-      </Index.TabContainer>
+      </Index.TabContainer> */}
       <Index.Formik
         initialValues={{
           amount: "",
@@ -141,6 +141,11 @@ function Deposit() {
               <div className="amount-display">
                 {formik.values.amount || "0"} Pi
               </div>
+              {formik.values.amount ? (
+                <label>0.05 Pi will be deducted as platform fees</label>
+              ) : (
+                ""
+              )}
             </div>
 
             {/* <button className="action-btn full-width send-pi-btn" type="submit">

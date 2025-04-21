@@ -95,7 +95,8 @@ function Home() {
                 className="icon-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
-                onClick={handleOpen}
+                // onClick={handleOpen}
+                onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>

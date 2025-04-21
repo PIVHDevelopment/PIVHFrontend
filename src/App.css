@@ -421,6 +421,12 @@ header {
   gap: 8px;
 }
 
+.input-group fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .input-group label {
   font-size: 14px;
   opacity: 0.9;
@@ -469,6 +475,15 @@ header {
 .notes-input {
   width: 100%;
   padding: 16px;
+  background: var(--dark-bg);
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.notes-input-box{
+  width: 100%;
   background: var(--dark-bg);
   border: none;
   border-radius: 40px;

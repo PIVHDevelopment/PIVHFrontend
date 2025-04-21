@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { CircularProgress } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 
 function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -10,6 +10,7 @@ function Send() {
 
   const [tab, setTab] = useState(1);
   const [text, setText] = useState("");
+  const [users, setUsers] = useState([]);
   const handleSubmitFunction = async (values) => {
     setButtonLoader(true);
     const paymentData = {
@@ -31,6 +32,19 @@ function Send() {
     });
   };
 
+  const getUsers = async () => {
+    Index.DataService.get(Index.Api.GET_USERS).then((res) => {
+      if (res?.data?.status) {
+        setUsers(res?.data?.data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+  console.log("user", users);
+
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -42,7 +56,7 @@ function Send() {
         </div>
         <div className="header-right"></div>
       </header>
-
+      {/* 
       <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
@@ -68,7 +82,7 @@ function Send() {
           <Index.TabPane eventKey={1}></Index.TabPane>
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
-      </Index.TabContainer>
+      </Index.TabContainer> */}
       <Index.Formik
         initialValues={{
           userName: text,
@@ -83,14 +97,42 @@ function Send() {
           <form onSubmit={formik.handleSubmit} className="send-form">
             <div className="input-group">
               <div className="input-wrapper send-input-box">
-                <input
-                  type="text"
-                  placeholder="Enter User Name"
-                  name="userName"
-                  value={formik.values.userName}
-                  onChange={formik.handleChange}
+                <Autocomplete
+                  id="userName"
+                  className="notes-input-box"
+                  options={users}
+                  getOptionLabel={(option) => option.userName}
+                  value={
+                    users.find(
+                      (user) => user.userName === formik.values.userName
+                    ) || null
+                  }
+                  onChange={(e, selectedUser) => {
+                    formik.setFieldValue(
+                      "userName",
+                      selectedUser?.userName || ""
+                    );
+                  }}
+                
+                  onBlur={formik.handleBlur}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="userName"
+                      className="notes-input"
+                      placeholder={
+                        formik?.values?.userName
+                          ? ""
+                          : "Select User"
+                      }
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                    />
+                  )}
                 />
-                <button
+
+                {/* <button
                   className="paste-btn"
                   onClick={async () => {
                     const res = await navigator.clipboard.readText();
@@ -98,7 +140,7 @@ function Send() {
                   }}
                 >
                   Paste
-                </button>
+                </button> */}
               </div>
               <div>
                 {formik.errors?.userName && formik.touched?.userName
