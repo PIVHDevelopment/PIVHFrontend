@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -8,42 +8,62 @@ import {
   TextField,
   Button,
   Alert,
-} from '@mui/material';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import Index from '../Index';
+} from "@mui/material";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import Index from "../Index";
+import { useLocation } from "react-router-dom";
 
 const questions = [
   "What was your first school's name?",
-  'Who was your childhood best friend?',
-  'What was your dream job as a child?',
-  'What is your favorite teacher’s name?',
-  'What city were you born in?',
+  "Who was your childhood best friend?",
+  "What was your dream job as a child?",
+  "What is your favorite teacher’s name?",
+  "What city were you born in?",
+];
+
+const businessQuestions = [
+  "What was your desk or office number when you joined?",
+  "What was the name of your first internal project?",
+  "What is the official email address associated with your account?",
+  "What is your official job title?",
+  "What was your onboarding trainer's name?",
 ];
 
 const SetPinRecoveryQuestion = () => {
   const [submitted, setSubmitted] = useState(false);
-    const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-    const navigate = Index.useNavigate();
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const navigate = Index.useNavigate();
+  const location = useLocation();
+  const isBusiness = location?.state?.isBusiness;
+  console.log(location?.state?.isBusiness);
 
   const validationSchema = Yup.object().shape({
     selectedQuestion: Yup.number()
-      .typeError('Select a security question')
-      .required('Select a security question'),
-    answer: Yup.string().trim().required('Please provide an answer'),
+      .typeError("Select a security question")
+      .required("Select a security question"),
+    answer: Yup.string().trim().required("Please provide an answer"),
   });
 
   const handleSubmit = (values) => {
+    let endPoint;
+    if (isBusiness) {
+      endPoint = Index.Api.SET_PIN_QUESTION_BUSINESS;
+    } else {
+      endPoint = Index.Api.SET_PIN_QUESTION;
+    }
     setSubmitted(true);
-    Index.DataService.post(Index.Api.SET_PIN_QUESTION, {
-        uid: userData?.uid,
-        question: questions[values.selectedQuestion],
-        answer: values.answer,
-      }).then((res) => {
-        if (res?.data?.status === 200) {
-          navigate("/home");
-        }
-      });
+    Index.DataService.post(endPoint, {
+      uid: userData?.uid,
+      question: (isBusiness ? businessQuestions : questions)[
+        values.selectedQuestion
+      ],
+      answer: values.answer,
+    }).then((res) => {
+      if (res?.data?.status === 200) {
+        navigate("/home");
+      }
+    });
   };
 
   return (
@@ -54,7 +74,7 @@ const SetPinRecoveryQuestion = () => {
         </Typography>
 
         <Formik
-          initialValues={{ selectedQuestion: '', answer: '' }}
+          initialValues={{ selectedQuestion: "", answer: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -68,20 +88,24 @@ const SetPinRecoveryQuestion = () => {
           }) => (
             <Form>
               <FormGroup>
-                {questions.map((q, index) => (
-                  <FormControlLabel
-                    key={index}
-                    control={
-                      <Radio
-                        name="selectedQuestion"
-                        value={index}
-                        checked={parseInt(values.selectedQuestion) === index}
-                        onChange={() => setFieldValue('selectedQuestion', index)}
-                      />
-                    }
-                    label={q}
-                  />
-                ))}
+                {(isBusiness ? businessQuestions : questions).map(
+                  (q, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Radio
+                          name="selectedQuestion"
+                          value={index}
+                          checked={parseInt(values.selectedQuestion) === index}
+                          onChange={() =>
+                            setFieldValue("selectedQuestion", index)
+                          }
+                        />
+                      }
+                      label={q}
+                    />
+                  )
+                )}
               </FormGroup>
 
               {touched.selectedQuestion && errors.selectedQuestion && (

@@ -3,6 +3,7 @@ const Api = {
   SIGN_OUT: "user/sign-out",
 
   SET_PIN_QUESTION: "user/add-edit-usertxn-pin",
+  SET_PIN_QUESTION_BUSINESS: "user/add-edit-businesstxn-pin",
 
   PAYMENT_INCOMPLETE: "/payments/payment-incomplete",
   PAYMENT_APPROVE: "/payments/payment-approve",

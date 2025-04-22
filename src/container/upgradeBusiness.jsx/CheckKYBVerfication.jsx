@@ -2,31 +2,22 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function CheckKYBVerfication() {
-  const businessData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
 
-  const handleSubmitFunction = async (values) => {
-    console.log(values);
+  console.log({ userData });
 
-    const paymentData = {
-      id: businessData?.uid,
-      userName: values?.userName,
-      businessName: values?.businessName,
-    };
-
-    // Index.DataService.post(Index.Api.ADD_WALLET_ADDRESS, paymentData).then(
-    //   (res) => {
-    //     navigate("/home");
-    //     sessionStorage.setItem(
-    //       "pi_user_data",
-    //       JSON.stringify({
-    //         ...businessData,
-    //         walletAddress: res?.data?.data?.walletAddress,
-    //       })
-    //     );
-    //   }
-    // );
+  const handleSkip = () => {
+    if (!userData?.businessTxn?.isPin) {
+      navigate("/set-txn-pin", { state: { isBusiness: true } });
+    } else if (!userData?.businessTxn?.isQuestion) {
+      navigate("/set-recovery-pin-question", {
+        state: { isBusiness: true },
+      });
+    } else {
+      navigate("/home");
+    }
   };
 
   return (
@@ -40,7 +31,7 @@ function CheckKYBVerfication() {
         </div>
         <div className="header-right"></div>
       </header>
-      <Index.Formik
+      {/* <Index.Formik
         enableReinitialize
         initialValues={{
           userName: "",
@@ -51,22 +42,21 @@ function CheckKYBVerfication() {
         innerRef={formRef}
       >
         {(formik) => (
-          <form
-            //   onSubmit={formik.handleSubmit}
-            className="send-form"
-          >
-            <button className="action-btn full-width send-pi-btn">
-              KYB Verification
-            </button>
-            <button
-            //   onClick={() => navigate("/")}
-              className="action-btn full-width send-pi-btn"
-            >
-              Skip for now
-            </button>
-          </form>
+          <form onSubmit={formik.handleSubmit} className="send-form"> */}
+      <div className="send-form">
+        <button className="action-btn full-width send-pi-btn">
+          KYB Verification
+        </button>
+        <button
+          onClick={() => handleSkip("/")}
+          className="action-btn full-width send-pi-btn"
+        >
+          Skip for now
+        </button>
+      </div>
+      {/* </form>
         )}
-      </Index.Formik>
+      </Index.Formik> */}
     </div>
   );
 }
