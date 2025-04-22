@@ -28,8 +28,16 @@ function SignIn() {
     // alert("Hey : ");
     Index.DataService.post(Index.Api.SIGN_IN, { authResult })
       .then((res) => {
-        sessionStorage.setItem("pi_user_data", JSON.stringify(res?.data?.data));
-        navigate("/home");
+        let userData= res?.data?.data;
+        sessionStorage.setItem("pi_user_data", JSON.stringify(userData));
+        if(!userData?.userTxn?.isPin){
+          navigate("/set-txn-pin");
+        } 
+        else if (!userData?.userTxn.isQuestion){
+          navigate("/set-recovery-pin-question");
+        } else{
+          navigate("/home");
+        }
       })
       .catch((err) => {
         sessionStorage.removeItem("user_token");

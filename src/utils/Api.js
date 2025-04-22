@@ -2,6 +2,8 @@ const Api = {
   SIGN_IN: "user/sign-in",
   SIGN_OUT: "user/sign-out",
 
+  SET_PIN_QUESTION: "user/add-edit-usertxn-pin",
+
   PAYMENT_INCOMPLETE: "/payments/payment-incomplete",
   PAYMENT_APPROVE: "/payments/payment-approve",
   PAYMENT_COMPLETE: "/payments/payment-complete",
