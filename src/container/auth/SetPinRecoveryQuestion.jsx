@@ -12,6 +12,7 @@ import {
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Index from '../Index';
+import { Spinner } from 'react-bootstrap';
 
 const questions = [
   "What was your first school's name?",
@@ -25,12 +26,14 @@ const SetPinRecoveryQuestion = () => {
   const [submitted, setSubmitted] = useState(false);
     const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
     const navigate = Index.useNavigate();
+      const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     answer: Yup.string().trim().required('Please enter an answer'),
   });
 
   const handleSubmit = (values) => {
+    setIsLoading(true);
     setSubmitted(true);
     Index.DataService.post(Index.Api.SET_PIN_QUESTION, {
         uid: userData?.uid,
@@ -40,6 +43,11 @@ const SetPinRecoveryQuestion = () => {
         if (res?.data?.status === 200) {
           navigate("/home");
         }
+      }).catch((err) => {
+        console.log(err);
+      })
+    .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -96,15 +104,15 @@ const SetPinRecoveryQuestion = () => {
                 helperText={touched.answer && errors.answer}
               />
 
-              {submitted && !errors.answer && !errors.selectedQuestion && (
-                <Alert severity="success" sx={{ mt: 2 }}>
-                  Recovery question set successfully!
-                </Alert>
-              )}
 
               <Box textAlign="center" mt={5}>
-                <button variant="contained" type="submit" className="secondary-btn">
-                  Submit
+                <button variant="contained" type="submit" className="secondary-btn share-btn">
+                  
+                  {isLoading ? (
+                         <Spinner animation="border" role="status" size="sm"/>
+                        ) : (
+                       "Submit"
+                       )}
                 </button>
               </Box>
             </Form>

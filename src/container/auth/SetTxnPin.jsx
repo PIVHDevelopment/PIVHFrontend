@@ -3,15 +3,17 @@ import { Box, Typography, Grid } from '@mui/material';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Index from '../Index';
+import { Spinner } from 'react-bootstrap';
 
 const SetTxnPin = () => {
   const [showPin, setShowPin] = useState(false);
   const [showConfirmPin, setShowConfirmPin] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
 
   const handleSubmitFunction = async (values) => {
+    setIsLoading(true);
     const pin = values.pinFields.join('');
     Index.DataService.post(Index.Api.SET_PIN_QUESTION, {
       uid: userData?.uid,
@@ -20,22 +22,30 @@ const SetTxnPin = () => {
       if (res?.data?.status === 200) {
         navigate("/set-recovery-pin-question");
       }
-    });
+    }).catch((err) => {
+        console.log(err);
+      })
+    .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
       .of(Yup.string().matches(/^\d$/, 'Only digits allowed'))
-      .length(5, 'PIN must be 5 digits')
-      .required(),
+      .test('pin-required', 'Please enter pin', (arr) => arr.some(val => val && val.trim() !== ''))
+      .test('pin-length', 'PIN must be 5 digits', (arr) => arr.filter(val => val && val.trim() !== '').length === 5),
+  
     confirmPinFields: Yup.array()
       .of(Yup.string().matches(/^\d$/, 'Only digits allowed'))
-      .length(5, 'PIN must be 5 digits')
-      .test('match', 'PINs do not match', function (value) {
-        return value.join('') === this.parent.pinFields.join('');
-      })
-      .required()
+      .test('confirm-required', 'Please enter confirm pin', (arr) => arr.some(val => val && val.trim() !== ''))
+      .test('pin-match', 'PIN does not match', function (value) {
+        const { pinFields } = this.parent;
+        return value.join('') === pinFields.join('');
+      }),
   });
+  
+  
 
   const renderPinInputs = (name, values, setFieldValue, show, setShow) => (
     <Box className="set-pin-row" sx={{ display: 'flex', gap: 1 }}>
@@ -88,33 +98,38 @@ const SetTxnPin = () => {
           <form onSubmit={handleSubmit} className="app-container p-20-0 set-pin-div">
             <Box className="p-20">
                  <Typography variant="h5" className='heading' gutterBottom>
-                    Set User Transaction Pin
+                    Set Transaction PIN
                         </Typography>
               <Grid container spacing={4}>
                 <Grid item xs={12} md={6} className="set-pin-box">
                   <Typography variant="h6" className="text" gutterBottom>Enter PIN</Typography>
                   {renderPinInputs('pinFields', values, setFieldValue, showPin, setShowPin)}
-                  {touched.pinFields && errors.pinFields && (
-                    <Typography color="error" variant="body2" mt={1}>
-                      {typeof errors.pinFields === 'string' ? errors.pinFields : 'Invalid PIN input'}
-                    </Typography>
-                  )}
+                  {touched.pinFields && errors.pinFields && typeof errors.pinFields === 'string' && (
+  <Typography color="error" variant="body2" mt={1}>
+    {errors.pinFields}
+  </Typography>
+)}
                 </Grid>
 
                 <Grid item xs={12} md={6} className="set-pin-box">
                   <Typography variant="h6" className="text" gutterBottom>Confirm PIN</Typography>
                   {renderPinInputs('confirmPinFields', values, setFieldValue, showConfirmPin, setShowConfirmPin)}
-                  {touched.confirmPinFields && errors.confirmPinFields && (
-                    <Typography color="error" variant="body2" mt={1}>
-                      {typeof errors.confirmPinFields === 'string' ? errors.confirmPinFields : 'PINs do not match'}
-                    </Typography>
-                  )}
+                  {touched.confirmPinFields && errors.confirmPinFields && typeof errors.confirmPinFields === 'string' && (
+  <Typography color="error" variant="body2" mt={1}>
+    {errors.confirmPinFields}
+  </Typography>
+)}
                 </Grid>
               </Grid>
 
               <Box textAlign="center" mt={8}>
-                <button variant="contained" type="submit" className="secondary-btn">
-                  Set PIN
+                <button variant="contained" type="submit" className="secondary-btn share-btn" >
+                  
+                   {isLoading ? (
+                         <Spinner animation="border" role="status" size="sm"/>
+                        ) : (
+                       "Set PIN"
+                       )}
                 </button>
               </Box>
             </Box>

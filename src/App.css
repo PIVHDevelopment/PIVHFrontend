@@ -845,10 +845,14 @@ font-size: 16px;
   height: 46px;
   text-align: center;
   border-radius: 6px;
-  font-size: 20px;
+  font-size: 20px !important;
   background: transparent;
   border: 1px solid white;
   color: white;
+}
+
+.set-pin-row input.set-pin-input-box:focus-visible{
+ outline: none;
 }
 
 .app-container .heading{
