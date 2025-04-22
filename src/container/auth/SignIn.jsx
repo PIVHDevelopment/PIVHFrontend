@@ -30,6 +30,8 @@ function SignIn() {
       .then((res) => {
         let userData= res?.data?.data;
         sessionStorage.setItem("pi_user_data", JSON.stringify(userData));
+        console.log({userData});
+        
         if(!userData?.userTxn?.isPin){
           navigate("/set-txn-pin");
         } 

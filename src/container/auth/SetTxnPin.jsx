@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, IconButton } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { MuiOtpInput } from "mui-one-time-password-input";
 import Index from "../Index";
 import { useLocation } from "react-router-dom";
 
 const SetTxnPin = () => {
+  const [showPin, setShowPin] = useState(false);
+  const [showConfirmPin, setShowConfirmPin] = useState(false);
   const location = useLocation();
-  const [showPin, setShowPin] = useState(true);
-  const [showConfirmPin, setShowConfirmPin] = useState(true);
   const isBusiness = location?.state?.isBusiness;
   console.log(location?.state?.isBusiness);
 
@@ -23,9 +22,10 @@ const SetTxnPin = () => {
     } else {
       endPoint = Index.Api.SET_PIN_QUESTION;
     }
+    const pin = values.pinFields.join("");
     Index.DataService.post(endPoint, {
       uid: userData?.uid,
-      pin: values.pin,
+      pin: pin,
     }).then((res) => {
       if (res?.data?.status === 200) {
         navigate("/set-recovery-pin-question", { state: { isBusiness: true } });
@@ -34,113 +34,121 @@ const SetTxnPin = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    pin: Yup.string()
+    pinFields: Yup.array()
+      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
       .length(5, "PIN must be 5 digits")
-      .matches(/^\d+$/, "Only numbers allowed")
-      .required("Enter your pin"),
-    confirmPin: Yup.string()
-      .oneOf([Yup.ref("pin")], "PIN do not match")
-      .required("Enter your confirm pin"),
+      .required(),
+    confirmPinFields: Yup.array()
+      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
+      .length(5, "PIN must be 5 digits")
+      .test("match", "PINs do not match", function (value) {
+        return value.join("") === this.parent.pinFields.join("");
+      })
+      .required(),
   });
+
+  const renderPinInputs = (name, values, setFieldValue, show, setShow) => (
+    <Box className="set-pin-row" sx={{ display: "flex", gap: 1 }}>
+      {values[name].map((val, idx) => (
+        <input
+          key={idx}
+          type={show ? "text" : "password"}
+          maxLength={1}
+          value={val}
+          onChange={(e) => {
+            const newValues = [...values[name]];
+            const newChar = e.target.value.replace(/\D/g, "");
+            newValues[idx] = newChar;
+            setFieldValue(name, newValues);
+
+            if (newChar && e.target.nextSibling?.tagName === "INPUT") {
+              e.target.nextSibling.focus();
+            }
+          }}
+          onKeyDown={(e) => {
+            // Prevent backspace from jumping to previous input
+            if (e.key === "Backspace" && !values[name][idx] && idx > 0) {
+              const inputs =
+                e.currentTarget.parentElement.querySelectorAll("input");
+              if (inputs[idx - 1]) inputs[idx - 1].focus();
+            }
+          }}
+          className="set-pin-input-box"
+          style={{ width: "40px", fontSize: "24px", textAlign: "center" }}
+        />
+      ))}
+      <img
+        className="show-icon"
+        onClick={() => setShow(!show)}
+        src={show ? Index.invisibleIcon : Index.showIcon}
+        alt="icon"
+        style={{ cursor: "pointer" }}
+      />
+    </Box>
+  );
 
   return (
     <div className="set-pin-main">
       <Formik
-        initialValues={{ pin: "", confirmPin: "" }}
+        initialValues={{
+          pinFields: ["", "", "", "", ""],
+          confirmPinFields: ["", "", "", "", ""],
+        }}
         validationSchema={validationSchema}
         onSubmit={handleSubmitFunction}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleSubmit,
-          setFieldValue,
-        }) => (
+        {({ values, errors, touched, handleSubmit, setFieldValue }) => (
           <form
             onSubmit={handleSubmit}
-            className="app-container p-20-0 signin-main"
+            className="app-container p-20-0 set-pin-div"
           >
             <Box className="p-20">
+              <Typography variant="h5" className="heading" gutterBottom>
+                Set User Transaction Pin
+              </Typography>
               <Grid container spacing={4}>
-                {/* PIN Field */}
                 <Grid item xs={12} md={6} className="set-pin-box">
                   <Typography variant="h6" className="text" gutterBottom>
                     Enter PIN
                   </Typography>
-                  <Box className="set-pin-row">
-                    <MuiOtpInput
-                      value={values.pin}
-                      className="set-pin-input"
-                      length={5}
-                      onlyNumbers
-                      onChange={(value) => {
-                        const numericValue = value.replace(/\D/g, "");
-                        setFieldValue("pin", numericValue);
-                      }}
-                      onBlur={handleBlur}
-                      type={showPin ? "text" : "password"}
-                      TextFieldsProps={{
-                        error: touched.pin && Boolean(errors.pin),
-                      }}
-                    />
-
-                    <img
-                      className="show-icon"
-                      onClick={() => setShowPin(!showPin)}
-                      src={showPin ? Index.invisibleIcon : Index.showIcon}
-                      alt="icon"
-                    />
-                  </Box>
-                  {touched.pin && errors.pin && (
+                  {renderPinInputs(
+                    "pinFields",
+                    values,
+                    setFieldValue,
+                    showPin,
+                    setShowPin
+                  )}
+                  {touched.pinFields && errors.pinFields && (
                     <Typography color="error" variant="body2" mt={1}>
-                      {errors.pin}
+                      {typeof errors.pinFields === "string"
+                        ? errors.pinFields
+                        : "Invalid PIN input"}
                     </Typography>
                   )}
                 </Grid>
 
-                {/* Confirm PIN Field */}
                 <Grid item xs={12} md={6} className="set-pin-box">
                   <Typography variant="h6" className="text" gutterBottom>
                     Confirm PIN
                   </Typography>
-                  <Box className="set-pin-row">
-                    <MuiOtpInput
-                      value={values.confirmPin}
-                      length={5}
-                      onlyNumbers
-                      className="set-pin-input"
-                      onChange={(value) => {
-                        const numericValue = value.replace(/\D/g, "");
-                        setFieldValue("confirmPin", numericValue);
-                      }}
-                      onBlur={handleBlur}
-                      type={showConfirmPin ? "text" : "password"}
-                      TextFieldsProps={{
-                        error: touched.confirmPin && Boolean(errors.confirmPin),
-                      }}
-                    />
-
-                    <img
-                      className="show-icon"
-                      onClick={() => setShowConfirmPin(!showConfirmPin)}
-                      src={
-                        showConfirmPin ? Index.invisibleIcon : Index.showIcon
-                      }
-                      alt="icon"
-                    />
-                  </Box>
-                  {touched.confirmPin && errors.confirmPin && (
+                  {renderPinInputs(
+                    "confirmPinFields",
+                    values,
+                    setFieldValue,
+                    showConfirmPin,
+                    setShowConfirmPin
+                  )}
+                  {touched.confirmPinFields && errors.confirmPinFields && (
                     <Typography color="error" variant="body2" mt={1}>
-                      {errors.confirmPin}
+                      {typeof errors.confirmPinFields === "string"
+                        ? errors.confirmPinFields
+                        : "PINs do not match"}
                     </Typography>
                   )}
                 </Grid>
               </Grid>
 
-              {/* Submit Button */}
-              <Box textAlign="center" mt={10}>
+              <Box textAlign="center" mt={8}>
                 <button
                   variant="contained"
                   type="submit"

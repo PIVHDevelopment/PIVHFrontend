@@ -110,7 +110,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            {/* <div className="wallet-tabs">
+            <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -125,7 +125,7 @@ function Home() {
               >
                 Business
               </button>
-            </div> */}
+            </div>
             <div className="wallet-id">
               <span id="walletAddress">{userData?.userName}</span>
               <button className="copy-btn" onClick={handleCopy}>

@@ -42,7 +42,7 @@ const SetPinRecoveryQuestion = () => {
     selectedQuestion: Yup.number()
       .typeError("Select a security question")
       .required("Select a security question"),
-    answer: Yup.string().trim().required("Please provide an answer"),
+    answer: Yup.string().trim().required("Please enter an answer"),
   });
 
   const handleSubmit = (values) => {
@@ -67,14 +67,14 @@ const SetPinRecoveryQuestion = () => {
   };
 
   return (
-    <Box className="app-container p-20-0 signin-main" maxWidth={600} mx="auto">
+    <Box className="app-container p-20-0 set-pin-div" maxWidth={600} mx="auto">
       <Box className="p-20">
         <Typography variant="h5" gutterBottom>
           Security Question
         </Typography>
 
         <Formik
-          initialValues={{ selectedQuestion: "", answer: "" }}
+          initialValues={{ selectedQuestion: 0, answer: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -108,16 +108,11 @@ const SetPinRecoveryQuestion = () => {
                 )}
               </FormGroup>
 
-              {touched.selectedQuestion && errors.selectedQuestion && (
-                <Typography color="error" variant="body2" mt={1}>
-                  {errors.selectedQuestion}
-                </Typography>
-              )}
-
               <TextField
                 label="Your Answer"
                 name="answer"
                 fullWidth
+                className="textarea-question-sequrity"
                 multiline
                 rows={3}
                 margin="normal"
@@ -134,10 +129,14 @@ const SetPinRecoveryQuestion = () => {
                 </Alert>
               )}
 
-              <Box textAlign="center" mt={3}>
-                <Button variant="contained" type="submit">
+              <Box textAlign="center" mt={5}>
+                <button
+                  variant="contained"
+                  type="submit"
+                  className="secondary-btn"
+                >
                   Submit
-                </Button>
+                </button>
               </Box>
             </Form>
           )}
