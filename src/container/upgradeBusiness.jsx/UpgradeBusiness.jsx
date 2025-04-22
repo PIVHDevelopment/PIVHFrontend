@@ -13,8 +13,8 @@ function UpgradeBusiness() {
       businessName: values?.businessName,
     };
 
-    Index.DataService.post(Index.Api.UPGRADE_BUSINESS_DETAIL, paymentData).then(
-      (res) => {
+    Index.DataService.post(Index.Api.UPGRADE_BUSINESS_DETAIL, paymentData)
+      .then((res) => {
         sessionStorage.setItem(
           "pi_user_data",
           JSON.stringify({
@@ -23,9 +23,15 @@ function UpgradeBusiness() {
             businessName: res?.data?.data?.businessName,
           })
         );
-        if (res.status === 200) navigate("/check-kyb-verification");
-      }
-    );
+        if (res.status === 200) {
+          navigate("/check-kyb-verification");
+        }
+      })
+      .catch((e) => {
+        Index.toasterError(
+          e?.response?.data?.message || "Something went wrong"
+        );
+      });
   };
 
   return (
@@ -59,7 +65,10 @@ function UpgradeBusiness() {
                   placeholder="Enter User Name"
                   name="userName"
                   value={formik.values.userName}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const noSpaces = e.target.value.replace(/\s/g, "");
+                    formik.setFieldValue("userName", noSpaces);
+                  }}
                 />
               </div>
               <div className="input-error">
