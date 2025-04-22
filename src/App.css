@@ -250,7 +250,8 @@ header {
   font-weight: 500;
 }
 
-.action-btn:disabled {
+.action-btn:disabled,
+.action-btn.send-pi-btn:disabled {
   flex: 1;
   padding: 16px;
   border: none;
@@ -832,17 +833,16 @@ button.address-book-btn {
   width: 100%;
 }
 
-
 .textarea-question-sequrity label {
   color: #ffffff;
 }
 
 .textarea-question-sequrity .MuiOutlinedInput-root {
-color: #ffff;
-font-size: 16px;
+  color: #ffff;
+  font-size: 16px;
 }
 
-.set-pin-row input.set-pin-input-box{
+.set-pin-row input.set-pin-input-box {
   width: 56px !important;
   height: 46px;
   text-align: center;
@@ -853,12 +853,12 @@ font-size: 16px;
   color: white;
 }
 
-.app-container .heading{
+.app-container .heading {
   margin-bottom: 36px;
   font-weight: 600;
 }
 
-.app-container.set-pin-div{
+.app-container.set-pin-div {
   display: flex;
   justify-content: center;
   padding: 0 20px;

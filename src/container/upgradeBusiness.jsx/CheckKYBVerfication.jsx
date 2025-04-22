@@ -30,7 +30,7 @@ function CheckKYBVerfication() {
         {(formik) => (
           <form onSubmit={formik.handleSubmit} className="send-form"> */}
       <div className="send-form">
-        <button disabled className="action-btn full-width send-pi-btn">
+        <button disabled={true} className="action-btn full-width send-pi-btn">
           KYB Verification
         </button>
         <button
