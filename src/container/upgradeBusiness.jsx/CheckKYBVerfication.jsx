@@ -6,20 +6,6 @@ function CheckKYBVerfication() {
   const formRef = useRef();
   const navigate = Index.useNavigate();
 
-  console.log({ userData });
-
-  const handleSkip = () => {
-    if (!userData?.businessTxn?.isPin) {
-      navigate("/set-txn-pin", { state: { isBusiness: true } });
-    } else if (!userData?.businessTxn?.isQuestion) {
-      navigate("/set-recovery-pin-question", {
-        state: { isBusiness: true },
-      });
-    } else {
-      navigate("/home");
-    }
-  };
-
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -44,11 +30,11 @@ function CheckKYBVerfication() {
         {(formik) => (
           <form onSubmit={formik.handleSubmit} className="send-form"> */}
       <div className="send-form">
-        <button className="action-btn full-width send-pi-btn">
+        <button disabled className="action-btn full-width send-pi-btn">
           KYB Verification
         </button>
         <button
-          onClick={() => handleSkip("/")}
+          onClick={() => navigate("/upgrade-business")}
           className="action-btn full-width send-pi-btn"
         >
           Skip for now

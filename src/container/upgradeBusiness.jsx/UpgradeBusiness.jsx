@@ -23,8 +23,14 @@ function UpgradeBusiness() {
             businessName: res?.data?.data?.businessName,
           })
         );
-        if (res.status === 200) {
-          navigate("/check-kyb-verification");
+        if (!userData?.businessTxn?.isPin) {
+          navigate("/set-txn-pin", { state: { isBusiness: true } });
+        } else if (!userData?.businessTxn?.isQuestion) {
+          navigate("/set-recovery-pin-question", {
+            state: { isBusiness: true },
+          });
+        } else {
+          navigate("/home");
         }
       })
       .catch((e) => {

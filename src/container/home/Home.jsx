@@ -253,7 +253,7 @@ function Home() {
               Configure Salary Disbursement
             </h6>
           </div>
-          <NavLink className="setting-cont-box" to={"/upgrade-business"}>
+          <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
             <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
