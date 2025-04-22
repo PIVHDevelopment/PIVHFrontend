@@ -29,6 +29,7 @@ import {
   addWalletAddressFormSchema,
   depositPiFormSchema,
   withdrawPiFormSchema,
+  addBusinessAddressFormSchema,
 } from "../utils/Validation";
 import moment from "moment";
 import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toaster";
@@ -72,6 +73,7 @@ const Index = {
   addWalletAddressFormSchema,
   depositPiFormSchema,
   withdrawPiFormSchema,
+  addBusinessAddressFormSchema,
 };
 
 export default Index;

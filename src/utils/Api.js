@@ -17,9 +17,11 @@ const Api = {
   PAYMENT_SEND: "/payments/payment-send",
 
   ADD_WALLET_ADDRESS: "/user/add-wallet-address",
-  GET_USERS:"/user/get-users",
+  GET_USERS: "/user/get-users",
 
-  WITHDRAW:"/payments/withdraw",
+  WITHDRAW: "/payments/withdraw",
+
+  UPGRADE_BUSINESS_DETAIL: "/user/upgrade-business-details",
 };
 
 export default Api;

@@ -17,6 +17,8 @@ import PublicRoute from "./PublicRoute";
 import AddWallet from "../container/addWallet/AddWallet";
 import Deposit from "../container/deposit/Deposit";
 import Withdraw from "../container/withdraw/Withdraw";
+import UpgradeBusiness from "../container/upgradeBusiness.jsx/UpgradeBusiness";
+import CheckKYBVerfication from "../container/upgradeBusiness.jsx/CheckKYBVerfication";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -85,6 +87,14 @@ const Routers = () => {
         {
           path: "/add-wallet",
           element: <AddWallet />,
+        },
+        {
+          path: "/upgrade-business",
+          element: <UpgradeBusiness />,
+        },
+        {
+          path: "/check-kyb-verification",
+          element: <CheckKYBVerfication />,
         },
       ],
     },

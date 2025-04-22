@@ -95,8 +95,8 @@ function Home() {
                 className="icon-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
-                // onClick={handleOpen}
-                onClick={() => navigate("/add-wallet")}
+                onClick={handleOpen}
+                // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -253,6 +253,12 @@ function Home() {
               Configure Salary Disbursement
             </h6>
           </div>
+          <NavLink className="setting-cont-box" to={"/upgrade-business"}>
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Upgrade to business version</h6>
+          </NavLink>
         </Index.Modal.Body>
       </Index.Modal>
     </>

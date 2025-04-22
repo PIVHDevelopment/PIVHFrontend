@@ -35,3 +35,8 @@ export const withdrawPiFormSchema = Yup.object({
 export const addWalletAddressFormSchema = Yup.object({
   walletAddress: Yup.string().required("Please enter wallet address"),
 });
+
+export const addBusinessAddressFormSchema = Yup.object({
+  userName: Yup.string().required("Please enter user name"),
+  businessName: Yup.string().required("Please enter business name"),
+});
