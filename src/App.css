@@ -828,7 +828,6 @@ word-spacing: 2px;
 
 .set-pin-box {
   width: 100%;
-  padding: 0 30px;
 }
 
 
@@ -839,4 +838,26 @@ word-spacing: 2px;
 .textarea-question-sequrity .MuiOutlinedInput-root {
 color: #ffff;
 font-size: 16px;
+}
+
+.set-pin-row input.set-pin-input-box{
+  width: 56px !important;
+  height: 46px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 20px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.app-container .heading{
+  margin-bottom: 36px;
+  font-weight: 600;
+}
+
+.app-container.set-pin-div{
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
 }

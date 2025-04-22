@@ -44,7 +44,7 @@ const SetPinRecoveryQuestion = () => {
   };
 
   return (
-    <Box className="app-container p-20-0 signin-main" maxWidth={600} mx="auto">
+    <Box className="app-container p-20-0 set-pin-div" maxWidth={600} mx="auto">
       <Box className="p-20">
         <Typography variant="h5" gutterBottom>
           Security Question
