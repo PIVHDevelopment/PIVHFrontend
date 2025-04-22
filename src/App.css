@@ -780,3 +780,55 @@ button.address-book-btn {
   color: #b90005;
   font-size: 13px;
 }
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField {
+  border: 1px solid #ffff;
+  border-radius: 6px;
+}
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField input {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px;
+  width: 42px;
+}
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField fieldset {
+  display: none;
+}
+
+.set-pin-box .text {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 600;
+  word-spacing: 2px;
+}
+
+.app-container {
+  background-color: #fff;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.signin-main {
+  max-width: 600px;
+  margin: auto;
+}
+
+.set-pin-row .show-icon {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.set-pin-box .set-pin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.set-pin-box {
+  width: 100%;
+  padding: 0 30px;
+}
