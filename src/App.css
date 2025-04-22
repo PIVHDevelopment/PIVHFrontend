@@ -830,3 +830,13 @@ word-spacing: 2px;
   width: 100%;
   padding: 0 30px;
 }
+
+
+.textarea-question-sequrity label {
+  color: #ffffff;
+}
+
+.textarea-question-sequrity .MuiOutlinedInput-root {
+color: #ffff;
+font-size: 16px;
+}
