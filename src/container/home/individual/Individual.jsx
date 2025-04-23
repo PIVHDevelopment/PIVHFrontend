@@ -16,7 +16,7 @@ function Individual({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.receiveMoney} alt="Send Money" />
+            <img src={Index.deposit} alt="Send Money" />
           </span>
           Deposit
         </button>
@@ -31,7 +31,7 @@ function Individual({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Send Money" />
+            <img src={Index.send} alt="Send Money" />
           </span>
           Send
         </button>
@@ -52,7 +52,7 @@ function Individual({ balance }) {
           onClick={() => navigate("/withdraw")}
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Receive Money" />
+            <img src={Index.wallet} alt="Receive Money" />
           </span>
           Withdraw
         </button>

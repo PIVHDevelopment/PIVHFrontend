@@ -223,13 +223,13 @@ function Home() {
         <Index.Modal.Body>
           <NavLink className="setting-cont-box" to={"/add-wallet"}>
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.walletaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Wallet Address</h6>
           </NavLink>
           <div className="setting-cont-box">
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.businessaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Business Address</h6>
           </div>
@@ -264,7 +264,7 @@ function Home() {
           </div>
           <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
             <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+              <img src={Index.businessversion} alt="" />
             </div>
             <h6 className="setting-cont-title">Upgrade to business version</h6>
           </NavLink>
@@ -277,7 +277,7 @@ function Home() {
             }}
           >
             <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+              <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
           </div>

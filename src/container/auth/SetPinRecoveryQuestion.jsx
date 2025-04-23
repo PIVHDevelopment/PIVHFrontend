@@ -91,7 +91,7 @@ const SetPinRecoveryQuestion = () => {
   };
 
   return (
-    <Box className="app-container p-20-0 set-pin-div" maxWidth={600} mx="auto">
+    <Box className="app-container p-20-0 set-pin-div">
       <header className="receive-center">
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt="Back" />
@@ -160,7 +160,8 @@ const SetPinRecoveryQuestion = () => {
                 <button
                   variant="contained"
                   type="submit"
-                  className="secondary-btn share-btn"
+                  className="action-btn full-width send-pi-btn"
+                // className="secondary-btn share-btn"
                 >
                   {isLoading ? (
                     <Spinner animation="border" role="status" size="sm" />
