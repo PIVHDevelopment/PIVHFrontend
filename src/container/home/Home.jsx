@@ -3,7 +3,7 @@ import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
@@ -15,14 +15,20 @@ const axiosClient = axios.create({
 });
 
 function Home() {
+  const location = useLocation();
+  const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
   const [transactionList, setTransactionList] = useState([]);
   const [balance, setBalance] = useState("0");
-
+  const [businessBalance, setBusinessBalance] = useState("0");
+  let typeTxn = tab == 1 ? "individual" : "business";
+  console.log({isBusiness});
+  
+  
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
     setCopied(true);
@@ -48,10 +54,13 @@ function Home() {
   };
   const handleGetTransactions = () => {
     Index.DataService.get(
-      Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
+      `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
     ).then((res) => {
+      console.log({ res });
+      
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
+      setBusinessBalance(res?.data?.data?.businessBalance);
     });
   };
 
@@ -65,10 +74,10 @@ function Home() {
 
   useEffect(() => {
     handleGetTransactions();
-    if (userData?.walletAddress) {
-      handleGetBalance();
-    }
-  }, []);
+    // if (userData?.walletAddress) {
+    //   handleGetBalance();
+    // }
+  }, [typeTxn]);
 
   return (
     <>
@@ -96,6 +105,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -109,7 +119,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            {/* <div className="wallet-tabs">
+            <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -124,7 +134,7 @@ function Home() {
               >
                 Business
               </button>
-            </div> */}
+            </div>
             <div className="wallet-id">
               <span id="walletAddress">{userData?.userName}</span>
               <button className="copy-btn" onClick={handleCopy}>
@@ -134,15 +144,15 @@ function Home() {
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
-                {parseFloat(balance).toFixed(2)} Pi
+                {parseFloat(tab == 2 ? businessBalance : balance).toFixed(2)} Pi
               </h1>
             </div>
             <Index.TabContent>
               <Index.TabPane eventKey={1}>
-                <Individual />
+                <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
-                <Business />
+                <Business balance={businessBalance}/>
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
@@ -150,17 +160,18 @@ function Home() {
 
         {transactionList?.length ? (
           <div
-            className={`transaction-section${
-              tab === 2 ? " transaction-section-top" : ""
-            }`}
+            // className={`transaction-section${
+            //   tab === 2 ? " transaction-section-top" : ""
+            // }`}
+            className="transaction-section"
           >
             <h2>Transaction History</h2>
             <div className="transaction-list">
-              {transactionList?.map((transaction) => {
+              {transactionList?.map((transaction,index) => {
                 const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
-                  <div className="transaction-main-box">
+                  <div className="transaction-main-box" key={index}>
                     <div className="transaction-details">
                       <img
                         src={isPositive ? Index.income : Index.expense}
@@ -179,9 +190,8 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
                       <span>
                         {amountPrefix}
@@ -251,6 +261,34 @@ function Home() {
             <h6 className="setting-cont-title">
               Configure Salary Disbursement
             </h6>
+          </div>
+
+          <div className="setting-cont-box" onClick={() => navigate("/address-book")}>
+            <div className="setting-icon-box">
+              <img src={Index.addressbook} alt="" />
+            </div>
+            <h6 className="setting-cont-title">
+              Address Book
+            </h6>
+          </div>
+          <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Upgrade to business version</h6>
+          </NavLink>
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/verify-answer", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Recover Pin</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

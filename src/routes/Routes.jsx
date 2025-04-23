@@ -16,6 +16,15 @@ import AdminLayOut from "../container/adminLayout/AdminLayOut";
 import PublicRoute from "./PublicRoute";
 import AddWallet from "../container/addWallet/AddWallet";
 import Deposit from "../container/deposit/Deposit";
+import Withdraw from "../container/withdraw/Withdraw";
+import UpgradeBusiness from "../container/upgradeBusiness.jsx/UpgradeBusiness";
+import CheckKYBVerfication from "../container/upgradeBusiness.jsx/CheckKYBVerfication";
+import SetTxnPin from "../container/auth/SetTxnPin";
+import SetPinRecoveryQuestion from "../container/auth/SetPinRecoveryQuestion";
+import SuccessMessage from "../container/auth/SuccessMessage";
+import VerifyAnswer from "../container/upgradeBusiness.jsx/VerifyAnswer";
+import VerificationPin from "../container/verificationPin/VerificationPin";
+import AddressBook from "../container/addressBook/AddressBook";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -35,6 +44,26 @@ const Routers = () => {
           <SignIn />
         </PublicRoute>
       ),
+    },
+    {
+      path: "/set-txn-pin",
+      element: <SetTxnPin />,
+    },
+    {
+      path: "/set-recovery-pin-question",
+      element: <SetPinRecoveryQuestion />,
+    },
+    {
+      path: "/update-pin-successfully",
+      element: <SuccessMessage />,
+    },
+    {
+      path: "/verify-answer",
+      element: <VerifyAnswer />,
+    },
+    {
+      path: "/shop",
+      element: <Shop />,
     },
     {
       path: "/shop",
@@ -66,6 +95,10 @@ const Routers = () => {
           element: <Deposit />,
         },
         {
+          path: "/withdraw",
+          element: <Withdraw />,
+        },
+        {
           path: "/send",
           element: <Send />,
         },
@@ -80,6 +113,23 @@ const Routers = () => {
         {
           path: "/add-wallet",
           element: <AddWallet />,
+        },
+        {
+          path: "/upgrade-business",
+          element: <UpgradeBusiness />,
+        },
+        {
+          path: "/check-kyb-verification",
+          element: <CheckKYBVerfication />,
+        },
+        {
+          path: "/verification-pin",
+          element: <VerificationPin />,
+        },
+
+        {
+          path: "/address-book",
+          element: <AddressBook />,
         },
       ],
     },

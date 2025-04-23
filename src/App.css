@@ -21,6 +21,7 @@ h6 {
 *::after {
   box-sizing: border-box;
 }
+
 :root {
   --primary-gradient: linear-gradient(135deg, #2d1b69, #6b2a96);
   --primary-color: #6b2a96;
@@ -35,6 +36,7 @@ h6 {
   --button-radius: 100px;
   --text-black: #000000;
   --bg-white: #ffffff;
+  --text-yellow: #d9e238;
 }
 
 * {
@@ -249,6 +251,23 @@ header {
   font-weight: 500;
 }
 
+.action-btn:disabled,
+.action-btn.send-pi-btn:disabled {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  background: #9e9e9e;
+  color: var(--text-black);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
 .action-btn.full-width {
   width: 100%;
   margin-bottom: 16px;
@@ -341,10 +360,12 @@ header {
   padding: 20px;
   margin-top: auto;
 }
+
 .transaction-section.transaction-section-top {
   padding-top: 100px;
   margin-top: -120px;
 }
+
 .transaction-section h2 {
   font-size: 16px;
   margin-bottom: 16px;
@@ -394,12 +415,14 @@ header {
   justify-content: end;
   align-items: end;
 }
+
 .transaction-amount .transaction-date {
   font-size: 13px;
   opacity: 0.7;
   color: #fff;
   font-weight: 400;
 }
+
 .transaction-amount.positive {
   color: var(--success-color);
 }
@@ -413,12 +436,19 @@ header {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.input-group fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .input-group label {
@@ -429,6 +459,11 @@ header {
 .input-wrapper {
   display: flex;
   /* gap: 12px; */
+}
+
+.text-color {
+  color: var(--text-yellow);
+  font-family: sans-serif;
 }
 
 .input-wrapper input {
@@ -469,6 +504,15 @@ header {
 .notes-input {
   width: 100%;
   padding: 16px;
+  background: var(--dark-bg);
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.notes-input-box {
+  width: 100%;
   background: var(--dark-bg);
   border: none;
   border-radius: 40px;
@@ -618,6 +662,7 @@ button.address-book-btn {
 .app-container.p-20-0 {
   padding: 0;
 }
+
 .app-container .p-20 {
   padding: 20px;
 }
@@ -631,23 +676,28 @@ button.address-book-btn {
   border-radius: 0;
   border-bottom: 1px solid #272727;
 }
+
 .transaction-details {
   display: flex;
   gap: 16px;
 }
+
 .stat-card:first-child {
-  border-right: 1px solid #dfdfdf; /* Add border between the two divs */
+  border-right: 1px solid #dfdfdf;
+  /* Add border between the two divs */
 }
 
 .input-wrapper.send-input-box {
   position: relative;
 }
+
 .input-wrapper.send-input-box .paste-btn {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translate(0%, -50%);
 }
+
 .input-wrapper.send-input-box .left-icon {
   position: absolute;
   left: 16px;
@@ -655,18 +705,22 @@ button.address-book-btn {
   transform: translate(0%, -50%);
   display: flex;
 }
+
 .transaction-icon {
   object-fit: contain;
 }
+
 .modal.user-setting-modal {
   bottom: 0;
   top: auto;
   height: unset;
 }
+
 .modal.show.user-setting-modal .modal-dialog {
   margin: 0 auto;
   padding: 8px;
 }
+
 .modal.user-setting-modal .modal-content {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -676,9 +730,11 @@ button.address-book-btn {
   font-size: 14px;
   color: #000;
 }
+
 .setting-icon-box img {
   max-width: 100%;
 }
+
 .setting-cont-title {
   font-size: 16px;
   font-weight: 600;
@@ -686,35 +742,37 @@ button.address-book-btn {
   margin-top: 4px;
   margin-bottom: 0;
 }
+
 .setting-cont-box {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 26px;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.signin-header{
+.signin-header {
   justify-content: center;
 }
 
-.app-container.signin-main{
+.app-container.signin-main {
   display: flex;
   justify-content: center;
 }
 
-.sigin-body{
+.sigin-body {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.app-icon img{
+.app-icon img {
   height: 100%;
 }
 
-.sigin-footer{
+.sigin-footer {
   display: flex;
   justify-content: space-between;
   padding: 20px 30px 0 30px;
@@ -733,6 +791,475 @@ button.address-book-btn {
   cursor: pointer;
 }
 
-.sigin-footer p:hover{
+.sigin-footer p:hover {
   color: lightgray;
+}
+
+.input-error {
+  color: #b90005;
+  font-size: 13px;
+}
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField {
+  border: 1px solid #ffff;
+  border-radius: 6px;
+}
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField input {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px;
+  width: 42px;
+}
+
+.set-pin-box .set-pin-input .MuiOtpInput-TextField fieldset {
+  display: none;
+}
+
+.set-pin-box .text {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 600;
+  word-spacing: 2px;
+  margin-bottom: 13px;
+}
+
+.app-container {
+  background-color: #fff;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.set-pin-row .show-icon {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.set-pin-box .set-pin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.set-pin-box {
+  width: 100%;
+}
+
+.textarea-question-sequrity label {
+  color: #ffffff;
+}
+
+.textarea-question-sequrity .MuiOutlinedInput-root {
+  color: #ffff;
+  font-size: 16px;
+  border: 2px solid white;
+  border-radius: 6px;
+}
+
+.textarea-question-sequrity .MuiOutlinedInput-root fieldset {
+  display: none;
+}
+
+.set-pin-row input.set-pin-input-box {
+  width: 58px !important;
+  height: 54px;
+  color: #ffff;
+  font-size: 16px;
+}
+
+.set-pin-row input.set-pin-input-box {
+  width: 56px !important;
+  height: 46px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 20px !important;
+  background: transparent;
+  border: 3px solid white;
+  color: white;
+  font-weight: 600;
+}
+
+.set-pin-row input.set-pin-input-box:focus-visible {
+  outline: none;
+}
+
+.app-container .heading {
+  font-weight: 600;
+}
+
+.app-container.set-pin-div {
+  display: flex;
+  padding: 20px 20px;
+}
+
+.set-pin-div .heading-note {
+  margin-bottom: 36px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.question-radio .question-radio-box,
+.question-radio .question-radio-box.Mui-checked {
+  color: white;
+}
+
+.pin-success-message-div {
+  border: 4px solid #ffff;
+  min-height: 350px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pin-success-message-div .logo-box img {
+  height: 74px;
+  width: 74px;
+}
+
+.pin-success-message-div .button-box button {
+  width: 100%;
+  margin-bottom: 16px;
+  background: #e38cff;
+  color: #fff;
+  font-size: 20px;
+  padding: 18px 60px;
+  border-radius: 46px;
+  border: none;
+
+}
+
+.pin-success-message-div .success-message {
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  align-items: 48px;
+}
+
+.app-container .p-26 {
+  padding: 26px;
+}
+
+/* verification css start */
+
+.common-pin-flex {
+  display: flex;
+  gap: 15px;
+}
+
+.common-pin-details .common-pin-flex .common-pin-input {
+  width: 100% !important;
+  height: 46px;
+}
+
+.common-pin-btn-center {
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.common-head-details {
+  margin-bottom: 35px;
+}
+
+.common-style-modal {
+  border: 0px;
+  border-radius: 10px;
+  padding: 0px;
+}
+
+.common-style-modal .modal-header-common {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 15px;
+  border-bottom: 1px solid #82828294;
+}
+
+.modal-header-common .add-title {
+  color: #000;
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+.common-grid .label-field {
+  font-size: 14px;
+  color: #000000;
+  font-family: 'Poppins';
+  font-weight: 400;
+  margin-bottom: 3px;
+  line-height: 20px;
+}
+
+.common-style-modal .modal-body {
+  padding: 15px;
+  max-height: calc(100vh - 170px);
+  overflow: auto;
+}
+
+.flex-filed-details .radio-group-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.radio-group-flex .MuiFormControlLabel-label {
+  font-size: 14px;
+  color: #000;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
+.common-grid .input-wrapper {
+  flex-direction: column;
+}
+
+.grid-row .common-grid {
+  margin-bottom: 14px;
+}
+
+.common-grid .input-wrapper input {
+  border-radius: 7px;
+  background: transparent;
+  color: #000;
+  border: 1px solid #00000080;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.common-grid .input-wrapper input::placeholder {
+  color: #00000080;
+}
+
+.flex-filed-details .radio-group-flex span svg {
+  color: #523b88;
+}
+
+.common-style-modal .modal-footer {
+  padding: 15px 15px;
+}
+
+.footer-address-center .action-btn,
+.footer-address-center .action-btn:hover,
+.footer-address-center .action-btn.active {
+  margin-bottom: 0px;
+  background: #523b88;
+  font-size: 17px;
+  padding: 15px 20px;
+}
+
+.modal-footer-address .footer-address-center {
+  width: 100%;
+}
+
+.grid-row .common-grid:last-child {
+  margin: 0px;
+}
+
+.list-ul-address .list-item-address {
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--dark-bg);
+  margin-bottom: 10px;
+}
+
+.address-book-listing .list-ul-address {
+  padding: 0px;
+  max-height: calc(100vh - 210px);
+  overflow: auto;
+  padding-right: 10px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar,
+.common-style-modal .modal-body::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-track,
+.common-style-modal .modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-thumb,
+.common-style-modal .modal-body::-webkit-scrollbar-thumb {
+  background: #8c76be;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-thumb:hover,
+.common-style-modal .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #8c76be;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-left-contain .list-field-show {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.flex-justify-gap-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.address-left-contain .list-field-show .label-contain-address {
+  flex: 0 0 90px;
+  max-width: 90px;
+  width: 100%;
+  font-family: 'Poppins';
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #ffff;
+}
+
+.address-left-contain .list-field-show .field-contain-address {
+  flex: 1;
+  font-family: 'Poppins';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.address-left-contain {
+  flex: 1;
+}
+
+.address-auth-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.address-auth-details .btn,
+.address-auth-details .btn:hover,
+.address-auth-details .btn:active {
+  padding: 2px;
+  border: none !important;
+  background-color: #ffffff45 !important;
+  border-radius: 50%;
+  max-width: 30px;
+  height: 30px;
+  width: 100%;
+}
+
+.address-book-head .icon-btn {
+  height: 30px;
+  width: 30px;
+}
+
+
+
+.address-left-contain .list-field-show:last-child {
+  margin-bottom: 0px;
+}
+
+.address-auth-details .btn svg {
+  font-size: 18px;
+  color: #fff;
+}
+
+.address-right-contain {
+  max-width: 30px;
+  width: 100%;
+}
+
+.address-book-listing.MuiBox-root.css-0 {
+  margin-right: -10px;
+}
+
+.address-book-head .address-book-title {
+  font-family: 'Poppins';
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.address-book-head {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-header-common.address-modal-header .btn-close {
+  margin-left: auto;
+}
+
+
+.delete-modal-contain {
+  text-align: center;
+}
+
+.delete-modal-contain .are-you-sure-title {
+  color: #000;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.delete-modal-contain .are-you-sure-desc {
+  color: #000;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: "Poppins";
+}
+
+.footer-address-center .action-btn-border {
+  margin-bottom: 0px;
+  background: transparent;
+  font-size: 17px;
+  padding: 15px 20px;
+  color: #523b88;
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #523b88;
+  width: 100%;
+  font-weight: 500;
+}
+
+.delete-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.delete-flex button {
+  width: 100%;
+  max-width: 130px;
 }

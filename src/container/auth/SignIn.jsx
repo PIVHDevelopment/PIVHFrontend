@@ -28,8 +28,17 @@ function SignIn() {
     // alert("Hey : ");
     Index.DataService.post(Index.Api.SIGN_IN, { authResult })
       .then((res) => {
-        sessionStorage.setItem("pi_user_data", JSON.stringify(res?.data?.data));
-        navigate("/home");
+        let userData = res?.data?.data;
+        sessionStorage.setItem("pi_user_data", JSON.stringify(userData));
+        console.log({ userData });
+
+        if (!userData?.userTxn?.isPin) {
+          navigate("/set-txn-pin");
+        } else if (!userData?.userTxn.isQuestion) {
+          navigate("/set-recovery-pin-question");
+        } else {
+          navigate("/home");
+        }
       })
       .catch((err) => {
         sessionStorage.removeItem("user_token");
@@ -55,17 +64,17 @@ function SignIn() {
         <div className="sigin-body">
           <button className="secondary-btn share-btn" onClick={signIn}>
             {isLoading ? (
-              <Spinner animation="border" role="status" size="sm"/>
+              <Spinner animation="border" role="status" size="sm" />
             ) : (
               "Sign In"
             )}
           </button>
         </div>
       </div>
-        <div className="sigin-footer">
-          <p onClick={()=>navigate("/term-conditions")}>Terms & Conditions</p>
-          <p onClick={()=>navigate("/privacy-policy")}>Privacy Policy</p>
-        </div>
+      <div className="sigin-footer">
+        <p onClick={() => navigate("/term-conditions")}>Terms & Conditions</p>
+        <p onClick={() => navigate("/privacy-policy")}>Privacy Policy</p>
+      </div>
     </div>
   );
 }

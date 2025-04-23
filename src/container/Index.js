@@ -17,10 +17,18 @@ import downArrow from "../assets/images/down-arrow.png";
 import copyBtn from "../assets/images/Copy-Btn.png";
 import qrCode from "../assets/images/QR-Code-Receive.png";
 import downloadImg from "../assets/images/Download-Btn.png";
+import Plusadd from "../assets/images/Plusadd.png";
 import share from "../assets/images/Share.png";
+import addressbook from "../assets/images/addressbook.png";
 import back from "../assets/images/Back.png";
+import invisibleIcon from "../assets/images/invisible.svg";
+import showIcon from "../assets/images/show.svg";
+import markIcon from "../assets/images/mark.svg";
+import successIcon from "../assets/images/success.svg";
+// import pencil from "../assets/images/pencil.png";
+// import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
@@ -28,12 +36,17 @@ import {
   sendPiFormSchema,
   addWalletAddressFormSchema,
   depositPiFormSchema,
+  withdrawPiFormSchema,
+  addBusinessAddressFormSchema,
 } from "../utils/Validation";
 import moment from "moment";
+import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toaster";
 
 const Index = {
   Modal,
   TabContainer,
+  successIcon,
+  markIcon,
   TabContent,
   TabPane,
   pocketPi,
@@ -41,6 +54,9 @@ const Index = {
   profile,
   logout,
   scan,
+  toasterSuccess,
+  toasterError,
+  toasterInfo,
   setting,
   copy,
   income,
@@ -50,6 +66,7 @@ const Index = {
   autopay,
   configure,
   useNavigate,
+  useLocation,
   receiveMoney,
   sendMoney,
   downArrow,
@@ -65,6 +82,14 @@ const Index = {
   moment,
   addWalletAddressFormSchema,
   depositPiFormSchema,
+  withdrawPiFormSchema,
+  addBusinessAddressFormSchema,
+  showIcon,
+  invisibleIcon,
+  Plusadd,
+  // pencil,
+  // delete,
+  addressbook,
 };
 
 export default Index;

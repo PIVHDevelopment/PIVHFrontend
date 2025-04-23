@@ -1,15 +1,51 @@
 import React, { useRef, useState } from "react";
 import Index from "../Index";
+import { CircularProgress } from "@mui/material";
 
 function Deposit() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const location = Index.useLocation();
+  const balance = location?.state?.balance;
+  const typeTxn = location?.state?.typeTxn;
   const [tab, setTab] = useState(1);
+  const [buttonLoader, setButtonLoader] = useState(false);
+  console.log({typeTxn});
+  
   const handleSubmitFunction = async (values) => {
+    console.log(parseFloat(balance) + parseFloat(values?.amount));
+    if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
+      Index.toasterError("Your balance is exceeding the limit of 314");
+      return false;
+    }
+    setButtonLoader(true);
+    if (typeTxn == "business") {
+   try {
+    const bodyData={
+      uid:userData?.uid,
+      amount: values?.amount
+    }
+    const res = await Index.DataService.post(
+      Index.Api.BUSINESS_DEPOSITE,bodyData)
+      if(res?.data?.status === 200){
+        Index.toasterSuccess(res?.data?.message);
+        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
+      }else{
+        Index.toasterError(res?.data?.message || "Something went wrong.");
+      }
+    
+   } catch (error) {
+    Index.toasterError(
+      error?.response?.data?.message || "An unexpected error occurred."
+    );
+  }
+  setButtonLoader(false);
+    } else{
     const paymentData = {
       amount: values?.amount,
       memo: "deposit",
+      typeTxn,
       metadata: {
         userName: userData?.userName,
         uid: userData?.uid,
@@ -24,6 +60,7 @@ function Deposit() {
     };
     await window.Pi.createPayment(paymentData, callbacks);
   };
+}
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
       ...formRef?.current?.values,
@@ -41,22 +78,25 @@ function Deposit() {
           JSON.stringify(res?.data?.data?.user)
         );
         navigate("/home");
+        setButtonLoader(false);
       }
     });
   };
 
   const onCancel = (paymentId) => {
     console.log("onCancel", paymentId);
-    return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, { paymentId });
+    return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, {
+      paymentId,
+    });
   };
 
   const onError = (error, payment) => {
     console.log("onError", error);
     if (payment) {
-      console.log(payment);
       // handle the error accordingly
     }
   };
+
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -69,7 +109,7 @@ function Deposit() {
         <div className="header-right"></div>
       </header>
 
-      <Index.TabContainer
+      {/* <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
         activeKey={tab}
@@ -94,7 +134,7 @@ function Deposit() {
           <Index.TabPane eventKey={1}></Index.TabPane>
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
-      </Index.TabContainer>
+      </Index.TabContainer> */}
       <Index.Formik
         initialValues={{
           amount: "",
@@ -109,17 +149,24 @@ function Deposit() {
               <div className="input-wrapper">
                 <input
                   type="text"
+                  inputMode="numeric" // shows numeric keyboard on mobile
                   className="notes-input"
                   placeholder="Enter Amount"
                   name="amount"
                   value={formik.values.amount}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Only allow digits
+                    if (/^\d*\.?\d{0,6}$/.test(value)) {
+                      formik.setFieldValue("amount", value);
+                    }
+                  }}
                 />
-                <div>
-                  {formik.errors?.amount && formik.touched?.amount
-                    ? formik.errors?.amount
-                    : null}
-                </div>
+              </div>
+              <div className="input-error">
+                {formik.errors?.amount && formik.touched?.amount
+                  ? formik.errors?.amount
+                  : null}
               </div>
             </div>
             <div className="amount-section">
@@ -127,10 +174,25 @@ function Deposit() {
               <div className="amount-display">
                 {formik.values.amount || "0"} Pi
               </div>
+              {formik.values.amount && typeTxn !== "business" ? (
+                <label className="text-color">
+                  0.05 Pi will be deducted as platform fees
+                </label>
+              ) : (
+                ""
+              )}
             </div>
 
-            <button className="action-btn full-width send-pi-btn" type="submit">
+            {/* <button className="action-btn full-width send-pi-btn" type="submit">
               Deposit
+            </button> */}
+            <button
+              className="action-btn full-width send-pi-btn"
+              type="submit"
+              disabled={buttonLoader}
+              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+            >
+              {buttonLoader ? "Processing..." : "Deposit"}
             </button>
           </form>
         )}

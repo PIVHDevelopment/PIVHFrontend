@@ -1,7 +1,7 @@
 import React from "react";
 import Index from "../../Index";
 
-function Individual() {
+function Individual({ balance }) {
   const navigate = Index.useNavigate();
   return (
     <>
@@ -9,35 +9,44 @@ function Individual() {
         <button
           className="action-btn send-btn"
           id="sendBtn"
-          onClick={() => navigate("/deposit")}
+          onClick={() =>
+            navigate("/deposit", {
+              state: { balance: balance ,typeTxn : "individual"},
+            })
+          }
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Send Money" />
+            <img src={Index.receiveMoney} alt="Send Money" />
           </span>
           Deposit
         </button>
         <button
           className="action-btn send-btn"
           id="sendBtn"
-          onClick={() => navigate("/send")}
+          disabled={balance <= 0}
+          onClick={() =>
+            navigate("/send", {
+              state: { balance: balance ,typeTxn : "individual"},
+            })
+          }
         >
           <span className="btn-icon">
             <img src={Index.sendMoney} alt="Send Money" />
           </span>
           Send
         </button>
-        {/* <button
+        <button
           className="action-btn receive-btn"
-          id="receive-merchant"
-          onClick={() => navigate("/receive-merchant")}
+          id="withdraw"
+          disabled={balance <= 0}
+          onClick={() => navigate("/withdraw",{state:{typeTxn : "individual"}})}
         >
           <span className="btn-icon">
-            <img src={Index.receiveMoney} alt="Receive Money" />
+            <img src={Index.sendMoney} alt="Receive Money" />
           </span>
-          Receive
-        </button> */}
+          Withdraw
+        </button>
       </div>
-      {/* <button className="address-book-btn">Address Book</button> */}
     </>
   );
 }
