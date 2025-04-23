@@ -1263,3 +1263,19 @@ button.address-book-btn {
   width: 100%;
   max-width: 130px;
 }
+
+.no-address-book {
+  min-height: calc(100vh - 210px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.no-address-book .no-address-title {
+  font-family: 'Poppins';
+  font-size: 18px;
+  line-height: 26px;
+  color: #fff;
+}
