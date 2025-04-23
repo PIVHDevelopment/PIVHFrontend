@@ -120,7 +120,7 @@ const SetPinRecoveryQuestion = () => {
             handleBlur,
           }) => (
             <Form>
-              <FormGroup>
+              <FormGroup className="question-radio">
                 {(isBusiness ? businessQuestions : questions).map(
                   (q, index) => (
                     <FormControlLabel
@@ -129,6 +129,7 @@ const SetPinRecoveryQuestion = () => {
                         <Radio
                           name="selectedQuestion"
                           value={index}
+                          className="question-radio-box"
                           checked={parseInt(values.selectedQuestion) === index}
                           onChange={() =>
                             setFieldValue("selectedQuestion", index)
