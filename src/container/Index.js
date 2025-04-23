@@ -17,12 +17,16 @@ import downArrow from "../assets/images/down-arrow.png";
 import copyBtn from "../assets/images/Copy-Btn.png";
 import qrCode from "../assets/images/QR-Code-Receive.png";
 import downloadImg from "../assets/images/Download-Btn.png";
+import Plusadd from "../assets/images/Plusadd.png";
 import share from "../assets/images/Share.png";
+import addressbook from "../assets/images/addressbook.png";
 import back from "../assets/images/Back.png";
 import invisibleIcon from "../assets/images/invisible.svg";
 import showIcon from "../assets/images/show.svg";
 import markIcon from "../assets/images/mark.svg";
 import successIcon from "../assets/images/success.svg";
+// import pencil from "../assets/images/pencil.png";
+// import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import DataService from "../utils/DataService";
@@ -81,7 +85,11 @@ const Index = {
   withdrawPiFormSchema,
   addBusinessAddressFormSchema,
   showIcon,
-  invisibleIcon
+  invisibleIcon,
+  Plusadd,
+  // pencil,
+  // delete,
+  addressbook,
 };
 
 export default Index;

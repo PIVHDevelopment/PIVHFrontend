@@ -970,3 +970,296 @@ button.address-book-btn {
 .common-head-details {
   margin-bottom: 35px;
 }
+
+.common-style-modal {
+  border: 0px;
+  border-radius: 10px;
+  padding: 0px;
+}
+
+.common-style-modal .modal-header-common {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 15px;
+  border-bottom: 1px solid #82828294;
+}
+
+.modal-header-common .add-title {
+  color: #000;
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+.common-grid .label-field {
+  font-size: 14px;
+  color: #000000;
+  font-family: 'Poppins';
+  font-weight: 400;
+  margin-bottom: 3px;
+  line-height: 20px;
+}
+
+.common-style-modal .modal-body {
+  padding: 15px;
+  max-height: calc(100vh - 170px);
+  overflow: auto;
+}
+
+.flex-filed-details .radio-group-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.radio-group-flex .MuiFormControlLabel-label {
+  font-size: 14px;
+  color: #000;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
+.common-grid .input-wrapper {
+  flex-direction: column;
+}
+
+.grid-row .common-grid {
+  margin-bottom: 14px;
+}
+
+.common-grid .input-wrapper input {
+  border-radius: 7px;
+  background: transparent;
+  color: #000;
+  border: 1px solid #00000080;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.common-grid .input-wrapper input::placeholder {
+  color: #00000080;
+}
+
+.flex-filed-details .radio-group-flex span svg {
+  color: #523b88;
+}
+
+.common-style-modal .modal-footer {
+  padding: 15px 15px;
+}
+
+.footer-address-center .action-btn,
+.footer-address-center .action-btn:hover,
+.footer-address-center .action-btn.active {
+  margin-bottom: 0px;
+  background: #523b88;
+  font-size: 17px;
+  padding: 15px 20px;
+}
+
+.modal-footer-address .footer-address-center {
+  width: 100%;
+}
+
+.grid-row .common-grid:last-child {
+  margin: 0px;
+}
+
+.list-ul-address .list-item-address {
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--dark-bg);
+  margin-bottom: 10px;
+}
+
+.address-book-listing .list-ul-address {
+  padding: 0px;
+  max-height: calc(100vh - 210px);
+  overflow: auto;
+  padding-right: 10px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar,
+.common-style-modal .modal-body::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-track,
+.common-style-modal .modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-thumb,
+.common-style-modal .modal-body::-webkit-scrollbar-thumb {
+  background: #8c76be;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-book-listing .list-ul-address::-webkit-scrollbar-thumb:hover,
+.common-style-modal .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #8c76be;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.address-left-contain .list-field-show {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.flex-justify-gap-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.address-left-contain .list-field-show .label-contain-address {
+  flex: 0 0 90px;
+  max-width: 90px;
+  width: 100%;
+  font-family: 'Poppins';
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #ffff;
+}
+
+.address-left-contain .list-field-show .field-contain-address {
+  flex: 1;
+  font-family: 'Poppins';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.address-left-contain {
+  flex: 1;
+}
+
+.address-auth-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.address-auth-details .btn,
+.address-auth-details .btn:hover,
+.address-auth-details .btn:active {
+  padding: 2px;
+  border: none !important;
+  background-color: #ffffff45 !important;
+  border-radius: 50%;
+  max-width: 30px;
+  height: 30px;
+  width: 100%;
+}
+
+.address-book-head .icon-btn {
+  height: 30px;
+  width: 30px;
+}
+
+
+
+.address-left-contain .list-field-show:last-child {
+  margin-bottom: 0px;
+}
+
+.address-auth-details .btn svg {
+  font-size: 18px;
+  color: #fff;
+}
+
+.address-right-contain {
+  max-width: 30px;
+  width: 100%;
+}
+
+.address-book-listing.MuiBox-root.css-0 {
+  margin-right: -10px;
+}
+
+.address-book-head .address-book-title {
+  font-family: 'Poppins';
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.address-book-head {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-header-common.address-modal-header .btn-close {
+  margin-left: auto;
+}
+
+
+.delete-modal-contain {
+  text-align: center;
+}
+
+.delete-modal-contain .are-you-sure-title {
+  color: #000;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.delete-modal-contain .are-you-sure-desc {
+  color: #000;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: "Poppins";
+}
+
+.footer-address-center .action-btn-border {
+  margin-bottom: 0px;
+  background: transparent;
+  font-size: 17px;
+  padding: 15px 20px;
+  color: #523b88;
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #523b88;
+  width: 100%;
+  font-weight: 500;
+}
+
+.delete-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.delete-flex button {
+  width: 100%;
+  max-width: 130px;
+}
