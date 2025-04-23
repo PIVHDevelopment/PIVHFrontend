@@ -11,7 +11,7 @@ function Business({balance}) {
           id="sendBtn"
           onClick={() =>
             navigate("/deposit", {
-              state: { balance: balance },
+              state: { balance: balance,typeTxn : "business" },
             })
           }
         >
@@ -26,7 +26,7 @@ function Business({balance}) {
           disabled={balance <= 0}
           onClick={() =>
             navigate("/send", {
-              state: { balance: balance },
+              state: { balance: balance, typeTxn : "business" },
             })
           }
         >
@@ -39,7 +39,9 @@ function Business({balance}) {
           className="action-btn receive-btn"
           id="withdraw"
           disabled={balance <= 0}
-          onClick={() => navigate("/withdraw")}
+          onClick={() => navigate("/withdraw" , {
+            state: { typeTxn : "business" },
+          })}
         >
           <span className="btn-icon">
             <img src={Index.sendMoney} alt="Receive Money" />

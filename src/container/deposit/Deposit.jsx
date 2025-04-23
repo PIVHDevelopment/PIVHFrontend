@@ -8,9 +8,11 @@ function Deposit() {
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
   const balance = location?.state?.balance;
+  const typeTxn = location?.state?.typeTxn;
   const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
-
+  console.log({userData});
+  
   const handleSubmitFunction = async (values) => {
     console.log(parseFloat(balance) + parseFloat(values?.amount));
     if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
@@ -18,6 +20,29 @@ function Deposit() {
       return false;
     }
     setButtonLoader(true);
+    if (typeTxn == "business") {
+   try {
+    const bodyData={
+      uid:userData?.uid,
+      amount: values?.amount
+    }
+    const res = await Index.DataService.post(
+      Index.Api.BUSINESS_DEPOSITE,bodyData)
+      if(res?.data?.status === 200){
+        Index.toasterSuccess(res?.data?.message);
+        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
+      }else{
+        Index.toasterError(res?.data?.message || "Something went wrong.");
+      }
+    
+   } catch (error) {
+    Index.toasterError(
+      error?.response?.data?.message || "An unexpected error occurred."
+    );
+   }
+
+      
+    } else{
     const paymentData = {
       amount: values?.amount,
       memo: "deposit",
@@ -35,6 +60,7 @@ function Deposit() {
     };
     await window.Pi.createPayment(paymentData, callbacks);
   };
+}
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
       ...formRef?.current?.values,
@@ -70,6 +96,7 @@ function Deposit() {
       // handle the error accordingly
     }
   };
+
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -147,7 +174,7 @@ function Deposit() {
               <div className="amount-display">
                 {formik.values.amount || "0"} Pi
               </div>
-              {formik.values.amount ? (
+              {formik.values.amount && typeTxn !== "business" ? (
                 <label className="text-color">
                   0.05 Pi will be deducted as platform fees
                 </label>

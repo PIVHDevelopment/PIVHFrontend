@@ -5,6 +5,9 @@ import { CircularProgress } from "@mui/material";
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [balance, setBalance] = useState("0");
+ const [businessBalance, setBusinessBalance] = useState("0");
+    const location = Index.useLocation();
+    const typeTxn = location?.state?.typeTxn;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -18,13 +21,14 @@ function Withdraw() {
         amount: values?.amount,
         address: values?.address,
         userName: userData?.userName,
+        typeTxn,
       };
 
       const res = await Index.DataService.post(Index.Api.WITHDRAW, paymentData);
       setButtonLoader(false);
       if (res?.data?.status === 200) {
         Index.toasterSuccess(res?.data?.message);
-        navigate("/home");
+        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
       } else {
         Index.toasterError(res?.data?.message);
         setButtonLoader(false);
@@ -79,6 +83,7 @@ function Withdraw() {
       Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
     ).then((res) => {
       setBalance(res?.data?.data?.balance);
+      setBusinessBalance(res?.data?.data?.businessBalance);
     });
   };
 
@@ -140,7 +145,7 @@ function Withdraw() {
               <div className="amount-section">
                 <label>Available Balance</label>
                 <div className="amount-display">
-                  {parseFloat(balance).toFixed(2)} Pi
+                  {parseFloat(typeTxn == "business" ? businessBalance : balance).toFixed(2)} Pi
                 </div>
               </div>
               <div className="input-wrapper">

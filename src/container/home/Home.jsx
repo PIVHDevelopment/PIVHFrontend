@@ -26,6 +26,9 @@ function Home() {
   const [balance, setBalance] = useState("0");
   const [businessBalance, setBusinessBalance] = useState("0");
   let typeTxn = tab == 1 ? "individual" : "business";
+  console.log({isBusiness});
+  
+  
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
     setCopied(true);
@@ -164,11 +167,11 @@ function Home() {
           >
             <h2>Transaction History</h2>
             <div className="transaction-list">
-              {transactionList?.map((transaction) => {
+              {transactionList?.map((transaction,index) => {
                 const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
-                  <div className="transaction-main-box">
+                  <div className="transaction-main-box" key={index}>
                     <div className="transaction-details">
                       <img
                         src={isPositive ? Index.income : Index.expense}
