@@ -40,10 +40,14 @@ const SetPinRecoveryQuestion = () => {
   const isBusiness = location?.state?.isBusiness;
 
   const validationSchema = Yup.object().shape({
+<<<<<<< HEAD
+    answer: Yup.string().trim().required('Please enter your answer'),
+=======
     selectedQuestion: Yup.number()
       .typeError("Select a security question")
       .required("Select a security question"),
     answer: Yup.string().trim().required("Please enter an answer"),
+>>>>>>> 0ad0941c850814194d817a0b14b12cec15c488b4
   });
 
   const handleSubmit = (values) => {
@@ -64,23 +68,7 @@ const SetPinRecoveryQuestion = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
-          const sessionData = JSON.parse(
-            sessionStorage.getItem("pi_user_data")
-          );
-          const updatedSessionData = {
-            ...sessionData,
-            businessTxn: {
-              ...sessionData.businessTxn,
-              isQuestion: true,
-            },
-          };
-          sessionStorage.setItem(
-            "pi_user_data",
-            JSON.stringify(updatedSessionData)
-          );
-          navigate("/home", {
-            state: { isBusiness: true },
-          });
+          navigate("/update-pin-successfully");
         }
       })
       .catch((err) => {
@@ -112,6 +100,24 @@ const SetPinRecoveryQuestion = () => {
             handleBlur,
           }) => (
             <Form>
+<<<<<<< HEAD
+              <FormGroup className='question-radio'>
+                {questions.map((q, index) => (
+                  <FormControlLabel
+                    key={index}
+                    control={
+                      <Radio
+                        name="selectedQuestion"
+                        className='question-radio-box'
+                        value={index}
+                        checked={parseInt(values.selectedQuestion) === index}
+                        onChange={() => setFieldValue('selectedQuestion', index)}
+                      />
+                    }
+                    label={q}
+                  />
+                ))}
+=======
               <FormGroup>
                 {(isBusiness ? businessQuestions : questions).map(
                   (q, index) => (
@@ -131,11 +137,12 @@ const SetPinRecoveryQuestion = () => {
                     />
                   )
                 )}
+>>>>>>> 0ad0941c850814194d817a0b14b12cec15c488b4
               </FormGroup>
 
               <TextField
-                label="Your Answer"
                 name="answer"
+                placeholder='Enter your Answer'
                 fullWidth
                 className="textarea-question-sequrity"
                 multiline
