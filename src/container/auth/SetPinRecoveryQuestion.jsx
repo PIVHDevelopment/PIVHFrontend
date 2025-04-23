@@ -61,7 +61,23 @@ const SetPinRecoveryQuestion = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
-          navigate("/update-pin-successfully");
+          const sessionData = JSON.parse(
+            sessionStorage.getItem("pi_user_data")
+          );
+          const updatedSessionData = {
+            ...sessionData,
+            businessTxn: {
+              ...sessionData.businessTxn,
+              isQuestion: true,
+            },
+          };
+          sessionStorage.setItem(
+            "pi_user_data",
+            JSON.stringify(updatedSessionData)
+          );
+          navigate("/update-pin-successfully", {
+            state: { isBusiness: true },
+          });
         }
       })
       .catch((err) => {
@@ -76,7 +92,7 @@ const SetPinRecoveryQuestion = () => {
     <Box className="app-container p-20-0 set-pin-div" maxWidth={600} mx="auto">
       <Box className="p-20">
         <Typography variant="h5" gutterBottom>
-          Security Question
+          {isBusiness && "Business"} Security Question
         </Typography>
 
         <Formik
@@ -93,24 +109,6 @@ const SetPinRecoveryQuestion = () => {
             handleBlur,
           }) => (
             <Form>
-<<<<<<< HEAD
-              <FormGroup className='question-radio'>
-                {questions.map((q, index) => (
-                  <FormControlLabel
-                    key={index}
-                    control={
-                      <Radio
-                        name="selectedQuestion"
-                        className='question-radio-box'
-                        value={index}
-                        checked={parseInt(values.selectedQuestion) === index}
-                        onChange={() => setFieldValue('selectedQuestion', index)}
-                      />
-                    }
-                    label={q}
-                  />
-                ))}
-=======
               <FormGroup>
                 {(isBusiness ? businessQuestions : questions).map(
                   (q, index) => (
@@ -130,12 +128,11 @@ const SetPinRecoveryQuestion = () => {
                     />
                   )
                 )}
->>>>>>> 0ad0941c850814194d817a0b14b12cec15c488b4
               </FormGroup>
 
               <TextField
                 name="answer"
-                placeholder='Enter your Answer'
+                placeholder="Enter your Answer"
                 fullWidth
                 className="textarea-question-sequrity"
                 multiline

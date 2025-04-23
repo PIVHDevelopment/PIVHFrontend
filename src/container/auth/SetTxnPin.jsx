@@ -146,7 +146,7 @@ const SetTxnPin = () => {
           >
             <Box className="p-20">
               <Typography variant="h5" className="heading" gutterBottom>
-                Set Transaction PIN
+                Set {isBusiness && "Business"} Transaction PIN
               </Typography>
 
               <Typography variant="h6" className='heading-note' gutterBottom>
