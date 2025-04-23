@@ -250,7 +250,8 @@ header {
   font-weight: 500;
 }
 
-.action-btn:disabled{
+.action-btn:disabled,
+.action-btn.send-pi-btn:disabled {
   flex: 1;
   padding: 16px;
   border: none;
@@ -430,6 +431,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 
 .input-group {
@@ -504,7 +506,7 @@ header {
   font-size: 15px;
 }
 
-.notes-input-box{
+.notes-input-box {
   width: 100%;
   background: var(--dark-bg);
   border: none;
@@ -729,29 +731,30 @@ button.address-book-btn {
   gap: 16px;
   margin-bottom: 26px;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.signin-header{
+.signin-header {
   justify-content: center;
 }
 
-.app-container.signin-main{
+.app-container.signin-main {
   display: flex;
   justify-content: center;
 }
 
-.sigin-body{
+.sigin-body {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.app-icon img{
+.app-icon img {
   height: 100%;
 }
 
-.sigin-footer{
+.sigin-footer {
   display: flex;
   justify-content: space-between;
   padding: 20px 30px 0 30px;
@@ -770,11 +773,11 @@ button.address-book-btn {
   cursor: pointer;
 }
 
-.sigin-footer p:hover{
+.sigin-footer p:hover {
   color: lightgray;
 }
 
-.input-error{
+.input-error {
   color: #b90005;
   font-size: 13px;
 }
@@ -784,14 +787,14 @@ button.address-book-btn {
   border-radius: 6px;
 }
 
-.set-pin-box .set-pin-input .MuiOtpInput-TextField input{
+.set-pin-box .set-pin-input .MuiOtpInput-TextField input {
   color: #ffffff;
   font-weight: 600;
   padding: 12px;
   width: 42px;
 }
 
-.set-pin-box .set-pin-input .MuiOtpInput-TextField fieldset{
+.set-pin-box .set-pin-input .MuiOtpInput-TextField fieldset {
   display: none;
 }
 
@@ -811,7 +814,7 @@ margin-bottom: 13px;
 }
 
 
-.set-pin-row .show-icon{
+.set-pin-row .show-icon {
   height: 30px;
   width: 30px;
   cursor: pointer;
@@ -826,7 +829,6 @@ margin-bottom: 13px;
 .set-pin-box {
   width: 100%;
 }
-
 
 .textarea-question-sequrity label {
   color: #ffffff;
@@ -846,6 +848,13 @@ border-radius: 6px;
 .set-pin-row input.set-pin-input-box{
   width: 58px !important;
   height: 54px;
+  color: #ffff;
+  font-size: 16px;
+}
+
+.set-pin-row input.set-pin-input-box {
+  width: 56px !important;
+  height: 46px;
   text-align: center;
   border-radius: 6px;
   font-size: 20px !important;
@@ -863,7 +872,7 @@ border-radius: 6px;
   font-weight: 600;
 }
 
-.app-container.set-pin-div{
+.app-container.set-pin-div {
   display: flex;
   padding: 20px 20px;
 }

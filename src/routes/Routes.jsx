@@ -17,6 +17,8 @@ import PublicRoute from "./PublicRoute";
 import AddWallet from "../container/addWallet/AddWallet";
 import Deposit from "../container/deposit/Deposit";
 import Withdraw from "../container/withdraw/Withdraw";
+import UpgradeBusiness from "../container/upgradeBusiness.jsx/UpgradeBusiness";
+import CheckKYBVerfication from "../container/upgradeBusiness.jsx/CheckKYBVerfication";
 import SetTxnPin from "../container/auth/SetTxnPin";
 import SetPinRecoveryQuestion from "../container/auth/SetPinRecoveryQuestion";
 import SuccessMessage from "../container/auth/SuccessMessage";
@@ -104,6 +106,14 @@ const Routers = () => {
         {
           path: "/add-wallet",
           element: <AddWallet />,
+        },
+        {
+          path: "/upgrade-business",
+          element: <UpgradeBusiness />,
+        },
+        {
+          path: "/check-kyb-verification",
+          element: <CheckKYBVerfication />,
         },
       ],
     },

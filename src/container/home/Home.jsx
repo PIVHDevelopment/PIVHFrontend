@@ -3,7 +3,7 @@ import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
@@ -15,8 +15,10 @@ const axiosClient = axios.create({
 });
 
 function Home() {
+  const location = useLocation();
+  const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
@@ -95,8 +97,8 @@ function Home() {
                 className="icon-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
-                // onClick={handleOpen}
-                onClick={() => navigate("/add-wallet")}
+                onClick={handleOpen}
+                // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -110,7 +112,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            {/* <div className="wallet-tabs">
+            <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -125,7 +127,7 @@ function Home() {
               >
                 Business
               </button>
-            </div> */}
+            </div>
             <div className="wallet-id">
               <span id="walletAddress">{userData?.userName}</span>
               <button className="copy-btn" onClick={handleCopy}>
@@ -253,6 +255,12 @@ function Home() {
               Configure Salary Disbursement
             </h6>
           </div>
+          <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Upgrade to business version</h6>
+          </NavLink>
         </Index.Modal.Body>
       </Index.Modal>
     </>

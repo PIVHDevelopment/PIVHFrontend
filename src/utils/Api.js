@@ -3,6 +3,7 @@ const Api = {
   SIGN_OUT: "user/sign-out",
 
   SET_PIN_QUESTION: "user/add-edit-usertxn-pin",
+  SET_PIN_QUESTION_BUSINESS: "user/add-edit-businesstxn-pin",
 
   PAYMENT_INCOMPLETE: "/payments/payment-incomplete",
   PAYMENT_APPROVE: "/payments/payment-approve",
@@ -19,9 +20,11 @@ const Api = {
   PAYMENT_SEND: "/payments/payment-send",
 
   ADD_WALLET_ADDRESS: "/user/add-wallet-address",
-  GET_USERS:"/user/get-users",
+  GET_USERS: "/user/get-users",
 
-  WITHDRAW:"/payments/withdraw",
+  WITHDRAW: "/payments/withdraw",
+
+  UPGRADE_BUSINESS_DETAIL: "/user/upgrade-business-details",
 };
 
 export default Api;
