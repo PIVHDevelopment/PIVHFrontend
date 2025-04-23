@@ -3,7 +3,7 @@ import Individual from "./individual/Individual";
 import Business from "./business/Business";
 import Index from "../Index";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
@@ -15,8 +15,10 @@ const axiosClient = axios.create({
 });
 
 function Home() {
+  const location = useLocation();
+  const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();

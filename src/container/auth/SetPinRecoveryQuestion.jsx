@@ -12,6 +12,7 @@ import {
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Index from "../Index";
+import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const questions = [
@@ -34,9 +35,9 @@ const SetPinRecoveryQuestion = () => {
   const [submitted, setSubmitted] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
-  console.log(location?.state?.isBusiness);
 
   const validationSchema = Yup.object().shape({
     selectedQuestion: Yup.number()
@@ -53,17 +54,41 @@ const SetPinRecoveryQuestion = () => {
       endPoint = Index.Api.SET_PIN_QUESTION;
     }
     setSubmitted(true);
+    setIsLoading(true);
     Index.DataService.post(endPoint, {
       uid: userData?.uid,
       question: (isBusiness ? businessQuestions : questions)[
         values.selectedQuestion
       ],
       answer: values.answer,
-    }).then((res) => {
-      if (res?.data?.status === 200) {
-        navigate("/home");
-      }
-    });
+    })
+      .then((res) => {
+        if (res?.data?.status === 200) {
+          const sessionData = JSON.parse(
+            sessionStorage.getItem("pi_user_data")
+          );
+          const updatedSessionData = {
+            ...sessionData,
+            businessTxn: {
+              ...sessionData.businessTxn,
+              isQuestion: true,
+            },
+          };
+          sessionStorage.setItem(
+            "pi_user_data",
+            JSON.stringify(updatedSessionData)
+          );
+          navigate("/home", {
+            state: { isBusiness: true },
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -123,19 +148,17 @@ const SetPinRecoveryQuestion = () => {
                 helperText={touched.answer && errors.answer}
               />
 
-              {submitted && !errors.answer && !errors.selectedQuestion && (
-                <Alert severity="success" sx={{ mt: 2 }}>
-                  Recovery question set successfully!
-                </Alert>
-              )}
-
               <Box textAlign="center" mt={5}>
                 <button
                   variant="contained"
                   type="submit"
-                  className="secondary-btn"
+                  className="secondary-btn share-btn"
                 >
-                  Submit
+                  {isLoading ? (
+                    <Spinner animation="border" role="status" size="sm" />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </Box>
             </Form>
