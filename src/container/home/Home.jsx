@@ -25,7 +25,7 @@ function Home() {
   const [transactionList, setTransactionList] = useState([]);
   const [balance, setBalance] = useState("0");
   const [businessBalance, setBusinessBalance] = useState("0");
-
+  let typeTxn = tab == 1 ? "individual" : "business";
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
     setCopied(true);
@@ -51,9 +51,9 @@ function Home() {
   };
   const handleGetTransactions = () => {
     Index.DataService.get(
-      Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
+      `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
     ).then((res) => {
-      console.log({res});
+      console.log({ res });
       
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
@@ -74,7 +74,7 @@ function Home() {
     // if (userData?.walletAddress) {
     //   handleGetBalance();
     // }
-  }, []);
+  }, [typeTxn]);
 
   return (
     <>
