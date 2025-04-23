@@ -25,6 +25,8 @@ const Api = {
   WITHDRAW: "/payments/withdraw",
 
   UPGRADE_BUSINESS_DETAIL: "/user/upgrade-business-details",
+  GET_RECOVER_QUESTION: "/user/get-recovery-question",
+  VERIFY_ANSWER: "/user/verify-answer",
 };
 
 export default Api;

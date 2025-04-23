@@ -22,6 +22,7 @@ import CheckKYBVerfication from "../container/upgradeBusiness.jsx/CheckKYBVerfic
 import SetTxnPin from "../container/auth/SetTxnPin";
 import SetPinRecoveryQuestion from "../container/auth/SetPinRecoveryQuestion";
 import SuccessMessage from "../container/auth/SuccessMessage";
+import VerifyAnswer from "../container/upgradeBusiness.jsx/VerifyAnswer";
 import VerificationPin from "../container/verificationPin/VerificationPin";
 import AddressBook from "../container/addressBook/AddressBook";
 
@@ -55,6 +56,10 @@ const Routers = () => {
     {
       path: "/update-pin-successfully",
       element: <SuccessMessage />,
+    },
+    {
+      path: "/verify-answer",
+      element: <VerifyAnswer />,
     },
     {
       path: "/shop",
