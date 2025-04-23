@@ -1,46 +1,51 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Index from "../../Index";
 
-function Business() {
-  const navigate = useNavigate();
+function Business({balance}) {
+  const navigate = Index.useNavigate();
   return (
     <>
-      <button
-        className="action-btn receive-btn full-width"
-        id="merchantReceiveBtn"
-        style={{ backgroundColor: "#fff", color: "#000" }}
-        onClick={() => navigate("/receive")}
-      >
-        <span className="btn-icon">
-          <img src={Index.receiveMoney} alt="Receive Money" />
-        </span>
-        Receive
-      </button>
-
-      <button className="address-book-btn">Salary Disbursement</button>
-
-      <div className="stats-section">
-        <div className="stats-header">
-          <div className="stats-dropdown">
-            Stats for: last 7 days
-            <span>
-              <img src={Index.downArrow} alt="Down Arrow" />
-            </span>
-          </div>
-        </div>
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-label">Sales Overview</div>
-            <div className="stat-value">31415.9 Pi</div>
-            <div className="stat-change">+31%</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-label">Repeated Customers</div>
-            <div className="stat-value">314</div>
-            <div className="stat-change">+31%</div>
-          </div>
-        </div>
+     <div className="action-buttons">
+        <button
+          className="action-btn send-btn"
+          id="sendBtn"
+          onClick={() =>
+            navigate("/deposit", {
+              state: { balance: balance },
+            })
+          }
+        >
+          <span className="btn-icon">
+            <img src={Index.receiveMoney} alt="Send Money" />
+          </span>
+          Deposit
+        </button>
+        <button
+          className="action-btn send-btn"
+          id="sendBtn"
+          disabled={balance <= 0}
+          onClick={() =>
+            navigate("/send", {
+              state: { balance: balance },
+            })
+          }
+        >
+          <span className="btn-icon">
+            <img src={Index.sendMoney} alt="Send Money" />
+          </span>
+          Send
+        </button>
+        <button
+          className="action-btn receive-btn"
+          id="withdraw"
+          disabled={balance <= 0}
+          onClick={() => navigate("/withdraw")}
+        >
+          <span className="btn-icon">
+            <img src={Index.sendMoney} alt="Receive Money" />
+          </span>
+          Withdraw
+        </button>
       </div>
     </>
   );
