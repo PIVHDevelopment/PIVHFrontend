@@ -30,7 +30,7 @@ function UpgradeBusiness() {
             state: { isBusiness: true },
           });
         } else {
-          navigate("/home");
+          navigate("/home", { state: { isBusiness: true } });
         }
       })
       .catch((e) => {
