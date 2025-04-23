@@ -40,14 +40,7 @@ const SetPinRecoveryQuestion = () => {
   const isBusiness = location?.state?.isBusiness;
 
   const validationSchema = Yup.object().shape({
-<<<<<<< HEAD
     answer: Yup.string().trim().required('Please enter your answer'),
-=======
-    selectedQuestion: Yup.number()
-      .typeError("Select a security question")
-      .required("Select a security question"),
-    answer: Yup.string().trim().required("Please enter an answer"),
->>>>>>> 0ad0941c850814194d817a0b14b12cec15c488b4
   });
 
   const handleSubmit = (values) => {
