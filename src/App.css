@@ -800,6 +800,7 @@ font-size: 16px;
 line-height: 19px;
 font-weight: 600;
 word-spacing: 2px;
+margin-bottom: 13px;
 }
 
 .app-container {
@@ -834,6 +835,12 @@ word-spacing: 2px;
 .textarea-question-sequrity .MuiOutlinedInput-root {
 color: #ffff;
 font-size: 16px;
+border: 2px solid white;
+border-radius: 6px;
+}
+
+.textarea-question-sequrity .MuiOutlinedInput-root  fieldset{
+  display: none;
 }
 
 .set-pin-row input.set-pin-input-box{
@@ -843,8 +850,9 @@ font-size: 16px;
   border-radius: 6px;
   font-size: 20px !important;
   background: transparent;
-  border: 1px solid white;
+  border: 3px solid white;
   color: white;
+  font-weight: 600;
 }
 
 .set-pin-row input.set-pin-input-box:focus-visible{
@@ -852,12 +860,22 @@ font-size: 16px;
 }
 
 .app-container .heading{
-  margin-bottom: 36px;
   font-weight: 600;
 }
 
 .app-container.set-pin-div{
   display: flex;
-  justify-content: center;
-  padding: 0 20px;
+  padding: 20px 20px;
+}
+
+.set-pin-div  .heading-note{
+  margin-bottom: 36px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.question-radio .question-radio-box,
+  .question-radio .question-radio-box.Mui-checked{
+  color: white;
 }

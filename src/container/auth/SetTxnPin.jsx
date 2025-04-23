@@ -77,7 +77,7 @@ const SetTxnPin = () => {
       <img
         className='show-icon'
         onClick={() => setShow(!show)}
-        src={show ? Index.invisibleIcon : Index.showIcon}
+        src={show ? Index.showIcon : Index.invisibleIcon }
         alt="icon"
         style={{ cursor: 'pointer'}}
       />
@@ -96,6 +96,10 @@ const SetTxnPin = () => {
             <Box className="p-20">
               <Typography variant="h5" className='heading' gutterBottom>
                 Set Transaction PIN
+              </Typography>
+
+              <Typography variant="h6" className='heading-note' gutterBottom>
+              Your PIN will be securely saved with PocketPie. You will need to enter this PIN every time when you make the payment in application.
               </Typography>
 
               <Grid container spacing={4}>

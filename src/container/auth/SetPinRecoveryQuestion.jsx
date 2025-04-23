@@ -29,7 +29,7 @@ const SetPinRecoveryQuestion = () => {
       const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
-    answer: Yup.string().trim().required('Please enter an answer'),
+    answer: Yup.string().trim().required('Please enter your answer'),
   });
 
   const handleSubmit = (values) => {
@@ -72,13 +72,14 @@ const SetPinRecoveryQuestion = () => {
             handleBlur,
           }) => (
             <Form>
-              <FormGroup>
+              <FormGroup className='question-radio'>
                 {questions.map((q, index) => (
                   <FormControlLabel
                     key={index}
                     control={
                       <Radio
                         name="selectedQuestion"
+                        className='question-radio-box'
                         value={index}
                         checked={parseInt(values.selectedQuestion) === index}
                         onChange={() => setFieldValue('selectedQuestion', index)}
@@ -90,8 +91,8 @@ const SetPinRecoveryQuestion = () => {
               </FormGroup>
 
               <TextField
-                label="Your Answer"
                 name="answer"
+                placeholder='Enter your Answer'
                 fullWidth
                 className='textarea-question-sequrity'
                 multiline
