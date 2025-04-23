@@ -41,7 +41,7 @@ const SetPinRecoveryQuestion = () => {
         answer: values.answer,
       }).then((res) => {
         if (res?.data?.status === 200) {
-          navigate("/home");
+          navigate("/update-pin-successfully");
         }
       }).catch((err) => {
         console.log(err);

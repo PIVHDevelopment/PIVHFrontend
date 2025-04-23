@@ -19,6 +19,7 @@ import Deposit from "../container/deposit/Deposit";
 import Withdraw from "../container/withdraw/Withdraw";
 import SetTxnPin from "../container/auth/SetTxnPin";
 import SetPinRecoveryQuestion from "../container/auth/SetPinRecoveryQuestion";
+import SuccessMessage from "../container/auth/SuccessMessage";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -46,6 +47,10 @@ const Routers = () => {
     {
       path: "/set-recovery-pin-question",
       element: <SetPinRecoveryQuestion />,
+    },
+    {
+      path: "/update-pin-successfully",
+      element: <SuccessMessage />,
     },
     {
       path: "/shop",

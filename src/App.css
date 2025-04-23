@@ -844,8 +844,8 @@ border-radius: 6px;
 }
 
 .set-pin-row input.set-pin-input-box{
-  width: 56px !important;
-  height: 46px;
+  width: 58px !important;
+  height: 54px;
   text-align: center;
   border-radius: 6px;
   font-size: 20px !important;
@@ -870,7 +870,7 @@ border-radius: 6px;
 
 .set-pin-div  .heading-note{
   margin-bottom: 36px;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 13px;
   line-height: 18px;
 }
@@ -878,4 +878,45 @@ border-radius: 6px;
 .question-radio .question-radio-box,
   .question-radio .question-radio-box.Mui-checked{
   color: white;
+}
+
+.pin-success-message-div{
+  border: 4px solid #ffff;
+  min-height: 350px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pin-success-message-div .logo-box img{
+  height: 74px;
+  width: 74px;
+}
+
+.pin-success-message-div .button-box button{
+  width: 100%;
+  margin-bottom: 16px;
+  background: #e38cff;
+  color: #fff;
+  font-size: 20px;
+  padding: 18px 60px;
+  border-radius: 46px;
+  border: none;
+
+}
+
+.pin-success-message-div .success-message{
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  align-items: 48px;
+}
+
+.app-container .p-26 {
+  padding: 26px;
 }
