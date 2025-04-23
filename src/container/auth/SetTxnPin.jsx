@@ -73,6 +73,7 @@ const SetTxnPin = () => {
             );
           }
           if (isRecover) {
+            Index.toasterSuccess(res?.data?.message);
             navigate("/home", {
               state: { isBusiness: isBusiness },
             });
@@ -85,6 +86,9 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
+        Index.toasterError(
+          err?.response?.data?.message || "Something went wrong"
+        );
       })
       .finally(() => {
         setIsLoading(false);
