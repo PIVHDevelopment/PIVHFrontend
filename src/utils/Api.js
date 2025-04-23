@@ -23,6 +23,7 @@ const Api = {
   GET_USERS: "/user/get-users",
 
   WITHDRAW: "/payments/withdraw",
+  BUSINESS_DEPOSITE: "/payments/business-deposit",
 
   UPGRADE_BUSINESS_DETAIL: "/user/upgrade-business-details",
   GET_RECOVER_QUESTION: "/user/get-recovery-question",
