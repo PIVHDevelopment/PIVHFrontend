@@ -26,9 +26,9 @@ function Home() {
   const [balance, setBalance] = useState("0");
   const [businessBalance, setBusinessBalance] = useState("0");
   let typeTxn = tab == 1 ? "individual" : "business";
-  console.log({isBusiness});
-  
-  
+  console.log({ isBusiness });
+
+
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
     setCopied(true);
@@ -57,7 +57,7 @@ function Home() {
       `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
     ).then((res) => {
       console.log({ res });
-      
+
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
       setBusinessBalance(res?.data?.data?.businessBalance);
@@ -105,7 +105,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -152,7 +152,7 @@ function Home() {
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
-                <Business balance={businessBalance}/>
+                <Business balance={businessBalance} />
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
@@ -167,7 +167,7 @@ function Home() {
           >
             <h2>Transaction History</h2>
             <div className="transaction-list">
-              {transactionList?.map((transaction,index) => {
+              {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
@@ -190,9 +190,8 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
                       <span>
                         {amountPrefix}
@@ -233,13 +232,13 @@ function Home() {
         <Index.Modal.Body>
           <NavLink className="setting-cont-box" to={"/add-wallet"}>
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.walletaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Wallet Address</h6>
           </NavLink>
           <div className="setting-cont-box">
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.businessaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Business Address</h6>
           </div>
@@ -270,6 +269,7 @@ function Home() {
           >
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
+
             </div>
             <h6 className="setting-cont-title">Address Book</h6>
           </div>
@@ -279,7 +279,7 @@ function Home() {
               to={"/check-kyb-verification"}
             >
               <div className="setting-icon-box">
-                <img src={Index.configure} alt="" />
+                <img src={Index.businessversion} alt="" />
               </div>
               <h6 className="setting-cont-title">
                 Upgrade to business version
@@ -295,7 +295,7 @@ function Home() {
             }}
           >
             <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+              <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
           </div>

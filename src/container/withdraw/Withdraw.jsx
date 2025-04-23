@@ -148,49 +148,55 @@ function Withdraw() {
                   {parseFloat(typeTxn == "business" ? businessBalance : balance).toFixed(2)} Pi
                 </div>
               </div>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  className="notes-input"
-                  placeholder="Enter Amount"
-                  name="amount"
-                  value={formik.values.amount}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      if (parseFloat(value) > parseFloat(balance)) {
-                        formik.setFieldValue("amount", balance);
-                      } else {
-                        formik.setFieldValue("amount", value);
-                      }
-                    }
-                  }}
-                />
-              </div>
-              <div className="input-error">
-                {formik.errors?.amount && formik.touched?.amount
-                  ? formik.errors?.amount
-                  : null}
-              </div>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  className="notes-input"
-                  placeholder="Enter Wallet Address"
-                  name="address"
-                  value={formik.values.address}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    formik.setFieldValue("address", value);
-                  }}
-                />
-              </div>
-              <div className="input-error">
-                {formik.errors?.address && formik.touched?.address
-                  ? formik.errors?.address
-                  : null}
+              <div className="withdraw-form">
+                <div className="input-mb-space">
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      className="notes-input"
+                      placeholder="Enter Amount"
+                      name="amount"
+                      value={formik.values.amount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d{0,6}$/.test(value)) {
+                          if (parseFloat(value) > parseFloat(balance)) {
+                            formik.setFieldValue("amount", balance);
+                          } else {
+                            formik.setFieldValue("amount", value);
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="input-error">
+                    {formik.errors?.amount && formik.touched?.amount
+                      ? formik.errors?.amount
+                      : null}
+                  </div>
+                </div>
+                <div className="input-mb-space">
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      className="notes-input"
+                      placeholder="Enter Wallet Address"
+                      name="address"
+                      value={formik.values.address}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        formik.setFieldValue("address", value);
+                      }}
+                    />
+                  </div>
+                  <div className="input-error">
+                    {formik.errors?.address && formik.touched?.address
+                      ? formik.errors?.address
+                      : null}
+                  </div>
+                </div>
               </div>
             </div>
             {/* <button
