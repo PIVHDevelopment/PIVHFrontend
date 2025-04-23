@@ -22,6 +22,7 @@ import CheckKYBVerfication from "../container/upgradeBusiness.jsx/CheckKYBVerfic
 import SetTxnPin from "../container/auth/SetTxnPin";
 import SetPinRecoveryQuestion from "../container/auth/SetPinRecoveryQuestion";
 import SuccessMessage from "../container/auth/SuccessMessage";
+import VerifyAnswer from "../container/upgradeBusiness.jsx/VerifyAnswer";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -53,6 +54,10 @@ const Routers = () => {
     {
       path: "/update-pin-successfully",
       element: <SuccessMessage />,
+    },
+    {
+      path: "/verify-answer",
+      element: <VerifyAnswer />,
     },
     {
       path: "/shop",

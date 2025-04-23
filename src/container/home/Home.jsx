@@ -261,6 +261,19 @@ function Home() {
             </div>
             <h6 className="setting-cont-title">Upgrade to business version</h6>
           </NavLink>
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/verify-answer", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Recover Pin</h6>
+          </div>
         </Index.Modal.Body>
       </Index.Modal>
     </>

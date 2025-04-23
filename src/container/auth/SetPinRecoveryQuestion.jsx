@@ -40,7 +40,7 @@ const SetPinRecoveryQuestion = () => {
   const isBusiness = location?.state?.isBusiness;
 
   const validationSchema = Yup.object().shape({
-    answer: Yup.string().trim().required('Please enter your answer'),
+    answer: Yup.string().trim().required("Please enter your answer"),
   });
 
   const handleSubmit = (values) => {
@@ -61,22 +61,24 @@ const SetPinRecoveryQuestion = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
-          const sessionData = JSON.parse(
-            sessionStorage.getItem("pi_user_data")
-          );
-          const updatedSessionData = {
-            ...sessionData,
-            businessTxn: {
-              ...sessionData.businessTxn,
-              isQuestion: true,
-            },
-          };
-          sessionStorage.setItem(
-            "pi_user_data",
-            JSON.stringify(updatedSessionData)
-          );
+          if (isBusiness) {
+            const sessionData = JSON.parse(
+              sessionStorage.getItem("pi_user_data")
+            );
+            const updatedSessionData = {
+              ...sessionData,
+              businessTxn: {
+                ...sessionData.businessTxn,
+                isQuestion: true,
+              },
+            };
+            sessionStorage.setItem(
+              "pi_user_data",
+              JSON.stringify(updatedSessionData)
+            );
+          }
           navigate("/update-pin-successfully", {
-            state: { isBusiness: true },
+            state: { isBusiness: isBusiness },
           });
         }
       })
@@ -90,6 +92,15 @@ const SetPinRecoveryQuestion = () => {
 
   return (
     <Box className="app-container p-20-0 set-pin-div" maxWidth={600} mx="auto">
+      <header className="receive-center">
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          <img src={Index.back} alt="Back" />
+        </button>
+        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+          <img src={Index.pocketPi} alt="PocketPi" />
+        </div>
+        <div className="header-right"></div>
+      </header>
       <Box className="p-20">
         <Typography variant="h5" gutterBottom>
           {isBusiness && "Business"} Security Question

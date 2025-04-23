@@ -6,6 +6,7 @@ const SuccessMessage = () => {
   const navigate = Index.useNavigate();
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
+
   return (
     <div className="app-container p-20-0 signin-main">
       <div className="p-26">

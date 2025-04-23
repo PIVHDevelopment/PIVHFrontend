@@ -11,11 +11,25 @@ const SetTxnPin = () => {
   const [showConfirmPin, setShowConfirmPin] = useState(false);
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
+  const isRecover = location?.state?.isRecover;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [step, setStep] = useState(1); // 👈 Step tracker
+  const [step, setStep] = useState(1);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
+
+  const validationSchema1 = Yup.object().shape({
+    pinFields: Yup.array()
+      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
+      .test("pin-required", "Please enter pin", (arr) =>
+        arr.some((val) => val && val.trim() !== "")
+      )
+      .test(
+        "pin-length",
+        "PIN must be 5 digits",
+        (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
+      ),
+  });
 
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
@@ -55,23 +69,31 @@ const SetTxnPin = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
-          const sessionData = JSON.parse(
-            sessionStorage.getItem("pi_user_data")
-          );
-          const updatedSessionData = {
-            ...sessionData,
-            businessTxn: {
-              ...sessionData.businessTxn,
-              isPin: true,
-            },
-          };
-          sessionStorage.setItem(
-            "pi_user_data",
-            JSON.stringify(updatedSessionData)
-          );
-          navigate("/set-recovery-pin-question", {
-            state: { isBusiness: true },
-          });
+          if (isBusiness) {
+            const sessionData = JSON.parse(
+              sessionStorage.getItem("pi_user_data")
+            );
+            const updatedSessionData = {
+              ...sessionData,
+              businessTxn: {
+                ...sessionData.businessTxn,
+                isPin: true,
+              },
+            };
+            sessionStorage.setItem(
+              "pi_user_data",
+              JSON.stringify(updatedSessionData)
+            );
+          }
+          if (isRecover) {
+            navigate("/home", {
+              state: { isBusiness: isBusiness },
+            });
+          } else {
+            navigate("/set-recovery-pin-question", {
+              state: { isBusiness: isBusiness },
+            });
+          }
         }
       })
       .catch((err) => {
@@ -114,7 +136,7 @@ const SetTxnPin = () => {
       <img
         className="show-icon"
         onClick={() => setShow(!show)}
-        src={show ? Index.showIcon : Index.invisibleIcon }
+        src={show ? Index.showIcon : Index.invisibleIcon}
         alt="icon"
         style={{ cursor: "pointer" }}
       />
@@ -122,7 +144,22 @@ const SetTxnPin = () => {
   );
 
   return (
-    <div className="set-pin-main">
+    <div className="app-container">
+      <header className="receive-center">
+        <button
+          className="back-btn"
+          onClick={() => {
+            if (step == 1) navigate(-1);
+            else setStep(1);
+          }}
+        >
+          <img src={Index.back} alt="Back" />
+        </button>
+        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+          <img src={Index.pocketPi} alt="PocketPi" />
+        </div>
+        <div className="header-right"></div>
+      </header>
       <Formik
         initialValues={{
           pinFields: ["", "", "", "", ""],
@@ -140,17 +177,16 @@ const SetTxnPin = () => {
           validateForm,
           setTouched,
         }) => (
-          <form
-            onSubmit={handleSubmit}
-            className="app-container p-20-0 set-pin-div"
-          >
+          <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
             <Box className="p-20">
               <Typography variant="h5" className="heading" gutterBottom>
                 Set {isBusiness && "Business"} Transaction PIN
               </Typography>
 
-              <Typography variant="h6" className='heading-note' gutterBottom>
-              Your PIN will be securely saved with PocketPie. You will need to enter this PIN every time when you make the payment in application.
+              <Typography variant="h6" className="heading-note" gutterBottom>
+                Your PIN will be securely saved with PocketPie. You will need to
+                enter this PIN every time when you make the payment in
+                application.
               </Typography>
 
               <Grid container spacing={4}>
