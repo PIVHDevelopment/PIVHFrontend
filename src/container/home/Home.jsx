@@ -105,7 +105,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -190,9 +190,8 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
                       <span>
                         {amountPrefix}
@@ -263,12 +262,34 @@ function Home() {
               Configure Salary Disbursement
             </h6>
           </div>
+
+          <div className="setting-cont-box" onClick={() => navigate("/address-book")}>
+            <div className="setting-icon-box">
+              <img src={Index.addressbook} alt="" />
+            </div>
+            <h6 className="setting-cont-title">
+              Address Book
+            </h6>
+          </div>
           <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
             <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
             <h6 className="setting-cont-title">Upgrade to business version</h6>
           </NavLink>
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/verify-answer", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.configure} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Recover Pin</h6>
+          </div>
         </Index.Modal.Body>
       </Index.Modal>
     </>
