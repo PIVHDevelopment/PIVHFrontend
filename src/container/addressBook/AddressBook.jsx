@@ -3,6 +3,7 @@ import * as Yup from "yup"; // For validation
 import Index from "../Index";
 import {
   Box,
+  CircularProgress,
   FormControlLabel,
   List,
   ListItem,
@@ -42,6 +43,7 @@ const AddressBook = () => {
 
   const [openDelete, setOpenDelete] = React.useState(false);
   const [address, setAddress] = React.useState([]);
+  const [buttonLoader, setButtonLoader] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(initialValues);
   const [id, setId] = React.useState("");
   const handleOpenDelete = (id) => {
@@ -54,6 +56,7 @@ const AddressBook = () => {
   };
   const navigate = Index.useNavigate();
   const handleSubmit = async (values) => {
+    setButtonLoader(true);
     try {
       if (id) {
         values.id = id;
@@ -72,8 +75,10 @@ const AddressBook = () => {
       Index.toasterError(
         error?.response?.data?.message || "An unexpected error occurred."
       );
+    } finally {
+      setButtonLoader(false);
+      handleClose();
     }
-    handleClose();
   };
   const getAddress = async () => {
     Index.DataService.get(Index.Api.GET_ADDRESS + "/" + userData?._id).then(
@@ -85,6 +90,7 @@ const AddressBook = () => {
     );
   };
   const handleDelete = async () => {
+    setButtonLoader(true);
     Index.DataService.post(Index.Api.DELETE_ADDRESS + "/" + id).then((res) => {
       if (res?.data?.status) {
         Index.toasterSuccess(res.data.message);
@@ -93,6 +99,7 @@ const AddressBook = () => {
         Index.toasterError(res.data.message);
       }
     });
+    setButtonLoader(false);
     handleCloseDelete();
   };
   useEffect(() => {
@@ -118,11 +125,11 @@ const AddressBook = () => {
               <img src={Index.Plusadd} alt="Setting" />
             </button>
           </Box>
-          {address.length ? (
-            address.map((item) => {
-              return (
-                <Box className="address-book-listing">
-                  <List className="list-ul-address">
+          <Box className="address-book-listing">
+            <List className="list-ul-address">
+              {address.length ? (
+                address.map((item) => {
+                  return (
                     <ListItem className="list-item-address">
                       <Box className="flex-justify-gap-add">
                         <Box className="address-left-contain">
@@ -185,18 +192,18 @@ const AddressBook = () => {
                         </Box>
                       </Box>
                     </ListItem>
-                  </List>
-                </Box>
-              );
-            })
-          ) : (
-            <div className="no-address-book">
-              {/* <img src={Index.addressbook} alt="addressbook" /> */}
-              <Typography className="no-address-title">
-                No Address Data Found
-              </Typography>
-            </div>
-          )}
+                  );
+                })
+              ) : (
+                <div className="no-address-book">
+                  {/* <img src={Index.addressbook} alt="addressbook" /> */}
+                  <Typography className="no-address-title">
+                    No Address Data Found
+                  </Typography>
+                </div>
+              )}
+            </List>
+          </Box>
         </Box>
       </div>
 
@@ -226,8 +233,18 @@ const AddressBook = () => {
             }}
             validationSchema={Yup.object({
               type: Yup.string().required("Type is required"),
-              name: Yup.string().required("Name is required"),
-              userName: Yup.string().required("Username is required"),
+              name: Yup.string()
+                .required("Name is required")
+                .matches(
+                  /^\S.*\S$|^\S$/,
+                  "Name cannot start or end with a space"
+                ),
+              userName: Yup.string()
+                .required("Username is required")
+                .matches(
+                  /^\S.*\S$|^\S$/,
+                  "Username cannot start or end with a space"
+                ),
             })}
             onSubmit={(values) => {
               handleSubmit(values);
@@ -318,8 +335,9 @@ const AddressBook = () => {
                     <button
                       className="action-btn full-width send-pi-btn"
                       type="submit"
+                      disabled={buttonLoader}
                     >
-                      Submit
+                      {buttonLoader ? <CircularProgress size={20} /> : "Submit"}
                     </button>
                   </Box>
                 </Box>
@@ -371,8 +389,9 @@ const AddressBook = () => {
                 className="action-btn full-width send-pi-btn"
                 type="button"
                 onClick={(e) => handleDelete(e.target.values)}
+                disabled={buttonLoader}
               >
-                Delete
+                {buttonLoader ? <CircularProgress size={20} /> : "Delete"}
               </button>
             </Box>
           </Box>
