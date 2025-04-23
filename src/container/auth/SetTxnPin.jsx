@@ -18,19 +18,6 @@ const SetTxnPin = () => {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
 
-  const validationSchema1 = Yup.object().shape({
-    pinFields: Yup.array()
-      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
-      .test("pin-required", "Please enter pin", (arr) =>
-        arr.some((val) => val && val.trim() !== "")
-      )
-      .test(
-        "pin-length",
-        "PIN must be 5 digits",
-        (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
-      ),
-  });
-
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
       .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
