@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 
 function UpgradeBusiness() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const [businessData, setBusinessData] = useState({});
+
+  console.log(businessData);
 
   const handleSubmitFunction = async (values) => {
     const paymentData = {
@@ -23,13 +26,16 @@ function UpgradeBusiness() {
             businessName: res?.data?.data?.businessName,
           })
         );
+
         if (!userData?.businessTxn?.isPin) {
+          Index.toasterSuccess(res?.data?.message);
           navigate("/set-txn-pin", { state: { isBusiness: true } });
         } else if (!userData?.businessTxn?.isQuestion) {
           navigate("/set-recovery-pin-question", {
             state: { isBusiness: true },
           });
         } else {
+          Index.toasterSuccess("Your business details updated successfully");
           navigate("/home", { state: { isBusiness: true } });
         }
       })
@@ -39,6 +45,24 @@ function UpgradeBusiness() {
         );
       });
   };
+
+  const handleGetData = () => {
+    Index.DataService.get(
+      Index.Api.GET_BUSINESS_DETAIL + `?uid=${userData?.uid}`
+    )
+      .then((res) => {
+        if (res?.data?.status === 200) {
+          setBusinessData(res?.data?.data || "");
+        }
+      })
+      .catch((err) => {
+        console.log("Failed to fetch question", err);
+      });
+  };
+
+  useEffect(() => {
+    handleGetData();
+  }, []);
 
   return (
     <div className="app-container">
@@ -54,8 +78,8 @@ function UpgradeBusiness() {
       <Index.Formik
         enableReinitialize
         initialValues={{
-          userName: "",
-          businessName: "",
+          userName: businessData?.businessUserName || "",
+          businessName: businessData?.businessName || "",
         }}
         onSubmit={handleSubmitFunction}
         validationSchema={Index.addBusinessAddressFormSchema}
@@ -75,6 +99,7 @@ function UpgradeBusiness() {
                     const noSpaces = e.target.value.replace(/\s/g, "");
                     formik.setFieldValue("userName", noSpaces);
                   }}
+                  disabled={businessData?.businessUserName}
                 />
               </div>
               <div className="input-error">
