@@ -21,10 +21,10 @@ const VerificationPin = ({handleSubmitFunction}) => {
       ),
   });
 
-  const handleSubmit = (values) => {
-  
-    console.log("Verified PIN:", pin);
-  };
+  const handlesubmit = async (values)=>{
+    await handleSubmitFunction(values)
+  }
+
 
   const renderPinInputs = (values, setFieldValue) => (
     <Box className="set-pin-row common-pin-flex">
@@ -67,7 +67,7 @@ const VerificationPin = ({handleSubmitFunction}) => {
       <Formik
         initialValues={{ pinFields: ["", "", "", "", ""] }}
         validationSchema={validationSchema}
-        onSubmit={handleSubmitFunction}
+        onSubmit={handlesubmit}
       >
         {({ values, errors, touched, handleSubmit, setFieldValue, setTouched, validateForm }) => (
           <form className="p-20-0 set-pin-div" onSubmit={handleSubmit}>

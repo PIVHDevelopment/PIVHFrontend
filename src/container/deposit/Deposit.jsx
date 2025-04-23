@@ -11,7 +11,7 @@ function Deposit() {
   const typeTxn = location?.state?.typeTxn;
   const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
-  console.log({userData});
+  console.log({typeTxn});
   
   const handleSubmitFunction = async (values) => {
     console.log(parseFloat(balance) + parseFloat(values?.amount));
@@ -39,13 +39,13 @@ function Deposit() {
     Index.toasterError(
       error?.response?.data?.message || "An unexpected error occurred."
     );
-   }
-
-      
+  }
+  setButtonLoader(false);
     } else{
     const paymentData = {
       amount: values?.amount,
       memo: "deposit",
+      typeTxn,
       metadata: {
         userName: userData?.userName,
         uid: userData?.uid,
