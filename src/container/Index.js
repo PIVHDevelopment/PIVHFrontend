@@ -21,6 +21,8 @@ import share from "../assets/images/Share.png";
 import back from "../assets/images/Back.png";
 import invisibleIcon from "../assets/images/invisible.svg";
 import showIcon from "../assets/images/show.svg";
+import markIcon from "../assets/images/mark.svg";
+import successIcon from "../assets/images/success.svg";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import DataService from "../utils/DataService";
@@ -39,6 +41,8 @@ import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toas
 const Index = {
   Modal,
   TabContainer,
+  successIcon,
+  markIcon,
   TabContent,
   TabPane,
   pocketPi,
