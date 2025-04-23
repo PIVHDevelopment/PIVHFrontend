@@ -146,7 +146,7 @@ const SetTxnPin = () => {
           >
             <Box className="p-20">
               <Typography variant="h5" className="heading" gutterBottom>
-                Set Transaction PIN
+                Set {isBusiness && "Business"} Transaction PIN
               </Typography>
 
               <Grid container spacing={4}>
