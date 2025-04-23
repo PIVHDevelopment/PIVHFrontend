@@ -21,10 +21,8 @@ const VerificationPin = ({handleSubmitFunction}) => {
       ),
   });
 
-  const handlesubmit = async (values)=>{
-    await handleSubmitFunction(values)
-  }
 
+console.log("verifiction")
 
   const renderPinInputs = (values, setFieldValue) => (
     <Box className="set-pin-row common-pin-flex">
@@ -67,7 +65,7 @@ const VerificationPin = ({handleSubmitFunction}) => {
       <Formik
         initialValues={{ pinFields: ["", "", "", "", ""] }}
         validationSchema={validationSchema}
-        onSubmit={handlesubmit}
+        onSubmit={handleSubmitFunction}
       >
         {({ values, errors, touched, handleSubmit, setFieldValue, setTouched, validateForm }) => (
           <form className="p-20-0 set-pin-div" onSubmit={handleSubmit}>
@@ -102,15 +100,15 @@ const VerificationPin = ({handleSubmitFunction}) => {
                 <button
                   type="submit"
                   className="secondary-btn share-btn"
-                  onClick={async () => {
-                    await setTouched({
-                      pinFields: [true, true, true, true, true],
-                    });
-                    const errors = await validateForm();
-                    if (!errors.pinFields) {
-                      handleSubmit();
-                    }
-                  }}
+                  // onClick={async () => {
+                  //   await setTouched({
+                  //     pinFields: [true, true, true, true, true],
+                  //   });
+                  //   const errors = await validateForm();
+                  //   if (!errors.pinFields) {
+                  //     handleSubmit();
+                  //   }
+                  // }}
                 >
                   Verify
                 </button>
