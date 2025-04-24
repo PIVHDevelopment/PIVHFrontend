@@ -24,8 +24,11 @@ import businessversion from "../assets/images/businessversion.png";
 import recover from "../assets/images/recover.png";
 import withdraw from "../assets/images/withdraw.png";
 import deposit from "../assets/images/deposit.png";
+import uparrow from "../assets/images/uparrow.png";
+
 import wallet from "../assets/images/wallet.png";
 import send from "../assets/images/send.png";
+import downarrow from "../assets/images/receive.png";
 import share from "../assets/images/Share.png";
 import addressbook from "../assets/images/addressbook.png";
 import back from "../assets/images/Back.png";
@@ -107,7 +110,9 @@ const Index = {
   deposit,
   send,
   wallet,
-  Loader
+  Loader,
+  downarrow,
+  uparrow
 };
 
 export default Index;

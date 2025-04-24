@@ -11,6 +11,7 @@ function Deposit() {
   const typeTxn = location?.state?.typeTxn;
   const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
+  const [amount, setAmount] = useState(0);
   console.log({ typeTxn });
 
   const handleSubmitFunction = async (values) => {
@@ -25,6 +26,8 @@ function Deposit() {
         const bodyData = {
           uid: userData?.uid,
           amount: values?.amount,
+          paymentType: "received",
+          type: "Deposit",
         };
         const res = await Index.DataService.post(
           Index.Api.BUSINESS_DEPOSITE,
@@ -66,7 +69,8 @@ function Deposit() {
   };
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
-      ...formRef?.current?.values,
+      // ...formRef?.current?.values,
+      amount,
       paymentId,
     }).then(() => {});
   };
@@ -166,6 +170,7 @@ function Deposit() {
                         // Only allow digits
                         if (/^\d*\.?\d{0,6}$/.test(value)) {
                           formik.setFieldValue("amount", value);
+                          setAmount(value);
                         }
                       }}
                     />
@@ -181,13 +186,13 @@ function Deposit() {
                   <div className="amount-display">
                     {formik.values.amount || "0"} Pi
                   </div>
-                  {formik.values.amount && typeTxn !== "business" ? (
+                  {/* {formik.values.amount && typeTxn !== "business" ? (
                     <label className="text-color">
                       0.05 Pi will be deducted as platform fees
                     </label>
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
 
                 {/* <button className="action-btn full-width send-pi-btn" type="submit">
