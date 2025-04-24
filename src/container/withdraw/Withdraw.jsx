@@ -18,6 +18,7 @@ function Withdraw() {
       setButtonLoader(true);
 
       const paymentData = {
+        uid: userData?.uid,
         amount: values?.amount,
         address: values?.address,
         userName: userData?.userName,

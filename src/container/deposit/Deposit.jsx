@@ -25,6 +25,8 @@ function Deposit() {
         const bodyData = {
           uid: userData?.uid,
           amount: values?.amount,
+        paymentType : "received",
+         type : "Deposit"
         };
         const res = await Index.DataService.post(
           Index.Api.BUSINESS_DEPOSITE,

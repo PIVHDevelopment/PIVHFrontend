@@ -90,7 +90,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   padding: 0 4px;
 }
 
@@ -896,6 +896,7 @@ button.address-book-btn {
 
 .app-container .heading {
   font-weight: 600;
+  text-align: center;
 }
 
 .app-container.set-pin-div {
@@ -1466,4 +1467,9 @@ span.icon {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.security-ques-div h5{
+  text-align: center;
+  margin-bottom: 15px;
 }

@@ -105,7 +105,7 @@ const SetPinRecoveryQuestion = () => {
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="p-20">
+          <Box className="p-20 security-ques-div">
             <Typography variant="h5" gutterBottom>
               {isBusiness && "Business"} Security Question
             </Typography>
