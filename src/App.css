@@ -1371,3 +1371,83 @@ span.icon {
   display: flex;
   margin-top: -2px;
 }
+
+
+.loader-main {
+  background: #00000085;
+  height: 100vh;
+  border-radius: 11px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-main .loader-details {
+  position: relative;
+  max-width: max-content;
+}
+
+.loader-outer {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 4px;
+  background: conic-gradient(#ff9800, #ffc107, #ff9800);
+  animation: spinBorder 2s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-ring {
+  width: 90px;
+  height: 90px;
+  border: 3px solid rgb(247 165 53 / 50%);
+  border-top-color: #f7a535;
+  border-radius: 50%;
+  transform-origin: center;
+  animation: rotatering 2s linear infinite;
+  -webkit-animation: rotatering 2s linear infinite;
+}
+
+@keyframes rotatering {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.loader-inner {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.loader-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+@keyframes spinBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
