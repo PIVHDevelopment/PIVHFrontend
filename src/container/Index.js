@@ -18,6 +18,14 @@ import copyBtn from "../assets/images/Copy-Btn.png";
 import qrCode from "../assets/images/QR-Code-Receive.png";
 import downloadImg from "../assets/images/Download-Btn.png";
 import Plusadd from "../assets/images/Plusadd.png";
+import walletaddress from "../assets/images/walletaddress.png";
+import businessaddress from "../assets/images/businessaddress.png";
+import businessversion from "../assets/images/businessversion.png";
+import recover from "../assets/images/recover.png";
+import withdraw from "../assets/images/withdraw.png";
+import deposit from "../assets/images/deposit.png";
+import wallet from "../assets/images/wallet.png";
+import send from "../assets/images/send.png";
 import share from "../assets/images/Share.png";
 import addressbook from "../assets/images/addressbook.png";
 import back from "../assets/images/Back.png";
@@ -90,6 +98,14 @@ const Index = {
   // pencil,
   // delete,
   addressbook,
+  walletaddress,
+  businessaddress,
+  businessversion,
+  recover,
+  withdraw,
+  deposit,
+  send,
+  wallet,
 };
 
 export default Index;

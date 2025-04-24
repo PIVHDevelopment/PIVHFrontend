@@ -273,7 +273,8 @@ header {
   margin-bottom: 16px;
   background: #e38cff;
   color: #fff;
-  font-size: 20px;
+  font-size: 17px;
+  padding: 15px 20px;
 }
 
 .btn-icon {
@@ -442,7 +443,7 @@ header {
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  /* gap: 8px; */
 }
 
 .input-group fieldset {
@@ -474,10 +475,13 @@ header {
   border-radius: 40px;
   color: var(--text-color);
   font-size: 15px;
+  line-height: 20px;
+  font-family: 'Poppins';
 }
 
 .input-wrapper input::placeholder {
   color: #fff;
+  opacity: 0.6;
 }
 
 .paste-btn {
@@ -504,11 +508,15 @@ header {
 .notes-input {
   width: 100%;
   padding: 16px;
-  background: var(--dark-bg);
+  /* background: var(--dark-bg); */
   border: none;
   border-radius: 40px;
   color: #fff;
   font-size: 15px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
 }
 
 .notes-input-box {
@@ -855,7 +863,7 @@ button.address-book-btn {
 .textarea-question-sequrity .MuiOutlinedInput-root {
   color: #ffff;
   font-size: 16px;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 6px;
 }
 
@@ -1033,7 +1041,9 @@ button.address-book-btn {
   color: #000;
   border: 1px solid #00000080;
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Poppins';
 }
 
 .common-grid .input-wrapper input::placeholder {
@@ -1278,4 +1288,102 @@ button.address-book-btn {
   font-size: 18px;
   line-height: 26px;
   color: #fff;
+}
+
+.security-question-details .security-question-title {
+  font-family: 'Poppins';
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.verify-answer-content .verify-answer-label {
+  font-size: 15px;
+  font-family: 'Poppins';
+  font-weight: 400;
+  line-height: 23px;
+  margin-bottom: 5px;
+}
+
+.verify-answer-content .Mui-error {
+  margin-left: 0px;
+}
+
+.verify-answer-content .verify-answer-label {
+  font-size: 15px;
+  font-family: 'Poppins';
+  font-weight: 400;
+  line-height: 23px;
+  margin-bottom: 5px;
+}
+
+.verify-answer-content .Mui-error {
+  margin-left: 0px;
+}
+
+.textarea-question-sequrity .MuiInputBase-fullWidth {
+  padding: 16px;
+  font-size: 14px;
+  font-family: 'Poppins';
+  color: #fff;
+  background: var(--dark-bg);
+  border: none;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.textarea-question-sequrity .MuiInputBase-fullWidth textarea::placeholder {
+  color: #fff;
+  opacity: 0.6;
+}
+
+
+.verify-answer-content .textarea-question-sequrity {
+  margin: 5px 0px 0px 0px;
+}
+
+.notes-input-box .notes-input input {
+  background: transparent;
+  padding: 0px;
+}
+
+.notes-input-box .notes-input .MuiInputBase-formControl {
+  padding: 11.35px 9px !important;
+  font-family: 'Poppins';
+}
+
+.notes-input-box .notes-input svg {
+  color: #ffff;
+  opacity: 0.8;
+}
+
+.withdraw-form .input-mb-space {
+  margin-bottom: 20px;
+}
+
+.pr-receive-input .input-wrapper input {
+  padding-right: 90px;
+}
+
+.receive-btn-share .secondary-btn.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.receive-btn-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+span.icon {
+  display: flex;
+  margin-top: -2px;
 }

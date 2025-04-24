@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import VerificationPin from "../verificationPin/VerificationPin";
 
 function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -8,21 +9,26 @@ function Send() {
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
   const balance = location?.state?.balance;
+  let typeTxn = location?.state?.typeTxn;
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
-
-  const [tab, setTab] = useState(1);
+  const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
+  const [txnData,setTxnData] =useState({})
+console.log({typeTxn});
+
 
   const handleSubmitFunction = async (values) => {
+    const pin = values.pinFields.join("");
     setButtonLoader(true);
-
     const paymentData = {
-      amount: values?.amount,
-      memo: values?.memo,
+      amount: txnData?.amount,
+      memo: txnData?.memo,
+      pin,
+      typeTxn,
       metadata: {
-        userName: values?.userName,
+        userName: txnData?.userName,
         uid: userData?.uid,
         type: "Send",
       },
@@ -36,7 +42,7 @@ function Send() {
 
       if (res?.data?.status) {
         Index.toasterSuccess(res?.data?.message);
-        navigate("/home");
+        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
       } else {
         Index.toasterError(res?.data?.message || "Something went wrong.");
       }
@@ -65,8 +71,16 @@ function Send() {
   }, []);
   console.log("user", users);
 
+  const handleSubmit =(values)=>{
+    setTxnData(values)
+    setNextPage(true);
+  }
+
   return (
     <div className="app-container">
+      {nextPage ? 
+      <VerificationPin handleSubmitFunction={handleSubmitFunction}/> :
+      <>
       <header className="receive-center">
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt="Back" />
@@ -76,40 +90,13 @@ function Send() {
         </div>
         <div className="header-right"></div>
       </header>
-      {/* 
-      <Index.TabContainer
-        id="left-tabs-example"
-        defaultActiveKey="individual"
-        activeKey={tab}
-      >
-        <div className="wallet-tabs" style={{ width: "100%" }}>
-          <button
-            className={`tab-btn${tab === 1 ? " active" : ""}`}
-            data-tab="individual"
-            onClick={() => setTab(1)}
-          >
-            Waller Address
-          </button>
-          <button
-            className={`tab-btn${tab === 2 ? " active" : ""}`}
-            data-tab="business"
-            onClick={() => setTab(2)}
-          >
-            Scan QR
-          </button>
-        </div>
-        <Index.TabContent>
-          <Index.TabPane eventKey={1}></Index.TabPane>
-          <Index.TabPane eventKey={2}></Index.TabPane>
-        </Index.TabContent>
-      </Index.TabContainer> */}
       <Index.Formik
         initialValues={{
           userName: text,
           amount: "",
           memo: "",
         }}
-        onSubmit={handleSubmitFunction}
+        onSubmit={handleSubmit}
         validationSchema={Index.sendPiFormSchema}
         innerRef={formRef}
       >
@@ -121,7 +108,7 @@ function Send() {
                   id="userName"
                   className="notes-input-box"
                   options={users}
-                  getOptionLabel={(option) => option.userName}
+                  getOptionLabel={(option) => typeTxn == "business" ? option.businessUserName : option.userName}
                   value={
                     users.find(
                       (user) => user.userName === formik.values.userName
@@ -157,24 +144,13 @@ function Send() {
                   )}
                 />
 
-                {/* <button
-                  className="paste-btn"
-                  onClick={async () => {
-                    const res = await navigator.clipboard.readText();
-                    setText(res);
-                  }}
-                >
-                  Paste
-                </button> */}
               </div>
               <div className="input-error">
                 {formik.errors?.userName && formik.touched?.userName
                   ? formik.errors?.userName
                   : null}
               </div>
-              {/* <button className="address-book-link">
-                Select from Address Book
-              </button> */}
+          
             </div>
             <div className="input-group">
               <div className="input-wrapper">
@@ -236,13 +212,15 @@ function Send() {
               className="action-btn full-width send-pi-btn"
               type="submit"
               disabled={buttonLoader}
-              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+              // startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
             >
               {buttonLoader ? "Processing..." : "Send Pi"}
             </button>
           </form>
         )}
       </Index.Formik>
+      </>
+      }
     </div>
   );
 }

@@ -16,7 +16,7 @@ function Receive() {
       </header>
 
       <div className="send-form">
-        <div className="input-group">
+        <div className="input-group pr-receive-input">
           <div className="input-wrapper send-input-box">
             <input type="text" placeholder="Enter Wallet Address" />
             <button className="paste-btn" style={{ color: "#E38CFF" }}>
@@ -47,12 +47,14 @@ function Receive() {
         </button>
       </div>
 
-      <button className="secondary-btn share-btn">
-        <span className="icon">
-          <img src={Index.share} alt="Share" />
-        </span>
-        Share
-      </button>
+      <div className="receive-btn-share">
+        <button className="secondary-btn share-btn">
+          <span className="icon">
+            <img src={Index.share} alt="Share" />
+          </span>
+          Share
+        </button>
+      </div>
     </div>
   );
 }

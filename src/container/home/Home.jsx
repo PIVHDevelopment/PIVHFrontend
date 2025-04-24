@@ -24,6 +24,10 @@ function Home() {
   const navigate = Index.useNavigate();
   const [transactionList, setTransactionList] = useState([]);
   const [balance, setBalance] = useState("0");
+  const [businessBalance, setBusinessBalance] = useState("0");
+  let typeTxn = tab == 1 ? "individual" : "business";
+  console.log({ isBusiness });
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(userData?.userName);
@@ -50,10 +54,13 @@ function Home() {
   };
   const handleGetTransactions = () => {
     Index.DataService.get(
-      Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
+      `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
     ).then((res) => {
+      console.log({ res });
+
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
+      setBusinessBalance(res?.data?.data?.businessBalance);
     });
   };
 
@@ -70,7 +77,7 @@ function Home() {
     // if (userData?.walletAddress) {
     //   handleGetBalance();
     // }
-  }, []);
+  }, [typeTxn]);
 
   return (
     <>
@@ -137,7 +144,7 @@ function Home() {
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
-                {parseFloat(balance).toFixed(2)} Pi
+                {parseFloat(tab == 2 ? businessBalance : balance).toFixed(2)} Pi
               </h1>
             </div>
             <Index.TabContent>
@@ -145,7 +152,7 @@ function Home() {
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
-                <Business />
+                <Business balance={businessBalance} />
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
@@ -153,16 +160,18 @@ function Home() {
 
         {transactionList?.length ? (
           <div
-            className={`transaction-section${tab === 2 ? " transaction-section-top" : ""
-              }`}
+            // className={`transaction-section${
+            //   tab === 2 ? " transaction-section-top" : ""
+            // }`}
+            className="transaction-section"
           >
             <h2>Transaction History</h2>
             <div className="transaction-list">
-              {transactionList?.map((transaction) => {
+              {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
-                  <div className="transaction-main-box">
+                  <div className="transaction-main-box" key={index}>
                     <div className="transaction-details">
                       <img
                         src={isPositive ? Index.income : Index.expense}
@@ -223,13 +232,13 @@ function Home() {
         <Index.Modal.Body>
           <NavLink className="setting-cont-box" to={"/add-wallet"}>
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.walletaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Wallet Address</h6>
           </NavLink>
           <div className="setting-cont-box">
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.businessaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Business Address</h6>
           </div>
@@ -254,20 +263,29 @@ function Home() {
             </h6>
           </div>
 
-          <div className="setting-cont-box" onClick={() => navigate("/address-book")}>
+          <div
+            className="setting-cont-box"
+            onClick={() => navigate("/address-book")}
+          >
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
+
             </div>
-            <h6 className="setting-cont-title">
-              Address Book
-            </h6>
+            <h6 className="setting-cont-title">Address Book</h6>
           </div>
-          <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
-            <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Upgrade to business version</h6>
-          </NavLink>
+          {userData?.roleType != "User_Merchant" && (
+            <NavLink
+              className="setting-cont-box"
+              to={"/check-kyb-verification"}
+            >
+              <div className="setting-icon-box">
+                <img src={Index.businessversion} alt="" />
+              </div>
+              <h6 className="setting-cont-title">
+                Upgrade to business version
+              </h6>
+            </NavLink>
+          )}
           <div
             className="setting-cont-box"
             onClick={() => {
@@ -277,7 +295,7 @@ function Home() {
             }}
           >
             <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+              <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
           </div>
