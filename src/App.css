@@ -585,7 +585,7 @@ header {
 .qr-code {
   /* padding: 24px; */
   border-radius: var(--border-radius);
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   display: inline-block;
 }
 
@@ -1392,7 +1392,7 @@ button.address-book-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: 55px;
 }
 
 span.icon {
