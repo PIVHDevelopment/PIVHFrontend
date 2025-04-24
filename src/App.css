@@ -726,7 +726,7 @@ button.address-book-btn {
 
 .modal.show.user-setting-modal .modal-dialog {
   margin: 0 auto;
-  padding: 8px;
+  padding: 8px 8px 0px 8px;
 }
 
 .modal.user-setting-modal .modal-content {
