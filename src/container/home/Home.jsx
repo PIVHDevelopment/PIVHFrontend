@@ -29,7 +29,6 @@ function Home() {
   let typeTxn = tab == 1 ? "individual" : "business";
   console.log({ userData });
 
-
   const handleCopy = () => {
     navigator.clipboard.writeText(tab == 2 ? businessUserName : userData?.userName);
     setCopied(true);
@@ -107,7 +106,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-              // onClick={() => navigate("/add-wallet")}
+                // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -129,16 +128,20 @@ function Home() {
               >
                 Individual
               </button>
-              <button
-                className={`tab-btn${tab === 2 ? " active" : ""}`}
-                data-tab="business"
-                onClick={() => setTab(2)}
-              >
-                Business
-              </button>
+              {userData?.roleType == "User_Merchant" && (
+                <button
+                  className={`tab-btn${tab === 2 ? " active" : ""}`}
+                  data-tab="business"
+                  onClick={() => setTab(2)}
+                >
+                  Business
+                </button>
+              )}
             </div>
             <div className="wallet-id">
-              <span id="walletAddress">{tab == 2 ? businessUserName : userData?.userName || "-"}</span>
+              <span id="walletAddress">
+                {tab == 1 ? userData?.userName : userData?.businessUserName}
+              </span>
               <button className="copy-btn" onClick={handleCopy}>
                 {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
@@ -192,8 +195,9 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${isPositive ? "positive" : "negative"
-                        }`}
+                      className={`transaction-amount ${
+                        isPositive ? "positive" : "negative"
+                      }`}
                     >
                       <span>
                         {amountPrefix}
@@ -271,7 +275,6 @@ function Home() {
           >
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
-
             </div>
             <h6 className="setting-cont-title">Address Book</h6>
           </div>

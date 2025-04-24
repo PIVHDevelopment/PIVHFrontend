@@ -1,22 +1,22 @@
 import React from "react";
 import Index from "../../Index";
 
-function Business({balance}) {
+function Business({ balance }) {
   const navigate = Index.useNavigate();
   return (
     <>
-     <div className="action-buttons">
+      <div className="action-buttons">
         <button
           className="action-btn send-btn"
           id="sendBtn"
           onClick={() =>
             navigate("/deposit", {
-              state: { balance: balance,typeTxn : "business" },
+              state: { balance: balance, typeTxn: "business" },
             })
           }
         >
           <span className="btn-icon">
-            <img src={Index.receiveMoney} alt="Send Money" />
+            <img src={Index.deposit} alt="Send Money" />
           </span>
           Deposit
         </button>
@@ -26,12 +26,12 @@ function Business({balance}) {
           disabled={balance <= 0}
           onClick={() =>
             navigate("/send", {
-              state: { balance: balance, typeTxn : "business" },
+              state: { balance: balance, typeTxn: "business" },
             })
           }
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Send Money" />
+            <img src={Index.send} alt="Send Money" />
           </span>
           Send
         </button>
@@ -39,12 +39,12 @@ function Business({balance}) {
           className="action-btn receive-btn"
           id="withdraw"
           disabled={balance <= 0}
-          onClick={() => navigate("/withdraw" , {
-            state: { typeTxn : "business" },
+          onClick={() => navigate("/withdraw", {
+            state: { typeTxn: "business" },
           })}
         >
           <span className="btn-icon">
-            <img src={Index.sendMoney} alt="Receive Money" />
+            <img src={Index.wallet} alt="Receive Money" />
           </span>
           Withdraw
         </button>

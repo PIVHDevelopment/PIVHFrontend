@@ -49,6 +49,7 @@ import {
 } from "../utils/Validation";
 import moment from "moment";
 import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toaster";
+import Loader from "../common/loader/Loader";
 
 const Index = {
   Modal,
@@ -106,6 +107,7 @@ const Index = {
   deposit,
   send,
   wallet,
+  Loader
 };
 
 export default Index;
