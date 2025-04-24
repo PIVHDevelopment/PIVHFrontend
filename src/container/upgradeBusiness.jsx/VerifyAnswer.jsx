@@ -64,69 +64,83 @@ const VerifyAnswer = () => {
   }, []);
 
   return (
-    <Box className="app-container p-20-0 set-pin-div" mx="auto">
-      <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
-      <Box className="p-20 security-question-details" >
-        <Typography variant="h5" gutterBottom className="security-question-title">
-          {isBusiness && "Business "}Security Question
-        </Typography>
+    <>
+      {isLoading ? (
+        <Index.Loader />
+      ) : (
+        <Box className="app-container p-20-0 set-pin-div" mx="auto">
+          <header className="receive-center">
+            <button className="back-btn" onClick={() => navigate(-1)}>
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+          <Box className="p-20 security-question-details">
+            <Typography
+              variant="h5"
+              gutterBottom
+              className="security-question-title"
+            >
+              {isBusiness && "Business "}Security Question
+            </Typography>
 
+            <Box className="verify-answer-content">
+              <Formik
+                initialValues={{ answer: "" }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ values, errors, touched, handleChange, handleBlur }) => (
+                  <Form>
+                    {/* Show fetched question */}
+                    <Typography
+                      variant="subtitle1"
+                      className="verify-answer-label"
+                    >
+                      {question || "Security question not found"}
+                    </Typography>
+                    <TextField
+                      name="answer"
+                      placeholder="Enter your Answer"
+                      fullWidth
+                      className="textarea-question-sequrity"
+                      multiline
+                      // rows={3}
+                      margin="normal"
+                      value={values.answer}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.answer && Boolean(errors.answer)}
+                      helperText={touched.answer && errors.answer}
+                      disabled={!question}
+                    />
 
-        <Box className="verify-answer-content">
-          <Formik
-            initialValues={{ answer: "" }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ values, errors, touched, handleChange, handleBlur }) => (
-              <Form>
-                {/* Show fetched question */}
-                <Typography variant="subtitle1" className="verify-answer-label">
-                  {question || "Loading question..."}
-                </Typography>
-                <TextField
-                  name="answer"
-                  placeholder="Enter your Answer"
-                  fullWidth
-                  className="textarea-question-sequrity"
-                  multiline
-                  rows={3}
-                  margin="normal"
-                  value={values.answer}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.answer && Boolean(errors.answer)}
-                  helperText={touched.answer && errors.answer}
-                />
-
-                <Box textAlign="center" mt={5}>
-                  <button
-                    variant="contained"
-                    type="submit"
-                    className="action-btn full-width send-pi-btn"
-                  // className="secondary-btn share-btn"
-                  >
-                    {isLoading ? (
+                    <Box textAlign="center" mt={5}>
+                      <button
+                        variant="contained"
+                        type="submit"
+                        className="action-btn full-width send-pi-btn"
+                        disabled={!question}
+                        // className="secondary-btn share-btn"
+                      >
+                        {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
-                    ) : (
-                      "Submit"
-                    )}
-                  </button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
+                    ) : ( */}
+                        Submit
+                        {/* )} */}
+                      </button>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Box>
+      )}
+    </>
   );
 };
 

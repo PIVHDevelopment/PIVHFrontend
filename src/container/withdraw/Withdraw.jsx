@@ -5,9 +5,9 @@ import { CircularProgress } from "@mui/material";
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [balance, setBalance] = useState("0");
- const [businessBalance, setBusinessBalance] = useState("0");
-    const location = Index.useLocation();
-    const typeTxn = location?.state?.typeTxn;
+  const [businessBalance, setBusinessBalance] = useState("0");
+  const location = Index.useLocation();
+  const typeTxn = location?.state?.typeTxn;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -28,7 +28,9 @@ function Withdraw() {
       setButtonLoader(false);
       if (res?.data?.status === 200) {
         Index.toasterSuccess(res?.data?.message);
-        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
+        navigate("/home", {
+          state: { isBusiness: typeTxn == "business" ? true : false },
+        });
       } else {
         Index.toasterError(res?.data?.message);
         setButtonLoader(false);
@@ -92,18 +94,22 @@ function Withdraw() {
   }, []);
 
   return (
-    <div className="app-container">
-      <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
+    <>
+      {buttonLoader ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button className="back-btn" onClick={() => navigate(-1)}>
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
 
-      {/* <Index.TabContainer
+          {/* <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
         activeKey={tab}
@@ -129,95 +135,102 @@ function Withdraw() {
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
       </Index.TabContainer> */}
-      <Index.Formik
-        initialValues={{
-          amount: "",
-          address: "",
-        }}
-        onSubmit={handleSubmitFunction}
-        validationSchema={Index.withdrawPiFormSchema}
-        innerRef={formRef}
-      >
-        {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form">
-            <div className="input-group">
-              {console.log("onCancel", formik.errors)}
-              <div className="amount-section">
-                <label>Available Balance</label>
-                <div className="amount-display">
-                  {parseFloat(typeTxn == "business" ? businessBalance : balance).toFixed(2)} Pi
+          <Index.Formik
+            initialValues={{
+              amount: "",
+              address: "",
+            }}
+            onSubmit={handleSubmitFunction}
+            validationSchema={Index.withdrawPiFormSchema}
+            innerRef={formRef}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit} className="send-form">
+                <div className="input-group">
+                  {console.log("onCancel", formik.errors)}
+                  <div className="amount-section">
+                    <label>Available Balance</label>
+                    <div className="amount-display">
+                      {parseFloat(
+                        typeTxn == "business" ? businessBalance : balance
+                      ).toFixed(2)}{" "}
+                      Pi
+                    </div>
+                  </div>
+                  <div className="withdraw-form">
+                    <div className="input-mb-space">
+                      <div className="input-wrapper">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          className="notes-input"
+                          placeholder="Enter Amount"
+                          name="amount"
+                          value={formik.values.amount}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*\.?\d{0,6}$/.test(value)) {
+                              if (parseFloat(value) > parseFloat(balance)) {
+                                formik.setFieldValue("amount", balance);
+                              } else {
+                                formik.setFieldValue("amount", value);
+                              }
+                            }
+                          }}
+                        />
+                      </div>
+                      <div className="input-error">
+                        {formik.errors?.amount && formik.touched?.amount
+                          ? formik.errors?.amount
+                          : null}
+                      </div>
+                    </div>
+                    <div className="input-mb-space">
+                      <div className="input-wrapper">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          className="notes-input"
+                          placeholder="Enter Wallet Address"
+                          name="address"
+                          value={formik.values.address}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            formik.setFieldValue("address", value);
+                          }}
+                        />
+                      </div>
+                      <div className="input-error">
+                        {formik.errors?.address && formik.touched?.address
+                          ? formik.errors?.address
+                          : null}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="withdraw-form">
-                <div className="input-mb-space">
-                  <div className="input-wrapper">
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      className="notes-input"
-                      placeholder="Enter Amount"
-                      name="amount"
-                      value={formik.values.amount}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^\d*\.?\d{0,6}$/.test(value)) {
-                          if (parseFloat(value) > parseFloat(balance)) {
-                            formik.setFieldValue("amount", balance);
-                          } else {
-                            formik.setFieldValue("amount", value);
-                          }
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="input-error">
-                    {formik.errors?.amount && formik.touched?.amount
-                      ? formik.errors?.amount
-                      : null}
-                  </div>
-                </div>
-                <div className="input-mb-space">
-                  <div className="input-wrapper">
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      className="notes-input"
-                      placeholder="Enter Wallet Address"
-                      name="address"
-                      value={formik.values.address}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        formik.setFieldValue("address", value);
-                      }}
-                    />
-                  </div>
-                  <div className="input-error">
-                    {formik.errors?.address && formik.touched?.address
-                      ? formik.errors?.address
-                      : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <button
+                {/* <button
               className="action-btn full-width send-pi-btn"
               type="submit"
               disabled={buttonLoader}
             >
               Withdraw
             </button> */}
-            <button
-              className="action-btn full-width send-pi-btn"
-              type="submit"
-              disabled={buttonLoader}
-              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
-            >
-              {buttonLoader ? "Processing..." : "Withdraw"}
-            </button>
-          </form>
-        )}
-      </Index.Formik>
-    </div>
+                <button
+                  className="action-btn full-width send-pi-btn"
+                  type="submit"
+                  disabled={buttonLoader}
+                  startIcon={
+                    buttonLoader ? <CircularProgress size={20} /> : null
+                  }
+                >
+                  {buttonLoader ? "Processing..." : "Withdraw"}
+                </button>
+              </form>
+            )}
+          </Index.Formik>
+        </div>
+      )}
+    </>
   );
 }
 

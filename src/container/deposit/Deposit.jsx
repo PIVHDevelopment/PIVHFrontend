@@ -11,8 +11,8 @@ function Deposit() {
   const typeTxn = location?.state?.typeTxn;
   const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
-  console.log({typeTxn});
-  
+  console.log({ typeTxn });
+
   const handleSubmitFunction = async (values) => {
     console.log(parseFloat(balance) + parseFloat(values?.amount));
     if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
@@ -21,46 +21,49 @@ function Deposit() {
     }
     setButtonLoader(true);
     if (typeTxn == "business") {
-   try {
-    const bodyData={
-      uid:userData?.uid,
-      amount: values?.amount
-    }
-    const res = await Index.DataService.post(
-      Index.Api.BUSINESS_DEPOSITE,bodyData)
-      if(res?.data?.status === 200){
-        Index.toasterSuccess(res?.data?.message);
-        navigate("/home",{state:{isBusiness: typeTxn == "business"? true : false}});
-      }else{
-        Index.toasterError(res?.data?.message || "Something went wrong.");
+      try {
+        const bodyData = {
+          uid: userData?.uid,
+          amount: values?.amount,
+        };
+        const res = await Index.DataService.post(
+          Index.Api.BUSINESS_DEPOSITE,
+          bodyData
+        );
+        if (res?.data?.status === 200) {
+          Index.toasterSuccess(res?.data?.message);
+          navigate("/home", {
+            state: { isBusiness: typeTxn == "business" ? true : false },
+          });
+        } else {
+          Index.toasterError(res?.data?.message || "Something went wrong.");
+        }
+      } catch (error) {
+        Index.toasterError(
+          error?.response?.data?.message || "An unexpected error occurred."
+        );
       }
-    
-   } catch (error) {
-    Index.toasterError(
-      error?.response?.data?.message || "An unexpected error occurred."
-    );
-  }
-  setButtonLoader(false);
-    } else{
-    const paymentData = {
-      amount: values?.amount,
-      memo: "deposit",
-      typeTxn,
-      metadata: {
-        userName: userData?.userName,
-        uid: userData?.uid,
-        type: "Deposit",
-      },
-    };
-    const callbacks = {
-      onReadyForServerApproval,
-      onReadyForServerCompletion,
-      onCancel,
-      onError,
-    };
-    await window.Pi.createPayment(paymentData, callbacks);
+      setButtonLoader(false);
+    } else {
+      const paymentData = {
+        amount: values?.amount,
+        memo: "deposit",
+        typeTxn,
+        metadata: {
+          userName: userData?.userName,
+          uid: userData?.uid,
+          type: "Deposit",
+        },
+      };
+      const callbacks = {
+        onReadyForServerApproval,
+        onReadyForServerCompletion,
+        onCancel,
+        onError,
+      };
+      await window.Pi.createPayment(paymentData, callbacks);
+    }
   };
-}
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
       ...formRef?.current?.values,
@@ -98,18 +101,22 @@ function Deposit() {
   };
 
   return (
-    <div className="app-container">
-      <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
+    <>
+      {buttonLoader ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button className="back-btn" onClick={() => navigate(-1)}>
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
 
-      {/* <Index.TabContainer
+          {/* <Index.TabContainer
         id="left-tabs-example"
         defaultActiveKey="individual"
         activeKey={tab}
@@ -135,69 +142,72 @@ function Deposit() {
           <Index.TabPane eventKey={2}></Index.TabPane>
         </Index.TabContent>
       </Index.TabContainer> */}
-      <Index.Formik
-        initialValues={{
-          amount: "",
-        }}
-        onSubmit={handleSubmitFunction}
-        validationSchema={Index.depositPiFormSchema}
-        innerRef={formRef}
-      >
-        {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form">
-            <div className="input-group">
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  inputMode="numeric" // shows numeric keyboard on mobile
-                  className="notes-input"
-                  placeholder="Enter Amount"
-                  name="amount"
-                  value={formik.values.amount}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    // Only allow digits
-                    if (/^\d*\.?\d{0,6}$/.test(value)) {
-                      formik.setFieldValue("amount", value);
-                    }
-                  }}
-                />
-              </div>
-              <div className="input-error">
-                {formik.errors?.amount && formik.touched?.amount
-                  ? formik.errors?.amount
-                  : null}
-              </div>
-            </div>
-            <div className="amount-section">
-              <label>Enter Pi Amount</label>
-              <div className="amount-display">
-                {formik.values.amount || "0"} Pi
-              </div>
-              {formik.values.amount && typeTxn !== "business" ? (
-                <label className="text-color">
-                  0.05 Pi will be deducted as platform fees
-                </label>
-              ) : (
-                ""
-              )}
-            </div>
+          <Index.Formik
+            initialValues={{
+              amount: "",
+            }}
+            onSubmit={handleSubmitFunction}
+            validationSchema={Index.depositPiFormSchema}
+            innerRef={formRef}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit} className="send-form">
+                <div className="input-group">
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      inputMode="numeric" // shows numeric keyboard on mobile
+                      className="notes-input"
+                      placeholder="Enter Amount"
+                      name="amount"
+                      value={formik.values.amount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Only allow digits
+                        if (/^\d*\.?\d{0,6}$/.test(value)) {
+                          formik.setFieldValue("amount", value);
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="input-error">
+                    {formik.errors?.amount && formik.touched?.amount
+                      ? formik.errors?.amount
+                      : null}
+                  </div>
+                </div>
+                <div className="amount-section">
+                  <label>Enter Pi Amount</label>
+                  <div className="amount-display">
+                    {formik.values.amount || "0"} Pi
+                  </div>
+                  {formik.values.amount && typeTxn !== "business" ? (
+                    <label className="text-color">
+                      0.05 Pi will be deducted as platform fees
+                    </label>
+                  ) : (
+                    ""
+                  )}
+                </div>
 
-            {/* <button className="action-btn full-width send-pi-btn" type="submit">
+                {/* <button className="action-btn full-width send-pi-btn" type="submit">
               Deposit
             </button> */}
-            <button
-              className="action-btn full-width send-pi-btn"
-              type="submit"
-              disabled={buttonLoader}
-              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
-            >
-              {buttonLoader ? "Processing..." : "Deposit"}
-            </button>
-          </form>
-        )}
-      </Index.Formik>
-    </div>
+                <button
+                  className="action-btn full-width send-pi-btn"
+                  type="submit"
+                  disabled={buttonLoader}
+                  // startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+                >
+                  {/* {buttonLoader ? "Processing..." : "Deposit"} */}
+                  Deposit
+                </button>
+              </form>
+            )}
+          </Index.Formik>
+        </div>
+      )}
+    </>
   );
 }
 
