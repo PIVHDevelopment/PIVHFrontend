@@ -29,6 +29,11 @@ const Api = {
   GET_RECOVER_QUESTION: "/user/get-recovery-question",
   VERIFY_ANSWER: "/user/verify-answer",
   GET_BUSINESS_DETAIL: "/user/get-business-details",
+
+  ADD_UPDATE_ADDRESS: "/user/add-update-address",
+  GET_ADDRESS: "/user/get-address-book",
+  DELETE_ADDRESS: "/user/delete-address",
+  
 };
 
 export default Api;
