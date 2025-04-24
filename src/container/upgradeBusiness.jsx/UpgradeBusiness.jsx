@@ -29,14 +29,14 @@ function UpgradeBusiness() {
         );
 
         if (!userData?.businessTxn?.isPin) {
-          Index.toasterSuccess(res?.data?.message);
+          // Index.toasterSuccess(res?.data?.message);
           navigate("/set-txn-pin", { state: { isBusiness: true } });
         } else if (!userData?.businessTxn?.isQuestion) {
           navigate("/set-recovery-pin-question", {
             state: { isBusiness: true },
           });
         } else {
-          Index.toasterSuccess("Your business details updated successfully");
+          // Index.toasterSuccess("Your business details updated successfully");
           navigate("/home", { state: { isBusiness: true } });
         }
         setLoading(false);
