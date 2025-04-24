@@ -194,6 +194,7 @@ header {
   margin-bottom: 24px;
   max-width: 340px;
   font-size: 14px;
+  width: 100%;
 }
 
 .copy-btn {
@@ -231,13 +232,14 @@ header {
 /* Button Styles */
 .action-buttons {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .action-btn {
   flex: 1;
-  padding: 16px;
+  padding: 12px 10px;
   border: none;
   background: var(--bg-white);
   color: var(--text-black);
@@ -246,15 +248,24 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 15px;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 500;
 }
+.action-btn img{
+  height: 20px;
+  width: 20px;
+}
+
+.action-btn.receive-btn img {
+  transform: rotate(180deg);
+}
+
 
 .action-btn:disabled,
 .action-btn.send-pi-btn:disabled {
   flex: 1;
-  padding: 16px;
+  padding: 12px 10px;
   border: none;
   background: #9e9e9e;
   color: var(--text-black);
@@ -263,8 +274,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 15px;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -568,7 +579,7 @@ header {
 /* Receive Page Styles */
 .qr-section {
   text-align: center;
-  margin: 24px 0;
+  /* margin: 24px 0; */
 }
 
 .qr-code {
@@ -590,12 +601,6 @@ header {
   margin: 16px 0;
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin: 24px 0;
-}
 
 .circle-btn {
   display: flex;

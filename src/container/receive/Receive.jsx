@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Index from "../Index";
 
 function Receive() {
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
+  const location = Index.useLocation();
+  let typeTxn = location?.state?.typeTxn;
+    const [copied, setCopied] = useState(false);
+  console.log({location});
+
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(typeTxn == "business" ? businessUserName : userData?.userName);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+  
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -15,20 +28,18 @@ function Receive() {
         <div className="header-right"></div>
       </header>
 
-      <div className="send-form">
-        <div className="input-group pr-receive-input">
-          <div className="input-wrapper send-input-box">
-            <input type="text" placeholder="Enter Wallet Address" />
-            <button className="paste-btn" style={{ color: "#E38CFF" }}>
-              Confirm
-            </button>
-          </div>
-        </div>
-      </div>
+        <div className="wallet-id">
+              <span id="walletAddress">
+                {typeTxn == "business" ?  userData?.businessUserName : userData?.userName }
+              </span>
+              <button className="copy-btn" onClick={handleCopy}>
+                {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
+              </button>
+            </div>
 
       <div className="qr-section">
         <div className="qr-code">
-          <img src={Index.qrCode} alt="QR Code" />
+          {/* <img src={Index.qrCode} alt="QR Code" /> */}
         </div>
       </div>
 

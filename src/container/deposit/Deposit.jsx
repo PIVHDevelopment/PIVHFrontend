@@ -183,13 +183,13 @@ function Deposit() {
                   <div className="amount-display">
                     {formik.values.amount || "0"} Pi
                   </div>
-                  {formik.values.amount && typeTxn !== "business" ? (
+                  {/* {formik.values.amount && typeTxn !== "business" ? (
                     <label className="text-color">
                       0.05 Pi will be deducted as platform fees
                     </label>
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
 
                 {/* <button className="action-btn full-width send-pi-btn" type="submit">

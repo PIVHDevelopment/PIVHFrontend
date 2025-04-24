@@ -6,21 +6,21 @@ function Business({ balance }) {
   return (
     <>
       <div className="action-buttons">
-        <button
-          className="action-btn send-btn"
+      <button
+          className="action-btn send-btn receive-btn"
           id="sendBtn"
           onClick={() =>
-            navigate("/deposit", {
+            navigate("/receive", {
               state: { balance: balance, typeTxn: "business" },
             })
           }
         >
           <span className="btn-icon">
-            <img src={Index.deposit} alt="Send Money" />
+            <img src={Index.send} alt="Send Money" />
           </span>
-          Deposit
+          Receive
         </button>
-        <button
+      <button
           className="action-btn send-btn"
           id="sendBtn"
           disabled={balance <= 0}
@@ -34,6 +34,20 @@ function Business({ balance }) {
             <img src={Index.send} alt="Send Money" />
           </span>
           Send
+        </button>
+        <button
+          className="action-btn send-btn"
+          id="sendBtn"
+          onClick={() =>
+            navigate("/deposit", {
+              state: { balance: balance, typeTxn: "business" },
+            })
+          }
+        >
+          <span className="btn-icon">
+            <img src={Index.deposit} alt="Send Money" />
+          </span>
+          Deposit
         </button>
         <button
           className="action-btn receive-btn"
