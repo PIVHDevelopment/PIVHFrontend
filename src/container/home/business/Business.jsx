@@ -54,6 +54,12 @@ function Business({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              disabled={balance <= 0}
+              onClick={() =>
+                navigate("/send", {
+                  state: { balance: balance, typeTxn: "business" },
+                })
+              }
             >
               <span className="btn-icon">
                 <img src={Index.send} alt="Send Money" />
@@ -80,6 +86,11 @@ function Business({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "business" },
+                })
+              }
             >
               <span className="btn-icon">
                 <img src={Index.deposit} alt="Send Money" />
@@ -93,6 +104,10 @@ function Business({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              disabled={balance <= 0}
+              onClick={() => navigate("/withdraw", {
+                state: { typeTxn: "business" },
+              })}
             >
               <span className="btn-icon">
                 <img src={Index.withdraw} alt="Send Money" />

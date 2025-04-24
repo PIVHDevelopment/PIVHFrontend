@@ -52,6 +52,12 @@ function Individual({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              disabled={balance <= 0}
+              onClick={() =>
+                navigate("/send", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
             >
               <span className="btn-icon">
                 <img src={Index.send} alt="Send Money" />
@@ -78,6 +84,11 @@ function Individual({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
             >
               <span className="btn-icon">
                 <img src={Index.deposit} alt="Send Money" />
@@ -91,6 +102,8 @@ function Individual({ balance }) {
             <button
               className="action-btn send-btn"
               id="sendBtn"
+              disabled={balance <= 0}
+              onClick={() => navigate("/withdraw", { state: { typeTxn: "individual" } })}
             >
               <span className="btn-icon">
                 <img src={Index.withdraw} alt="Send Money" />
