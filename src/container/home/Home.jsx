@@ -271,7 +271,11 @@ function Home() {
 
           <div
             className="setting-cont-box"
-            onClick={() => navigate("/address-book")}
+            onClick={() =>
+              navigate("/address-book", {
+                state: { isBusiness: tab === 2 && true },
+              })
+            }
           >
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
