@@ -122,7 +122,8 @@ function Send() {
                 {(formik) => (
                   <form onSubmit={formik.handleSubmit} className="send-form">
                     <div className="input-group">
-                      <div className="input-wrapper send-input-box">
+                      <div className="input-wrapper send-input-box receiver-addres-scanner-box">
+
                       <Autocomplete
                   id="userName"
                   className="notes-input-box"
@@ -162,6 +163,10 @@ function Send() {
                     />
                   )}
                 />
+                 <div className="scanner-icon">
+                <img src={Index.scannerIcon} alt="scanner" />
+              </div>
+
                       </div>
                       <div className="input-error">
                         {formik.errors?.userName && formik.touched?.userName
