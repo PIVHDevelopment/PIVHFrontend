@@ -1485,3 +1485,31 @@ span.icon {
 .question-radio label .MuiFormControlLabel-label {
   font-family: 'Poppins';
 }
+
+.btn-home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-home-content .btn-home-content {
+  margin-bottom: 0px;
+  font-family: Poppins;
+  font-size: 16px;
+  text-transform: capitalize;
+  line-height: 20px;
+}
+
+.action-send-main-contain {
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 20px 0px;
+}
+
+
+.action-send-main-contain .btn-icon img {
+  height: 24px;
+  width: 24px;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
+}

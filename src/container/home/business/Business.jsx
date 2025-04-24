@@ -5,8 +5,8 @@ function Business({ balance }) {
   const navigate = Index.useNavigate();
   return (
     <>
-      <div className="action-buttons">
-        <button
+      <div className="action-buttons action-send-main-contain">
+        {/* <button
           className="action-btn send-btn"
           id="sendBtn"
           onClick={() =>
@@ -47,7 +47,60 @@ function Business({ balance }) {
             <img src={Index.wallet} alt="Receive Money" />
           </span>
           Withdraw
-        </button>
+        </button> */}
+
+        <div className="action-button-listing">
+          <div className="btn-home-content">
+            <button
+              className="action-btn send-btn"
+              id="sendBtn"
+            >
+              <span className="btn-icon">
+                <img src={Index.send} alt="Send Money" />
+              </span>
+            </button>
+            <p className="btn-home-content">Send</p>
+          </div>
+        </div>
+        <div className="action-button-listing">
+          <div className="btn-home-content">
+            <button
+              className="action-btn send-btn"
+              id="sendBtn"
+            >
+              <span className="btn-icon">
+                <img src={Index.downarrow} alt="Send Money" />
+              </span>
+            </button>
+            <p className="btn-home-content">Receive</p>
+          </div>
+        </div>
+        <div className="action-button-listing">
+          <div className="btn-home-content">
+            <button
+              className="action-btn send-btn"
+              id="sendBtn"
+            >
+              <span className="btn-icon">
+                <img src={Index.deposit} alt="Send Money" />
+              </span>
+            </button>
+            <p className="btn-home-content">Deposit</p>
+          </div>
+        </div>
+        <div className="action-button-listing">
+          <div className="btn-home-content">
+            <button
+              className="action-btn send-btn"
+              id="sendBtn"
+            >
+              <span className="btn-icon">
+                <img src={Index.withdraw} alt="Send Money" />
+              </span>
+            </button>
+            <p className="btn-home-content">Withdraw</p>
+          </div>
+        </div>
       </div>
     </>
   );
