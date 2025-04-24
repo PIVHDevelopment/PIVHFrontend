@@ -36,6 +36,7 @@ import invisibleIcon from "../assets/images/invisible.svg";
 import showIcon from "../assets/images/show.svg";
 import markIcon from "../assets/images/mark.svg";
 import successIcon from "../assets/images/success.svg";
+import scannerIcon from "../assets/images/scanner.svg";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -112,7 +113,8 @@ const Index = {
   wallet,
   Loader,
   downarrow,
-  uparrow
+  uparrow,
+  scannerIcon
 };
 
 export default Index;
