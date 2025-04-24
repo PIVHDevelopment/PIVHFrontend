@@ -25,6 +25,7 @@ import SuccessMessage from "../container/auth/SuccessMessage";
 import VerifyAnswer from "../container/upgradeBusiness.jsx/VerifyAnswer";
 import VerificationPin from "../container/verificationPin/VerificationPin";
 import AddressBook from "../container/addressBook/AddressBook";
+import Loader from "../common/loader/Loader";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -130,6 +131,11 @@ const Routers = () => {
         {
           path: "/address-book",
           element: <AddressBook />,
+        },
+
+        {
+          path: "/loader",
+          element: <Loader />,
         },
       ],
     },
