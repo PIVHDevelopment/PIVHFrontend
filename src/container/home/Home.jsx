@@ -236,38 +236,38 @@ function Home() {
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          <NavLink className="setting-cont-box" to={"/add-wallet"}>
+          {/* <NavLink className="setting-cont-box" to={"/add-wallet"}>
             <div className="setting-icon-box">
               <img src={Index.walletaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Wallet Address</h6>
-          </NavLink>
-          <div className="setting-cont-box">
+          </NavLink> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.businessaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Business Address</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.employee} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Employee Address</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.autopay} alt="" />
             </div>
             <h6 className="setting-cont-title">Set Autopay</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
             <h6 className="setting-cont-title">
               Configure Salary Disbursement
             </h6>
-          </div>
+          </div> */}
 
           <div
             className="setting-cont-box"
@@ -287,7 +287,7 @@ function Home() {
                 <img src={Index.businessversion} alt="" />
               </div>
               <h6 className="setting-cont-title">
-                Upgrade to business version
+                Upgrade To Business Version
               </h6>
             </NavLink>
           )}
