@@ -51,31 +51,43 @@ function SignIn() {
   };
 
   return (
-    <div className="app-container p-20-0 signin-main">
-      <div className="p-20">
-        <header className="signin-header">
-          <div
-            className="app-icon"
-            style={{ textAlign: "center", flex: "0 0 33.3%", height: "80px" }}
-          >
-            <img src={Index.pocketPi2} alt="PocketPi" />
-          </div>
-        </header>
-        <div className="sigin-body">
-          <button className="secondary-btn share-btn" onClick={signIn}>
-            {isLoading ? (
+    <>
+      {isLoading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container p-20-0 signin-main">
+          <div className="p-20">
+            <header className="signin-header">
+              <div
+                className="app-icon"
+                style={{
+                  textAlign: "center",
+                  flex: "0 0 33.3%",
+                  height: "80px",
+                }}
+              >
+                <img src={Index.pocketPi2} alt="PocketPi" />
+              </div>
+            </header>
+            <div className="sigin-body">
+              <button className="secondary-btn share-btn" onClick={signIn}>
+                {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
-            ) : (
-              "Sign In"
-            )}
-          </button>
+            ) : ( */}
+                Sign In
+                {/* )} */}
+              </button>
+            </div>
+          </div>
+          <div className="sigin-footer">
+            <p onClick={() => navigate("/term-conditions")}>
+              Terms & Conditions
+            </p>
+            <p onClick={() => navigate("/privacy-policy")}>Privacy Policy</p>
+          </div>
         </div>
-      </div>
-      <div className="sigin-footer">
-        <p onClick={() => navigate("/term-conditions")}>Terms & Conditions</p>
-        <p onClick={() => navigate("/privacy-policy")}>Privacy Policy</p>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -91,91 +91,99 @@ const SetPinRecoveryQuestion = () => {
   };
 
   return (
-    <Box className="app-container p-20-0 set-pin-div">
-      <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
-      <Box className="p-20">
-        <Typography variant="h5" gutterBottom>
-          {isBusiness && "Business"} Security Question
-        </Typography>
+    <>
+      {isLoading ? (
+        <Index.Loader />
+      ) : (
+        <Box className="app-container p-20-0 set-pin-div">
+          <header className="receive-center">
+            <button className="back-btn" onClick={() => navigate(-1)}>
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+          <Box className="p-20">
+            <Typography variant="h5" gutterBottom>
+              {isBusiness && "Business"} Security Question
+            </Typography>
 
-        <Formik
-          initialValues={{ selectedQuestion: 0, answer: "" }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            setFieldValue,
-            handleBlur,
-          }) => (
-            <Form>
-              <FormGroup className="question-radio">
-                {(isBusiness ? businessQuestions : questions).map(
-                  (q, index) => (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Radio
-                          name="selectedQuestion"
-                          value={index}
-                          className="question-radio-box"
-                          checked={parseInt(values.selectedQuestion) === index}
-                          onChange={() =>
-                            setFieldValue("selectedQuestion", index)
+            <Formik
+              initialValues={{ selectedQuestion: 0, answer: "" }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                setFieldValue,
+                handleBlur,
+              }) => (
+                <Form>
+                  <FormGroup className="question-radio">
+                    {(isBusiness ? businessQuestions : questions).map(
+                      (q, index) => (
+                        <FormControlLabel
+                          key={index}
+                          control={
+                            <Radio
+                              name="selectedQuestion"
+                              value={index}
+                              className="question-radio-box"
+                              checked={
+                                parseInt(values.selectedQuestion) === index
+                              }
+                              onChange={() =>
+                                setFieldValue("selectedQuestion", index)
+                              }
+                            />
                           }
+                          label={q}
                         />
-                      }
-                      label={q}
-                    />
-                  )
-                )}
-              </FormGroup>
+                      )
+                    )}
+                  </FormGroup>
 
-              <TextField
-                name="answer"
-                placeholder="Enter your Answer"
-                fullWidth
-                className="textarea-question-sequrity"
-                multiline
-                // rows={3}
-                margin="normal"
-                value={values.answer}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.answer && Boolean(errors.answer)}
-                helperText={touched.answer && errors.answer}
-              />
+                  <TextField
+                    name="answer"
+                    placeholder="Enter your Answer"
+                    fullWidth
+                    className="textarea-question-sequrity"
+                    multiline
+                    // rows={3}
+                    margin="normal"
+                    value={values.answer}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.answer && Boolean(errors.answer)}
+                    helperText={touched.answer && errors.answer}
+                  />
 
-              <Box textAlign="center" mt={5}>
-                <button
-                  variant="contained"
-                  type="submit"
-                  className="action-btn full-width send-pi-btn"
-                // className="secondary-btn share-btn"
-                >
-                  {isLoading ? (
-                    <Spinner animation="border" role="status" size="sm" />
-                  ) : (
-                    "Submit"
-                  )}
-                </button>
-              </Box>
-            </Form>
-          )}
-        </Formik>
-      </Box>
-    </Box>
+                  <Box textAlign="center" mt={5}>
+                    <button
+                      variant="contained"
+                      type="submit"
+                      className="action-btn full-width send-pi-btn"
+                      // className="secondary-btn share-btn"
+                    >
+                      {isLoading ? (
+                        <Spinner animation="border" role="status" size="sm" />
+                      ) : (
+                        "Submit"
+                      )}
+                    </button>
+                  </Box>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+        </Box>
+      )}
+    </>
   );
 };
 
