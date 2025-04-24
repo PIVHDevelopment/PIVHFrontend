@@ -276,7 +276,8 @@ function Home() {
             </div>
             <h6 className="setting-cont-title">Address Book</h6>
           </div>
-          {userData?.roleType != "User_Merchant" && (
+          {(!userData?.businessTxn?.isPin ||
+            !userData?.businessTxn?.isQuestion) && (
             <NavLink
               className="setting-cont-box"
               to={"/check-kyb-verification"}
