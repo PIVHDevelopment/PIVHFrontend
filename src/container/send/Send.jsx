@@ -72,6 +72,8 @@ console.log({typeTxn});
   console.log("user", users);
 
   const handleSubmit =(values)=>{
+    console.log({values});
+    
     setTxnData(values)
     setNextPage(true);
   }
@@ -111,7 +113,7 @@ console.log({typeTxn});
                   getOptionLabel={(option) => typeTxn == "business" ? option.businessUserName : option.userName}
                   value={
                     users.find(
-                      (user) => user.userName === formik.values.userName
+                      (user) => user.userName === formik.values.userName || user.businessUserName === formik.values.userName
                     ) || null
                   }
                   open={userDropDown}
@@ -125,7 +127,7 @@ console.log({typeTxn});
                   onChange={(e, selectedUser) => {
                     formik.setFieldValue(
                       "userName",
-                      selectedUser?.userName || ""
+                      typeTxn == "business" ? selectedUser?.businessUserName : selectedUser?.userName || ""
                     );
                   }}
                   onBlur={formik.handleBlur}

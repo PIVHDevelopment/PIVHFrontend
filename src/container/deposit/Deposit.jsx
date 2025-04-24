@@ -23,8 +23,10 @@ function Deposit() {
     if (typeTxn == "business") {
    try {
     const bodyData={
-      uid:userData?.uid,
-      amount: values?.amount
+      uid: userData?.uid,
+      amount: values?.amount,
+      paymentType : "received",
+      type : "Deposit"
     }
     const res = await Index.DataService.post(
       Index.Api.BUSINESS_DEPOSITE,bodyData)
@@ -190,7 +192,7 @@ function Deposit() {
               className="action-btn full-width send-pi-btn"
               type="submit"
               disabled={buttonLoader}
-              startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
+              // startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
             >
               {buttonLoader ? "Processing..." : "Deposit"}
             </button>

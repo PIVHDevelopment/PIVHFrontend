@@ -25,12 +25,13 @@ function Home() {
   const [transactionList, setTransactionList] = useState([]);
   const [balance, setBalance] = useState("0");
   const [businessBalance, setBusinessBalance] = useState("0");
+  const [businessUserName, setBusinessUserName] = useState("");
   let typeTxn = tab == 1 ? "individual" : "business";
-  console.log({ isBusiness });
+  console.log({ userData });
 
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(userData?.userName);
+    navigator.clipboard.writeText(tab == 2 ? businessUserName : userData?.userName);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
@@ -61,6 +62,7 @@ function Home() {
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
       setBusinessBalance(res?.data?.data?.businessBalance);
+      setBusinessUserName(res?.data?.data?.businessUserName);
     });
   };
 
@@ -136,7 +138,7 @@ function Home() {
               </button>
             </div>
             <div className="wallet-id">
-              <span id="walletAddress">{userData?.userName}</span>
+              <span id="walletAddress">{tab == 2 ? businessUserName : userData?.userName || "-"}</span>
               <button className="copy-btn" onClick={handleCopy}>
                 {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
