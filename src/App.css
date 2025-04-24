@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Poppins';
 }
 
 h1,
@@ -717,6 +717,10 @@ button.address-book-btn {
   top: 50%;
   transform: translate(0%, -50%);
   display: flex;
+  -webkit-transform: translate(0%, -50%);
+  -moz-transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+  -o-transform: translate(0%, -50%);
 }
 
 .transaction-icon {
@@ -835,6 +839,7 @@ button.address-book-btn {
   font-weight: 600;
   word-spacing: 2px;
   margin-bottom: 13px;
+  font-family: 'Poppins';
 }
 
 .app-container {
@@ -901,6 +906,7 @@ button.address-book-btn {
 
 .app-container .heading {
   font-weight: 600;
+  font-family: 'Poppins';
   text-align: center;
 }
 
@@ -913,6 +919,7 @@ button.address-book-btn {
   margin-bottom: 36px;
   font-weight: 600;
   font-size: 13px;
+  font-family: 'Poppins';
   line-height: 18px;
 }
 
@@ -1474,7 +1481,40 @@ span.icon {
   }
 }
 
-.security-ques-div h5{
+.security-ques-div h5 {
   text-align: center;
   margin-bottom: 15px;
+  font-family: 'Poppins';
+}
+
+.question-radio label .MuiFormControlLabel-label {
+  font-family: 'Poppins';
+}
+
+.btn-home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-home-content .btn-home-content {
+  margin-bottom: 0px;
+  font-family: Poppins;
+  font-size: 16px;
+  text-transform: capitalize;
+  line-height: 20px;
+}
+
+.action-send-main-contain {
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 20px 0px;
+}
+
+
+.action-send-main-contain .btn-icon img {
+  height: 24px;
+  width: 24px;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
 }
