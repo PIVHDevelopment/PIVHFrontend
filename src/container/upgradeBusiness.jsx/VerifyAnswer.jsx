@@ -74,11 +74,14 @@ const VerifyAnswer = () => {
         </div>
         <div className="header-right"></div>
       </header>
-      <Box className="p-20 security-question-details" >
-        <Typography variant="h5" gutterBottom className="security-question-title">
+      <Box className="p-20 security-question-details">
+        <Typography
+          variant="h5"
+          gutterBottom
+          className="security-question-title"
+        >
           {isBusiness && "Business "}Security Question
         </Typography>
-
 
         <Box className="verify-answer-content">
           <Formik
@@ -90,7 +93,7 @@ const VerifyAnswer = () => {
               <Form>
                 {/* Show fetched question */}
                 <Typography variant="subtitle1" className="verify-answer-label">
-                  {question || "Loading question..."}
+                  {question || "Security question not found"}
                 </Typography>
                 <TextField
                   name="answer"
@@ -98,13 +101,14 @@ const VerifyAnswer = () => {
                   fullWidth
                   className="textarea-question-sequrity"
                   multiline
-                  rows={3}
+                  // rows={3}
                   margin="normal"
                   value={values.answer}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.answer && Boolean(errors.answer)}
                   helperText={touched.answer && errors.answer}
+                  disabled={!question}
                 />
 
                 <Box textAlign="center" mt={5}>
@@ -112,7 +116,8 @@ const VerifyAnswer = () => {
                     variant="contained"
                     type="submit"
                     className="action-btn full-width send-pi-btn"
-                  // className="secondary-btn share-btn"
+                    disabled={!question}
+                    // className="secondary-btn share-btn"
                   >
                     {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />

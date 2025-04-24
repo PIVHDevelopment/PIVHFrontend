@@ -148,7 +148,7 @@ const SetPinRecoveryQuestion = () => {
                 fullWidth
                 className="textarea-question-sequrity"
                 multiline
-                rows={3}
+                // rows={3}
                 margin="normal"
                 value={values.answer}
                 onChange={handleChange}
