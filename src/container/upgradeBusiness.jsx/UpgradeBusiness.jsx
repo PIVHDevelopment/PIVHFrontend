@@ -24,7 +24,7 @@ function UpgradeBusiness() {
             ...userData,
             businessUserName: res?.data?.data?.businessUserName,
             businessName: res?.data?.data?.businessName,
-            roleType: "User_Merchant",
+            // roleType: "User_Merchant",
           })
         );
 

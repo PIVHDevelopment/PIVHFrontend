@@ -63,12 +63,15 @@ function Send() {
   };
 
   const getUsers = async () => {
-    Index.DataService.get(Index.Api.GET_USERS).then((res) => {
+    Index.DataService.get(
+      `${Index.Api.GET_USERS}?uid=${userData?.uid}&typeTxn=${typeTxn}`
+    ).then((res) => {
       if (res?.data?.status) {
-        let filteredUsers = res?.data?.data?.filter(
-          (item) => item?.uid !== userData?.uid
-        );
-        setUsers(filteredUsers);
+        console.log(res?.data?.data, "res");
+        // let filteredUsers = res?.data?.data?.filter(
+        //   (item) => item?.uid !== userData?.uid
+        // );
+        setUsers(res?.data?.data);
       }
     });
   };

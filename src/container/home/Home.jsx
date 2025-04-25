@@ -30,7 +30,9 @@ function Home() {
   console.log({ userData });
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(tab == 2 ? businessUserName : userData?.userName);
+    navigator.clipboard.writeText(
+      tab == 2 ? businessUserName : userData?.userName
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
@@ -128,15 +130,16 @@ function Home() {
               >
                 Individual
               </button>
-              {userData?.roleType == "User_Merchant" && (
-                <button
-                  className={`tab-btn${tab === 2 ? " active" : ""}`}
-                  data-tab="business"
-                  onClick={() => setTab(2)}
-                >
-                  Business
-                </button>
-              )}
+              {userData?.businessTxn?.isPin &&
+                userData?.businessTxn?.isQuestion && (
+                  <button
+                    className={`tab-btn${tab === 2 ? " active" : ""}`}
+                    data-tab="business"
+                    onClick={() => setTab(2)}
+                  >
+                    Business
+                  </button>
+                )}
             </div>
             <div className="wallet-id">
               <span id="walletAddress">
