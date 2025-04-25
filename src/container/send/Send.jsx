@@ -1,16 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { Autocomplete, Box, CircularProgress, Modal, TextField, Typography } from "@mui/material";
 import VerificationPin from "../verificationPin/VerificationPin";
-import { QrReader } from 'react-qr-reader';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import QrScanner from './QrScanner';  // Import the QR scanner component
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "calc(100% - 30px)",
+  maxWidth: "fit-content",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+};
+
 function Send() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
+  const [scannerResult,setScannerResult]=useState("")
   const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
   const [txnData, setTxnData] = useState({});
+  const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+      setOpen(false);
+    };
   const [formValues, setFormValues] = useState({
     userName: "",
     amount: "",
@@ -24,8 +40,11 @@ function Send() {
   const balance = location?.state?.balance;
   let typeTxn = location?.state?.typeTxn;
 
+  const onNewScanResult = ( decodedResult) => {
+    setScannerResult(prev => [...prev, decodedResult]);
+};
+
   useEffect(() => {
-    // Fetch users
     const getUsers = async () => {
       try {
         const res = await Index.DataService.get(Index.Api.GET_USERS);
@@ -80,32 +99,15 @@ function Send() {
     }
   };
 
-  const getUsers = async () => {
-    Index.DataService.get(
-      `${Index.Api.GET_USERS}?uid=${userData?.uid}&typeTxn=${typeTxn}`
-    ).then((res) => {
-      if (res?.data?.status) {
-        console.log(res?.data?.data, "res");
-        // let filteredUsers = res?.data?.data?.filter(
-        //   (item) => item?.uid !== userData?.uid
-        // );
-        setUsers(res?.data?.data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-  console.log("user", users);
-
   const handleSubmit = (values) => {
     setFormValues(values);
     setTxnData(values);
     setNextPage(true);
   };
 
-
+  console.log({scannerResult});
+  
+  
 
   return (
     <>
@@ -144,26 +146,13 @@ function Send() {
                           id="userName"
                           className="notes-input-box"
                           options={users}
-                          // getOptionLabel={(option) =>
-                          //   typeTxn == "business"
-                          //     ? option.businessUserName
-                          //     : option.userName
-                          // }
                           getOptionLabel={(option) => option.userName}
-                          // value={
-                          //   users.find(
-                          //     (user) =>
-                          //       user.userName === formik.values.userName ||
-                          //       user.businessUserName === formik.values.userName
-                          //   ) || null
-                          // }
                           value={
                             users.find(
-                              (user) => user.userName === formik.values.userName
-                            ) || null
+                              (user) =>  user.userName === scannerResult || user.userName === formik.values.userName
+                          ) || null
                           }
                           open={userDropDown}
-                          // onOpen={() => setUserDropDown(true)}
                           onClose={() => setUserDropDown(false)}
                           onInputChange={(event, newInputValue, reason) => {
                             if (reason === "input") {
@@ -171,12 +160,6 @@ function Send() {
                             }
                           }}
                           onChange={(e, selectedUser) => {
-                            // formik.setFieldValue(
-                            //   "userName",
-                            //   typeTxn == "business"
-                            //     ? selectedUser?.businessUserName
-                            //     : selectedUser?.userName || ""
-                            // );
                             formik.setFieldValue(
                               "userName",
                               selectedUser?.userName
@@ -197,7 +180,7 @@ function Send() {
                             />
                           )}
                         />
-                        <div className="scanner-icon">
+                        <div className="scanner-icon" onClick={() => handleOpen()}>
                           <img src={Index.scannerIcon} alt="scanner" />
                         </div>
                       </div>
@@ -208,6 +191,7 @@ function Send() {
                       </div>
                     </div>
 
+                    {/* Other fields for Amount and Memo */}
                     <div className="input-group">
                       <div className="input-wrapper">
                         <input
@@ -275,7 +259,34 @@ function Send() {
         </div>
       )}
 
-     
+<Modal
+        className="address-modal common-modall"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} className="common-style-modal address-style">
+          <Box className="modal-header-common address-modal-header">
+            <Typography className="add-title">Open Scanner</Typography>
+                <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                          onClick={handleClose}
+                        ></button>
+                      </Box>
+
+        <div className="qr-scanner-modal">
+          <QrScanner scannerResult={scannerResult} setScannerResult={setScannerResult} open={open} setOpen={setOpen}/>
+        
+        
+        </div>
+
+           </Box>
+            </Modal>
+            
     </>
   );
 }
