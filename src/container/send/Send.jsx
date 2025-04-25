@@ -28,7 +28,7 @@ function Send() {
       setOpen(false);
     };
   const [formValues, setFormValues] = useState({
-    userName: "",
+    userName: scannerResult||"",
     amount: "",
     memo: "",
   });
