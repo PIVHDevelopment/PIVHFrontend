@@ -61,14 +61,26 @@ const SetPinRecoveryQuestion = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
+          const sessionData = JSON.parse(
+            sessionStorage.getItem("pi_user_data")
+          );
           if (isBusiness) {
-            const sessionData = JSON.parse(
-              sessionStorage.getItem("pi_user_data")
-            );
             const updatedSessionData = {
               ...sessionData,
               businessTxn: {
                 ...sessionData.businessTxn,
+                isQuestion: true,
+              },
+            };
+            sessionStorage.setItem(
+              "pi_user_data",
+              JSON.stringify(updatedSessionData)
+            );
+          } else {
+            const updatedSessionData = {
+              ...sessionData,
+              userTxn: {
+                ...sessionData.userTxn,
                 isQuestion: true,
               },
             };
