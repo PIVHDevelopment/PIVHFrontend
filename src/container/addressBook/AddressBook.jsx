@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useLocation } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -46,6 +47,9 @@ const AddressBook = () => {
   const [buttonLoader, setButtonLoader] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(initialValues);
   const [id, setId] = React.useState("");
+  const location = useLocation();
+  const isBusiness = location?.state?.isBusiness;
+  const type = isBusiness ? "Business" : "Individual";
   const handleOpenDelete = (id) => {
     setOpenDelete(true);
     setId(id);
@@ -63,11 +67,13 @@ const AddressBook = () => {
       }
       const res = await Index.DataService.post(Index.Api.ADD_UPDATE_ADDRESS, {
         ...values,
+        tabType: type,
         userId: userData?._id,
       });
       if (res?.data?.status === 200 || res?.data?.status === 201) {
         Index.toasterSuccess(res?.data?.message);
         getAddress();
+        handleClose();
       } else {
         Index.toasterError(res?.data?.message);
       }
@@ -77,17 +83,16 @@ const AddressBook = () => {
       );
     } finally {
       setButtonLoader(false);
-      handleClose();
     }
   };
   const getAddress = async () => {
-    Index.DataService.get(Index.Api.GET_ADDRESS + "/" + userData?._id).then(
-      (res) => {
-        if (res?.data?.status) {
-          setAddress(res.data.data);
-        }
+    Index.DataService.get(
+      Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + type
+    ).then((res) => {
+      if (res?.data?.status) {
+        setAddress(res.data.data);
       }
-    );
+    });
   };
   const handleDelete = async () => {
     setButtonLoader(true);
@@ -241,10 +246,7 @@ const AddressBook = () => {
                 ),
               userName: Yup.string()
                 .required("Username is required")
-                .matches(
-                  /^\S.*\S$|^\S$/,
-                  "Username cannot start or end with a space"
-                ),
+                .matches(/^\S+$/, "Username cannot contain spaces"),
             })}
             onSubmit={(values) => {
               handleSubmit(values);

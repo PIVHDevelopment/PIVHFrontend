@@ -122,46 +122,67 @@ function Send() {
                 {(formik) => (
                   <form onSubmit={formik.handleSubmit} className="send-form">
                     <div className="input-group">
-                      <div className="input-wrapper send-input-box">
-                      <Autocomplete
-                  id="userName"
-                  className="notes-input-box"
-                  options={users}
-                  getOptionLabel={(option) => typeTxn == "business" ? option.businessUserName : option.userName}
-                  value={
-                    users.find(
-                      (user) => user.userName === formik.values.userName || user.businessUserName === formik.values.userName
-                    ) || null
-                  }
-                  open={userDropDown}
-                  // onOpen={() => setUserDropDown(true)}
-                  onClose={() => setUserDropDown(false)}
-                  onInputChange={(event, newInputValue, reason) => {
-                    if (reason === "input") {
-                      setUserDropDown(true);
-                    }
-                  }}
-                  onChange={(e, selectedUser) => {
-                    formik.setFieldValue(
-                      "userName",
-                      typeTxn == "business" ? selectedUser?.businessUserName : selectedUser?.userName || ""
-                    );
-                  }}
-                  onBlur={formik.handleBlur}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      name="userName"
-                      className="notes-input"
-                      placeholder={
-                        formik?.values?.userName ? "" : "Select User"
-                      }
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                    />
-                  )}
-                />
+                      <div className="input-wrapper send-input-box receiver-addres-scanner-box">
+                        <Autocomplete
+                          id="userName"
+                          className="notes-input-box"
+                          options={users}
+                          // getOptionLabel={(option) =>
+                          //   typeTxn == "business"
+                          //     ? option.businessUserName
+                          //     : option.userName
+                          // }
+                          getOptionLabel={(option) => option.userName}
+                          // value={
+                          //   users.find(
+                          //     (user) =>
+                          //       user.userName === formik.values.userName ||
+                          //       user.businessUserName === formik.values.userName
+                          //   ) || null
+                          // }
+                          value={
+                            users.find(
+                              (user) => user.userName === formik.values.userName
+                            ) || null
+                          }
+                          open={userDropDown}
+                          // onOpen={() => setUserDropDown(true)}
+                          onClose={() => setUserDropDown(false)}
+                          onInputChange={(event, newInputValue, reason) => {
+                            if (reason === "input") {
+                              setUserDropDown(true);
+                            }
+                          }}
+                          onChange={(e, selectedUser) => {
+                            // formik.setFieldValue(
+                            //   "userName",
+                            //   typeTxn == "business"
+                            //     ? selectedUser?.businessUserName
+                            //     : selectedUser?.userName || ""
+                            // );
+                            formik.setFieldValue(
+                              "userName",
+                              selectedUser?.userName
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              name="userName"
+                              className="notes-input"
+                              placeholder={
+                                formik?.values?.userName ? "" : "Select User"
+                              }
+                              variant="outlined"
+                              size="small"
+                              fullWidth
+                            />
+                          )}
+                        />
+                        <div className="scanner-icon">
+                          <img src={Index.scannerIcon} alt="scanner" />
+                        </div>
                       </div>
                       <div className="input-error">
                         {formik.errors?.userName && formik.touched?.userName
