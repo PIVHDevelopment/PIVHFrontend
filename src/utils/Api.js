@@ -33,6 +33,8 @@ const Api = {
   ADD_UPDATE_ADDRESS: "/user/add-update-address",
   GET_ADDRESS: "/user/get-address-book",
   DELETE_ADDRESS: "/user/delete-address",
+
+  ADD_SUBSCRIPTION:"/user/update-subscription-status"
   
 };
 

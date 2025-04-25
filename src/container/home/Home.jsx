@@ -87,6 +87,7 @@ function Home() {
       <div className="app-container p-20-0">
         <div className="p-20">
           <header>
+            
             <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
               {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
@@ -103,6 +104,18 @@ function Home() {
               {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button> */}
+
+  { (tab === 2 && !userData?.isBusinessSubscription) || (tab === 1 && !userData?.isIndividualSubscription) ? (
+     "" ) : (
+               <button
+                className="icon-btn subscrip-icon"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalMerchant"
+                // onClick={handleOpen}
+                // onClick={() => navigate("/add-wallet")}
+              >
+                <img src={Index.subscribedIcon} alt="Setting" />
+              </button> )}
               <button
                 className="icon-btn"
                 data-bs-toggle="modal"
@@ -285,6 +298,28 @@ function Home() {
             </div>
             <h6 className="setting-cont-title">Address Book</h6>
           </div>
+          {
+      (tab === 2 && userData?.isBusinessSubscription) || (tab === 1 && userData?.isIndividualSubscription) ? (
+    ""
+    ) : (
+    <div
+      className="setting-cont-box"
+      onClick={() =>
+        navigate("/subscription", {
+          state: { isBusiness: tab === 2 && true },
+        })
+      }
+    >
+      <div className="setting-icon-box">
+        <img src={Index.subscriberIcon} alt="" />
+      </div>
+      <h6 className="setting-cont-title">Subscription</h6>
+    </div>
+  )
+}
+
+        
+
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
             <NavLink

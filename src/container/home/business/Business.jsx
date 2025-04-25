@@ -100,7 +100,7 @@ function Business({ balance }) {
             <p className="btn-home-content">Receive</p>
           </div>
         </div>
-        <div className="action-button-listing">
+        {/* <div className="action-button-listing">
           <div className="btn-home-content">
             <button
               className="action-btn send-btn"
@@ -117,7 +117,7 @@ function Business({ balance }) {
             </button>
             <p className="btn-home-content">Deposit</p>
           </div>
-        </div>
+        </div> */}
         <div className="action-button-listing">
           <div className="btn-home-content">
             <button

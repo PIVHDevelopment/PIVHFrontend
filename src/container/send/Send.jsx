@@ -3,10 +3,8 @@ import Index from "../Index";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import VerificationPin from "../verificationPin/VerificationPin";
 import { QrReader } from 'react-qr-reader';
-
+import { Html5QrcodeScanner } from 'html5-qrcode';
 function Send() {
-  const [qrScannerOpen, setQrScannerOpen] = useState(false);
-  const [scannedValue, setScannedValue] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [nextPage, setNextPage] = useState(false);
@@ -107,23 +105,7 @@ function Send() {
     setNextPage(true);
   };
 
-    const checkCameraAvailability = async () => {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const camera = devices.find(device => device.kind === 'videoinput');
-        if (!camera) {
-          console.error('No camera found');
-          Index.toasterError("No camera found on your device.");
-        }else{
-       setQrScannerOpen(true)
-        }
-      } catch (error) {
-        console.error("Error checking camera availability:", error);
-      }
 
-    };
-  
-  
 
   return (
     <>
@@ -293,44 +275,7 @@ function Send() {
         </div>
       )}
 
-      {qrScannerOpen && (
-        <div className="qr-scanner-popup">
-          <button className="close-btn" onClick={() => setQrScannerOpen(false)}>
-            Close
-          </button>
-          <QrReader
-            constraints={{ facingMode: "environment" }}
-            onResult={(result, error) => {
-              if (!!result) {
-                const data = result?.text;
-                setQrScannerOpen(false);
-                setScannedValue(data);
-
-                const matchedUser = users.find(
-                  (user) =>
-                    user.userName === data || user.businessUserName === data
-                );
-
-                if (matchedUser) {
-                  const matchedName =
-                    typeTxn === "business"
-                      ? matchedUser.businessUserName
-                      : matchedUser.userName;
-                  formRef.current.setFieldValue("userName", matchedName);
-                  setText(matchedName);
-                } else {
-                  Index.toasterError("No matching user found for scanned QR.");
-                }
-              }
-
-              if (!!error) {
-                console.error("QR Error", error);
-              }
-            }}
-            style={{ width: "100%" }}
-          />
-        </div>
-      )}
+     
     </>
   );
 }

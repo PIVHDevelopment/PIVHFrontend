@@ -206,6 +206,13 @@ function Withdraw() {
                           ? formik.errors?.address
                           : null}
                       </div>
+                    {formik.values.amount >= 0.01 ? (
+                    <label className="text-color deduction-message">
+                   0.01 will be deducted as transaction fees
+                    </label>
+                  ) : (
+                    ""
+                  )}
                     </div>
                   </div>
                 </div>
