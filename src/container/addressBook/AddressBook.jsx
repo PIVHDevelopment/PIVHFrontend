@@ -67,6 +67,7 @@ const AddressBook = () => {
       }
       const res = await Index.DataService.post(Index.Api.ADD_UPDATE_ADDRESS, {
         ...values,
+        tabType: type,
         userId: userData?._id,
       });
       if (res?.data?.status === 200 || res?.data?.status === 201) {
