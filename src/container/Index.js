@@ -25,6 +25,7 @@ import recover from "../assets/images/recover.png";
 import withdraw from "../assets/images/withdraw.png";
 import deposit from "../assets/images/deposit.png";
 import uparrow from "../assets/images/uparrow.png";
+import subscribedIcon from "../assets/images/subscribed.png";
 
 import wallet from "../assets/images/wallet.png";
 import send from "../assets/images/send.png";
@@ -37,6 +38,7 @@ import showIcon from "../assets/images/show.svg";
 import markIcon from "../assets/images/mark.svg";
 import successIcon from "../assets/images/success.svg";
 import scannerIcon from "../assets/images/scanner.svg";
+import subscriberIcon from "../assets/images/subscribers.png";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -114,7 +116,9 @@ const Index = {
   Loader,
   downarrow,
   uparrow,
-  scannerIcon
+  scannerIcon,
+  subscribedIcon,
+  subscriberIcon
 };
 
 export default Index;

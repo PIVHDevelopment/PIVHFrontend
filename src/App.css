@@ -1534,3 +1534,33 @@ span.icon {
 .receiver-addres-scanner-box .scanner-icon{
   min-width: 50px;
 }
+
+.deduction-message{
+  margin:10px 0 0 10px;
+}
+
+.subscription-main{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0px 20px;
+}
+.subscrip-heading p{
+  text-align: center;
+  font-weight: 800;
+  font-size: 26px;
+}
+
+.subscrip-description p{
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.subscrip-icon img{
+  height: 20px;
+  width: 20px;
+}
+
+.header-icons .subscrip-icon {
+  cursor: auto;
+}

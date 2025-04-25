@@ -2,14 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import VerificationPin from "../verificationPin/VerificationPin";
-
+import { QrReader } from 'react-qr-reader';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 function Send() {
-  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const formRef = useRef();
-  const navigate = Index.useNavigate();
-  const location = Index.useLocation();
-  const balance = location?.state?.balance;
-  let typeTxn = location?.state?.typeTxn;
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [nextPage, setNextPage] = useState(false);
@@ -22,7 +17,31 @@ function Send() {
     memo: "",
   });
 
-  console.log({ typeTxn });
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const formRef = useRef();
+  const navigate = Index.useNavigate();
+  const location = Index.useLocation();
+  const balance = location?.state?.balance;
+  let typeTxn = location?.state?.typeTxn;
+
+  useEffect(() => {
+    // Fetch users
+    const getUsers = async () => {
+      try {
+        const res = await Index.DataService.get(Index.Api.GET_USERS);
+        if (res?.data?.status) {
+          let filteredUsers = res?.data?.data?.filter(
+            (item) => item?.uid !== userData?.uid
+          );
+          setUsers(filteredUsers);
+        }
+      } catch (error) {
+        console.error("Error fetching users", error);
+      }
+    };
+
+    getUsers();
+  }, []);
 
   const handleSubmitFunction = async (values) => {
     const pin = values.pinFields.join("");
@@ -44,7 +63,6 @@ function Send() {
         Index.Api.PAYMENT_SEND,
         paymentData
       );
-
       if (res?.data?.status) {
         Index.toasterSuccess(res?.data?.message);
         navigate("/home", {
@@ -87,6 +105,8 @@ function Send() {
     setNextPage(true);
   };
 
+
+
   return (
     <>
       {buttonLoader ? (
@@ -111,13 +131,7 @@ function Send() {
               </header>
               <Index.Formik
                 enableReinitialize
-                initialValues={
-                  formValues || {
-                    userName: text,
-                    amount: "",
-                    memo: "",
-                  }
-                }
+                initialValues={formValues || { userName: text, amount: "", memo: "" }}
                 onSubmit={handleSubmit}
                 validationSchema={Index.sendPiFormSchema}
                 innerRef={formRef}
@@ -193,6 +207,7 @@ function Send() {
                           : null}
                       </div>
                     </div>
+
                     <div className="input-group">
                       <div className="input-wrapper">
                         <input
@@ -203,9 +218,7 @@ function Send() {
                           value={formik.values.amount}
                           onChange={(e) => {
                             const value = e.target.value;
-                            // Only allow digits
                             if (/^\d*\.?\d{0,6}$/.test(value)) {
-                              console.log(value, balance, value > balance);
                               if (parseFloat(value) > parseFloat(balance)) {
                                 formik.setFieldValue("amount", balance);
                               } else {
@@ -221,6 +234,7 @@ function Send() {
                           : null}
                       </div>
                     </div>
+
                     <div className="input-group">
                       <div className="input-wrapper">
                         <input
@@ -246,16 +260,11 @@ function Send() {
                       </div>
                     </div>
 
-                    {/* <button className="action-btn full-width send-pi-btn" type="submit">
-              Send Pi
-            </button> */}
                     <button
                       className="action-btn full-width send-pi-btn"
                       type="submit"
                       disabled={buttonLoader}
-                      // startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
                     >
-                      {/* {buttonLoader ? "Processing..." : "Send Pi"} */}
                       Send Pi
                     </button>
                   </form>
@@ -265,6 +274,8 @@ function Send() {
           )}
         </div>
       )}
+
+     
     </>
   );
 }
