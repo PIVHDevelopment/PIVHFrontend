@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 import Index from "../Index";
 import { QRCodeCanvas } from "qrcode.react";
@@ -81,8 +80,8 @@ function Receive() {
     width: "340px",
     height:"440px",
   }}>
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-      <img src={Index.pocketPi} alt="PocketPi" style={{ width: "60px",marginBottom:"40px" }} />
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px",marginTop:"5px" }}>
+      <img src={Index.pocketPi} alt="PocketPi" style={{ width: "60px",marginBottom:"35px" }} />
       <QRCodeCanvas value={typeTxn == "business" ? userData?.businessUserName : userData?.userName} size={200} />
       <p style={{ color: "#000", fontSize: "14px", margin: 0 }}>
         Username: {typeTxn == "business" ? userData?.businessUserName : userData?.userName}
@@ -127,41 +126,31 @@ export default Receive;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useRef, useState } from "react";
-// import html2canvas from "html2canvas";
 // import Index from "../Index";
 // import { QRCodeCanvas } from "qrcode.react";
+// import html2canvas from "html2canvas";
+// import {
+//   WhatsappShareButton,
+//   WhatsappIcon,
+//   TwitterShareButton,
+//   TwitterIcon,
+// } from "react-share";
+
 
 // function Receive() {
 //   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
 //   const navigate = Index.useNavigate();
 //   const location = Index.useLocation();
-//   let typeTxn = location?.state?.typeTxn;
+//   const typeTxn = location?.state?.typeTxn;
 
-//   const [copied, setCopied] = useState(false);
 //   const shareRef = useRef();
+//   const [copied, setCopied] = useState(false);
+
+//   const userName = typeTxn === "business" ? userData?.businessUserName : userData?.userName;
 
 //   const handleCopy = () => {
-//     navigator.clipboard.writeText(typeTxn === "business" ? userData?.businessUserName : userData?.userName);
+//     navigator.clipboard.writeText(userName);
 //     setCopied(true);
 //     setTimeout(() => setCopied(false), 3000);
 //   };
@@ -180,7 +169,6 @@ export default Receive;
 //         text: "Scan my wallet QR to receive payment",
 //       });
 //     } else {
-//       // fallback: download
 //       const link = document.createElement("a");
 //       link.href = dataUrl;
 //       link.download = "qrcode.png";
@@ -189,53 +177,87 @@ export default Receive;
 //   };
 
 //   return (
-//     <div className="app-container">
-//       <header className="receive-center">
-//         <button className="back-btn" onClick={() => navigate(-1)}>
-//           <img src={Index.back} alt="Back" />
-//         </button>
-//         <div className="app-icon" style={{ marginLeft: "-26px" }}>
-//           <img src={Index.pocketPi} alt="PocketPi" />
+//     <>
+//       <div className="app-container">
+//         <header className="receive-center">
+//           <button className="back-btn" onClick={() => navigate(-1)}>
+//             <img src={Index.back} alt="Back" />
+//           </button>
+//           <div className="app-icon" style={{ marginLeft: "-26px" }}>
+//             <img src={Index.pocketPi} alt="PocketPi" />
+//           </div>
+//           <div className="header-right"></div>
+//         </header>
+
+//         <div className="wallet-id">
+//           <span id="walletAddress">{userName}</span>
+//           <button className="copy-btn" onClick={handleCopy}>
+//             {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
+//           </button>
 //         </div>
-//       </header>
 
-//       <div className="wallet-id">
-//         <span id="walletAddress">
-//           {typeTxn === "business" ? userData?.businessUserName : userData?.userName}
-//         </span>
-//         <button className="copy-btn" onClick={handleCopy}>
-//           {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
-//         </button>
-//       </div>
-
-//       <div className="qr-section">
-//         <div className="qr-code">
-//           <QRCodeCanvas
-//             value={typeTxn === "business" ? userData?.businessUserName : userData?.userName}
-//             size={200}
-//           />
+//         <div className="qr-section">
+//           <div className="qr-code">
+//             <QRCodeCanvas value={userName} size={200} />
+//           </div>
 //         </div>
-//       </div>
 
-//       <div ref={shareRef} style={{ position: "absolute", top: "-10000px", left: "-10000px", height:"fit-content"}}>
-//         <div style={{ padding: "20px", background: "white", textAlign: "center" }}>
-//           <QRCodeCanvas
-//             value={typeTxn === "business" ? userData?.businessUserName : userData?.userName}
-//             size={200}
-//           />
-//           <p style={{color:"black"}}>{typeTxn === "business" ? userData?.businessUserName : userData?.userName}</p>
+//         {/* Hidden share content */}
+//         <div ref={shareRef} style={{ position: "absolute", top: "-10000px", left: "-10000px" }}>
+//           <div
+//             style={{
+//               padding: "20px",
+//               background: "#fff",
+//               textAlign: "center",
+//               borderRadius: "12px",
+//               width: "340px",
+//               height: "440px",
+//             }}
+//           >
+//             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", marginTop: "5px" }}>
+//               <img src={Index.pocketPi} alt="PocketPi" style={{ width: "60px", marginBottom: "35px" }} />
+//               <QRCodeCanvas value={userName} size={200} />
+//               <p style={{ color: "#000", fontSize: "14px", margin: 0 }}>Username: {userName}</p>
+//             </div>
+//           </div>
 //         </div>
-//       </div>
 
-//       <div className="receive-btn-share">
-//         <button className="secondary-btn share-btn" onClick={handleShare}>
-//           <span className="icon">
-//             <img src={Index.share} alt="Share" />
-//           </span>
-//           Share
-//         </button>
+//         {/* Share buttons */}
+//         <div
+//   className="receive-btn-share"
+//   style={{
+//     display: "flex",
+//     gap: "10px",
+//     justifyContent: "center",
+//     marginTop: "20px",
+//     flexWrap: "wrap",
+//   }}
+// >
+//   <button className="secondary-btn share-btn" onClick={handleShare}>
+//     <span className="icon">
+//       <img src={Index.share} alt="Share" />
+//     </span>
+//     Share
+//   </button>
+
+//   <WhatsappShareButton
+//     url={`https://media-hosting.imagekit.io/ba0f19c5644c4a6a/qrcode%20(22).png?Expires=1840174780&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vbJw2zXko40BMAupH7Ao5eJFCKHxsjqOiJaIKPMVRoQfjbkW8~9lIRCV49W6CvLf2uyAbCv5ib158ifJPKAO~aNv9N8cw8fPRdsyvHch5PXAxSm9tzP28z2q2S~Ja7hBXaeE4~sUZP-f3S3wEVWa2Wo5KWoH94WKGQARj2RKRhBiBvaf1GSsHFUS284NzuD2EpmSUX84FKddzaMrpinYdc2P0AjjgSP8ZjgMpaO49n8emvJWPOqAsht19yN8ylcjAI445JYR1PsLzGK4tQ9WIvbq3e9VzlD0El6Vp5J5UwRaRjoZxXceaN2LRNxoyFEe1NcM3Qicj-KH96YBqLtvag__`}
+//     title={`Scan my PocketPi QR or send payment to username: ${userName}`}
+//   >
+//     <WhatsappIcon size={40} round />
+//   </WhatsappShareButton>
+
+//   <TwitterShareButton
+//     url={`https://media-hosting.imagekit.io/ba0f19c5644c4a6a/qrcode%20(22).png?Expires=1840174780&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vbJw2zXko40BMAupH7Ao5eJFCKHxsjqOiJaIKPMVRoQfjbkW8~9lIRCV49W6CvLf2uyAbCv5ib158ifJPKAO~aNv9N8cw8fPRdsyvHch5PXAxSm9tzP28z2q2S~Ja7hBXaeE4~sUZP-f3S3wEVWa2Wo5KWoH94WKGQARj2RKRhBiBvaf1GSsHFUS284NzuD2EpmSUX84FKddzaMrpinYdc2P0AjjgSP8ZjgMpaO49n8emvJWPOqAsht19yN8ylcjAI445JYR1PsLzGK4tQ9WIvbq3e9VzlD0El6Vp5J5UwRaRjoZxXceaN2LRNxoyFEe1NcM3Qicj-KH96YBqLtvag__`}
+//     title={`Send payment to my PocketPi username: ${userName}`}
+//     hashtags={["PocketPi", "Crypto"]}
+//   >
+//     <TwitterIcon size={40} round />
+//   </TwitterShareButton>
+// </div>
+
 //       </div>
-//     </div>
+//     </>
 //   );
 // }
 
