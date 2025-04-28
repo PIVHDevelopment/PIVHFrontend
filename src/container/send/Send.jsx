@@ -146,7 +146,9 @@ const handleClose = () => {
               </header>
               <Index.Formik
                 enableReinitialize
-                initialValues={formValues || { userName: text, amount: "", memo: "" }}
+                initialValues={
+                  formValues || { userName: text, amount: "", memo: "" }
+                }
                 onSubmit={handleSubmit}
                 validationSchema={Index.sendPiFormSchema}
                 innerRef={formRef}

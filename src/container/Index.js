@@ -39,6 +39,7 @@ import markIcon from "../assets/images/mark.svg";
 import successIcon from "../assets/images/success.svg";
 import scannerIcon from "../assets/images/scanner.svg";
 import subscriberIcon from "../assets/images/subscribers.png";
+import verify from "../assets/images/verify.png";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -54,7 +55,11 @@ import {
   addBusinessAddressFormSchema,
 } from "../utils/Validation";
 import moment from "moment";
-import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toaster";
+import {
+  toasterSuccess,
+  toasterError,
+  toasterInfo,
+} from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
 
 const Index = {
@@ -118,7 +123,8 @@ const Index = {
   uparrow,
   scannerIcon,
   subscribedIcon,
-  subscriberIcon
+  subscriberIcon,
+  verify,
 };
 
 export default Index;

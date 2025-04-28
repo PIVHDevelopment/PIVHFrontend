@@ -5,13 +5,13 @@ function Individual({ balance }) {
   const navigate = Index.useNavigate();
   return (
     <>
-      <div className="action-buttons action-send-main-contain">
-        {/* <button
+      <div className="action-buttons">
+        <button
           className="action-btn send-btn"
           id="sendBtn"
           onClick={() =>
             navigate("/receive", {
-              state: { balance: balance ,typeTxn : "individual"},
+              state: { balance: balance, typeTxn: "individual" },
             })
           }
         >
@@ -20,27 +20,30 @@ function Individual({ balance }) {
           </span>
           Receive
         </button>
-      <button
+        <button
           className="action-btn send-btn"
           id="sendBtn"
           disabled={balance <= 0}
           onClick={() =>
             navigate("/send", {
-              state: { balance: balance ,typeTxn : "individual"},
+              state: { balance: balance, typeTxn: "individual" },
             })
           }
         >
           <span className="btn-icon">
-            <img src={Index.send} alt="Send Money" />
+            <img src={Index.downarrow} alt="Send Money" />
           </span>
           Send
         </button>
+      </div>
+
+      <div className="action-buttons action-send-main-contain">
         <button
           className="action-btn send-btn"
           id="sendBtn"
           onClick={() =>
             navigate("/deposit", {
-              state: { balance: balance ,typeTxn : "individual"},
+              state: { balance: balance, typeTxn: "individual" },
             })
           }
         >
@@ -53,15 +56,17 @@ function Individual({ balance }) {
           className="action-btn receive-btn"
           id="withdraw"
           disabled={balance <= 0}
-          onClick={() => navigate("/withdraw",{state:{typeTxn : "individual"}})}
+          onClick={() =>
+            navigate("/withdraw", { state: { typeTxn: "individual" } })
+          }
         >
           <span className="btn-icon">
-            <img src={Index.wallet} alt="Receive Money" />
+            <img src={Index.withdraw} alt="Receive Money" />
           </span>
           Withdraw
-        </button> */}
+        </button>
 
-        <div className="action-button-listing">
+        {/* <div className="action-button-listing">
           <div className="btn-home-content">
             <button
               className="action-btn send-btn"
@@ -87,7 +92,7 @@ function Individual({ balance }) {
               id="sendBtn"
               onClick={() =>
                 navigate("/receive", {
-                  state: { balance: balance ,typeTxn : "individual"},
+                  state: { balance: balance, typeTxn: "individual" },
                 })
               }
             >
@@ -122,7 +127,9 @@ function Individual({ balance }) {
               className="action-btn send-btn"
               id="sendBtn"
               disabled={balance <= 0}
-              onClick={() => navigate("/withdraw", { state: { typeTxn: "individual" } })}
+              onClick={() =>
+                navigate("/withdraw", { state: { typeTxn: "individual" } })
+              }
             >
               <span className="btn-icon">
                 <img src={Index.withdraw} alt="Send Money" />
@@ -130,7 +137,7 @@ function Individual({ balance }) {
             </button>
             <p className="btn-home-content">Withdraw</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
