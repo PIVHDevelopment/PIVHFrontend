@@ -17,18 +17,18 @@ const style = {
 function Send() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
-  const [scannerResult,setScannerResult]=useState("")
+  // const [scannerResult,setScannerResult]=useState("")
   const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
   const [txnData, setTxnData] = useState({});
   const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-      setOpen(false);
-    };
+    const location = Index.useLocation();
+    let scannerResult = location?.state?.scannerResult;
+    console.log({scannerResult});
   const [formValues, setFormValues] = useState({
-    userName: scannerResult||"",
+    userName: scannerResult || "",
     amount: "",
     memo: "",
   });
@@ -36,13 +36,26 @@ function Send() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
-  const location = Index.useLocation();
+
   const balance = location?.state?.balance;
   let typeTxn = location?.state?.typeTxn;
+ 
 
-  const onNewScanResult = ( decodedResult) => {
-    setScannerResult(prev => [...prev, decodedResult]);
+  // const onNewScanResult = (decodedText) => {
+  //   setOpen(false);
+  //   setScannerResult(decodedText);
+  // };
+
+  const scannerComponentRef = useRef();
+
+const handleClose = () => {
+  if (scannerComponentRef.current) {
+    scannerComponentRef.current.stopScanner(); 
+  }
+  setOpen(false);
 };
+
+  
 
   useEffect(() => {
     const getUsers = async () => {
@@ -180,7 +193,7 @@ function Send() {
                             />
                           )}
                         />
-                        <div className="scanner-icon" onClick={() => handleOpen()}>
+                        <div className="scanner-icon" onClick={() => navigate("/qr-scanner")}>
                           <img src={Index.scannerIcon} alt="scanner" />
                         </div>
                       </div>
@@ -259,34 +272,24 @@ function Send() {
         </div>
       )}
 
-<Modal
-        className="address-modal common-modall"
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} className="common-style-modal address-style">
-          <Box className="modal-header-common address-modal-header">
-            <Typography className="add-title">Open Scanner</Typography>
-                <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                          onClick={handleClose}
-                        ></button>
-                      </Box>
+{/* <Modal
+  className="address-modal common-modall"
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box sx={style}>
+    <QrScanner
+      ref={scannerComponentRef}
+      fps={10}
+      qrCodeSuccessCallback={(decodedText, decodedResult) => onNewScanResult(decodedText)}
+      qrCodeErrorCallback={(error) => console.log(error)}
+    />
+  </Box>
+</Modal> */}
 
-        <div className="qr-scanner-modal">
-          <QrScanner scannerResult={scannerResult} setScannerResult={setScannerResult} open={open} setOpen={setOpen}/>
-        
-        
-        </div>
 
-           </Box>
-            </Modal>
-            
     </>
   );
 }
