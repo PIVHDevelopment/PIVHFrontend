@@ -117,7 +117,7 @@ function Send() {
   const handleSubmit = (values) => {
     const result = checkUser?.find((user) => user.userName === values?.userName);
     if (!result) {
-      Index.toasterError("This username not exist.");
+      Index.toasterError("Entered username does not exist");
       return false;
     }
     setFormValues(values);
@@ -212,7 +212,7 @@ function Send() {
                               name="userName"
                               className="notes-input"
                               placeholder={
-                                formik?.values?.userName ? "" : "Select User"
+                                formik?.values?.userName ? "" : "Enter Username"
                               }
                               variant="outlined"
                               size="small"

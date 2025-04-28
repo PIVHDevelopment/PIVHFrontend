@@ -146,14 +146,14 @@ function Receive() {
         </button>
       </div> */}
 
-      <div className="receive-btn-share">
+      {/* <div className="receive-btn-share">
         <button className="secondary-btn share-btn" onClick={handleShare}>
           <span className="icon">
             <img src={Index.share} alt="Share" />
           </span>
           Share
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
