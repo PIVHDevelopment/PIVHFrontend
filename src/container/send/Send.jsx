@@ -1,39 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { Autocomplete, Box, CircularProgress, Modal, TextField, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import VerificationPin from "../verificationPin/VerificationPin";
-import QrScanner from './QrScanner';  // Import the QR scanner component
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "calc(100% - 30px)",
-  maxWidth: "fit-content",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-};
 
 function Send() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
-  // const [scannerResult,setScannerResult]=useState("")
+  const [checkUser, setCheckUser] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
   const [txnData, setTxnData] = useState({});
   const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const location = Index.useLocation();
-    const type =  location?.state?.typeTxn;
-    let scannerResult = location?.state?.scannerResult;
-    console.log({scannerResult});
+  const handleOpen = () => setOpen(true);
+  const location = Index.useLocation();
+  const type = location?.state?.typeTxn;
+  let scannerResult = location?.state?.scannerResult;
+  console.log({ scannerResult });
   const [formValues, setFormValues] = useState({
     userName: "",
     amount: "",
     memo: "",
   });
-console.log({scannerResult});
+  console.log({ scannerResult });
 
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
@@ -41,7 +38,6 @@ console.log({scannerResult});
 
   const balance = location?.state?.balance;
   let typeTxn = location?.state?.typeTxn;
- 
 
   // const onNewScanResult = (decodedText) => {
   //   setOpen(false);
@@ -50,27 +46,28 @@ console.log({scannerResult});
 
   const scannerComponentRef = useRef();
 
-const handleClose = () => {
-  if (scannerComponentRef.current) {
-    scannerComponentRef.current.stopScanner(); 
-  }
-  setOpen(false);
-};
-
-  
+  const handleClose = () => {
+    if (scannerComponentRef.current) {
+      scannerComponentRef.current.stopScanner();
+    }
+    setOpen(false);
+  };
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const capitalizedType = type?.charAt(0)?.toUpperCase() + type?.slice(1);
-        // const res = await Index.DataService.get(Index.Api.GET_USERS);
-        const res = await Index.DataService.get(Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + capitalizedType);
+        const res = await Index.DataService.get(
+          Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + capitalizedType
+        );
+        const resAllData = await Index.DataService.get(Index.Api.GET_USERS);
         if (res?.data?.status) {
-          let filteredUsers = res?.data?.data
+          let filteredUsers = res?.data?.data;
           // ?.filter(
           //   (item) => item?.uid !== userData?.uid
           // );
-          setUsers(filteredUsers);
+          setCheckUser(resAllData?.data?.data);
+          setUsers(res?.data?.data);
         }
       } catch (error) {
         console.error("Error fetching users", error);
@@ -118,19 +115,23 @@ const handleClose = () => {
   };
 
   const handleSubmit = (values) => {
+    const result = checkUser?.find((user) => user.userName === values?.userName);
+    if (!result) {
+      Index.toasterError("This username not exist.");
+      return false;
+    }
     setFormValues(values);
     setTxnData(values);
     setNextPage(true);
   };
 
-// useEffect(() => {
-//   let result = users?.find((user) => user.userName === scannerResult);
-//   if (!result) {
-//     Index.toasterError("Username not found");
-//   }
-// }, [scannerResult]);
+  // useEffect(() => {
+  //   let result = users?.find((user) => user.userName === scannerResult);
+  //   if (!result) {
+  //     Index.toasterError("Username not found");
+  //   }
+  // }, [scannerResult]);
   
-
   return (
     <>
       {buttonLoader ? (
@@ -166,20 +167,27 @@ const handleClose = () => {
                   <form onSubmit={formik.handleSubmit} className="send-form">
                     <div className="input-group">
                       <div className="input-wrapper send-input-box receiver-addres-scanner-box">
-                        {console.log(formik.values.userName,"44444")}
                         <Autocomplete
                           id="userName"
                           className="notes-input-box"
+                          freeSolo
                           options={users}
-                          getOptionLabel={(option) => `${option.userName} (${option?.type})`} 
+                          getOptionLabel={(option) =>
+                            `${option.userName} (${option?.type})`
+                          }
                           value={
-                            users.find((user) => user.userName === scannerResult) ||
-                            users.find((user) => user.userName === formik.values.userName) ||
+                            users.find(
+                              (user) => user.userName === scannerResult
+                            ) ||
+                            users.find(
+                              (user) => user.userName === formik.values.userName
+                            ) ||
                             null
                           }
                           open={userDropDown}
                           onClose={() => setUserDropDown(false)}
                           onInputChange={(event, newInputValue, reason) => {
+                            formik.setFieldValue("userName", newInputValue);
                             if (reason === "input") {
                               setUserDropDown(true);
                             }
@@ -192,8 +200,10 @@ const handleClose = () => {
                           }}
                           onBlur={formik.handleBlur}
                           filterOptions={(options, state) => {
-                            return options?.filter((option) =>
-                              option.userName?.toLowerCase()?.startsWith(state?.inputValue?.toLowerCase())
+                            return options.filter((option) =>
+                              option.userName
+                                ?.toLowerCase()
+                                ?.startsWith(state.inputValue.toLowerCase())
                             );
                           }}
                           renderInput={(params) => (
@@ -210,7 +220,15 @@ const handleClose = () => {
                             />
                           )}
                         />
-                        <div className="scanner-icon" onClick={() => navigate("/qr-scanner",{state:{typeTxn:type}})}>
+
+                        <div
+                          className="scanner-icon"
+                          onClick={() =>
+                            navigate("/qr-scanner", {
+                              state: { typeTxn: type },
+                            })
+                          }
+                        >
                           <img src={Index.scannerIcon} alt="scanner" />
                         </div>
                       </div>
@@ -289,7 +307,7 @@ const handleClose = () => {
         </div>
       )}
 
-{/* <Modal
+      {/* <Modal
   className="address-modal common-modall"
   open={open}
   onClose={handleClose}
@@ -305,8 +323,6 @@ const handleClose = () => {
     />
   </Box>
 </Modal> */}
-
-
     </>
   );
 }

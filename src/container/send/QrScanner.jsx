@@ -137,8 +137,8 @@ const QrScanner = () => {
         <>
          <div className="app-container">
                     <header className="receive-center">
-                            <button className="back-btn" onClick={() => navigate(-1)}>
-                              <img src={Index.back} alt="Back" />
+                            <button className="back-btn" >
+                              {/* <img src={Index.back} alt="Back" /> */}
                             </button>
                             <div className="app-icon" style={{ marginLeft: "-26px" }}>
                               <img src={Index.pocketPi} alt="PocketPi" />
