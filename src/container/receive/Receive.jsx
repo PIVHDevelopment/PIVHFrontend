@@ -8,26 +8,31 @@ function Receive() {
   const location = Index.useLocation();
   let typeTxn = location?.state?.typeTxn;
   const shareRef = useRef();
-  
-    const [copied, setCopied] = useState(false);
-  console.log({location});
-  console.log({userData});
 
+  const [copied, setCopied] = useState(false);
+  console.log({ location });
+  console.log({ userData });
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(typeTxn == "business" ? userData?.businessUserName : userData?.userName);
+    navigator.clipboard.writeText(
+      typeTxn == "business" ? userData?.businessUserName : userData?.userName
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
 
-
-    const handleShare = async () => {
+  const handleShare = async () => {
     const element = shareRef.current;
     const canvas = await html2canvas(element);
     const dataUrl = canvas.toDataURL("image/png");
     const blob = await (await fetch(dataUrl)).blob();
 
-    if (navigator.canShare && navigator.canShare({ files: [new File([blob], "qrcode.png", { type: blob.type })] })) {
+    if (
+      navigator.canShare &&
+      navigator.canShare({
+        files: [new File([blob], "qrcode.png", { type: blob.type })],
+      })
+    ) {
       const file = new File([blob], "qrcode.png", { type: blob.type });
       navigator.share({
         files: [file],
@@ -55,42 +60,76 @@ function Receive() {
         <div className="header-right"></div>
       </header>
 
-          <div className="wallet-id">
-              <span id="walletAddress">
-                {typeTxn == "business" ?  userData?.businessUserName : userData?.userName }
-              </span>
-              <button className="copy-btn" onClick={handleCopy}>
-                {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
-              </button>
-              </div>
-          
+      <div className="wallet-id">
+        <span id="walletAddress">
+          {typeTxn == "business"
+            ? userData?.businessUserName
+            : userData?.userName}
+        </span>
+        <button className="copy-btn" onClick={handleCopy}>
+          {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
+        </button>
+      </div>
+
       <div className="qr-section">
         <div className="qr-code">
           {/* <img src={Index.qrCode} alt="QR Code" /> */}
-          <QRCodeCanvas value={typeTxn == "business" ? userData?.businessUserName : userData?.userName} size={200} />
+          <QRCodeCanvas
+            value={
+              typeTxn == "business"
+                ? userData?.businessUserName
+                : userData?.userName
+            }
+            size={200}
+          />
         </div>
       </div>
 
-      <div ref={shareRef} style={{ position: "absolute", top: "-10000px", left: "-10000px" }}>
-  <div style={{
-    padding: "20px",
-    background: "#fff",
-    textAlign: "center",
-    borderRadius: "12px",
-    width: "340px",
-    height:"440px",
-  }}>
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px",marginTop:"5px" }}>
-      <img src={Index.pocketPi} alt="PocketPi" style={{ width: "60px",marginBottom:"35px" }} />
-      <QRCodeCanvas value={typeTxn == "business" ? userData?.businessUserName : userData?.userName} size={200} />
-      <p style={{ color: "#000", fontSize: "14px", margin: 0 }}>
-        Username: {typeTxn == "business" ? userData?.businessUserName : userData?.userName}
-      </p>
-    </div>
-  </div>
-</div>
-
-       
+      <div
+        ref={shareRef}
+        style={{ position: "absolute", top: "-10000px", left: "-10000px" }}
+      >
+        <div
+          style={{
+            padding: "20px",
+            background: "#fff",
+            textAlign: "center",
+            borderRadius: "12px",
+            width: "340px",
+            height: "440px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px",
+              marginTop: "5px",
+            }}
+          >
+            <img
+              src={Index.pocketPi}
+              alt="PocketPi"
+              style={{ width: "60px", marginBottom: "35px" }}
+            />
+            <QRCodeCanvas
+              value={
+                typeTxn == "business"
+                  ? userData?.businessUserName
+                  : userData?.userName
+              }
+              size={200}
+            />
+            <p style={{ color: "#000", fontSize: "14px", margin: 0 }}>
+              Username:{" "}
+              {typeTxn == "business"
+                ? userData?.businessUserName
+                : userData?.userName}
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* <div className="action-buttons">
         <button className="circle-btn">

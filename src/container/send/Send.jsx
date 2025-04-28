@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import VerificationPin from "../verificationPin/VerificationPin";
-import { QrReader } from 'react-qr-reader';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+// import { QrReader } from 'react-qr-reader';
+import { Html5QrcodeScanner } from "html5-qrcode";
 function Send() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
@@ -105,8 +105,6 @@ function Send() {
     setNextPage(true);
   };
 
-
-
   return (
     <>
       {buttonLoader ? (
@@ -131,7 +129,9 @@ function Send() {
               </header>
               <Index.Formik
                 enableReinitialize
-                initialValues={formValues || { userName: text, amount: "", memo: "" }}
+                initialValues={
+                  formValues || { userName: text, amount: "", memo: "" }
+                }
                 onSubmit={handleSubmit}
                 validationSchema={Index.sendPiFormSchema}
                 innerRef={formRef}
@@ -274,8 +274,6 @@ function Send() {
           )}
         </div>
       )}
-
-     
     </>
   );
 }
