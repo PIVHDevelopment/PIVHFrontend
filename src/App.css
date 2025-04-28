@@ -1364,7 +1364,7 @@ button.address-book-btn {
 }
 
 .notes-input-box .notes-input .MuiInputBase-formControl {
-  padding: 11.35px 9px !important;
+  padding: 11.35px 9px ;
   font-family: 'Poppins';
 }
 
@@ -1519,16 +1519,11 @@ span.icon {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
-.input-group .receiver-addres-scanner-box{
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .receiver-addres-scanner-box .scanner-icon img{
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
   cursor: pointer;
 }
 
@@ -1636,4 +1631,30 @@ span.icon {
 .tick-mark-icons .verify-icons {
   height: 20px;
   width: 20px;
+}
+
+
+.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment{
+  display: none;
+}
+
+.receiver-addres-scanner-box{
+  position: relative;
+}
+
+.receiver-addres-scanner-box .scanner-icon { 
+  position: absolute;
+  top: 12px;
+  bottom: 0px;
+  right: 0px;
+  margin: auto;
+
+}
+
+
+
+
+.notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+  padding: 7.5px 49px 7.5px 5px !important;
+  cursor: pointer;
 }
