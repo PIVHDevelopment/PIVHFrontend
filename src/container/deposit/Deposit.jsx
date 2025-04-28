@@ -16,10 +16,10 @@ function Deposit() {
 
   const handleSubmitFunction = async (values) => {
     console.log(parseFloat(balance) + parseFloat(values?.amount));
-    if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
-      Index.toasterError("Your balance is exceeding the limit of 314");
-      return false;
-    }
+    // if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
+    //   Index.toasterError("Your balance is exceeding the limit of 314");
+    //   return false;
+    // }
     setButtonLoader(true);
     if (typeTxn == "business") {
       try {
