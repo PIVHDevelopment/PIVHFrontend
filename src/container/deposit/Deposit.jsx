@@ -72,7 +72,10 @@ function Deposit() {
       // ...formRef?.current?.values,
       amount,
       paymentId,
-    }).then(() => {});
+    }).then(() => {}).catch((res)=>{
+      setButtonLoader(false);
+      navigate("/home");
+    });
   };
   const onReadyForServerCompletion = (paymentId, txid) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_COMPLETE, {
@@ -87,10 +90,15 @@ function Deposit() {
         navigate("/home");
         setButtonLoader(false);
       }
+    }).catch((res)=>{
+      setButtonLoader(false);
+      navigate("/home");
     });
   };
 
   const onCancel = (paymentId) => {
+    setButtonLoader(false);
+    navigate("/home");
     console.log("onCancel", paymentId);
     return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, {
       paymentId,
@@ -98,6 +106,8 @@ function Deposit() {
   };
 
   const onError = (error, payment) => {
+    setButtonLoader(false);
+    navigate("/home");
     console.log("onError", error);
     if (payment) {
       // handle the error accordingly

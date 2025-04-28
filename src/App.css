@@ -1577,15 +1577,47 @@ span.icon {
 /* #html5qr-code-full-region__dashboard video:nth-child(2){
   display: none;
 } */
-
-.app-container .qr-scanner-main-div{
+.app-container .qr-scanner-main-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  width: 100%;
+}
+.app-container .qr-scanner-main-div #qr-reader{ 
   margin: 20px;
-  padding: 20px 15px !important;
+  padding: 20px !important;
   border-radius: 12px;
+  border: 3px solid #ffff !important;
+  width: 100% !important;
+}
+
+
+#html5-qrcode-button-camera-permission{
+  width: 100%;
+    margin-bottom: 16px;
+    background: #e38cff;
+    color: #fff;
+    font-size: 17px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+}
+#html5-qrcode-button-camera-start,
+#html5-qrcode-button-camera-stop{
+  width: 100%;
+  margin-bottom: 16px;
+  background: #e38cff;
+  color: #fff;
+  font-size: 17px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+#qr-reader__scan_region img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
 }
 
 .action-send-main-contain .action-btn ,
