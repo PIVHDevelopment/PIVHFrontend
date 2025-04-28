@@ -1574,6 +1574,20 @@ span.icon {
   cursor: auto;
 }
 
+/* #html5qr-code-full-region__dashboard video:nth-child(2){
+  display: none;
+} */
+
+.app-container .qr-scanner-main-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  padding: 20px 15px !important;
+  border-radius: 12px;
+}
+
 .action-send-main-contain .action-btn ,
 .action-send-main-contain .action-btn:hover,
 .action-send-main-contain .action-btn:active {
