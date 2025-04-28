@@ -25,13 +25,15 @@ function Send() {
   const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const location = Index.useLocation();
+    const type =  location?.state?.typeTxn;
     let scannerResult = location?.state?.scannerResult;
     console.log({scannerResult});
   const [formValues, setFormValues] = useState({
-    userName: scannerResult || "",
+    userName: "",
     amount: "",
     memo: "",
   });
+console.log({scannerResult});
 
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
@@ -60,11 +62,14 @@ const handleClose = () => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await Index.DataService.get(Index.Api.GET_USERS);
+        const capitalizedType = type?.charAt(0)?.toUpperCase() + type?.slice(1);
+        // const res = await Index.DataService.get(Index.Api.GET_USERS);
+        const res = await Index.DataService.get(Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + capitalizedType);
         if (res?.data?.status) {
-          let filteredUsers = res?.data?.data?.filter(
-            (item) => item?.uid !== userData?.uid
-          );
+          let filteredUsers = res?.data?.data
+          // ?.filter(
+          //   (item) => item?.uid !== userData?.uid
+          // );
           setUsers(filteredUsers);
         }
       } catch (error) {
@@ -118,8 +123,12 @@ const handleClose = () => {
     setNextPage(true);
   };
 
-  console.log({scannerResult});
-  
+// useEffect(() => {
+//   let result = users?.find((user) => user.userName === scannerResult);
+//   if (!result) {
+//     Index.toasterError("Username not found");
+//   }
+// }, [scannerResult]);
   
 
   return (
@@ -157,15 +166,16 @@ const handleClose = () => {
                   <form onSubmit={formik.handleSubmit} className="send-form">
                     <div className="input-group">
                       <div className="input-wrapper send-input-box receiver-addres-scanner-box">
+                        {console.log(formik.values.userName,"44444")}
                         <Autocomplete
                           id="userName"
                           className="notes-input-box"
                           options={users}
-                          getOptionLabel={(option) => option.userName}
+                          getOptionLabel={(option) => `${option.userName} (${option?.type})`} 
                           value={
-                            users.find(
-                              (user) =>  user.userName === scannerResult || user.userName === formik.values.userName
-                          ) || null
+                            users.find((user) => user.userName === scannerResult) ||
+                            users.find((user) => user.userName === formik.values.userName) ||
+                            null
                           }
                           open={userDropDown}
                           onClose={() => setUserDropDown(false)}
@@ -181,6 +191,11 @@ const handleClose = () => {
                             );
                           }}
                           onBlur={formik.handleBlur}
+                          filterOptions={(options, state) => {
+                            return options?.filter((option) =>
+                              option.userName?.toLowerCase()?.startsWith(state?.inputValue?.toLowerCase())
+                            );
+                          }}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -195,7 +210,7 @@ const handleClose = () => {
                             />
                           )}
                         />
-                        <div className="scanner-icon" onClick={() => navigate("/qr-scanner")}>
+                        <div className="scanner-icon" onClick={() => navigate("/qr-scanner",{state:{typeTxn:type}})}>
                           <img src={Index.scannerIcon} alt="scanner" />
                         </div>
                       </div>

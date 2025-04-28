@@ -90,6 +90,8 @@ import { useNavigate } from 'react-router-dom';
 import Index from '../Index';
 
 const QrScanner = () => {
+    const location = Index.useLocation();
+   const typeTxn =  location?.state?.typeTxn;
     const [scannerResult, setScannerResult] = useState("");
     const navigate = useNavigate(); 
     console.log({navigate});
@@ -97,7 +99,7 @@ const QrScanner = () => {
 
     useEffect(() => {
         if (scannerResult !== "") {
-            navigate("/send", { state: { scannerResult } }); 
+            navigate("/send", { state: { scannerResult,typeTxn } }); 
             setScannerResult("");  
         }
     }, [scannerResult]); 

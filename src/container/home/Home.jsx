@@ -224,7 +224,7 @@ function Home() {
                       />
                       <div className="transaction-info">
                         <span className="transaction-title">
-                          {transaction?.memo || transaction?.type}
+                        {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${transaction?.receiver_name})`}
                         </span>
                         <span className="transaction-time">
                           {Index.moment(transaction.createdAt).format(
