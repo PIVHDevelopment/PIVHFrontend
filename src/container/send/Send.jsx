@@ -30,7 +30,7 @@ function Send() {
     amount: "",
     memo: "",
   });
-  console.log({ scannerResult });
+  console.log({ type });
 
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
@@ -80,7 +80,7 @@ function Send() {
       if (res?.data?.status) {
         Index.toasterSuccess(res?.data?.message);
         navigate("/home", {
-          state: { isBusiness: typeTxn == "business" ? true : false },
+          state: { isBusiness: type == "business" ? true : false },
         });
       } else {
         Index.toasterError(res?.data?.message || "Something went wrong.");
@@ -118,7 +118,9 @@ function Send() {
           ) : (
             <>
               <header className="receive-center">
-                <button className="back-btn" onClick={() => navigate(-1)}>
+                <button className="back-btn" onClick={() => navigate("/home", {
+                 state: { isBusiness: type == "business" ? true : false },
+                   })}>
                   <img src={Index.back} alt="Back" />
                 </button>
                 <div className="app-icon" style={{ marginLeft: "-26px" }}>
