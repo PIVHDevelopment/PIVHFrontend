@@ -115,7 +115,6 @@ const QrScanner = () => {
             scanner.render(
                 (decodedText, decodedResult) => {
                     setScannerResult(decodedText);
-                    console.log("Decoded: ", decodedResult);
                 },
                 (errorMessage) => {
                     console.warn('QR Scan Error:', errorMessage);
@@ -138,7 +137,7 @@ const QrScanner = () => {
          <div className="app-container">
                     <header className="receive-center">
                             <button className="back-btn" >
-                              {/* <img src={Index.back} alt="Back" /> */}
+                              <img src={Index.back} alt="Back" onClick={() => navigate(-1)}/>
                             </button>
                             <div className="app-icon" style={{ marginLeft: "-26px" }}>
                               <img src={Index.pocketPi} alt="PocketPi" />
