@@ -17,6 +17,8 @@ const axiosClient = axios.create({
 function Home() {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
+  console.log({isBusiness});
+  
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
