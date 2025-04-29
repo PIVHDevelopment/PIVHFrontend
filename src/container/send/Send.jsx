@@ -19,8 +19,8 @@ function Send() {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
   const [txnData, setTxnData] = useState({});
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+ 
+
   const location = Index.useLocation();
   const type = location?.state?.typeTxn;
   let scannerResult = location?.state?.scannerResult;
@@ -38,21 +38,6 @@ function Send() {
 
   const balance = location?.state?.balance;
   let typeTxn = location?.state?.typeTxn;
-
-  // const onNewScanResult = (decodedText) => {
-  //   setOpen(false);
-  //   setScannerResult(decodedText);
-  // };
-
-  const scannerComponentRef = useRef();
-
-  const handleClose = () => {
-    if (scannerComponentRef.current) {
-      scannerComponentRef.current.stopScanner();
-    }
-    setOpen(false);
-  };
-
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -61,19 +46,14 @@ function Send() {
           Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + capitalizedType
         );
         const resAllData = await Index.DataService.get(Index.Api.GET_USERS);
+        setCheckUser(resAllData?.data?.data);
         if (res?.data?.status) {
-          let filteredUsers = res?.data?.data;
-          // ?.filter(
-          //   (item) => item?.uid !== userData?.uid
-          // );
-          setCheckUser(resAllData?.data?.data);
           setUsers(res?.data?.data);
         }
       } catch (error) {
         console.error("Error fetching users", error);
       }
     };
-
     getUsers();
   }, []);
 
@@ -124,14 +104,6 @@ function Send() {
     setTxnData(values);
     setNextPage(true);
   };
-
-  // useEffect(() => {
-  //   let result = users?.find((user) => user.userName === scannerResult);
-  //   if (!result) {
-  //     Index.toasterError("Username not found");
-  //   }
-  // }, [scannerResult]);
-  
   return (
     <>
       {buttonLoader ? (
@@ -163,166 +135,155 @@ function Send() {
                 validationSchema={Index.sendPiFormSchema}
                 innerRef={formRef}
               >
-                {(formik) => (
-                  <form onSubmit={formik.handleSubmit} className="send-form">
-                    <div className="input-group">
-                      <div className="input-wrapper send-input-box receiver-addres-scanner-box">
-                        <Autocomplete
-                          id="userName"
-                          className="notes-input-box"
-                          freeSolo
-                          options={users}
-                          getOptionLabel={(option) =>
-                            `${option.userName} (${option?.type})`
-                          }
-                          value={
-                            users.find(
-                              (user) => user.userName === scannerResult
-                            ) ||
-                            users.find(
-                              (user) => user.userName === formik.values.userName
-                            ) ||
-                            null
-                          }
-                          open={userDropDown}
-                          onClose={() => setUserDropDown(false)}
-                          onInputChange={(event, newInputValue, reason) => {
-                            formik.setFieldValue("userName", newInputValue);
-                            if (reason === "input") {
-                              setUserDropDown(true);
-                            }
-                          }}
-                          onChange={(e, selectedUser) => {
-                            formik.setFieldValue(
-                              "userName",
-                              selectedUser?.userName
-                            );
-                          }}
-                          onBlur={formik.handleBlur}
-                          filterOptions={(options, state) => {
-                            return options.filter((option) =>
-                              option.userName
-                                ?.toLowerCase()
-                                ?.startsWith(state.inputValue.toLowerCase())
-                            );
-                          }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              name="userName"
-                              className="notes-input"
-                              placeholder={
-                                formik?.values?.userName ? "" : "Enter Username"
-                              }
-                              variant="outlined"
-                              size="small"
-                              fullWidth
-                            />
-                          )}
-                        />
+                {(formik) => {
+                  useEffect(() => {
+                    if (scannerResult && !formik.values.userName) {
+                      formik.setFieldValue("userName", scannerResult);
+                      console.log("Check user : ", checkUser);
+                    }
+                  }, [scannerResult]);
 
-                        <div
-                          className="scanner-icon"
-                          onClick={() =>
-                            navigate("/qr-scanner", {
-                              state: { typeTxn: type },
-                            })
-                          }
-                        >
-                          <img src={Index.scannerIcon} alt="scanner" />
+                  return (
+                    <form onSubmit={formik.handleSubmit} className="send-form">
+                      <div className="input-group">
+                        <div className="input-wrapper send-input-box receiver-addres-scanner-box">
+                          <Autocomplete
+                            id="userName"
+                            className="notes-input-box"
+                            freeSolo
+                            options={users}
+                            getOptionLabel={(option) =>
+                              option?.type ? `${option.userName} (${option.type})` : option.userName
+                            }
+                            value={
+                              users.find((user) => user.userName === formik.values.userName) ||
+                              (Array.isArray(checkUser) &&
+                                checkUser.find((user) => user.userName === formik.values.userName)) ||
+                              null
+                            }
+                            open={userDropDown}
+                            onClose={() => setUserDropDown(false)}
+                            onInputChange={(event, newInputValue, reason) => {
+                              formik.setFieldValue("userName", newInputValue);
+                              if (reason === "input") {
+                                setUserDropDown(true);
+                              }
+                            }}
+                            onChange={(e, selectedUser) => {
+                              formik.setFieldValue(
+                                "userName",
+                                selectedUser?.userName
+                              );
+                            }}
+                            onBlur={formik.handleBlur}
+                            filterOptions={(options, state) => {
+                              return options.filter((option) =>
+                                option.userName
+                                  ?.toLowerCase()
+                                  ?.startsWith(state.inputValue.toLowerCase())
+                              );
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                name="userName"
+                                className="notes-input"
+                                placeholder={
+                                  formik?.values?.userName ? "" : "Enter Username"
+                                }
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                              />
+                            )}
+                          />
+
+                          <div
+                            className="scanner-icon"
+                            onClick={() =>
+                              navigate("/qr-scanner", {
+                                state: { typeTxn: type },
+                              })
+                            }
+                          >
+                            <img src={Index.scannerIcon} alt="scanner" />
+                          </div>
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.userName && formik.touched?.userName
+                            ? formik.errors?.userName
+                            : null}
                         </div>
                       </div>
-                      <div className="input-error">
-                        {formik.errors?.userName && formik.touched?.userName
-                          ? formik.errors?.userName
-                          : null}
-                      </div>
-                    </div>
 
-                    {/* Other fields for Amount and Memo */}
-                    <div className="input-group">
-                      <div className="input-wrapper">
-                        <input
-                          type="text"
-                          className="notes-input"
-                          placeholder="Enter Amount"
-                          name="amount"
-                          value={formik.values.amount}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (/^\d*\.?\d{0,6}$/.test(value)) {
-                              if (parseFloat(value) > parseFloat(balance)) {
-                                formik.setFieldValue("amount", balance);
-                              } else {
-                                formik.setFieldValue("amount", value);
+                      {/* Other fields for Amount and Memo */}
+                      <div className="input-group">
+                        <div className="input-wrapper">
+                          <input
+                            type="text"
+                            className="notes-input"
+                            placeholder="Enter Amount"
+                            name="amount"
+                            value={formik.values.amount}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*\.?\d{0,6}$/.test(value)) {
+                                if (parseFloat(value) > parseFloat(balance)) {
+                                  formik.setFieldValue("amount", balance);
+                                } else {
+                                  formik.setFieldValue("amount", value);
+                                }
                               }
-                            }
-                          }}
-                        />
+                            }}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.amount && formik.touched?.amount
+                            ? formik.errors?.amount
+                            : null}
+                        </div>
                       </div>
-                      <div className="input-error">
-                        {formik.errors?.amount && formik.touched?.amount
-                          ? formik.errors?.amount
-                          : null}
-                      </div>
-                    </div>
 
-                    <div className="input-group">
-                      <div className="input-wrapper">
-                        <input
-                          type="text"
-                          className="notes-input"
-                          placeholder="Enter Memo"
-                          name="memo"
-                          value={formik.values.memo}
-                          onChange={formik.handleChange}
-                        />
+                      <div className="input-group">
+                        <div className="input-wrapper">
+                          <input
+                            type="text"
+                            className="notes-input"
+                            placeholder="Enter Memo"
+                            name="memo"
+                            value={formik.values.memo}
+                            onChange={formik.handleChange}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.memo && formik.touched?.memo
+                            ? formik.errors?.memo
+                            : null}
+                        </div>
                       </div>
-                      <div className="input-error">
-                        {formik.errors?.memo && formik.touched?.memo
-                          ? formik.errors?.memo
-                          : null}
-                      </div>
-                    </div>
 
-                    <div className="amount-section">
-                      <label>Enter Pi Amount</label>
-                      <div className="amount-display">
-                        {formik.values.amount || "0"} Pi
+                      <div className="amount-section">
+                        <label>Enter Pi Amount</label>
+                        <div className="amount-display">
+                          {formik.values.amount || "0"} Pi
+                        </div>
                       </div>
-                    </div>
 
-                    <button
-                      className="action-btn full-width send-pi-btn"
-                      type="submit"
-                      disabled={buttonLoader}
-                    >
-                      Send Pi
-                    </button>
-                  </form>
-                )}
+                      <button
+                        className="action-btn full-width send-pi-btn"
+                        type="submit"
+                        disabled={buttonLoader}
+                      >
+                        Send Pi
+                      </button>
+                    </form>
+                  )
+                }}
               </Index.Formik>
             </>
           )}
         </div>
       )}
-
-      {/* <Modal
-  className="address-modal common-modall"
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style}>
-    <QrScanner
-      ref={scannerComponentRef}
-      fps={10}
-      qrCodeSuccessCallback={(decodedText, decodedResult) => onNewScanResult(decodedText)}
-      qrCodeErrorCallback={(error) => console.log(error)}
-    />
-  </Box>
-</Modal> */}
     </>
   );
 }
