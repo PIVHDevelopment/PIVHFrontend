@@ -1,17 +1,41 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { QRCodeCanvas } from "qrcode.react";
-import html2canvas from "html2canvas";
+import {
+  WhatsappShareButton,
+  EmailShareButton,
+  TwitterShareButton,
+  WhatsappIcon,
+  EmailIcon,
+  TwitterIcon
+} from 'react-share';
+import { Box, Modal, Typography } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "calc(100% - 30px)",
+  maxWidth: "350px",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+};
+
 function Receive() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const ImageURL = import.meta.env.VITE_IMAGE_URL;
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
+  const[qrData, setQrData]= useState({});
   let typeTxn = location?.state?.typeTxn;
   const shareRef = useRef();
-
   const [copied, setCopied] = useState(false);
-  console.log({ location });
-  console.log({ userData });
+ const [loading,setLoading]=useState(false)
+   const [open, setOpen] = React.useState(false);
+   const [shareUrl, setShareUrl] = useState("");
+   const handleClose = () => {
+     setOpen(false);
+   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
@@ -20,35 +44,50 @@ function Receive() {
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
-
-  const handleShare = async () => {
-    const element = shareRef.current;
-    const canvas = await html2canvas(element);
-    const dataUrl = canvas.toDataURL("image/png");
-    const blob = await (await fetch(dataUrl)).blob();
-
-    if (
-      navigator.canShare &&
-      navigator.canShare({
-        files: [new File([blob], "qrcode.png", { type: blob.type })],
-      })
-    ) {
-      const file = new File([blob], "qrcode.png", { type: blob.type });
-      navigator.share({
-        files: [file],
-        title: "My Wallet QR",
-        text: "Scan my wallet QR to receive payment",
-      });
-    } else {
-      // fallback: download
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = "qrcode.png";
-      link.click();
+  useEffect(() => {
+    if(qrData?.qrCodes){
+    const url = typeTxn === "business"
+    ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+    : `${ImageURL}${qrData?.qrCodes?.userQr}`;
+      setShareUrl(url);
     }
+    },[typeTxn,qrData])
+
+  const handleShare = () => {
+  setOpen(true);
   };
 
+
+  const handleFetchQrCode = async ()=>{
+    setLoading(true);
+    try {
+      const res = await Index.DataService.get(Index.Api.FETCH_QR_CODE+`/${userData?.uid}`);
+      if(res?.data?.status === 200){
+        setQrData(res?.data?.data);
+      }
+    } catch (error) {
+      console.log(error);
+      
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    handleFetchQrCode();
+  },[])
+console.log({qrData});
+
+const handleCopyLink = ()=>{
+  navigator.clipboard.writeText(shareUrl);
+    Index.toasterSuccess("QR code link copied successfully");
+}
+
   return (
+    <>
+        {loading ? (
+            <Index.Loader />
+          ) : (
     <div className="app-container">
       <header className="receive-center">
       <button className="back-btn" onClick={() => navigate("/home", {
@@ -75,61 +114,11 @@ function Receive() {
 
       <div className="qr-section">
         <div className="qr-code">
-          {/* <img src={Index.qrCode} alt="QR Code" /> */}
-          <QRCodeCanvas
-            value={
-              typeTxn == "business"
-                ? userData?.businessUserName
-                : userData?.userName
-            }
-            size={200}
-          />
-        </div>
-      </div>
-
-      <div
-        ref={shareRef}
-        style={{ position: "absolute", top: "-10000px", left: "-10000px" }}
-      >
-        <div
-          style={{
-            padding: "20px",
-            background: "#fff",
-            textAlign: "center",
-            borderRadius: "12px",
-            width: "340px",
-            height: "440px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "10px",
-              marginTop: "5px",
-            }}
-          >
-            <img
-              src={Index.pocketPi}
-              alt="PocketPi"
-              style={{ width: "60px", marginBottom: "35px" }}
-            />
-            <QRCodeCanvas
-              value={
-                typeTxn == "business"
-                  ? userData?.businessUserName
-                  : userData?.userName
-              }
-              size={200}
-            />
-            <p style={{ color: "#000", fontSize: "14px", margin: 0 }}>
-              Username:{" "}
-              {typeTxn == "business"
-                ? userData?.businessUserName
-                : userData?.userName}
-            </p>
-          </div>
+        <img  src={ 
+      typeTxn === "business" 
+      ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+      : `${ImageURL}${qrData?.qrCodes?.userQr}`
+     }  alt="QR Code" className="generate-qr-code" />
         </div>
       </div>
 
@@ -148,15 +137,68 @@ function Receive() {
         </button>
       </div> */}
 
-      {/* <div className="receive-btn-share">
+      <div className="receive-btn-share">
+      <button className="secondary-btn share-btn" onClick={handleCopyLink}>
+          <span className="icon">
+            <img src={Index.copyLink} alt="Share" />
+          </span>
+          Copy
+        </button>
         <button className="secondary-btn share-btn" onClick={handleShare}>
           <span className="icon">
             <img src={Index.share} alt="Share" />
           </span>
           Share
         </button>
-      </div> */}
+      </div>
     </div>
+  )}
+     <Modal
+        className="address-modal common-modall"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} className="common-style-modal address-style">
+          <Box className="modal-header-common address-modal-header">
+            <Typography className="add-title">Share QR Code </Typography>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={handleClose}
+            ></button>
+          </Box>
+          <div className="qr-btn-share-box">
+              <WhatsappShareButton
+            url={shareUrl} 
+          title="Scan QR Code"
+          >
+         <WhatsappIcon size={45} round />
+               </WhatsappShareButton>
+               <EmailShareButton
+            url={shareUrl}
+          subject="Scan QR Code"
+          body="Here's something interesting:"
+          >
+           <EmailIcon size={45} round />
+              </EmailShareButton>
+
+               <TwitterShareButton
+               url={shareUrl}
+                title="Scan QR Code"
+                >
+                <TwitterIcon size={45} round />
+              </TwitterShareButton>
+            </div>
+
+
+          </Box>
+    </Modal>
+
+  </>
   );
 }
 

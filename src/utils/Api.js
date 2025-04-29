@@ -34,7 +34,9 @@ const Api = {
   GET_ADDRESS: "/user/get-address-book",
   DELETE_ADDRESS: "/user/delete-address",
 
-  ADD_SUBSCRIPTION:"/user/update-subscription-status"
+  ADD_SUBSCRIPTION:"/user/update-subscription-status",
+  
+  FETCH_QR_CODE:"/payments/fetch-qr-code",
   
 };
 

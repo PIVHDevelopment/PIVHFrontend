@@ -26,6 +26,7 @@ import withdraw from "../assets/images/withdraw.png";
 import deposit from "../assets/images/deposit.png";
 import uparrow from "../assets/images/uparrow.png";
 import subscribedIcon from "../assets/images/subscribed.png";
+import copyLink from "../assets/images/copy-link.png";
 
 import wallet from "../assets/images/wallet.png";
 import send from "../assets/images/send.png";
@@ -70,6 +71,7 @@ const Index = {
   TabContent,
   TabPane,
   pocketPi,
+  copyLink,
   pocketPi2,
   profile,
   logout,
