@@ -139,7 +139,6 @@ function Send() {
                   useEffect(() => {
                     if (scannerResult && !formik.values.userName) {
                       formik.setFieldValue("userName", scannerResult);
-                      console.log("Check user : ", checkUser);
                     }
                   }, [scannerResult]);
 
