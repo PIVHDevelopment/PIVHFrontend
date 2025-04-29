@@ -227,9 +227,6 @@ function Withdraw() {
                   className="action-btn full-width send-pi-btn"
                   type="submit"
                   disabled={buttonLoader}
-                  startIcon={
-                    buttonLoader ? <CircularProgress size={20} /> : null
-                  }
                 >
                   {buttonLoader ? "Processing..." : "Withdraw"}
                 </button>
