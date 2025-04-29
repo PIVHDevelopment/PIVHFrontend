@@ -229,14 +229,14 @@ function Send() {
                       <div className="input-group">
                         <div className="input-wrapper">
                           <input
-                            type="text"
+                            type="text" 
                             className="notes-input"
                             placeholder="Enter Amount"
                             name="amount"
                             value={formik.values.amount}
                             onChange={(e) => {
                               const value = e.target.value;
-                              if (/^\d*\.?\d{0,6}$/.test(value)) {
+                              if (/^\d*\.?\d{0,5}$/.test(value)) {
                                 if (parseFloat(value) > parseFloat(balance)) {
                                   formik.setFieldValue("amount", balance);
                                 } else {

@@ -190,7 +190,8 @@ function Home() {
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
-                {parseFloat(tab == 2 ? businessBalance : balance).toFixed(2)} Pi
+                {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
+                {parseFloat(tab == 2 ? businessBalance : balance) > 0 ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5) : 0} Pi
               </h1>
             </div>
             <Index.TabContent>
@@ -242,7 +243,7 @@ function Home() {
                     >
                       <span>
                         {amountPrefix}
-                        {Math.abs(transaction.amount)} Pi
+                        {Math.abs(transaction.amount)?.toFixed(5)} Pi
                       </span>
                       <span className="transaction-date">
                         {Index.moment(transaction.createdAt).format(

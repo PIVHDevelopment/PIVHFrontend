@@ -634,7 +634,7 @@ header {
   border-radius: 36px;
   margin-top: auto;
   background-color: #ffffff45;
-  max-width: 250px;
+  max-width: 150px;
 }
 
 /* Custom scrollbar */
@@ -1385,15 +1385,17 @@ button.address-book-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 20px;
+  height: 54px;
 }
 
 .receive-btn-share {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 55px;
+  margin-top: 40px;
+  gap: 20px;
 }
 
 span.icon {
@@ -1657,4 +1659,23 @@ span.icon {
 .notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 49px 7.5px 5px !important;
   cursor: pointer;
+}
+
+.qr-code .generate-qr-code{
+  height: 250px;
+  width: 250px;
+  border-radius: 12px;
+}
+
+.qr-btn-share-box{
+  padding: 33px;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+
+.qr-btn-share-box button svg{
+  /* height: 40px;
+  width: 40px;  */
 }
