@@ -19,7 +19,7 @@ function Send() {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
   const [txnData, setTxnData] = useState({});
- 
+
 
   const location = Index.useLocation();
   const type = location?.state?.typeTxn;
@@ -141,7 +141,7 @@ function Send() {
                   useEffect(() => {
                     if (scannerResult && !formik.values.userName) {
                       formik.setFieldValue("userName", scannerResult);
-                      console.log("Check user : ", checkUser);
+                      setInputValue(scannerResult);
                     }
                   }, [scannerResult]);
 
@@ -155,8 +155,13 @@ function Send() {
                             freeSolo
                             options={users}
                             getOptionLabel={(option) =>
-                              option?.type ? `${option.userName} (${option.type})` : option.userName
+                              typeof option === "string"
+                                ? option
+                                : option?.type
+                                  ? `${option.userName} (${option.type})`
+                                  : option.userName
                             }
+                            inputValue={inputValue}
                             value={
                               users.find((user) => user.userName === formik.values.userName) ||
                               (Array.isArray(checkUser) &&
@@ -166,26 +171,26 @@ function Send() {
                             open={userDropDown}
                             onClose={() => setUserDropDown(false)}
                             onInputChange={(event, newInputValue, reason) => {
-                              formik.setFieldValue("userName", event?.target?.value || newInputValue);
-
                               if (reason === "input") {
+                                setInputValue(newInputValue);
+                                formik.setFieldValue("userName", newInputValue);
                                 setUserDropDown(true);
                               }
                             }}
                             onChange={(e, selectedUser) => {
-                              formik.setFieldValue(
-                                "userName",
-                                selectedUser?.userName
-                              );
+                              const name = selectedUser?.userName || "";
+                              formik.setFieldValue("userName", name);
+                              setInputValue(name); // just show username in input box
+                              setUserDropDown(false);
                             }}
                             onBlur={formik.handleBlur}
-                            filterOptions={(options, state) => {
-                              return options.filter((option) =>
+                            filterOptions={(options, state) =>
+                              options.filter((option) =>
                                 option.userName
                                   ?.toLowerCase()
                                   ?.startsWith(state.inputValue.toLowerCase())
-                              );
-                            }}
+                              )
+                            }
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -200,6 +205,7 @@ function Send() {
                               />
                             )}
                           />
+
 
                           <div
                             className="scanner-icon"
