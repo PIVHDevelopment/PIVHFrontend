@@ -83,6 +83,32 @@ const handleCopyLink = ()=>{
     Index.toasterSuccess("QR code link copied successfully");
 }
 
+const shareImage = async () => {
+  const imageUrl = typeTxn === "business"
+    ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+    : `${ImageURL}${qrData?.qrCodes?.userQr}`;
+
+  const response = await fetch(imageUrl);
+  console.log({response});
+  
+  const blob = await response.blob();
+  const file = new File([blob], "qr_code.png", { type: blob.type });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: "Share QR Code",
+        text: "Scan QR Code",
+      });
+    } catch (error) {
+      console.error("Share failed:", error);
+    }
+  } else {
+    Index.toasterError("Sharing files is not supported on this device.");
+  }
+};
+
   return (
     <>
         {loading ? (
@@ -144,7 +170,8 @@ const handleCopyLink = ()=>{
           </span>
           Copy
         </button>
-        <button className="secondary-btn share-btn" onClick={handleShare}>
+        {/* <button className="secondary-btn share-btn" onClick={handleShare}> */}
+        <button className="secondary-btn share-btn"  onClick={shareImage}>
           <span className="icon">
             <img src={Index.share} alt="Share" />
           </span>
