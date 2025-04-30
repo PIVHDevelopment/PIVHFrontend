@@ -170,8 +170,8 @@ const shareImage = async () => {
           </span>
           Copy
         </button>
-        {/* <button className="secondary-btn share-btn" onClick={handleShare}> */}
-        <button className="secondary-btn share-btn"  onClick={shareImage}>
+        <button className="secondary-btn share-btn" onClick={handleShare}>
+        {/* <button className="secondary-btn share-btn"  onClick={shareImage}> */}
           <span className="icon">
             <img src={Index.share} alt="Share" />
           </span>
@@ -201,21 +201,21 @@ const shareImage = async () => {
           <div className="qr-btn-share-box">
               <WhatsappShareButton
             url={shareUrl} 
-          title="Scan QR Code"
+          title="Share QR Code"
           >
          <WhatsappIcon size={45} round />
                </WhatsappShareButton>
                <EmailShareButton
             url={shareUrl}
-          subject="Scan QR Code"
-          body="Here's something interesting:"
+          subject="Share QR Code"
+          body="Scan QR Code:"
           >
            <EmailIcon size={45} round />
               </EmailShareButton>
 
                <TwitterShareButton
                url={shareUrl}
-                title="Scan QR Code"
+                title="Share QR Code"
                 >
                 <TwitterIcon size={45} round />
               </TwitterShareButton>
