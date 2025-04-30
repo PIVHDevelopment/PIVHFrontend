@@ -28,6 +28,16 @@ const Api = {
   UPGRADE_BUSINESS_DETAIL: "/user/upgrade-business-details",
   GET_RECOVER_QUESTION: "/user/get-recovery-question",
   VERIFY_ANSWER: "/user/verify-answer",
+  GET_BUSINESS_DETAIL: "/user/get-business-details",
+
+  ADD_UPDATE_ADDRESS: "/user/add-update-address",
+  GET_ADDRESS: "/user/get-address-book",
+  DELETE_ADDRESS: "/user/delete-address",
+
+  ADD_SUBSCRIPTION:"/user/update-subscription-status",
+  
+  FETCH_QR_CODE:"/payments/fetch-qr-code",
+  
 };
 
 export default Api;

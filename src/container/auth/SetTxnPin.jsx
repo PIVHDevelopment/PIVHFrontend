@@ -18,19 +18,6 @@ const SetTxnPin = () => {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
 
-  const validationSchema1 = Yup.object().shape({
-    pinFields: Yup.array()
-      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
-      .test("pin-required", "Please enter pin", (arr) =>
-        arr.some((val) => val && val.trim() !== "")
-      )
-      .test(
-        "pin-length",
-        "PIN must be 5 digits",
-        (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
-      ),
-  });
-
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
       .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
@@ -69,10 +56,10 @@ const SetTxnPin = () => {
     })
       .then((res) => {
         if (res?.data?.status === 200) {
+          const sessionData = JSON.parse(
+            sessionStorage.getItem("pi_user_data")
+          );
           if (isBusiness) {
-            const sessionData = JSON.parse(
-              sessionStorage.getItem("pi_user_data")
-            );
             const updatedSessionData = {
               ...sessionData,
               businessTxn: {
@@ -84,8 +71,21 @@ const SetTxnPin = () => {
               "pi_user_data",
               JSON.stringify(updatedSessionData)
             );
+          } else {
+            const updatedSessionData = {
+              ...sessionData,
+              userTxn: {
+                ...sessionData.userTxn,
+                isPin: true,
+              },
+            };
+            sessionStorage.setItem(
+              "pi_user_data",
+              JSON.stringify(updatedSessionData)
+            );
           }
           if (isRecover) {
+            Index.toasterSuccess(res?.data?.message);
             navigate("/home", {
               state: { isBusiness: isBusiness },
             });
@@ -98,6 +98,9 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
+        Index.toasterError(
+          err?.response?.data?.message || "Something went wrong"
+        );
       })
       .finally(() => {
         setIsLoading(false);
@@ -144,129 +147,139 @@ const SetTxnPin = () => {
   );
 
   return (
-    <div className="app-container">
-      <header className="receive-center">
-        <button
-          className="back-btn"
-          onClick={() => {
-            if (step == 1) navigate(-1);
-            else setStep(1);
-          }}
-        >
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
-      <Formik
-        initialValues={{
-          pinFields: ["", "", "", "", ""],
-          confirmPinFields: ["", "", "", "", ""],
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmitFunction}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleSubmit,
-          setFieldValue,
-          validateForm,
-          setTouched,
-        }) => (
-          <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
-            <Box className="p-20">
-              <Typography variant="h5" className="heading" gutterBottom>
-                Set {isBusiness && "Business"} Transaction PIN
-              </Typography>
+    <>
+      {isLoading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button
+              className="back-btn"
+              onClick={() => {
+                if (step == 1) navigate(-1);
+                else setStep(1);
+              }}
+            >
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+          <Formik
+            initialValues={{
+              pinFields: ["", "", "", "", ""],
+              confirmPinFields: ["", "", "", "", ""],
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmitFunction}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleSubmit,
+              setFieldValue,
+              validateForm,
+              setTouched,
+            }) => (
+              <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
+                <Box className="p-20">
+                  <Typography variant="h5" className="heading" gutterBottom>
+                    Set {isBusiness && "Business"} Transaction PIN
+                  </Typography>
 
-              <Typography variant="h6" className="heading-note" gutterBottom>
-                Your PIN will be securely saved with PocketPie. You will need to
-                enter this PIN every time when you make the payment in
-                application.
-              </Typography>
-
-              <Grid container spacing={4}>
-                {step === 1 && (
-                  <Grid item xs={12} md={6} className="set-pin-box">
-                    <Typography variant="h6" className="text" gutterBottom>
-                      Enter PIN
-                    </Typography>
-                    {renderPinInputs(
-                      "pinFields",
-                      values,
-                      setFieldValue,
-                      showPin,
-                      setShowPin
-                    )}
-                    {touched.pinFields &&
-                      errors.pinFields &&
-                      typeof errors.pinFields === "string" && (
-                        <Typography color="error" variant="body2" mt={1}>
-                          {errors.pinFields}
-                        </Typography>
-                      )}
-                  </Grid>
-                )}
-
-                {step === 2 && (
-                  <Grid item xs={12} md={6} className="set-pin-box">
-                    <Typography variant="h6" className="text" gutterBottom>
-                      Confirm PIN
-                    </Typography>
-                    {renderPinInputs(
-                      "confirmPinFields",
-                      values,
-                      setFieldValue,
-                      showConfirmPin,
-                      setShowConfirmPin
-                    )}
-                    {touched.confirmPinFields &&
-                      errors.confirmPinFields &&
-                      typeof errors.confirmPinFields === "string" && (
-                        <Typography color="error" variant="body2" mt={1}>
-                          {errors.confirmPinFields}
-                        </Typography>
-                      )}
-                  </Grid>
-                )}
-              </Grid>
-
-              <Box textAlign="center" mt={8}>
-                {step === 1 ? (
-                  <button
-                    type="button"
-                    className="secondary-btn share-btn"
-                    onClick={async () => {
-                      await setTouched({
-                        pinFields: [true, true, true, true, true],
-                      });
-                      const errors = await validateForm();
-                      if (!errors.pinFields) {
-                        setStep(2);
-                      }
-                    }}
+                  <Typography
+                    variant="h6"
+                    className="heading-note"
+                    gutterBottom
                   >
-                    Next
-                  </button>
-                ) : (
-                  <button type="submit" className="secondary-btn share-btn">
-                    {isLoading ? (
-                      <Spinner animation="border" role="status" size="sm" />
-                    ) : (
-                      "Set PIN"
+                    Your PIN will be securely saved with PocketPie. You will
+                    need to enter this PIN every time when you make the payment
+                    in application.
+                  </Typography>
+
+                  <Grid container spacing={4}>
+                    {step === 1 && (
+                      <Grid item xs={12} md={6} className="set-pin-box">
+                        <Typography variant="h6" className="text" gutterBottom>
+                          Enter PIN
+                        </Typography>
+                        {renderPinInputs(
+                          "pinFields",
+                          values,
+                          setFieldValue,
+                          showPin,
+                          setShowPin
+                        )}
+                        {touched.pinFields &&
+                          errors.pinFields &&
+                          typeof errors.pinFields === "string" && (
+                            <Typography color="error" variant="body2" mt={1}>
+                              {errors.pinFields}
+                            </Typography>
+                          )}
+                      </Grid>
                     )}
-                  </button>
-                )}
-              </Box>
-            </Box>
-          </form>
-        )}
-      </Formik>
-    </div>
+
+                    {step === 2 && (
+                      <Grid item xs={12} md={6} className="set-pin-box">
+                        <Typography variant="h6" className="text" gutterBottom>
+                          Confirm PIN
+                        </Typography>
+                        {renderPinInputs(
+                          "confirmPinFields",
+                          values,
+                          setFieldValue,
+                          showConfirmPin,
+                          setShowConfirmPin
+                        )}
+                        {touched.confirmPinFields &&
+                          errors.confirmPinFields &&
+                          typeof errors.confirmPinFields === "string" && (
+                            <Typography color="error" variant="body2" mt={1}>
+                              {errors.confirmPinFields}
+                            </Typography>
+                          )}
+                      </Grid>
+                    )}
+                  </Grid>
+
+                  <Box textAlign="center" mt={8}>
+                    {step === 1 ? (
+                      <button
+                        type="button"
+                        className="secondary-btn share-btn"
+                        onClick={async () => {
+                          await setTouched({
+                            pinFields: [true, true, true, true, true],
+                          });
+                          const errors = await validateForm();
+                          if (!errors.pinFields) {
+                            setStep(2);
+                          }
+                        }}
+                      >
+                        Next
+                      </button>
+                    ) : (
+                      <button type="submit" className="secondary-btn share-btn">
+                        {/* {isLoading ? (
+                      <Spinner animation="border" role="status" size="sm" />
+                    ) : ( */}
+                        Set PIN
+                        {/* )} */}
+                      </button>
+                    )}
+                  </Box>
+                </Box>
+              </form>
+            )}
+          </Formik>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -18,6 +18,19 @@ import copyBtn from "../assets/images/Copy-Btn.png";
 import qrCode from "../assets/images/QR-Code-Receive.png";
 import downloadImg from "../assets/images/Download-Btn.png";
 import Plusadd from "../assets/images/Plusadd.png";
+import walletaddress from "../assets/images/walletaddress.png";
+import businessaddress from "../assets/images/businessaddress.png";
+import businessversion from "../assets/images/businessversion.png";
+import recover from "../assets/images/recover.png";
+import withdraw from "../assets/images/withdraw.png";
+import deposit from "../assets/images/deposit.png";
+import uparrow from "../assets/images/uparrow.png";
+import subscribedIcon from "../assets/images/subscribed.png";
+import copyLink from "../assets/images/copy-link.png";
+
+import wallet from "../assets/images/wallet.png";
+import send from "../assets/images/send.png";
+import downarrow from "../assets/images/receive.png";
 import share from "../assets/images/Share.png";
 import addressbook from "../assets/images/addressbook.png";
 import back from "../assets/images/Back.png";
@@ -25,6 +38,9 @@ import invisibleIcon from "../assets/images/invisible.svg";
 import showIcon from "../assets/images/show.svg";
 import markIcon from "../assets/images/mark.svg";
 import successIcon from "../assets/images/success.svg";
+import scannerIcon from "../assets/images/scanner.svg";
+import subscriberIcon from "../assets/images/subscribers.png";
+import verify from "../assets/images/verify.png";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -40,7 +56,12 @@ import {
   addBusinessAddressFormSchema,
 } from "../utils/Validation";
 import moment from "moment";
-import { toasterSuccess, toasterError, toasterInfo } from "../utils/toaster/Toaster";
+import {
+  toasterSuccess,
+  toasterError,
+  toasterInfo,
+} from "../utils/toaster/Toaster";
+import Loader from "../common/loader/Loader";
 
 const Index = {
   Modal,
@@ -50,6 +71,7 @@ const Index = {
   TabContent,
   TabPane,
   pocketPi,
+  copyLink,
   pocketPi2,
   profile,
   logout,
@@ -90,6 +112,21 @@ const Index = {
   // pencil,
   // delete,
   addressbook,
+  walletaddress,
+  businessaddress,
+  businessversion,
+  recover,
+  withdraw,
+  deposit,
+  send,
+  wallet,
+  Loader,
+  downarrow,
+  uparrow,
+  scannerIcon,
+  subscribedIcon,
+  subscriberIcon,
+  verify,
 };
 
 export default Index;

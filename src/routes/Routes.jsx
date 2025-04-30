@@ -25,6 +25,9 @@ import SuccessMessage from "../container/auth/SuccessMessage";
 import VerifyAnswer from "../container/upgradeBusiness.jsx/VerifyAnswer";
 import VerificationPin from "../container/verificationPin/VerificationPin";
 import AddressBook from "../container/addressBook/AddressBook";
+import Loader from "../common/loader/Loader";
+import Subscription from "../container/subscription/Subscription";
+import QrScanner from "../container/send/QrScanner";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -60,6 +63,10 @@ const Routers = () => {
     {
       path: "/verify-answer",
       element: <VerifyAnswer />,
+    },
+    {
+      path: "/subscription",
+      element: <Subscription />,
     },
     {
       path: "/shop",
@@ -103,6 +110,10 @@ const Routers = () => {
           element: <Send />,
         },
         {
+          path: "/qr-scanner",
+          element: < QrScanner/>,
+        },
+        {
           path: "/receive",
           element: <Receive />,
         },
@@ -130,6 +141,11 @@ const Routers = () => {
         {
           path: "/address-book",
           element: <AddressBook />,
+        },
+
+        {
+          path: "/loader",
+          element: <Loader />,
         },
       ],
     },

@@ -17,6 +17,8 @@ const axiosClient = axios.create({
 function Home() {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
+  console.log({isBusiness});
+  
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
@@ -25,12 +27,14 @@ function Home() {
   const [transactionList, setTransactionList] = useState([]);
   const [balance, setBalance] = useState("0");
   const [businessBalance, setBusinessBalance] = useState("0");
+  const [businessUserName, setBusinessUserName] = useState("");
   let typeTxn = tab == 1 ? "individual" : "business";
-  console.log({isBusiness});
-  
-  
+  console.log({ userData });
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(userData?.userName);
+    navigator.clipboard.writeText(
+      tab == 2 ? businessUserName : userData?.userName
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
@@ -57,10 +61,11 @@ function Home() {
       `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
     ).then((res) => {
       console.log({ res });
-      
+
       setTransactionList(res?.data?.data?.updatedList);
       setBalance(res?.data?.data?.balance);
       setBusinessBalance(res?.data?.data?.businessBalance);
+      setBusinessUserName(res?.data?.data?.businessUserName);
     });
   };
 
@@ -100,12 +105,27 @@ function Home() {
               {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button> */}
+
+              {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
+              (tab === 1 && !userData?.isIndividualSubscription) ? (
+                ""
+              ) : (
+                <button
+                  className="icon-btn subscrip-icon"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalMerchant"
+                  // onClick={handleOpen}
+                  // onClick={() => navigate("/add-wallet")}
+                >
+                  <img src={Index.subscribedIcon} alt="Setting" />
+                </button>
+              )} */}
               <button
                 className="icon-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-              // onClick={() => navigate("/add-wallet")}
+                // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -127,16 +147,42 @@ function Home() {
               >
                 Individual
               </button>
-              <button
-                className={`tab-btn${tab === 2 ? " active" : ""}`}
-                data-tab="business"
-                onClick={() => setTab(2)}
-              >
-                Business
-              </button>
+              {userData?.businessTxn?.isPin &&
+                userData?.businessTxn?.isQuestion && (
+                  <button
+                    className={`tab-btn${tab === 2 ? " active" : ""}`}
+                    data-tab="business"
+                    onClick={() => setTab(2)}
+                  >
+                    Business
+                  </button>
+                )}
             </div>
             <div className="wallet-id">
-              <span id="walletAddress">{userData?.userName}</span>
+              <div className="tick-mark-icons">
+                <span id="walletAddress">
+                  {tab == 1 ? userData?.userName : userData?.businessUserName}
+                </span>
+                {/* <div>
+                  <img
+                    src={Index.verify}
+                    className="verify-icons"
+                    alt="verify"
+                  />
+                </div> */}
+                {(tab === 2 && !userData?.isBusinessSubscription) ||
+                (tab === 1 && !userData?.isIndividualSubscription) ? (
+                  ""
+                ) : (
+                  <div>
+                    <img
+                      src={Index.verify}
+                      className="verify-icons"
+                      alt="verify"
+                    />
+                  </div>
+                )}
+              </div>
               <button className="copy-btn" onClick={handleCopy}>
                 {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
               </button>
@@ -144,7 +190,8 @@ function Home() {
             <div className="balance-section">
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
-                {parseFloat(tab == 2 ? businessBalance : balance).toFixed(2)} Pi
+                {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
+                {parseFloat(tab == 2 ? businessBalance : balance) > 0 ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5) : 0} Pi
               </h1>
             </div>
             <Index.TabContent>
@@ -152,7 +199,7 @@ function Home() {
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
-                <Business balance={businessBalance}/>
+                <Business balance={businessBalance} />
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
@@ -167,7 +214,7 @@ function Home() {
           >
             <h2>Transaction History</h2>
             <div className="transaction-list">
-              {transactionList?.map((transaction,index) => {
+              {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
                 const amountPrefix = isPositive ? "+" : "-";
                 return (
@@ -180,7 +227,7 @@ function Home() {
                       />
                       <div className="transaction-info">
                         <span className="transaction-title">
-                          {transaction?.memo || transaction?.type}
+                        {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${ transaction?.paymentType ==="sent" ? transaction?.receiver_name : transaction?.user_name})`}
                         </span>
                         <span className="transaction-time">
                           {Index.moment(transaction.createdAt).format(
@@ -190,12 +237,13 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${isPositive ? "positive" : "negative"
-                        }`}
+                      className={`transaction-amount ${
+                        isPositive ? "positive" : "negative"
+                      }`}
                     >
                       <span>
                         {amountPrefix}
-                        {Math.abs(transaction.amount)} Pi
+                        {Math.abs(transaction.amount)?.toFixed(5)} Pi
                       </span>
                       <span className="transaction-date">
                         {Index.moment(transaction.createdAt).format(
@@ -230,53 +278,85 @@ function Home() {
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          <NavLink className="setting-cont-box" to={"/add-wallet"}>
+          {/* <NavLink className="setting-cont-box" to={"/add-wallet"}>
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.walletaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Wallet Address</h6>
-          </NavLink>
-          <div className="setting-cont-box">
+          </NavLink> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
-              <img src={Index.suitcase} alt="" />
+              <img src={Index.businessaddress} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Business Address</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.employee} alt="" />
             </div>
             <h6 className="setting-cont-title">Add Employee Address</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.autopay} alt="" />
             </div>
             <h6 className="setting-cont-title">Set Autopay</h6>
-          </div>
-          <div className="setting-cont-box">
+          </div> */}
+          {/* <div className="setting-cont-box">
             <div className="setting-icon-box">
               <img src={Index.configure} alt="" />
             </div>
             <h6 className="setting-cont-title">
               Configure Salary Disbursement
             </h6>
-          </div>
+          </div> */}
 
-          <div className="setting-cont-box" onClick={() => navigate("/address-book")}>
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/address-book", {
+                state: { isBusiness: tab === 2 && true },
+              })
+            }
+          >
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">
-              Address Book
-            </h6>
+            <h6 className="setting-cont-title">Address Book</h6>
           </div>
-          <NavLink className="setting-cont-box" to={"/check-kyb-verification"}>
-            <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+          {(tab === 2 && userData?.isBusinessSubscription) ||
+          (tab === 1 && userData?.isIndividualSubscription) ? (
+            ""
+          ) : (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/subscription", {
+                  state: { isBusiness: tab === 2 && true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.subscriberIcon} alt="" />
+              </div>
+              <h6 className="setting-cont-title">Subscription</h6>
             </div>
-            <h6 className="setting-cont-title">Upgrade to business version</h6>
-          </NavLink>
+          )}
+
+          {(!userData?.businessTxn?.isPin ||
+            !userData?.businessTxn?.isQuestion) && (
+            <NavLink
+              className="setting-cont-box"
+              to={"/check-kyb-verification"}
+            >
+              <div className="setting-icon-box">
+                <img src={Index.businessversion} alt="" />
+              </div>
+              <h6 className="setting-cont-title">
+                Upgrade To Business Version
+              </h6>
+            </NavLink>
+          )}
           <div
             className="setting-cont-box"
             onClick={() => {
@@ -286,7 +366,7 @@ function Home() {
             }}
           >
             <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
+              <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
           </div>
