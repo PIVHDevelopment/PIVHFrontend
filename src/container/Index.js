@@ -41,6 +41,7 @@ import successIcon from "../assets/images/success.svg";
 import scannerIcon from "../assets/images/scanner.svg";
 import subscriberIcon from "../assets/images/subscribers.png";
 import verify from "../assets/images/verify.png";
+import walletAddressBook from "../assets/images/phone-book.png";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -127,6 +128,7 @@ const Index = {
   subscribedIcon,
   subscriberIcon,
   verify,
+  walletAddressBook
 };
 
 export default Index;

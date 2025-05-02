@@ -28,6 +28,7 @@ import AddressBook from "../container/addressBook/AddressBook";
 import Loader from "../common/loader/Loader";
 import Subscription from "../container/subscription/Subscription";
 import QrScanner from "../container/send/QrScanner";
+import WalletAddressBook from "../container/walletAddressBook/WalletAddressBook";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -141,6 +142,10 @@ const Routers = () => {
         {
           path: "/address-book",
           element: <AddressBook />,
+        },
+        {
+          path: "/wallet-address-book",
+          element: <WalletAddressBook />,
         },
 
         {

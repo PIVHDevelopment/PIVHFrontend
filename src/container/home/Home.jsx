@@ -357,6 +357,19 @@ function Home() {
               </h6>
             </NavLink>
           )}
+             <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/wallet-address-book", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.walletAddressBook} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Wallet Address Book</h6>
+          </div>
           <div
             className="setting-cont-box"
             onClick={() => {
