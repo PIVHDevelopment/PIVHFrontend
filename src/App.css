@@ -1682,3 +1682,37 @@ span.icon {
 .textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
   padding: 0;
 }
+
+.flex-justify-gap-add .custom-address-right-contain{
+  display: flex;
+  max-width: 92px;
+}
+
+.cus-address-left-contain p {
+ word-break: break-all;
+}
+
+.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+  padding: 7.5px 0px 7.5px 5px !important;
+}
+
+.custom-dropdown-withdrow{
+  border-radius: 12px;
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper{
+  background-color: #593c8a;
+
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper ul li{
+  color: var(--text-color);
+    font-size: 16px;
+    line-height: 20px;
+    font-family: 'Poppins';
+  
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper ul li:hover{
+  background-color: #b270cc;
+}
