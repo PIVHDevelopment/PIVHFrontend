@@ -7,7 +7,6 @@ import {
   FormGroup,
   TextField,
   Button,
-  Alert,
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -39,24 +38,65 @@ const SetPinRecoveryQuestion = () => {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
 
+  // const validationSchema = Yup.object().shape({
+  //   answer: Yup.string().trim().required("Please enter your answer"),
+  //   customQuestion: Yup.string().when("selectedQuestion", {
+  //     is: (val) => parseInt(val) === -1, 
+  //     then: (schema) => schema.trim().required("Please enter your custom question"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  // });
+
   const validationSchema = Yup.object().shape({
     answer: Yup.string().trim().required("Please enter your answer"),
+    selectedQuestion: Yup.string().required(),
+    customQuestion: Yup.string()
+      .when("selectedQuestion", {
+        is: (val) => parseInt(val) === -1,
+        then: (schema) =>
+          schema
+            .trim()
+            .required("Please enter your custom question")
+            .test(
+              "not-duplicate",
+              "This question already exists. Please enter a unique question.",
+              function (value) {
+                const normalizeText = (text) => {
+                  return text
+                    ?.toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, "")
+                    .trim();
+                };
+  
+                const lowerCasedValue = normalizeText(value); 
+                const allQuestions = (isBusiness ? businessQuestions : questions)
+                  ?.map((q) => normalizeText(q)); 
+                
+                return !allQuestions?.includes(lowerCasedValue);
+              }
+            ),
+        otherwise: (schema) => schema.notRequired(),
+      }),
   });
+  
+  
 
   const handleSubmit = (values) => {
-    let endPoint;
-    if (isBusiness) {
-      endPoint = Index.Api.SET_PIN_QUESTION_BUSINESS;
-    } else {
-      endPoint = Index.Api.SET_PIN_QUESTION;
-    }
+    let endPoint = isBusiness
+      ? Index.Api.SET_PIN_QUESTION_BUSINESS
+      : Index.Api.SET_PIN_QUESTION;
+
+    const selectedQuestion =
+      parseInt(values.selectedQuestion) === -1
+        ? values.customQuestion
+        : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
+
     setSubmitted(true);
     setIsLoading(true);
+
     Index.DataService.post(endPoint, {
       uid: userData?.uid,
-      question: (isBusiness ? businessQuestions : questions)[
-        values.selectedQuestion
-      ],
+      question: selectedQuestion,
       answer: values.answer,
     })
       .then((res) => {
@@ -64,31 +104,27 @@ const SetPinRecoveryQuestion = () => {
           const sessionData = JSON.parse(
             sessionStorage.getItem("pi_user_data")
           );
-          if (isBusiness) {
-            const updatedSessionData = {
-              ...sessionData,
-              businessTxn: {
-                ...sessionData.businessTxn,
-                isQuestion: true,
-              },
-            };
-            sessionStorage.setItem(
-              "pi_user_data",
-              JSON.stringify(updatedSessionData)
-            );
-          } else {
-            const updatedSessionData = {
-              ...sessionData,
-              userTxn: {
-                ...sessionData.userTxn,
-                isQuestion: true,
-              },
-            };
-            sessionStorage.setItem(
-              "pi_user_data",
-              JSON.stringify(updatedSessionData)
-            );
-          }
+          const updatedSessionData = isBusiness
+            ? {
+                ...sessionData,
+                businessTxn: {
+                  ...sessionData.businessTxn,
+                  isQuestion: true,
+                },
+              }
+            : {
+                ...sessionData,
+                userTxn: {
+                  ...sessionData.userTxn,
+                  isQuestion: true,
+                },
+              };
+
+          sessionStorage.setItem(
+            "pi_user_data",
+            JSON.stringify(updatedSessionData)
+          );
+
           navigate("/update-pin-successfully", {
             state: { isBusiness: isBusiness },
           });
@@ -123,7 +159,11 @@ const SetPinRecoveryQuestion = () => {
             </Typography>
 
             <Formik
-              initialValues={{ selectedQuestion: 0, answer: "" }}
+              initialValues={{
+                selectedQuestion: 0,
+                answer: "",
+                customQuestion: "",
+              }}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
@@ -136,6 +176,7 @@ const SetPinRecoveryQuestion = () => {
                 handleBlur,
               }) => (
                 <Form>
+                  {console.log(values,"error",errors)}
                   <FormGroup className="question-radio">
                     {(isBusiness ? businessQuestions : questions).map(
                       (q, index) => (
@@ -158,7 +199,44 @@ const SetPinRecoveryQuestion = () => {
                         />
                       )
                     )}
+
+                    {/* Custom question option */}
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          name="selectedQuestion"
+                          value={-1}
+                          className="question-radio-box"
+                          checked={parseInt(values.selectedQuestion) === -1}
+                          onChange={() =>
+                            setFieldValue("selectedQuestion", -1)
+                          }
+                        />
+                      }
+                      label="Custom"
+                    />
                   </FormGroup>
+
+                  {/* Custom question input */}
+                  {parseInt(values.selectedQuestion) === -1 && (
+                    <TextField
+                      name="customQuestion"
+                      placeholder="Enter your custom question"
+                      fullWidth
+                       className="textarea-question-sequrity question-custom"
+                      margin="normal"
+                      value={values.customQuestion}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={
+                        touched.customQuestion &&
+                        Boolean(errors.customQuestion)
+                      }
+                      helperText={
+                        touched.customQuestion && errors.customQuestion
+                      }
+                    />
+                  )}
 
                   <TextField
                     name="answer"
@@ -166,7 +244,6 @@ const SetPinRecoveryQuestion = () => {
                     fullWidth
                     className="textarea-question-sequrity"
                     multiline
-                    // rows={3}
                     margin="normal"
                     value={values.answer}
                     onChange={handleChange}
@@ -180,7 +257,6 @@ const SetPinRecoveryQuestion = () => {
                       variant="contained"
                       type="submit"
                       className="action-btn full-width send-pi-btn"
-                      // className="secondary-btn share-btn"
                     >
                       {isLoading ? (
                         <Spinner animation="border" role="status" size="sm" />

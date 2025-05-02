@@ -1679,3 +1679,6 @@ span.icon {
   /* height: 40px;
   width: 40px;  */
 }
+.textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
+  padding: 0;
+}
