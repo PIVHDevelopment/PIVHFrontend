@@ -83,7 +83,7 @@ const isBusiness = location?.state?.isBusiness;
         Index.toasterError(res.data.message);
       }
     } catch (error) {
-      Index.toasterError("Something went wrong");
+      Index.toasterError(error?.response?.data?.message || "Something went wrong");
     } finally {
       setButtonLoader(false);
     }
