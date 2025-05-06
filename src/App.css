@@ -373,7 +373,7 @@ header {
   border-radius: var(--border-radius);
   padding: 20px;
   margin: auto;
-  /* height: 30%; */
+  height: 45%;
   position: fixed;
   left: 0;
   right: 0;
@@ -383,7 +383,7 @@ header {
 }
 
 .transaction-section.expanded {
-  height: calc(100% - 30%);
+  height: calc(100% - 20%);
   /* Expanded height */
 }
 
@@ -1938,21 +1938,6 @@ span.icon {
     right: 50%;
     transform: translate(100%, -50%);
   }
-}
-
-
-.request-payment-pay-btn-box .request-payment-pay-success-btn {
-  background: green;
-  color: #fff;
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  max-width: 50px;
-  border: none;
-}
-
-.flex-justify-gap-add.custom-align{
-  align-items: flex-start !important;
 }
 
 .app-btn-flex {
