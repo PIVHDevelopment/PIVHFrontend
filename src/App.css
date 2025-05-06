@@ -1940,6 +1940,21 @@ span.icon {
   }
 }
 
+
+.request-payment-pay-btn-box .request-payment-pay-success-btn {
+  background: green;
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  max-width: 50px;
+  border: none;
+}
+
+.flex-justify-gap-add.custom-align{
+  align-items: flex-start !important;
+}
+
 .app-btn-flex {
   display: flex;
   justify-content: center;

@@ -35,7 +35,7 @@ function Deposit() {
         );
         if (res?.data?.status === 200) {
           Index.toasterSuccess(res?.data?.message);
-          navigate("/home", {
+          navigate("/transaction-success", {
             state: { isBusiness: typeTxn == "business" ? true : false },
           });
         } else {
@@ -87,7 +87,9 @@ function Deposit() {
           "pi_user_data",
           JSON.stringify(res?.data?.data?.user)
         );
-        navigate("/home");
+        navigate("/transaction-success", {
+          state: { isBusiness: typeTxn == "business" ? true : false },
+        });
         setButtonLoader(false);
       }
     }).catch((res)=>{
