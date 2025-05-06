@@ -188,7 +188,7 @@ function Home() {
               </button>
             </div>
             <div className="balance-section">
-              {/* <button className="add-btn" onClick={() => navigate("/transaction-success")}>Demo</button> */}
+              <button className="add-btn" onClick={() => navigate("/transaction-success")}>Demo</button>
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
                 {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
