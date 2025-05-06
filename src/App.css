@@ -1723,6 +1723,39 @@ span.icon {
   background-color: #b270cc;
 }
 
+.request-payment-pay-btn-box .request-payment-pay-btn{
+  background: #e38cff;
+  color: #fff;
+  font-size: 14px;
+padding: 8px 12px;
+border-radius: 8px;
+max-width: 50px;
+border: none;
+}
+
+.custom-field-contain-status{
+  text-transform: capitalize;
+}
+
+.payment-request-tabs .tab-btn{
+  padding: 10px 25px;
+}
+
+.receive-btn .pay-request-icon {
+  transform: rotate(180deg);
+}
+
+.transaction-title {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;         
+  overflow: hidden;         
+  text-overflow: ellipsis;      
+  width: 100%;                   
+  box-sizing: border-box;
+  max-width: 200px; 
+}
+        
 .success-main {
   /* background-image: url('./assets/images/transaction-bg.jpg'); */
   height: 100vh;

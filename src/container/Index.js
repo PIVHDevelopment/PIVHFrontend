@@ -42,6 +42,8 @@ import scannerIcon from "../assets/images/scanner.svg";
 import subscriberIcon from "../assets/images/subscribers.png";
 import verify from "../assets/images/verify.png";
 import walletAddressBook from "../assets/images/phone-book.png";
+import paymentRequestIcon from "../assets/images/paymentRequestIcon.png";
+import paymentRequestIcon2 from "../assets/images/payementRequestIcon2.png";
 import successfullIcon from "../assets/images/succes-icon.svg";
 import piCoiImg from "../assets/images/pi-coin.png"; 
 import piWallettImg from "../assets/images/pi-wallet.png"; 
@@ -132,6 +134,8 @@ const Index = {
   subscriberIcon,
   verify,
   walletAddressBook,
+  paymentRequestIcon,
+  paymentRequestIcon2,
   successfullIcon,
   piCoiImg,
   piWallettImg
