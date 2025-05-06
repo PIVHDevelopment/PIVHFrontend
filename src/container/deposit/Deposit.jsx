@@ -87,7 +87,9 @@ function Deposit() {
           "pi_user_data",
           JSON.stringify(res?.data?.data?.user)
         );
-        navigate("/home");
+        navigate("/transaction-success", {
+          state: { isBusiness: typeTxn == "business" ? true : false },
+        });
         setButtonLoader(false);
       }
     }).catch((res)=>{

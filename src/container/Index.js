@@ -62,6 +62,9 @@ import {
   toasterInfo,
 } from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
+import successfullIcon from "../assets/images/succes-icon.svg";
+import piCoiImg from "../assets/images/pi-coin.png";
+import piWallettImg from "../assets/images/pi-wallet.png"
 
 const Index = {
   Modal,
@@ -127,6 +130,9 @@ const Index = {
   subscribedIcon,
   subscriberIcon,
   verify,
+  successfullIcon,
+  piCoiImg,
+  piWallettImg,
 };
 
 export default Index;
