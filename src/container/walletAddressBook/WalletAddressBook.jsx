@@ -151,22 +151,22 @@ const isBusiness = location?.state?.isBusiness;
                       </button>
                     </Typography>
                   </Box>
-                  <Box className="address-right-contain custom-address-right-contain">
+                  <Box className="custom-address-right-contain app-btn-flex">
                     <button
-                      className="btn btn-edit-icons"
+                      className="btn-edit-icons app-icon-btn"
                       onClick={() => {
                         setSelectedData(wallet);
                         setId(wallet._id);
                         handleOpen();
                       }}
                     >
-                      <EditOutlinedIcon />
+                      <EditOutlinedIcon className="app-icon"/>
                     </button>
                     <button
-                      className="btn btn-delete-icons"
+                      className="btn-delete-icons app-icon-btn"
                       onClick={() => handleOpenDelete(wallet?._id)}
                     >
-                      <DeleteOutlineRoundedIcon />
+                      <DeleteOutlineRoundedIcon className="app-icon"/>
                     </button>
                   </Box>
                 </Box>

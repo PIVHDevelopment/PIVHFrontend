@@ -17,8 +17,6 @@ const axiosClient = axios.create({
 function Home() {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
-  console.log({location});
-  
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
@@ -84,6 +82,14 @@ function Home() {
     // }
   }, [typeTxn]);
 
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSection = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+
   return (
     <>
       <div className="app-container p-20-0">
@@ -125,7 +131,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -171,7 +177,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
+                  (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -211,8 +217,10 @@ function Home() {
             // className={`transaction-section${
             //   tab === 2 ? " transaction-section-top" : ""
             // }`}
-            className="transaction-section"
-          >
+            className={`transaction-section ${isExpanded ? 'expanded' : 'collapsed'}`}>
+            <div className="toggle-arrow" onClick={toggleSection}>
+              <span className="arrow-icon">↑</span>
+            </div>
             <h2>Transaction History</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
@@ -228,7 +236,7 @@ function Home() {
                       />
                       <div className="transaction-info">
                         <span className="transaction-title">
-                        {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${ transaction?.paymentType ==="sent" ? transaction?.receiver_name : transaction?.user_name})`}
+                          {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${transaction?.paymentType === "sent" ? transaction?.receiver_name : transaction?.user_name})`}
                         </span>
                         <span className="transaction-time">
                           {Index.moment(transaction.createdAt).format(
@@ -238,9 +246,8 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
                       <span>
                         {amountPrefix}
@@ -326,7 +333,7 @@ function Home() {
             <h6 className="setting-cont-title">Address Book</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -346,20 +353,20 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                Upgrade To Business Version
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  Upgrade To Business Version
+                </h6>
+              </NavLink>
+            )}
 
-           <div
+          <div
             className="setting-cont-box"
             onClick={() => {
               navigate("/payment-request", {

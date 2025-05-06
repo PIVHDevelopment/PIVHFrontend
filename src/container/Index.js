@@ -69,6 +69,11 @@ import {
   toasterInfo,
 } from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
+import NoDataFound from "../common/noDataFound/NoDataFound";
+
+
+
+
 
 const Index = {
   Modal,
@@ -140,7 +145,8 @@ const Index = {
   successfullIcon,
   piCoiImg,
   piWallettImg,
-  complainIcon
+  complainIcon,
+  NoDataFound
 };
 
 export default Index;
