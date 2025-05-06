@@ -29,6 +29,7 @@ import Loader from "../common/loader/Loader";
 import Subscription from "../container/subscription/Subscription";
 import QrScanner from "../container/send/QrScanner";
 import WalletAddressBook from "../container/walletAddressBook/WalletAddressBook";
+import PaymentRequest from "../container/paymentRequest/PaymentRequest";
 import TransactionSuccess from "../container/transactionSuccess/TransactionSuccess";
 
 function ErrorBoundary() {
@@ -147,6 +148,10 @@ const Routers = () => {
         {
           path: "/wallet-address-book",
           element: <WalletAddressBook />,
+        },
+        {
+          path: "/payment-request",
+          element: <PaymentRequest />,
         },
 
         {
