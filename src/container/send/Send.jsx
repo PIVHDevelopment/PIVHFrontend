@@ -79,7 +79,7 @@ function Send() {
       );
       if (res?.data?.status) {
         Index.toasterSuccess(res?.data?.message);
-        navigate("/home", {
+        navigate("/transaction-success", {
           state: { isBusiness: type == "business" ? true : false },
         });
       } else {
