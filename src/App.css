@@ -373,7 +373,7 @@ header {
   border-radius: var(--border-radius);
   padding: 20px;
   margin: auto;
-  height: 30%;
+  /* height: 30%; */
   position: fixed;
   left: 0;
   right: 0;
@@ -383,7 +383,7 @@ header {
 }
 
 .transaction-section.expanded {
-  height: calc(100% - 20%);
+  height: calc(100% - 30%);
   /* Expanded height */
 }
 
