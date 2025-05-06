@@ -372,12 +372,28 @@ header {
   background: #16151a;
   border-radius: var(--border-radius);
   padding: 20px;
-  margin-top: auto;
+  margin: auto;
+  height: 30%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 480px;
+  transition: 0.3s ease-in-out;
+}
+
+.transaction-section.expanded {
+  height: calc(100% - 20%);
+  /* Expanded height */
 }
 
 .transaction-section.transaction-section-top {
   padding-top: 100px;
   margin-top: -120px;
+}
+
+.transaction-section.expanded .transaction-list {
+  max-height: 100%;
 }
 
 .transaction-section h2 {
@@ -993,10 +1009,18 @@ button.address-book-btn {
   margin-bottom: 35px;
 }
 
-.common-style-modal {
+.address-modal .common-style-modal {
   border: 0px;
   border-radius: 10px;
   padding: 0px;
+  background: rgba(255, 255, 255, 0.15);
+  /* semi-transparent white */
+  backdrop-filter: blur(10px);
+  /* frosted glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .common-style-modal .modal-header-common {
@@ -1008,14 +1032,14 @@ button.address-book-btn {
 }
 
 .modal-header-common .add-title {
-  color: #000;
+  color: #fff;
   font-family: 'Poppins';
   font-weight: 600;
 }
 
 .common-grid .label-field {
   font-size: 14px;
-  color: #000000;
+  color: #eae1e1;
   font-family: 'Poppins';
   font-weight: 400;
   margin-bottom: 3px;
@@ -1036,7 +1060,7 @@ button.address-book-btn {
 
 .radio-group-flex .MuiFormControlLabel-label {
   font-size: 14px;
-  color: #000;
+  color: #fff;
   font-family: Poppins;
   font-weight: 500;
 }
@@ -1052,8 +1076,8 @@ button.address-book-btn {
 .common-grid .input-wrapper input {
   border-radius: 7px;
   background: transparent;
-  color: #000;
-  border: 1px solid #00000080;
+  color: #fff;
+  border: 1px solid #8f8e8e80;
   padding: 10px 20px;
   font-size: 15px;
   line-height: 20px;
@@ -1061,7 +1085,7 @@ button.address-book-btn {
 }
 
 .common-grid .input-wrapper input::placeholder {
-  color: #00000080;
+  color: #b8b3b3;
 }
 
 .flex-filed-details .radio-group-flex span svg {
@@ -1079,6 +1103,7 @@ button.address-book-btn {
   background: #523b88;
   font-size: 17px;
   padding: 15px 20px;
+  border: 1px solid transparent;
 }
 
 .modal-footer-address .footer-address-center {
@@ -1241,6 +1266,7 @@ button.address-book-btn {
 
 .modal-header-common.address-modal-header .btn-close {
   margin-left: auto;
+  background-color: #fff;
 }
 
 
@@ -1249,7 +1275,7 @@ button.address-book-btn {
 }
 
 .delete-modal-contain .are-you-sure-title {
-  color: #000;
+  color: #fff;
   font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
@@ -1257,7 +1283,7 @@ button.address-book-btn {
 }
 
 .delete-modal-contain .are-you-sure-desc {
-  color: #000;
+  color: #fff;
   font-size: 15px;
   line-height: 20px;
   font-family: "Poppins";
@@ -1268,10 +1294,10 @@ button.address-book-btn {
   background: transparent;
   font-size: 17px;
   padding: 15px 20px;
-  color: #523b88;
+  color: #f8f6fc;
   outline: none;
   border-radius: 30px;
-  border: 1px solid #523b88;
+  border: 1px solid #e0dee6;
   width: 100%;
   font-weight: 500;
 }
@@ -1280,7 +1306,7 @@ button.address-book-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 15px;
 }
 
 .delete-flex button {
@@ -1689,7 +1715,7 @@ span.icon {
   padding: 0;
 }
 
-.flex-justify-gap-add .custom-address-right-contain {
+.custom-address-right-contain {
   display: flex;
   max-width: 92px;
 }
@@ -1723,21 +1749,21 @@ span.icon {
   background-color: #b270cc;
 }
 
-.request-payment-pay-btn-box .request-payment-pay-btn{
+.request-payment-pay-btn-box .request-payment-pay-btn {
   background: #e38cff;
   color: #fff;
   font-size: 14px;
-padding: 8px 12px;
-border-radius: 8px;
-max-width: 50px;
-border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 50px;
+  border: none;
 }
 
-.custom-field-contain-status{
+.custom-field-contain-status {
   text-transform: capitalize;
 }
 
-.payment-request-tabs .tab-btn{
+.payment-request-tabs .tab-btn {
   padding: 10px 25px;
 }
 
@@ -1748,14 +1774,14 @@ border: none;
 .transaction-title {
   font-size: 15px;
   font-weight: 500;
-  white-space: nowrap;         
-  overflow: hidden;         
-  text-overflow: ellipsis;      
-  width: 100%;                   
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
   box-sizing: border-box;
-  max-width: 200px; 
+  max-width: 200px;
 }
-        
+
 .success-main {
   /* background-image: url('./assets/images/transaction-bg.jpg'); */
   height: 100vh;
@@ -1871,15 +1897,19 @@ border: none;
     left: -200px;
     transform: translate(0, -50%);
   }
+
   25% {
-    transform: translate(0, -70%); 
+    transform: translate(0, -70%);
   }
+
   50% {
     transform: translate(-50%, -50%);
   }
+
   75% {
-    transform: translate(-100%, -70%); 
+    transform: translate(-100%, -70%);
   }
+
   100% {
     left: 50%;
     transform: translate(-100%, -50%);
@@ -1891,17 +1921,128 @@ border: none;
     right: -200px;
     transform: translate(0, -50%);
   }
+
   25% {
     transform: translate(0, -70%);
   }
+
   50% {
     transform: translate(50%, -50%);
   }
+
   75% {
-    transform: translate(100%, -70%); 
+    transform: translate(100%, -70%);
   }
+
   100% {
     right: 50%;
     transform: translate(100%, -50%);
   }
+}
+
+.app-btn-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-icon-btn {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: #ffffff45;
+}
+
+.app-icon-btn .app-icon {
+  height: 18px;
+  width: 18px;
+  object-fit: contain;
+  fill: #fff;
+}
+
+.cus-address-left-contain .field-contain-address {
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  font-weight: 500;
+}
+.toggle-arrow {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  /*Initialbackgroundcolor*/backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 35px;
+  width: 35px;
+  animation: colorChange 2.5s infinite alternate;
+  /*animation: colorChange 2.5s infinite alternate, bounce 5s infinite ease-in-out;
+  */
+  -webkit-animation: colorChange 2.5s infinite alternate;
+}
+
+/* Define the background color animation */
+/* @keyframes colorChange {
+  0% {
+    background: rgba(255, 255, 255, 0.15); 
+  }
+  50% {
+    background: #ffc107; /
+  }
+  100% {
+    background: rgba(255, 255, 255, 0.6);
+  }
+} */
+
+/* Define the bouncing animation */
+/* @keyframes bounce {
+  0% {
+    transform: translateY(0); /
+  }
+  25% {
+    transform: translateY(-10px); 
+  }
+  50% {
+    transform: translateY(0); /
+  }
+  75% {
+    transform: translateY(-5px); 
+  }
+  100% {
+    transform: translateY(0);
+  }
+} */
+
+/* Hover effect for button interaction */
+.toggle-arrow:hover {
+  transform: scale(1.1); /* Slight scale up on hover */
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+.toggle-arrow .arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 17px;
+}
+
+.transaction-section.expanded .arrow-icon {
+  transform: rotate(180deg);
 }
