@@ -18,6 +18,7 @@ function Send() {
   const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
+
   const [txnData, setTxnData] = useState({});
 
 
