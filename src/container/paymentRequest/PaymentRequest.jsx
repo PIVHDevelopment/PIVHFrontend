@@ -265,7 +265,7 @@ const PaymentRequest = () => {
                   ))
                 ) : (
                   <Typography className="no-address-title">
-                    No Payment Sent Request Found
+                    No Payment Receive Request Found
                   </Typography>
                 )}
               </List>
@@ -324,7 +324,7 @@ const PaymentRequest = () => {
                   ))
                 ) : (
                   <Typography className="no-address-title">
-                    No Payment Receive Request Found
+                    No Payment Sent Request Found
                   </Typography>
                 )}
               </List>
