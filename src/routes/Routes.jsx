@@ -29,6 +29,7 @@ import Loader from "../common/loader/Loader";
 import Subscription from "../container/subscription/Subscription";
 import QrScanner from "../container/send/QrScanner";
 import WalletAddressBook from "../container/walletAddressBook/WalletAddressBook";
+import TransactionSuccess from "../container/transactionSuccess/TransactionSuccess";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -151,6 +152,11 @@ const Routers = () => {
         {
           path: "/loader",
           element: <Loader />,
+        },
+        
+        {
+          path: "/transaction-success",
+          element: <TransactionSuccess />,
         },
       ],
     },
