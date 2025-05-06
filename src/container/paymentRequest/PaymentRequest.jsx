@@ -43,7 +43,6 @@ const PaymentRequest = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setSelectedData({ amount: "", note: "" });
     setId("");
   };
 
@@ -207,7 +206,7 @@ const PaymentRequest = () => {
                 {receivedData.length > 0 ? (
                   receivedData.map((item, index) => (
                     <ListItem key={index} className="list-item-address">
-                      <Box className="flex-justify-gap-add">
+                     <Box className={`flex-justify-gap-add ${item?.status !== "pending" ? "custom-align" : ""}`}>
                         <Box className="address-left-contain">
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
@@ -252,7 +251,7 @@ const PaymentRequest = () => {
                         </Box>
                         <Box className=" request-payment-pay-btn-box">
                           <button
-                            className="request-payment-pay-btn"
+                            className={`${item?.status === "pending" ? "request-payment-pay-btn" : "request-payment-pay-success-btn"}`}
                             onClick={() => handleSubmitPin(item)}
                             disabled={item?.status == "pending" ? false : true}
                           >

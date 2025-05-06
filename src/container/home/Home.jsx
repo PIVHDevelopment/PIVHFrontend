@@ -17,7 +17,7 @@ const axiosClient = axios.create({
 function Home() {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
-  console.log({isBusiness});
+  console.log({location});
   
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
@@ -398,6 +398,18 @@ function Home() {
               <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
+          </div>
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/feedback-comaplaint");
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.complainIcon} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Feedback and complaint</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>
