@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="200" height="200">
+  <path
+    d="M256 16C123.664 16 16 123.661 16 256s107.664 240 240 240 240-107.661 240-240S388.337 16 256 16zm144.885 109.306 6.508 26.749A49.165 49.165 0 0 1 398 195.013L256.753 373.571a49.033 49.033 0 0 1-39.228 19.035c-.4 0-.808 0-1.213-.009a49.078 49.078 0 0 1-39.557-20.807l-72.2-100.1a7.742 7.742 0 0 1 4.777-12.126l47.669-9.435a49.255 49.255 0 0 1 45.949 14.5l20.455 21.358 164.486-164.329a7.744 7.744 0 0 1 12.994 3.648z"
+    fill="none"
+    stroke="#341d6f"
+    stroke-width="18"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-dasharray="1800"
+    stroke-dashoffset="1800"
+  >
+    <!-- Draw path -->
+    <animate
+      attributeName="stroke-dashoffset"
+      from="1800"
+      to="0"
+      dur="1.6s"
+      fill="freeze"
+    />
+    <!-- Fill color reveal after stroke -->
+    <animate
+      attributeName="fill"
+      values="transparent;#341d6f"
+      begin="1.6s"
+      dur="0.4s"
+      fill="freeze"
+    />
+  </path>
+</svg>
