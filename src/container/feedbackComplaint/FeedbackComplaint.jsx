@@ -8,7 +8,6 @@ import {
   CircularProgress,
   TextField,
 } from "@mui/material";
-import * as Yup from "yup";
 import Index from "../Index";
 
 const modalStyle = {
@@ -54,7 +53,7 @@ const FeedbackComplaint = () => {
   };
 
   const handleSubmit = async (values) => {
-    setLoading(true);
+    setButtonLoader(true);
     try {
       const payload = {
         ...values, 
@@ -72,7 +71,7 @@ const FeedbackComplaint = () => {
     } catch (err) {
       Index.toasterError(err?.response?.data?.message);
     } finally {
-      setLoading(false);
+      setButtonLoader(false);
     }
   };
 
@@ -180,16 +179,7 @@ const FeedbackComplaint = () => {
               email: "",
               description: "",
             }}
-            validationSchema={Yup.object({
-              email: Yup.string()
-              .email("Enter a valid email")
-              .matches(
-                /^(([^<>()[\]\\.,;:-\s@#"]+(\.[^<>()[\]\\.,;:-\s@#"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                "Enter the valid email"
-              )
-              .required("Email is required"),
-              description: Yup.string().required("Description is required"),
-            })}
+            validationSchema={Index.addFeedbackFormSchema}
             onSubmit={handleSubmit}
           >
             {(formik) => (

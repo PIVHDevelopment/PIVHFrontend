@@ -7,10 +7,7 @@ import {
   ListItem,
   CircularProgress,
 } from "@mui/material";
-import * as Yup from "yup";
 import Index from "../Index";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import VerificationPin from "../verificationPin/VerificationPin";
 
 const modalStyle = {
@@ -73,7 +70,6 @@ const PaymentRequest = () => {
         ...values,
         merchantId: userData._id,
         merchantName: isBusiness ? userData?.businessUserName : userData?.userName
-        // id,
       };
       const res = await Index.DataService.post(
         Index.Api.ADD_UPDATE_PAYMENT_REQUEST,
@@ -348,11 +344,7 @@ const PaymentRequest = () => {
                   amount: "",
                   description: "",
                 }}
-                validationSchema={Yup.object({
-                  userName: Yup.string().required("Username is required"),
-                  amount: Yup.string().required("Amount is required"),
-                  description: Yup.string().required("Description is required"),
-                })}
+                validationSchema={Index.addPaymentRequestSchema}
                 onSubmit={handleSubmit}
               >
                 {(formik) => (

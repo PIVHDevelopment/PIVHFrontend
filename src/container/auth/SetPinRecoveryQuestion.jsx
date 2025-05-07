@@ -176,7 +176,6 @@ const SetPinRecoveryQuestion = () => {
                 handleBlur,
               }) => (
                 <Form>
-                  {console.log(values,"error",errors)}
                   <FormGroup className="question-radio">
                     {(isBusiness ? businessQuestions : questions).map(
                       (q, index) => (

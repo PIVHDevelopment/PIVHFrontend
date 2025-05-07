@@ -61,6 +61,11 @@ import {
   depositPiFormSchema,
   withdrawPiFormSchema,
   addBusinessAddressFormSchema,
+  addFeedbackFormSchema,
+  addPaymentRequestSchema,
+  addVerificationPinSchema,
+  addWalletAddressBookSchema,
+  addAddressBookSchema,
 } from "../utils/Validation";
 import moment from "moment";
 import {
@@ -70,9 +75,6 @@ import {
 } from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
 import NoDataFound from "../common/noDataFound/NoDataFound";
-
-
-
 
 
 const Index = {
@@ -146,7 +148,12 @@ const Index = {
   piCoiImg,
   piWallettImg,
   complainIcon,
-  NoDataFound
+  NoDataFound,
+  addFeedbackFormSchema,
+  addPaymentRequestSchema,
+  addVerificationPinSchema,
+  addWalletAddressBookSchema,
+  addAddressBookSchema,
 };
 
 export default Index;

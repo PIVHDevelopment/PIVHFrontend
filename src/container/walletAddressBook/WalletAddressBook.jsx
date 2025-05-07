@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Modal, List, ListItem, CircularProgress } from "@mui/material";
-import * as Yup from "yup";
 import Index from "../Index";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
@@ -197,12 +196,7 @@ const WalletAddressBook = () => {
             initialValues={{
               walletAddress: selectedData.walletAddress || "",
             }}
-            validationSchema={Yup.object({
-                walletAddress: Yup.string()
-                  .min(3, "Wallet Address must be at least 3 characters")
-                  .required("Wallet Address is required")
-              })}
-              
+            validationSchema={Index.addWalletAddressBookSchema}
             onSubmit={handleSubmit}
           >
             {(formik) => (
