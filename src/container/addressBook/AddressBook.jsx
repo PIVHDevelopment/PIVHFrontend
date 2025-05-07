@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as Yup from "yup"; // For validation
 import Index from "../Index";
 import {
   Box,
@@ -240,18 +239,7 @@ const AddressBook = () => {
               name: selectedData?.name || "",
               userName: selectedData?.userName || "",
             }}
-            validationSchema={Yup.object({
-              type: Yup.string().required("Type is required"),
-              name: Yup.string()
-                .required("Name is required"),
-                // .matches(
-                //   /^\S.*\S$|^\S$/,
-                //   "Name cannot start or end with a space"
-                // ),
-              userName: Yup.string()
-                .required("Username is required")
-                .matches(/^\S+$/, "Username cannot contain spaces"),
-            })}
+            validationSchema={Index.addAddressBookSchema}
             onSubmit={(values) => {
               handleSubmit(values);
             }}
@@ -283,11 +271,6 @@ const AddressBook = () => {
                               label="Business"
                             />
                           </RadioGroup>
-                          {/* {formik.errors.type && formik.touched.type && (
-                            <Typography className="error-text">
-                              {formik.errors.type}
-                            </Typography>
-                          )} */}
                         </div>
                       </Box>
 

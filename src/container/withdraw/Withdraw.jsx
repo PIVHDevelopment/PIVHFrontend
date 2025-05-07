@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
@@ -13,8 +13,6 @@ function Withdraw() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
-  const [tab, setTab] = useState(1);
-  console.log({ wallets });
 
   const getWallets = async () => {
     try {
@@ -55,49 +53,12 @@ function Withdraw() {
         setButtonLoader(false);
       }
     } catch (error) {
-      // console.log("error", error?.response?.data?.message)
       Index.toasterError(error?.response?.data?.message);
       setButtonLoader(false);
     } finally {
       setButtonLoader(false);
     }
   };
-
-  // const onReadyForServerApproval = (paymentId) => {
-  //   Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
-  //     ...formRef?.current?.values,
-  //     paymentId,
-  //   }).then(() => {});
-  // };
-  // const onReadyForServerCompletion = (paymentId, txid) => {
-  //   Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_COMPLETE, {
-  //     paymentId,
-  //     txid,
-  //   }).then((res) => {
-  //     if (res?.data?.status) {
-  //       sessionStorage.setItem(
-  //         "pi_user_data",
-  //         JSON.stringify(res?.data?.data?.user)
-  //       );
-  //       navigate("/home");
-  //     }
-  //   });
-  // };
-
-  // const onCancel = (paymentId) => {
-  //   console.log("onCancel", paymentId);
-  //   return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, {
-  //     paymentId,
-  //   });
-  // };
-
-  // const onError = (error, payment) => {
-  //   console.log("onError", error);
-  //   if (payment) {
-  //     console.log(payment);
-  //     // handle the error accordingly
-  //   }
-  // };
 
   const handleGetTransactions = () => {
     Index.DataService.get(
@@ -136,32 +97,6 @@ function Withdraw() {
             <div className="header-right"></div>
           </header>
 
-          {/* <Index.TabContainer
-          id="left-tabs-example"
-          defaultActiveKey="individual"
-          activeKey={tab}
-        >
-          <div className="wallet-tabs" style={{ width: "100%" }}>
-            <button
-              className={`tab-btn${tab === 1 ? " active" : ""}`}
-              data-tab="individual"
-              onClick={() => setTab(1)}
-            >
-              Waller Address
-            </button>
-            <button
-              className={`tab-btn${tab === 2 ? " active" : ""}`}
-              data-tab="business"
-              onClick={() => setTab(2)}
-            >
-              Scan QR
-            </button>
-          </div>
-          <Index.TabContent>
-            <Index.TabPane eventKey={1}></Index.TabPane>
-            <Index.TabPane eventKey={2}></Index.TabPane>
-          </Index.TabContent>
-        </Index.TabContainer> */}
           <Index.Formik
             initialValues={{
               amount: "",
@@ -264,20 +199,6 @@ function Withdraw() {
                             />
                           )}
                         />
-                        
-
-                        {/* <input
-                            type="text"
-                            inputMode="numeric"
-                            className="notes-input"
-                            placeholder="Enter Wallet Address"
-                            name="address"
-                            value={formik.values.address}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              formik.setFieldValue("address", value);
-                            }}
-                          /> */}
                       </div>
                       <div className="input-error">
                         {formik.errors?.address && formik.touched?.address
@@ -294,13 +215,6 @@ function Withdraw() {
                     </div>
                   </div>
                 </div>
-                {/* <button
-                className="action-btn full-width send-pi-btn"
-                type="submit"
-                disabled={buttonLoader}
-              >
-                Withdraw
-              </button> */}
                 <button
                   className="action-btn full-width send-pi-btn"
                   type="submit"

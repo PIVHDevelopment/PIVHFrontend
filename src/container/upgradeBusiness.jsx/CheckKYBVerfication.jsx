@@ -1,9 +1,7 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import Index from "../Index";
 
 function CheckKYBVerfication() {
-  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const formRef = useRef();
   const navigate = Index.useNavigate();
 
   return (
@@ -17,18 +15,6 @@ function CheckKYBVerfication() {
         </div>
         <div className="header-right"></div>
       </header>
-      {/* <Index.Formik
-        enableReinitialize
-        initialValues={{
-          userName: "",
-          businessName: "",
-        }}
-        onSubmit={handleSubmitFunction}
-        validationSchema={Index.addBusinessAddressFormSchema}
-        innerRef={formRef}
-      >
-        {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form"> */}
       <div className="send-form">
         <button disabled={true} className="action-btn full-width send-pi-btn">
           KYB Verification
@@ -40,9 +26,6 @@ function CheckKYBVerfication() {
           Skip for now
         </button>
       </div>
-      {/* </form>
-        )}
-      </Index.Formik> */}
     </div>
   );
 }

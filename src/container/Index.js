@@ -45,7 +45,6 @@ import walletAddressBook from "../assets/images/phone-book.png";
 import paymentRequestIcon from "../assets/images/paymentRequestIcon.png";
 import paymentRequestIcon2 from "../assets/images/payementRequestIcon2.png";
 import successfullIcon from "../assets/images/succes-icon.svg";
-import piCoiImg from "../assets/images/pi-coin.png"; 
 import piWallettImg from "../assets/images/pi-wallet.png"; 
 import complainIcon from "../assets/images/complain.png"; 
 // import pencil from "../assets/images/pencil.png";
@@ -61,6 +60,11 @@ import {
   depositPiFormSchema,
   withdrawPiFormSchema,
   addBusinessAddressFormSchema,
+  addFeedbackFormSchema,
+  addPaymentRequestSchema,
+  addVerificationPinSchema,
+  addWalletAddressBookSchema,
+  addAddressBookSchema,
 } from "../utils/Validation";
 import moment from "moment";
 import {
@@ -69,10 +73,10 @@ import {
   toasterInfo,
 } from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
-import successfullIcon from "../assets/images/succes-icon.svg";
 import piCoiImg from "../assets/images/pi-coin.png";
-import piWallettImg from "../assets/images/pi-wallet.png"
 import NoDataFound from "../common/noDataFound/NoDataFound";
+
+
 const Index = {
   Modal,
   TabContainer,
@@ -144,7 +148,12 @@ const Index = {
   piCoiImg,
   piWallettImg,
   complainIcon,
-  NoDataFound
+  NoDataFound,
+  addFeedbackFormSchema,
+  addPaymentRequestSchema,
+  addVerificationPinSchema,
+  addWalletAddressBookSchema,
+  addAddressBookSchema,
 };
 
 export default Index;
