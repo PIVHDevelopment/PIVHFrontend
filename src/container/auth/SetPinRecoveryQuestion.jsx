@@ -31,6 +31,7 @@ const businessQuestions = [
 ];
 
 const SetPinRecoveryQuestion = () => {
+  const { t } = Index.useTranslation();
   const [submitted, setSubmitted] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();

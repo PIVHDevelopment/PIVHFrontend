@@ -2,6 +2,7 @@ import React from "react";
 import Index from "../../Index";
 
 function Business({ balance }) {
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   return (
     <>
@@ -17,9 +18,9 @@ function Business({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.send} alt="Send Money" />
+            <img src={Index.send} alt={`${t("Send")} ${t("Money")}`} />
           </span>
-          Send
+          {t("Send")}
         </button>
 
         <button
@@ -32,9 +33,9 @@ function Business({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.downarrow} alt="Send Money" />
+            <img src={Index.downarrow} alt={`${t("Receive")} ${t("Money")}`} />
           </span>
-          Receive
+          {t("Receive")}
         </button>
       </div>
       {/* <button
@@ -161,15 +162,15 @@ function Business({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.withdraw} alt="Receive Money" />
+            <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} />
           </span>
-          Withdraw
+          {t("Withdraw")}
         </button>
 
         <button
           className="action-btn send-btn receive-btn"
           id="paymentrequest"
-          style={{maxWidth: "184px"}}
+          style={{ maxWidth: "184px" }}
           onClick={() =>
             navigate("/payment-request", {
               state: { isBusiness: true },
@@ -177,11 +178,10 @@ function Business({ balance }) {
           }
         >
           <span className="btn-icon pay-request-icon">
-            <img src={Index.withdraw} alt="Receive Money" />
+            <img src={Index.withdraw} alt={t("PaymentRequest")} />
           </span>
-          Payment Request
+          {t("PaymentRequest")}
         </button>
-
       </div>
     </>
   );

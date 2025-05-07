@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 
 const Subscription = () => {
+  const { t } = Index.useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
@@ -65,7 +66,7 @@ const Subscription = () => {
         <Box className="app-container p-20-0 set-pin-div" mx="auto">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
-              <img src={Index.back} alt="Back" />
+              <img src={Index.back} alt={t("Back")} />
             </button>
             <div className="app-icon" style={{ marginLeft: "-26px" }}>
               <img src={Index.pocketPi} alt="PocketPi" />
@@ -74,11 +75,11 @@ const Subscription = () => {
           </header>
           <Box className="subscription-main">
             <Box className="subscrip-heading">
-              <Typography> Subscription</Typography>
+              <Typography> {t("Subscription")}</Typography>
             </Box>
             <Box className="subscrip-description">
               {" "}
-              <Typography> Purchase a subscription for 3.14 Pi and get fee-free transactions.</Typography>
+              <Typography>{t("PurchaseSubscription")}.</Typography>
             </Box>
 
             <Box textAlign="center" mt={3} className="subscription-btn">
@@ -93,7 +94,7 @@ const Subscription = () => {
                 {isLoading ? (
                   <Spinner animation="border" role="status" size="sm" />
                 ) : (
-                 userData?.isBusinessSubscription ? "Subscribed" : "Okay"
+                 userData?.isBusinessSubscription ? t("Subscribed") : t("Oky")
                 )}
               </button>
    :
@@ -107,7 +108,7 @@ const Subscription = () => {
                 {isLoading ? (
                   <Spinner animation="border" role="status" size="sm" />
                 ) : (
-                    userData?.isIndividualSubscription ? "Subscribed" : "Okay"
+                    userData?.isIndividualSubscription ? t("Subscribed") : t("Okay")
                 )}
               </button>}
             </Box>

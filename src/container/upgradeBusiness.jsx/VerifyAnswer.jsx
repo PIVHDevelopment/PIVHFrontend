@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
+  const { t } = Index.useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));

@@ -3,21 +3,19 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import translationEN from "./common/translater/english.json";
-// import translationAr from "./component/translater/arabic.json";
+import translationHi from "./common/translater/hindi.json";
+import translationAr from "./common/translater/arabic.json";
 
 const resources = {
   En: {
     translation: translationEN,
   },
-  // Ar: {
-  //   translation: translationAr,
-  // },
-  // Sp: {
-  //   translation: translationSp,
-  // },
-  // Pr: {
-  //   translation: translationPr,
-  // },
+  Ar: {
+    translation: translationAr,
+  },
+  Hi: {
+    translation: translationHi,
+  },
 };
 
 i18n

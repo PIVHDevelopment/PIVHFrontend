@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function AddWallet() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -32,7 +33,7 @@ function AddWallet() {
           <img src={Index.back} alt="Back" />
         </button>
         <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
@@ -65,7 +66,7 @@ function AddWallet() {
                       setText(res);
                     }}
                   >
-                    Paste
+                    {t("Paste")}
                   </button>
                 )}
               </div>
@@ -80,7 +81,7 @@ function AddWallet() {
             </div>
 
             <button className="action-btn full-width send-pi-btn" type="submit">
-              Save
+              {t("Save")}
             </button>
           </form>
         )}

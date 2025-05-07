@@ -115,7 +115,7 @@ function Home() {
               className="app-icon"
               style={{ textAlign: "center", flex: "0 0 33.3%" }}
             >
-              <img src={Index.pocketPi} alt="PocketPi" />
+              <img src={Index.pocketPi} alt={t("PocketPi")} />
             </div>
             <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
               {/* <button className="icon-btn" id="syncBtn">
@@ -155,7 +155,7 @@ function Home() {
                 onClick={handleOpen}
                 // onClick={() => navigate("/add-wallet")}
               >
-                <img src={Index.setting} alt="Setting" />
+                <img src={Index.setting} alt={t("Setting")} />
               </button>
               <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
                 <img src={Index.logout} alt="logout" />
@@ -169,11 +169,11 @@ function Home() {
           >
             <div className="wallet-tabs">
               <button
-                className={`tab-btn${tab === 1 ? " active" : ""}`}
+                className={`tab-btn${tab === 1 ? "active" : ""}`}
                 data-tab="individual"
                 onClick={() => setTab(1)}
               >
-                Individual
+                {t("Individual")}
               </button>
               {userData?.businessTxn?.isPin &&
                 userData?.businessTxn?.isQuestion && (
@@ -182,7 +182,7 @@ function Home() {
                     data-tab="business"
                     onClick={() => setTab(2)}
                   >
-                    Business
+                    {t("Business")}
                   </button>
                 )}
             </div>
@@ -206,18 +206,18 @@ function Home() {
                     <img
                       src={Index.verify}
                       className="verify-icons"
-                      alt="verify"
+                      alt={t("verify")}
                     />
                   </div>
                 )}
               </div>
               <button className="copy-btn" onClick={handleCopy}>
-                {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
+                {copied ? <span>✓</span> : <img src={Index.copy} alt={t("Copy")} />}
               </button>
             </div>
             <div className="balance-section">
               {/* <button className="add-btn" onClick={() => navigate("/transaction-success")}>Demo</button> */}
-              <p className="balance-label">Current Balance</p>
+              <p className="balance-label">{t("CurrentBalance")}</p>
               <h1 className="balance-amount">
                 {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
                 {parseFloat(tab == 2 ? businessBalance : balance) > 0
@@ -249,7 +249,7 @@ function Home() {
             <div className="toggle-arrow" onClick={toggleSection}>
               <span className="arrow-icon">↑</span>
             </div>
-            <h2>Transaction History</h2>
+            <h2>{t("TransactionHistory")}</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
@@ -259,7 +259,7 @@ function Home() {
                     <div className="transaction-details">
                       <img
                         src={isPositive ? Index.income : Index.expense}
-                        alt="expense"
+                        alt={t("expense")}
                         className="transaction-icon"
                       />
                       <div className="transaction-info">
@@ -310,7 +310,7 @@ function Home() {
       >
         <Index.Modal.Header>
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Settings
+            {t("Settings")}
           </h1>
           <button
             type="button"
@@ -365,7 +365,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">Address Book</h6>
+            <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
           (tab === 1 && userData?.isIndividualSubscription) ? (
@@ -382,7 +382,7 @@ function Home() {
               <div className="setting-icon-box">
                 <img src={Index.subscriberIcon} alt="" />
               </div>
-              <h6 className="setting-cont-title">Subscription</h6>
+              <h6 className="setting-cont-title">{t("Subscription")}</h6>
             </div>
           )}
 
@@ -396,7 +396,7 @@ function Home() {
                 <img src={Index.businessversion} alt="" />
               </div>
               <h6 className="setting-cont-title">
-                Upgrade To Business Version
+              {t("UpgradeToBusinessVersion")}
               </h6>
             </NavLink>
           )}
@@ -412,7 +412,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.paymentRequestIcon} alt="" />
             </div>
-            <h6 className="setting-cont-title">Payment Request</h6>
+            <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
           </div>
 
           <div
@@ -426,7 +426,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.walletAddressBook} alt="" />
             </div>
-            <h6 className="setting-cont-title">Wallet Address Book</h6>
+            <h6 className="setting-cont-title">{t("WalletAddressBook")}</h6>
           </div>
           <div
             className="setting-cont-box"
@@ -439,7 +439,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.recover} alt="" />
             </div>
-            <h6 className="setting-cont-title">Recover Pin</h6>
+            <h6 className="setting-cont-title">{t("RecoverPin")}</h6>
           </div>
 
           <div
@@ -451,7 +451,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.complainIcon} alt="" />
             </div>
-            <h6 className="setting-cont-title">Feedback and complaint</h6>
+            <h6 className="setting-cont-title">{t("FeedbackAndComplaint")}</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>
