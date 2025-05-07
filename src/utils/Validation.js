@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const sendPiFormSchema = Yup.object({
-  userName: Yup.string().required("Please enter user name"),
+  userName: Yup.string().required("Please enter username"),
   // .test("check username", "You can't send pi coins to own account", (val) => {
   //   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   //   return val !== userData?.userName;
