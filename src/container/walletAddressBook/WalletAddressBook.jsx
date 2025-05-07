@@ -173,7 +173,7 @@ const isBusiness = location?.state?.isBusiness;
               </ListItem>
             ))
           ) : (
-            <Typography className="no-address-title">No Wallet Addresses Found</Typography>
+            <Index.NoDataFound message={"No Wallet Addresses Found"} />
           )}
         </List>
       </Box>

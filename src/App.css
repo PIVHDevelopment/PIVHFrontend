@@ -1706,10 +1706,6 @@ span.icon {
 }
 
 
-.qr-btn-share-box button svg {
-  /* height: 40px;
-  width: 40px;  */
-}
 
 .textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
   padding: 0;
@@ -2045,4 +2041,35 @@ span.icon {
 
 .transaction-section.expanded .arrow-icon {
   transform: rotate(180deg);
+}
+
+.notes-input-multiline .MuiInputBase-formControl{
+  border-radius: 7px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #8f8e8e80;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Poppins'
+}
+.notes-input-multiline .MuiInputBase-formControl fieldset{
+  display: none;
+}
+
+.notes-input-multiline textarea {
+  overflow: auto !important; 
+  resize: none !important;   
+  resize: vertical;           
+  max-height: 200px;           
+  padding-right: 8px;          
+  scrollbar-width: unset;
+}
+
+.notes-input-multiline textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notes-input-multiline textarea::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 3px;
 }
