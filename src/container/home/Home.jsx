@@ -17,8 +17,6 @@ const axiosClient = axios.create({
 function Home() {
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
-  console.log({isBusiness});
-  
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
@@ -84,6 +82,14 @@ function Home() {
     // }
   }, [typeTxn]);
 
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSection = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+
   return (
     <>
       <div className="app-container p-20-0">
@@ -125,7 +131,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt="Setting" />
               </button>
@@ -171,7 +177,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
+                  (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -188,6 +194,7 @@ function Home() {
               </button>
             </div>
             <div className="balance-section">
+              {/* <button className="add-btn" onClick={() => navigate("/transaction-success")}>Demo</button> */}
               <p className="balance-label">Current Balance</p>
               <h1 className="balance-amount">
                 {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
@@ -210,8 +217,10 @@ function Home() {
             // className={`transaction-section${
             //   tab === 2 ? " transaction-section-top" : ""
             // }`}
-            className="transaction-section"
-          >
+            className={`transaction-section ${isExpanded ? 'expanded' : 'collapsed'}`}>
+            <div className="toggle-arrow" onClick={toggleSection}>
+              <span className="arrow-icon">↑</span>
+            </div>
             <h2>Transaction History</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
@@ -227,7 +236,7 @@ function Home() {
                       />
                       <div className="transaction-info">
                         <span className="transaction-title">
-                        {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${ transaction?.paymentType ==="sent" ? transaction?.receiver_name : transaction?.user_name})`}
+                          {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${transaction?.paymentType === "sent" ? transaction?.receiver_name : transaction?.user_name})`}
                         </span>
                         <span className="transaction-time">
                           {Index.moment(transaction.createdAt).format(
@@ -237,9 +246,8 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
                       <span>
                         {amountPrefix}
@@ -325,7 +333,7 @@ function Home() {
             <h6 className="setting-cont-title">Address Book</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -345,18 +353,46 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                Upgrade To Business Version
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  Upgrade To Business Version
+                </h6>
+              </NavLink>
+            )}
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/payment-request", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.paymentRequestIcon} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Payment Request</h6>
+          </div>
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/wallet-address-book", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.walletAddressBook} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Wallet Address Book</h6>
+          </div>
           <div
             className="setting-cont-box"
             onClick={() => {
@@ -369,6 +405,18 @@ function Home() {
               <img src={Index.recover} alt="" />
             </div>
             <h6 className="setting-cont-title">Recover Pin</h6>
+          </div>
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/feedback-comaplaint");
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.complainIcon} alt="" />
+            </div>
+            <h6 className="setting-cont-title">Feedback And Complaint</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

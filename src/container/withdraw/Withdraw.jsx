@@ -1,17 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
-import { CircularProgress } from "@mui/material";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
   const [balance, setBalance] = useState("0");
+  const [wallets, setWallets] = useState([]);
   const [businessBalance, setBusinessBalance] = useState("0");
+  const [open, setOpen] = useState(false);
   const location = Index.useLocation();
   const typeTxn = location?.state?.typeTxn;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const [tab, setTab] = useState(1);
+  console.log({ wallets });
+
+  const getWallets = async () => {
+    try {
+      const capitalizedType =
+        typeTxn?.charAt(0)?.toUpperCase() + typeTxn?.slice(1);
+      const res = await Index.DataService.get(
+        `${Index.Api.GET_WALLET_ADDRESS}/${userData?._id}/${capitalizedType}`
+      );
+      if (res?.data?.status) {
+        setWallets(res?.data?.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSubmitFunction = async (values) => {
     try {
@@ -92,6 +110,7 @@ function Withdraw() {
 
   useEffect(() => {
     handleGetTransactions();
+    getWallets();
   }, []);
 
   return (
@@ -101,9 +120,14 @@ function Withdraw() {
       ) : (
         <div className="app-container">
           <header className="receive-center">
-          <button className="back-btn" onClick={() => navigate("/home", {
-                 state: { isBusiness: typeTxn == "business" ? true : false },
-                   })}>
+            <button
+              className="back-btn"
+              onClick={() =>
+                navigate("/home", {
+                  state: { isBusiness: typeTxn == "business" ? true : false },
+                })
+              }
+            >
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon" style={{ marginLeft: "-26px" }}>
@@ -113,31 +137,31 @@ function Withdraw() {
           </header>
 
           {/* <Index.TabContainer
-        id="left-tabs-example"
-        defaultActiveKey="individual"
-        activeKey={tab}
-      >
-        <div className="wallet-tabs" style={{ width: "100%" }}>
-          <button
-            className={`tab-btn${tab === 1 ? " active" : ""}`}
-            data-tab="individual"
-            onClick={() => setTab(1)}
-          >
-            Waller Address
-          </button>
-          <button
-            className={`tab-btn${tab === 2 ? " active" : ""}`}
-            data-tab="business"
-            onClick={() => setTab(2)}
-          >
-            Scan QR
-          </button>
-        </div>
-        <Index.TabContent>
-          <Index.TabPane eventKey={1}></Index.TabPane>
-          <Index.TabPane eventKey={2}></Index.TabPane>
-        </Index.TabContent>
-      </Index.TabContainer> */}
+          id="left-tabs-example"
+          defaultActiveKey="individual"
+          activeKey={tab}
+        >
+          <div className="wallet-tabs" style={{ width: "100%" }}>
+            <button
+              className={`tab-btn${tab === 1 ? " active" : ""}`}
+              data-tab="individual"
+              onClick={() => setTab(1)}
+            >
+              Waller Address
+            </button>
+            <button
+              className={`tab-btn${tab === 2 ? " active" : ""}`}
+              data-tab="business"
+              onClick={() => setTab(2)}
+            >
+              Scan QR
+            </button>
+          </div>
+          <Index.TabContent>
+            <Index.TabPane eventKey={1}></Index.TabPane>
+            <Index.TabPane eventKey={2}></Index.TabPane>
+          </Index.TabContent>
+        </Index.TabContainer> */}
           <Index.Formik
             initialValues={{
               amount: "",
@@ -190,41 +214,93 @@ function Withdraw() {
                     </div>
                     <div className="input-mb-space">
                       <div className="input-wrapper">
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          className="notes-input"
-                          placeholder="Enter Wallet Address"
-                          name="address"
-                          value={formik.values.address}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            formik.setFieldValue("address", value);
+                        <Autocomplete
+                          freeSolo
+                          slotProps={{
+                            popper: {
+                              modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+                              className: 'custom-dropdown-withdrow',
+                            },
                           }}
+                          className="notes-input-box custom-notes-input-box"
+                          options={wallets?.map((item) => item?.walletAddress) || []}
+                          value={formik?.values?.address || ""}
+                          open={open}
+                          onChange={(event, newValue) => {
+                            formik.setFieldValue("address", newValue);
+                            setOpen(false);
+                          }}
+                          onInputChange={(event, newInputValue, reason) => {
+                            if (reason !== "reset") {
+                              formik.setFieldValue("address", newInputValue);
+                              setOpen(newInputValue?.trim() !== "");
+                            }
+                          }}
+                          onBlur={() => setOpen(false)}
+                          onFocus={(e) => {
+                            if (!formik?.values?.address) setOpen(false);
+                          }}
+                          filterOptions={(options, state) => {
+                            const input = state?.inputValue?.toLowerCase();
+                            if (!input) return [];
+                            return options?.filter((option) =>
+                              option?.toLowerCase()?.startsWith(input)
+                            );
+                          }}
+                          
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              className="notes-input"
+                              placeholder={
+                                formik?.values?.address
+                                  ? ""
+                                  : "Enter Wallet Address"
+                              }
+                              variant="outlined"
+                              fullWidth
+                             
+                            
+                            />
+                          )}
                         />
+                        
+
+                        {/* <input
+                            type="text"
+                            inputMode="numeric"
+                            className="notes-input"
+                            placeholder="Enter Wallet Address"
+                            name="address"
+                            value={formik.values.address}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              formik.setFieldValue("address", value);
+                            }}
+                          /> */}
                       </div>
                       <div className="input-error">
                         {formik.errors?.address && formik.touched?.address
                           ? formik.errors?.address
                           : null}
                       </div>
-                    {formik.values.amount >= 0.01 ? (
-                    <label className="text-color deduction-message">
-                   0.01 will be deducted as transaction fees
-                    </label>
-                  ) : (
-                    ""
-                  )}
+                      {formik.values.amount >= 0.01 ? (
+                        <label className="text-color deduction-message">
+                          0.01 will be deducted as transaction fees
+                        </label>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>
                 {/* <button
-              className="action-btn full-width send-pi-btn"
-              type="submit"
-              disabled={buttonLoader}
-            >
-              Withdraw
-            </button> */}
+                className="action-btn full-width send-pi-btn"
+                type="submit"
+                disabled={buttonLoader}
+              >
+                Withdraw
+              </button> */}
                 <button
                   className="action-btn full-width send-pi-btn"
                   type="submit"

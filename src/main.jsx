@@ -4,9 +4,9 @@ import './index.css'
 import App from './App.jsx'
 
 {
-  console.log = () => { };
-  console.error = () => { };
-  console.debug = () => { };
+  // console.log = () => { };
+  // console.error = () => { };
+  // console.debug = () => { };
 }
 
 createRoot(document.getElementById('root')).render(

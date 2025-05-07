@@ -41,6 +41,13 @@ import successIcon from "../assets/images/success.svg";
 import scannerIcon from "../assets/images/scanner.svg";
 import subscriberIcon from "../assets/images/subscribers.png";
 import verify from "../assets/images/verify.png";
+import walletAddressBook from "../assets/images/phone-book.png";
+import paymentRequestIcon from "../assets/images/paymentRequestIcon.png";
+import paymentRequestIcon2 from "../assets/images/payementRequestIcon2.png";
+import successfullIcon from "../assets/images/succes-icon.svg";
+import piCoiImg from "../assets/images/pi-coin.png"; 
+import piWallettImg from "../assets/images/pi-wallet.png"; 
+import complainIcon from "../assets/images/complain.png"; 
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -65,7 +72,7 @@ import Loader from "../common/loader/Loader";
 import successfullIcon from "../assets/images/succes-icon.svg";
 import piCoiImg from "../assets/images/pi-coin.png";
 import piWallettImg from "../assets/images/pi-wallet.png"
-
+import NoDataFound from "../common/noDataFound/NoDataFound";
 const Index = {
   Modal,
   TabContainer,
@@ -130,9 +137,14 @@ const Index = {
   subscribedIcon,
   subscriberIcon,
   verify,
+  walletAddressBook,
+  paymentRequestIcon,
+  paymentRequestIcon2,
   successfullIcon,
   piCoiImg,
   piWallettImg,
+  complainIcon,
+  NoDataFound
 };
 
 export default Index;

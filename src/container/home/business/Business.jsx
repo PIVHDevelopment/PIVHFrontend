@@ -165,6 +165,23 @@ function Business({ balance }) {
           </span>
           Withdraw
         </button>
+
+        <button
+          className="action-btn send-btn receive-btn"
+          id="paymentrequest"
+          style={{maxWidth: "184px"}}
+          onClick={() =>
+            navigate("/payment-request", {
+              state: { isBusiness: true },
+            })
+          }
+        >
+          <span className="btn-icon pay-request-icon">
+            <img src={Index.withdraw} alt="Receive Money" />
+          </span>
+          Payment Request
+        </button>
+
       </div>
     </>
   );
