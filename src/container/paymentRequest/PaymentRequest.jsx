@@ -263,9 +263,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                  <Typography className="no-address-title">
-                    No Payment Receive Request Found
-                  </Typography>
+                      <Index.NoDataFound message={"No Payment Receive Request Found"} />
                 )}
               </List>
             )}
@@ -322,9 +320,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                  <Typography className="no-address-title">
-                    No Payment Sent Request Found
-                  </Typography>
+                     <Index.NoDataFound message={"No Payment Sent Request Found"} />
                 )}
               </List>
             )}

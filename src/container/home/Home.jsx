@@ -416,7 +416,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.complainIcon} alt="" />
             </div>
-            <h6 className="setting-cont-title">Feedback and complaint</h6>
+            <h6 className="setting-cont-title">Feedback And Complaint</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

@@ -200,12 +200,7 @@ const AddressBook = () => {
                   );
                 })
               ) : (
-                <div className="no-address-book">
-                  {/* <img src={Index.addressbook} alt="addressbook" /> */}
-                  <Typography className="no-address-title">
-                    No Address Data Found
-                  </Typography>
-                </div>
+                <Index.NoDataFound message={"No Address Data Found"} />
               )}
             </List>
           </Box>
