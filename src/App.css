@@ -1705,8 +1705,6 @@ span.icon {
 
 }
 
-
-
 .textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
   padding: 0;
 }
@@ -1789,7 +1787,6 @@ span.icon {
   overflow: hidden;
   background-color: #fda342;
 }
-
 .success-btn {
   background: linear-gradient(135deg, #2d1b69, #6b2a96);
   color: #fff;
@@ -1803,7 +1800,6 @@ span.icon {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
 }
-
 .success-btn::before {
   content: "";
   position: absolute;
@@ -1824,7 +1820,6 @@ span.icon {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-
 .success-icon {
   height: 70px;
   width: 70px;
@@ -1838,7 +1833,7 @@ span.icon {
   left: 0;
   right: 0;
 }
-
+ 
 .success-message {
   color: #6610f2;
   font-size: 20px;
@@ -1846,7 +1841,6 @@ span.icon {
   margin: 0 0 40px 0;
   text-align: center;
 }
-
 .character {
   position: absolute;
   top: 50%;
@@ -1854,17 +1848,14 @@ span.icon {
   width: 150px;
   transition: transform 1s ease-in-out;
 }
-
 .coin {
   left: -200px;
   animation: moveCoin 5s forwards;
 }
-
 .wallet {
   right: -200px;
   animation: moveWallet 5s forwards;
 }
-
 /* @keyframes moveCoin {
   to {
     left: 50%;
@@ -1875,7 +1866,6 @@ span.icon {
     -o-transform: translate(-100%, -50%);
   }
 }
-
 @keyframes moveWallet {
   to {
     right: 50%;
@@ -1911,7 +1901,6 @@ span.icon {
     transform: translate(-100%, -50%);
   }
 }
-
 @keyframes moveWallet {
   0% {
     right: -200px;

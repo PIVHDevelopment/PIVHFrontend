@@ -163,7 +163,6 @@ const Routers = () => {
           path: "/loader",
           element: <Loader />,
         },
-        
         {
           path: "/transaction-success",
           element: <TransactionSuccess />,

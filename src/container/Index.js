@@ -69,12 +69,10 @@ import {
   toasterInfo,
 } from "../utils/toaster/Toaster";
 import Loader from "../common/loader/Loader";
+import successfullIcon from "../assets/images/succes-icon.svg";
+import piCoiImg from "../assets/images/pi-coin.png";
+import piWallettImg from "../assets/images/pi-wallet.png"
 import NoDataFound from "../common/noDataFound/NoDataFound";
-
-
-
-
-
 const Index = {
   Modal,
   TabContainer,

@@ -243,11 +243,11 @@ const AddressBook = () => {
             validationSchema={Yup.object({
               type: Yup.string().required("Type is required"),
               name: Yup.string()
-                .required("Name is required")
-                .matches(
-                  /^\S.*\S$|^\S$/,
-                  "Name cannot start or end with a space"
-                ),
+                .required("Name is required"),
+                // .matches(
+                //   /^\S.*\S$|^\S$/,
+                //   "Name cannot start or end with a space"
+                // ),
               userName: Yup.string()
                 .required("Username is required")
                 .matches(/^\S+$/, "Username cannot contain spaces"),

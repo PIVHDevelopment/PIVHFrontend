@@ -180,7 +180,7 @@ function Withdraw() {
                     <div className="amount-display">
                       {parseFloat(
                         typeTxn == "business" ? businessBalance : balance
-                      ).toFixed(2)}{" "}
+                      ).toFixed(5)}{" "}
                       Pi
                     </div>
                   </div>
@@ -196,7 +196,7 @@ function Withdraw() {
                           value={formik.values.amount}
                           onChange={(e) => {
                             const value = e.target.value;
-                            if (/^\d*\.?\d{0,6}$/.test(value)) {
+                            if (/^\d*\.?\d{0,5}$/.test(value)) {
                               if (parseFloat(value) > parseFloat(balance)) {
                                 formik.setFieldValue("amount", balance);
                               } else {
