@@ -116,6 +116,28 @@ function Home() {
                 <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
+
+<div className="lang-dropdown-main">
+                <Index.FormControl>
+                  <Index.Select
+                    value={languageCh}
+                    onChange={handleLanguageChange}
+                  >
+                    <Index.MenuItem value={"En"}>En</Index.MenuItem>
+                    <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
+                    <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
+                  </Index.Select>
+                </Index.FormControl>
+                <img
+                    src={Index.languageImg}
+                    className="lang-change-icon"
+                  />
+                  <img
+                    src={Index.downblackAarrow}
+                    className="search-down-arrow"
+                    alt="Dropdown"
+                  />
+              </div>
             </div>
             <div
               className="app-icon"
@@ -143,16 +165,6 @@ function Home() {
                 </button>
               )} */}
 
-              <Index.FormControl>
-                <Index.Select
-                  value={languageCh}
-                  onChange={handleLanguageChange}
-                >
-                  <Index.MenuItem value={"En"}>En</Index.MenuItem>
-                  <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
-                  <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
-                </Index.Select>
-              </Index.FormControl>
 
               <button
                 className="icon-btn"
@@ -175,7 +187,7 @@ function Home() {
           >
             <div className="wallet-tabs">
               <button
-                className={`tab-btn${tab === 1 ? "active" : ""}`}
+                className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
                 onClick={() => setTab(1)}
               >

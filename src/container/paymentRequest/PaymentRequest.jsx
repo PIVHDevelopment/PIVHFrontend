@@ -27,6 +27,8 @@ const modalStyle = {
 const PaymentRequest = () => {
   const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
   const [tab, setTab] = useState(1);
@@ -192,7 +194,11 @@ const PaymentRequest = () => {
 
           <Box className="address-book-details">
             <Box className="address-book-head">
-              <Typography className="address-book-title">
+              <Typography
+                className={`address-book-title ${
+                  isRtl ? "text-align-right" : ""
+                }`}
+              >
                 {t("PaymentRequest")}
               </Typography>
               {tab == 2 && (
@@ -383,7 +389,7 @@ const PaymentRequest = () => {
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder={t("EnterUsername")}
+                              placeholder={t("EnterUserName")}
                               name="userName"
                               value={formik.values.userName}
                               onChange={(e) => {

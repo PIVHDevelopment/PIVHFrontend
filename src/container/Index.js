@@ -92,6 +92,8 @@ import successfullIcon from "../assets/images/succes-icon.svg";
 import piCoiImg from "../assets/images/pi-coin.png"; 
 import piWallettImg from "../assets/images/pi-wallet.png"; 
 import complainIcon from "../assets/images/complain.png"; 
+import languageImg from "../assets/images/vector.png";
+import downblackAarrow from "../assets/images/down-black-arrow.svg";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
@@ -163,6 +165,8 @@ const Index = {
   showIcon,
   invisibleIcon,
   Plusadd,
+  languageImg,
+  downblackAarrow,
   // pencil,
   // delete,
   addressbook,

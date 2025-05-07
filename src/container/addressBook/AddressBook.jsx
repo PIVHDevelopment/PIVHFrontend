@@ -34,6 +34,8 @@ const initialValues = {
 };
 const AddressBook = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -138,7 +140,11 @@ const AddressBook = () => {
               {address.length ? (
                 address.map((item) => {
                   return (
-                    <ListItem className="list-item-address">
+                    <ListItem 
+                    className={`list-item-address ${
+                      isRtl ? "text-align-right" : ""
+                    }`}
+                    >
                       <Box className="flex-justify-gap-add">
                         <Box className="address-left-contain">
                           <Box className="list-field-show">
@@ -319,7 +325,7 @@ const AddressBook = () => {
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder={t("EnterUsername")}
+                            placeholder={t("EnterUserName")}
                             name="userName"
                             value={formik.values.userName}
                             onChange={formik.handleChange}

@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 h1,
@@ -263,7 +263,6 @@ header {
   transform: rotate(180deg);
 }
 
-
 .action-btn:disabled,
 .action-btn.send-pi-btn:disabled {
   flex: 1;
@@ -505,7 +504,7 @@ header {
   color: var(--text-color);
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .input-wrapper input::placeholder {
@@ -617,7 +616,6 @@ header {
   opacity: 0.9;
   margin: 16px 0;
 }
-
 
 .circle-btn {
   display: flex;
@@ -856,7 +854,7 @@ button.address-book-btn {
   font-weight: 600;
   word-spacing: 2px;
   margin-bottom: 13px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .app-container {
@@ -865,7 +863,6 @@ button.address-book-btn {
   border-radius: 12px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 
 .set-pin-row .show-icon {
   height: 30px;
@@ -923,7 +920,7 @@ button.address-book-btn {
 
 .app-container .heading {
   font-weight: 600;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   text-align: center;
 }
 
@@ -936,7 +933,7 @@ button.address-book-btn {
   margin-bottom: 36px;
   font-weight: 600;
   font-size: 13px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   line-height: 18px;
 }
 
@@ -972,7 +969,6 @@ button.address-book-btn {
   padding: 18px 60px;
   border-radius: 46px;
   border: none;
-
 }
 
 .pin-success-message-div .success-message {
@@ -1033,14 +1029,14 @@ button.address-book-btn {
 
 .modal-header-common .add-title {
   color: #fff;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 600;
 }
 
 .common-grid .label-field {
   font-size: 14px;
   color: #eae1e1;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
   margin-bottom: 3px;
   line-height: 20px;
@@ -1081,7 +1077,7 @@ button.address-book-btn {
   padding: 10px 20px;
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .common-grid .input-wrapper input::placeholder {
@@ -1188,7 +1184,7 @@ button.address-book-btn {
   flex: 0 0 90px;
   max-width: 90px;
   width: 100%;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -1197,7 +1193,7 @@ button.address-book-btn {
 
 .address-left-contain .list-field-show .field-contain-address {
   flex: 1;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -1230,8 +1226,6 @@ button.address-book-btn {
   width: 30px;
 }
 
-
-
 .address-left-contain .list-field-show:last-child {
   margin-bottom: 0px;
 }
@@ -1251,7 +1245,7 @@ button.address-book-btn {
 }
 
 .address-book-head .address-book-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
 }
@@ -1268,7 +1262,6 @@ button.address-book-btn {
   margin-left: auto;
   background-color: #fff;
 }
-
 
 .delete-modal-contain {
   text-align: center;
@@ -1324,14 +1317,14 @@ button.address-book-btn {
 }
 
 .no-address-book .no-address-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 18px;
   line-height: 26px;
   color: #fff;
 }
 
 .security-question-details .security-question-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -1339,7 +1332,7 @@ button.address-book-btn {
 
 .verify-answer-content .verify-answer-label {
   font-size: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
   line-height: 23px;
   margin-bottom: 5px;
@@ -1351,7 +1344,7 @@ button.address-book-btn {
 
 .verify-answer-content .verify-answer-label {
   font-size: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
   line-height: 23px;
   margin-bottom: 5px;
@@ -1364,7 +1357,7 @@ button.address-book-btn {
 .textarea-question-sequrity .MuiInputBase-fullWidth {
   padding: 16px;
   font-size: 14px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: #fff;
   background: var(--dark-bg);
   border: none;
@@ -1380,7 +1373,6 @@ button.address-book-btn {
   opacity: 0.6;
 }
 
-
 .verify-answer-content .textarea-question-sequrity {
   margin: 5px 0px 0px 0px;
 }
@@ -1392,7 +1384,7 @@ button.address-book-btn {
 
 .notes-input-box .notes-input .MuiInputBase-formControl {
   padding: 11.35px 9px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .notes-input-box .notes-input svg {
@@ -1429,7 +1421,6 @@ span.icon {
   display: flex;
   margin-top: -2px;
 }
-
 
 .loader-main {
   background: #00000085;
@@ -1479,7 +1470,6 @@ span.icon {
   }
 }
 
-
 .loader-inner {
   width: 72px;
   height: 72px;
@@ -1513,11 +1503,11 @@ span.icon {
 .security-ques-div h5 {
   text-align: center;
   margin-bottom: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .question-radio label .MuiFormControlLabel-label {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .btn-home-content {
@@ -1541,14 +1531,12 @@ span.icon {
   margin: 10px 0px;
 }
 
-
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
+    hue-rotate(137deg) brightness(91%) contrast(97%);
 }
-
-
 
 .receiver-addres-scanner-box .scanner-icon img {
   height: 24px;
@@ -1575,7 +1563,7 @@ span.icon {
   text-align: center;
   font-weight: 700;
   font-size: 26px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .tick-mark-icons {
@@ -1587,7 +1575,7 @@ span.icon {
 .subscrip-description p {
   font-weight: 500;
   font-size: 18px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .subscrip-icon img {
@@ -1617,7 +1605,6 @@ span.icon {
   width: 100% !important;
 }
 
-
 #html5-qrcode-button-camera-permission {
   width: 100%;
   margin-bottom: 16px;
@@ -1644,7 +1631,8 @@ span.icon {
 }
 
 #qr-reader__scan_region img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
+    hue-rotate(128deg) brightness(100%) contrast(101%);
 }
 
 .action-send-main-contain .action-btn,
@@ -1658,7 +1646,8 @@ span.icon {
 }
 
 .action-send-main-contain .action-btn img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
+    hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .tick-mark-icons .verify-icons {
@@ -1666,8 +1655,10 @@ span.icon {
   width: 20px;
 }
 
-
-.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
+.notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiAutocomplete-inputRoot
+  .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -1681,13 +1672,12 @@ span.icon {
   bottom: 0px;
   right: 0px;
   margin: auto;
-
 }
 
-
-
-
-.notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+.notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
   padding: 7.5px 49px 7.5px 5px !important;
   cursor: pointer;
 }
@@ -1702,9 +1692,7 @@ span.icon {
   padding: 33px;
   display: flex;
   justify-content: space-around;
-
 }
-
 
 .qr-btn-share-box button svg {
   /* height: 40px;
@@ -1724,7 +1712,11 @@ span.icon {
   word-break: break-all;
 }
 
-.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+.input-wrapper
+  .custom-notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
   padding: 7.5px 0px 7.5px 5px !important;
 }
 
@@ -1734,15 +1726,13 @@ span.icon {
 
 .custom-dropdown-withdrow .MuiAutocomplete-paper {
   background-color: #593c8a;
-
 }
 
 .custom-dropdown-withdrow .MuiAutocomplete-paper ul li {
   color: var(--text-color);
   font-size: 16px;
   line-height: 20px;
-  font-family: 'Poppins';
-
+  font-family: "Poppins";
 }
 
 .custom-dropdown-withdrow .MuiAutocomplete-paper ul li:hover {
@@ -1891,7 +1881,6 @@ span.icon {
   }
 } */
 
-
 @keyframes moveCoin {
   0% {
     left: -200px;
@@ -1987,7 +1976,8 @@ span.icon {
   right: 10px;
   top: 10px;
   background: rgba(255, 255, 255, 0.15);
-  /*Initialbackgroundcolor*/backdrop-filter: blur(10px);
+  /*Initialbackgroundcolor*/
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -2044,9 +2034,69 @@ span.icon {
 }
 
 .transaction-section.expanded .arrow-icon {
-  transform: rotate(180deg);
+  transform: ro
+  tate(180deg);
+}
+body .text-align-right {
+  text-align: right;
+  width: 100%;
 }
 
 .direction-rtl {
   direction: rtl;
+}
+.lang-dropdown-main {
+  position: relative;
+}
+.lang-dropdown-main .MuiSelect-select {
+  padding: 6px 21px 6px 36px;
+  border: 1px solid #2f2f2f1a;
+  background: #ffffff45;
+  color: #fff;
+  font-size: 12px;
+  font-family: "Poppins-Regular";
+  text-transform: uppercase;
+  border-radius: 25px;
+  max-width: 92px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+.lang-dropdown-main .MuiSelect-icon {
+  display: none;
+}
+.lang-dropdown-main fieldset {
+  display: none;
+}
+.lang-dropdown-main
+  .MuiFormControl-root
+  .Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+  border-width: 0px;
+}
+
+.lang-change-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0px;
+  left: 12px;
+  inset-inline-start: 12px;
+}
+
+.lang-dropdown-main .search-down-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%)
+    hue-rotate(243deg) brightness(101%) contrast(94%);
+  inset-inline-end: 12px; /* ← Always visual left in RTL */
+}
+
+body.direction-rtl .lang-dropdown-main .search-down-arrow {
+  right: auto; /* Remove right for RTL */
+  left: 12px; /* Add left for RTL */
 }
