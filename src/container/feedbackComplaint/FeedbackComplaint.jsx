@@ -38,6 +38,7 @@ const FeedbackComplaint = () => {
   };
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
       const res = await Index.DataService.get(
         Index.Api.GET_USER_FEEDBACK + `/${userData?._id}`
@@ -47,6 +48,8 @@ const FeedbackComplaint = () => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,7 +81,11 @@ const FeedbackComplaint = () => {
   }, []);
 
   return (
-    <div className="app-container">
+    <>
+     {loading ? (
+       <Index.Loader />
+       ) : (
+     <div className="app-container">
       <header className="receive-center">
         <button
           className="back-btn"
@@ -257,7 +264,9 @@ const FeedbackComplaint = () => {
           </Index.Formik>
         </Box>
       </Modal>
-    </div>
+     </div>
+     )}
+    </>
   );
 };
 

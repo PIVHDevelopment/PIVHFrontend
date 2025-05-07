@@ -41,7 +41,7 @@ const AddressBook = () => {
     setId("");
     setSelectedData(initialValues);
   };
-
+ const [loading , setLoading]= React.useState(false)
   const [openDelete, setOpenDelete] = React.useState(false);
   const [address, setAddress] = React.useState([]);
   const [buttonLoader, setButtonLoader] = React.useState(false);
@@ -86,6 +86,7 @@ const AddressBook = () => {
     }
   };
   const getAddress = async () => {
+    setLoading(true);
     Index.DataService.get(
       Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + type
     ).then((res) => {
@@ -93,6 +94,9 @@ const AddressBook = () => {
         setAddress(res.data.data);
       }
     });
+    setTimeout(() => {
+      setLoading(false);
+    },0);
   };
   const handleDelete = async () => {
     setButtonLoader(true);
@@ -112,9 +116,14 @@ const AddressBook = () => {
   }, []);
   return (
     <>
+       {loading ? (
+       <Index.Loader />
+       ) : (
       <div className="app-container">
         <header className="receive-center">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+        <button className="back-btn" onClick={() => navigate("/home", {
+                 state: { isBusiness },
+                   })}>
             <img src={Index.back} alt="Back" />
           </button>
           <div className="app-icon" style={{ marginLeft: "-26px" }}>
@@ -206,7 +215,7 @@ const AddressBook = () => {
           </Box>
         </Box>
       </div>
-
+     )}
       <Modal
         className="address-modal common-modall"
         open={open}
