@@ -97,7 +97,7 @@ const WalletAddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || "Something went wrong"
+        error?.response?.data?.message || t("SomethingWrong")
       );
     } finally {
       setButtonLoader(false);
@@ -117,7 +117,7 @@ const WalletAddressBook = () => {
         Index.toasterError(res.data.message);
       }
     } catch (error) {
-      Index.toasterError("Something went wrong");
+      Index.toasterError(t("SomethingWrong"));
     }
     setButtonLoader(false);
     handleCloseDelete();

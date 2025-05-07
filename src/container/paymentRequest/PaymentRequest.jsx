@@ -346,7 +346,9 @@ const PaymentRequest = () => {
             <Box sx={modalStyle} className="common-style-modal address-style">
               <Box className="modal-header-common address-modal-header">
                 <Typography className="add-title">
-                  {id ? `${t("Edit")} ${t("PaymentRequest")}` : `${t("Add")} ${t("PaymentRequest")}`}
+                  {id
+                    ? `${t("Edit")} ${t("PaymentRequest")}`
+                    : `${t("Add")} ${t("PaymentRequest")}`}
                 </Typography>
                 <button className="btn-close" onClick={handleClose}></button>
               </Box>
@@ -357,9 +359,15 @@ const PaymentRequest = () => {
                   description: "",
                 }}
                 validationSchema={Yup.object({
-                  userName: Yup.string().required(`${t("Username")} ${t("IsRequired")}`),
-                  amount: Yup.string().required(`${t("Amount")} ${t("IsRequired")}`),
-                  description: Yup.string().required(`${t("Description")} ${t("IsRequired")}`),
+                  userName: Yup.string().required(
+                    `${t("Username")} ${t("IsRequired")}`
+                  ),
+                  amount: Yup.string().required(
+                    `${t("Amount")} ${t("IsRequired")}`
+                  ),
+                  description: Yup.string().required(
+                    `${t("Description")} ${t("IsRequired")}`
+                  ),
                 })}
                 onSubmit={handleSubmit}
               >
@@ -375,7 +383,7 @@ const PaymentRequest = () => {
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder={`${t("Enter")} ${t("Username")}`}
+                              placeholder={t("EnterUsername")}
                               name="userName"
                               value={formik.values.userName}
                               onChange={(e) => {
@@ -403,7 +411,7 @@ const PaymentRequest = () => {
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder={`${t("Enter")} ${t("Amount")}`}
+                              placeholder={t("EnterAmount")}
                               name="amount"
                               value={formik.values.amount}
                               onChange={(e) => {
@@ -430,7 +438,7 @@ const PaymentRequest = () => {
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder={`${t("Enter")} ${t("Description")}`}
+                              placeholder={t("EnterDescription")}
                               name="description"
                               value={formik.values.description}
                               onChange={formik.handleChange}

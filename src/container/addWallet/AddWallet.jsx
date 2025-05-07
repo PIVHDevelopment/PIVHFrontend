@@ -43,7 +43,7 @@ function AddWallet() {
           walletAddress: text,
         }}
         onSubmit={handleSubmitFunction}
-        validationSchema={Index.addWalletAddressFormSchema}
+        validationSchema={Index.addWalletAddressFormSchema(t)}
         innerRef={formRef}
       >
         {(formik) => (
@@ -52,7 +52,7 @@ function AddWallet() {
               <div className="input-wrapper send-input-box">
                 <input
                   type="text"
-                  placeholder="Enter Wallet Address"
+                  placeholder={t("EnterWalletAddress")}
                   name="walletAddress"
                   value={formik.values.walletAddress}
                   onChange={formik.handleChange}

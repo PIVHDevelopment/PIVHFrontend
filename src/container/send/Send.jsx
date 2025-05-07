@@ -11,6 +11,7 @@ import {
 import VerificationPin from "../verificationPin/VerificationPin";
 
 function Send() {
+  const { t } = Index.useTranslation();
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [checkUser, setCheckUser] = useState("");
@@ -83,11 +84,11 @@ function Send() {
           state: { isBusiness: type == "business" ? true : false },
         });
       } else {
-        Index.toasterError(res?.data?.message || "Something went wrong.");
+        Index.toasterError(res?.data?.message || t("SomethingWrong"));
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || "An unexpected error occurred."
+        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
@@ -97,7 +98,7 @@ function Send() {
   const handleSubmit = (values) => {
     const result = checkUser?.find((user) => user.userName === values?.userName);
     if (!result) {
-      Index.toasterError("Entered username does not exist");
+      Index.toasterError(t("UserNotExist"));
       return false;
     }
     setFormValues(values);
@@ -124,7 +125,7 @@ function Send() {
                   <img src={Index.back} alt="Back" />
                 </button>
                 <div className="app-icon" style={{ marginLeft: "-26px" }}>
-                  <img src={Index.pocketPi} alt="PocketPi" />
+                  <img src={Index.pocketPi} alt={t("PocketPi")} />
                 </div>
                 <div className="header-right"></div>
               </header>
@@ -134,7 +135,7 @@ function Send() {
                   formValues || { userName: text, amount: "", memo: "" }
                 }
                 onSubmit={handleSubmit}
-                validationSchema={Index.sendPiFormSchema}
+                validationSchema={Index.sendPiFormSchema(t)}
                 innerRef={formRef}
               >
                 {(formik) => {
@@ -197,7 +198,7 @@ function Send() {
                                 name="userName"
                                 className="notes-input"
                                 placeholder={
-                                  formik?.values?.userName ? "" : "Enter Username"
+                                  formik?.values?.userName ? "" : t("EnterUserName")
                                 }
                                 variant="outlined"
                                 size="small"
@@ -231,7 +232,7 @@ function Send() {
                           <input
                             type="text" 
                             className="notes-input"
-                            placeholder="Enter Amount"
+                            placeholder={t("EnterAmount")}
                             name="amount"
                             value={formik.values.amount}
                             onChange={(e) => {
@@ -258,7 +259,7 @@ function Send() {
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder="Enter Memo"
+                            placeholder={t("EnterMemo")}
                             name="memo"
                             value={formik.values.memo}
                             onChange={formik.handleChange}
@@ -272,9 +273,9 @@ function Send() {
                       </div>
 
                       <div className="amount-section">
-                        <label>Enter Pi Amount</label>
+                        <label>{t("EnterPiAmount")}</label>
                         <div className="amount-display">
-                          {formik.values.amount || "0"} Pi
+                          {formik.values.amount || "0"} {t("Pi")}
                         </div>
                       </div>
 
@@ -283,7 +284,7 @@ function Send() {
                         type="submit"
                         disabled={buttonLoader}
                       >
-                        Send Pi
+                        {t("SendPi")}
                       </button>
                     </form>
                   )

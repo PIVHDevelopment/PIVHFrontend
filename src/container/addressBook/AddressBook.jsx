@@ -80,7 +80,7 @@ const AddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || "An unexpected error occurred."
+        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
@@ -297,7 +297,7 @@ const AddressBook = () => {
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder={`${t("Enter")}${t("Name")}`}
+                            placeholder={t("EnterName")}
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -319,7 +319,7 @@ const AddressBook = () => {
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder={`${t("Enter")}${t("Username")}`}
+                            placeholder={t("EnterUsername")}
                             name="userName"
                             value={formik.values.userName}
                             onChange={formik.handleChange}

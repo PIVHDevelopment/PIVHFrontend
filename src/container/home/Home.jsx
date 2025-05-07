@@ -36,6 +36,12 @@ function Home() {
       typeof eventOrValue === "string"
         ? eventOrValue
         : eventOrValue.target.value;
+
+    if (lang == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
+      document.body.classList.remove("direction-rtl");
+    }
     localStorage.setItem("language", lang);
     i18n.changeLanguage(lang);
     setLanguageCh(lang);
@@ -212,7 +218,11 @@ function Home() {
                 )}
               </div>
               <button className="copy-btn" onClick={handleCopy}>
-                {copied ? <span>✓</span> : <img src={Index.copy} alt={t("Copy")} />}
+                {copied ? (
+                  <span>✓</span>
+                ) : (
+                  <img src={Index.copy} alt={t("Copy")} />
+                )}
               </button>
             </div>
             <div className="balance-section">
@@ -396,7 +406,7 @@ function Home() {
                 <img src={Index.businessversion} alt="" />
               </div>
               <h6 className="setting-cont-title">
-              {t("UpgradeToBusinessVersion")}
+                {t("UpgradeToBusinessVersion")}
               </h6>
             </NavLink>
           )}

@@ -51,7 +51,7 @@ const Subscription = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || "Something went wrong"
+          err?.response?.data?.message || t("SomethingWrong")
         );
       })
       .finally(() => {
