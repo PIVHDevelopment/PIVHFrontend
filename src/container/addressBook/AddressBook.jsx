@@ -96,7 +96,7 @@ const AddressBook = () => {
     });
     setTimeout(() => {
       setLoading(false);
-    },0);
+    },300);
   };
   const handleDelete = async () => {
     setButtonLoader(true);
