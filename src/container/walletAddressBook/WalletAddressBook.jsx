@@ -34,9 +34,10 @@ const WalletAddressBook = () => {
   const [selectedData, setSelectedData] = useState({ walletAddress: "" });
   const [id, setId] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
- const location = Index.useLocation();
-   const navigate = Index.useNavigate();
-const isBusiness = location?.state?.isBusiness;
+   const [loading , setLoading]= React.useState(false)
+  const location = Index.useLocation();
+  const navigate = Index.useNavigate();
+  const isBusiness = location?.state?.isBusiness;
   const type = isBusiness ? "Business" : "Individual";
   const handleOpen = () => setOpen(true);
     const [openDelete, setOpenDelete] = React.useState(false);
@@ -55,6 +56,7 @@ const isBusiness = location?.state?.isBusiness;
   };
 
   const getWallets = async () => {
+    setLoading(true);
     try {
       const res = await Index.DataService.get(`${Index.Api.GET_WALLET_ADDRESS}/${userData?._id}/${type}`);
       if (res?.data?.status) {
@@ -62,6 +64,8 @@ const isBusiness = location?.state?.isBusiness;
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,6 +116,9 @@ const isBusiness = location?.state?.isBusiness;
 
   return (
     <>
+     {loading ? (
+       <Index.Loader />
+       ) : (
     <div className="app-container">
       <header className="receive-center">
       <button className="back-btn" onClick={() => navigate("/home", {
@@ -239,6 +246,7 @@ const isBusiness = location?.state?.isBusiness;
         </Box>
       </Modal>
     </div>
+    )}
       <Modal
             className="address-modal common-modall"
             open={openDelete}
@@ -288,7 +296,7 @@ const isBusiness = location?.state?.isBusiness;
                 </Box>
               </Box>
             </Box>
-          </Modal>
+      </Modal>
 
     </>
   );

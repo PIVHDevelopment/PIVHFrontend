@@ -47,6 +47,7 @@ const PaymentRequest = () => {
   };
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
       const res = await Index.DataService.get(
         `${Index.Api.GET_PAYMENT_REQUEST}?merchantId=${
@@ -61,11 +62,12 @@ const PaymentRequest = () => {
       }
     } catch (err) {
       console.error(err);
+    } finally{
+      setLoading(false);
     }
   };
 
   const handleSubmit = async (values) => {
-    setLoading(true);
     try {
       const payload = {
         ...values,
@@ -85,7 +87,7 @@ const PaymentRequest = () => {
     } catch (err) {
       Index.toasterError(err?.response?.data?.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
 
@@ -139,6 +141,10 @@ const PaymentRequest = () => {
   };
 
   return (
+    <>
+     {loading ? (
+        <Index.Loader />
+        ) : (  
     <div className="app-container">
       {nextPage ? (
         <VerificationPin
@@ -325,7 +331,8 @@ const PaymentRequest = () => {
               </List>
             )}
           </Box>
-
+       
+         
           {/* Add/Edit Modal */}
           <Modal open={open} onClose={handleClose} className="address-modal">
             <Box sx={modalStyle} className="common-style-modal address-style">
@@ -452,6 +459,8 @@ const PaymentRequest = () => {
         </>
       )}
     </div>
+      )}
+      </>
   );
 };
 
