@@ -258,9 +258,7 @@ const PaymentRequest = () => {
                               {t("Date")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
-                              {Index.moment(item?.createdAt).format(
-                                "DD-MM-YYYY hh:mm A"
-                              )}
+                            {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
                             </Typography>
                           </Box>
                         </Box>
@@ -281,9 +279,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                  <Typography className="no-address-title">
-                    {t("NoPayment")}
-                  </Typography>
+                      <Index.NoDataFound message={"No Request Found"} />
                 )}
               </List>
             )}
@@ -332,9 +328,7 @@ const PaymentRequest = () => {
                               {t("Date")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
-                              {Index.moment(item?.createdAt).format(
-                                "DD-MM-YYYY hh:mm A"
-                              )}
+                            {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
                             </Typography>
                           </Box>
                         </Box>
@@ -342,9 +336,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                  <Typography className="no-address-title">
-                    {t("NoPaymentSent")}
-                  </Typography>
+                     <Index.NoDataFound message={"No Request Found"} />
                 )}
               </List>
             )}

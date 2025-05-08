@@ -151,7 +151,7 @@ const FeedbackComplaint = () => {
                       </Typography>
                       <Typography className="field-contain-address custom-field-contain-status">
                         {Index.moment(item?.createdAt).format(
-                          "DD-MM-YYYY hh:mm A"
+                          "DD/MM/YYYY hh:mm A"
                         )}
                       </Typography>
                     </Box>
