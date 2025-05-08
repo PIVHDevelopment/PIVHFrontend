@@ -41,6 +41,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Autocomplete,
 } from "@mui/material";
 import pocketPi from "../assets/images/PocketPi.png";
 import pocketPi2 from "../assets/images/pocketPi2.png";
@@ -111,6 +112,7 @@ import {
   addVerificationPinSchema,
   addWalletAddressBookSchema,
   addAddressBookSchema,
+  addKybVerificationSchema,
 } from "../utils/Validation";
 import moment from "moment";
 import {
@@ -244,6 +246,8 @@ const Index = {
   addVerificationPinSchema,
   addWalletAddressBookSchema,
   addAddressBookSchema,
+  Autocomplete,
+  addKybVerificationSchema,
 };
 
 export default Index;

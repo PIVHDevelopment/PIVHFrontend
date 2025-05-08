@@ -374,7 +374,7 @@ header {
   border-radius: var(--border-radius);
   padding: 20px;
   margin: auto;
-  height: 40%;
+  height: 30%;
   position: fixed;
   left: 0;
   right: 0;
@@ -384,7 +384,7 @@ header {
 }
 
 .transaction-section.expanded {
-  height: calc(100% - 40%);
+  height: calc(100% - 20%);
   /* Expanded height */
 }
 
@@ -2218,4 +2218,53 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 }
 .button-top-space{
   margin-top: 25px;
+}
+
+.kyb-autocomplete-input .dropdown-select fieldset{
+  display: none;
+}
+
+.kyb-autocomplete-input .dropdown-select{
+  border-radius: 7px;
+  background: transparent;
+  border: 1px solid #8f8e8e80;
+}
+
+.kyb-autocomplete-input .dropdown-select input{
+  color: var(--white);
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: "Poppins";
+
+}
+
+.kyb-autocomplete-input .dropdown-select .MuiAutocomplete-endAdornment button svg{
+  color: var(--white);
+}
+
+
+.sigin-lang-footer {
+     display: flex;
+     justify-content: space-around;
+     padding: 30px 30px 0 30px;
+      position: absolute;
+      bottom: 50px;
+      max-width: 280px;
+      width: 100%;
+}
+
+.sigin-lang-footer p {
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  line-height: 12px;
+  cursor: pointer;
+}
+.sigin-lang-footer p.active-lang{
+color: #f7a535;
+}
+
+.sigin-lang-footer p:hover {
+  color: lightgray;
 }
