@@ -26,7 +26,7 @@ function Deposit() {
           bodyData
         );
         if (res?.data?.status === 200) {
-          Index.toasterSuccess(res?.data?.message);
+          // Index.toasterSuccess(res?.data?.message);
           navigate("/transaction-success", {
             state: { isBusiness: typeTxn == "business" ? true : false },
           });

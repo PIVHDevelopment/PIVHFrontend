@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import Index from "../Index";
 import VerificationPin from "../verificationPin/VerificationPin";
+import * as Yup from "yup";
 
 const modalStyle = {
   position: "absolute",
@@ -122,7 +123,9 @@ const PaymentRequest = () => {
       });
 
       if (res?.data?.status) {
-        Index.toasterSuccess(res?.data?.message);
+        navigate("/transaction-success", {
+          state: { isBusiness: type == "business" ? true : false },
+        });
         fetchRequests();
         setNextPage(false);
       }

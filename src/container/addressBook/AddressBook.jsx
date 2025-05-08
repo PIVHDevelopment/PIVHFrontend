@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Index from "../Index";
+import * as Yup from "yup";
 import {
   Box,
   CircularProgress,
