@@ -12,6 +12,7 @@ import VerificationPin from "../verificationPin/VerificationPin";
 
 function Send() {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [buttonLoader, setButtonLoader] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [checkUser, setCheckUser] = useState("");
@@ -90,16 +91,16 @@ function Send() {
         paymentData
       );
       if (res?.data?.status) {
-        // Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         navigate("/transaction-success", {
           state: { isBusiness: type == "business" ? true : false },
         });
       } else {
-        Index.toasterError(res?.data?.message || t("SomethingWrong"));
+        Index.toasterError(res?.data?.message?.[language] || t("SomethingWrong"));
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
+        error?.response?.data?.message?.[language] || t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);

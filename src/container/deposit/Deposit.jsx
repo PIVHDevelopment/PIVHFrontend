@@ -3,6 +3,7 @@ import Index from "../Index";
 
 function Deposit() {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -26,16 +27,16 @@ function Deposit() {
           bodyData
         );
         if (res?.data?.status === 200) {
-          // Index.toasterSuccess(res?.data?.message);
+          // Index.toasterSuccess(res?.data?.message?.[language]);
           navigate("/transaction-success", {
             state: { isBusiness: typeTxn == "business" ? true : false },
           });
         } else {
-          Index.toasterError(res?.data?.message || t("SomethingWrong"));
+          Index.toasterError(res?.data?.message?.[language] || t("SomethingWrong"));
         }
       } catch (error) {
         Index.toasterError(
-          error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
+          error?.response?.data?.message?.[language] || t("AnUnexpectedErrorOccurred")
         );
       }
       setButtonLoader(false);

@@ -4,6 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function SignIn() {
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const onIncompletePaymentFound = (payment) => {
@@ -72,16 +73,16 @@ function SignIn() {
                 {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
-                Sign In
+                {t("Sign In")}
                 {/* )} */}
               </button>
             </div>
           </div>
           <div className="sigin-footer">
             <p onClick={() => navigate("/term-conditions")}>
-              Terms & Conditions
+              {t("Terms & Conditions")}
             </p>
-            <p onClick={() => navigate("/privacy-policy")}>Privacy Policy</p>
+            <p onClick={() => navigate("/privacy-policy")}>{t("Privacy Policy")}</p>
           </div>
         </div>
       )}

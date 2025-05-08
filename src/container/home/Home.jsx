@@ -127,10 +127,7 @@ function Home() {
                     <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
                   </Index.Select>
                 </Index.FormControl>
-                <img
-                  src={Index.languageImg}
-                  className="lang-change-icon"
-                />
+                <img src={Index.languageImg} className="lang-change-icon" />
                 <img
                   src={Index.downblackAarrow}
                   className="search-down-arrow"
@@ -161,7 +158,6 @@ function Home() {
                   <img src={Index.subscribedIcon} alt="Setting" />
                 </button>
               )} */}
-
 
               <button
                 className="icon-btn"
@@ -267,7 +263,11 @@ function Home() {
               }`}
           >
             <div className="toggle-arrow" onClick={toggleSection}>
-              <span className="arrow-icon">↑</span>
+              {isExpanded ? (
+                <span className="arrow-icon">↑</span>
+              ) : (
+                <span className="arrow-icon">↓</span>
+              )}
             </div>
             <h2>{t("TransactionHistory")}</h2>
             <div className="transaction-list">
@@ -383,7 +383,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">{t("Address Book")}</h6>
+            <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
             (tab === 1 && userData?.isIndividualSubscription) ? (
