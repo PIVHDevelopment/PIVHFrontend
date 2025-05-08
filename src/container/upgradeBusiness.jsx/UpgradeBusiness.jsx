@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 
 function UpgradeBusiness() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -43,7 +44,7 @@ function UpgradeBusiness() {
       })
       .catch((e) => {
         Index.toasterError(
-          e?.response?.data?.message || "Something went wrong"
+          e?.response?.data?.message || t("SomethingWrong")
         );
         setLoading(false);
       });
@@ -75,7 +76,7 @@ function UpgradeBusiness() {
         <div className="app-container">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
-              <img src={Index.back} alt="Back" />
+              <img src={Index.back} alt={t("Back")} />
             </button>
             <div className="app-icon" style={{ marginLeft: "-26px" }}>
               <img src={Index.pocketPi} alt="PocketPi" />
@@ -89,12 +90,12 @@ function UpgradeBusiness() {
               businessName: businessData?.businessName || "",
             }}
             onSubmit={handleSubmitFunction}
-            validationSchema={Index.addBusinessAddressFormSchema}
+            validationSchema={Index.addBusinessAddressFormSchema(t)}
             innerRef={formRef}
           >
             {(formik) => (
               <form onSubmit={formik.handleSubmit} className="send-form">
-                <h5> Upgrade to business version</h5>
+                <h5>{t("UpgradeVersion")}</h5>
                 <div className="input-group">
                   <div className="input-wrapper send-input-box">
                     <input
@@ -120,7 +121,7 @@ function UpgradeBusiness() {
                   <div className="input-wrapper send-input-box">
                     <input
                       type="text"
-                      placeholder="Enter Business Name"
+                      placeholder={t("EnterBusinessName")}
                       name="businessName"
                       value={formik.values.businessName}
                       onChange={formik.handleChange}
@@ -137,7 +138,7 @@ function UpgradeBusiness() {
                   className="action-btn full-width send-pi-btn"
                   type="submit"
                 >
-                  Save
+                  {t("Save")}
                 </button>
               </form>
             )}

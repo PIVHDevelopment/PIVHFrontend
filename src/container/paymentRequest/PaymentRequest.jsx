@@ -22,7 +22,10 @@ const modalStyle = {
 };
 
 const PaymentRequest = () => {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
   const [tab, setTab] = useState(1);
@@ -35,7 +38,6 @@ const PaymentRequest = () => {
   const [loading, setLoading] = useState(false);
   const [buttonLoader, setButtonLoader] = useState(false);
   const [txnData, setTxnData] = useState({});
-
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -69,7 +71,10 @@ const PaymentRequest = () => {
       const payload = {
         ...values,
         merchantId: userData._id,
-        merchantName: isBusiness ? userData?.businessUserName : userData?.userName
+        merchantName: isBusiness
+          ? userData?.businessUserName
+          : userData?.userName,
+        // id,
       };
       const res = await Index.DataService.post(
         Index.Api.ADD_UPDATE_PAYMENT_REQUEST,
@@ -122,9 +127,7 @@ const PaymentRequest = () => {
         setNextPage(false);
       }
     } catch (error) {
-      Index.toasterError(
-        error?.response?.data?.message
-      );
+      Index.toasterError(error?.response?.data?.message);
     } finally {
       setButtonLoader(false);
     }
@@ -161,7 +164,7 @@ const PaymentRequest = () => {
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon">
-              <img src={Index.pocketPi} alt="PocketPi" />
+              <img src={Index.pocketPi} alt={t("PocketPi")} />
             </div>
             <div className="header-right"></div>
           </header>
@@ -178,7 +181,7 @@ const PaymentRequest = () => {
                   data-tab="individual"
                   onClick={() => setTab(1)}
                 >
-                  Receive
+                  {t("Receive")}
                 </button>
 
                 <button
@@ -186,7 +189,7 @@ const PaymentRequest = () => {
                   data-tab="business"
                   onClick={() => setTab(2)}
                 >
-                  Sent
+                  {t("Sent")}
                 </button>
               </div>
             </Index.TabContainer>
@@ -194,12 +197,16 @@ const PaymentRequest = () => {
 
           <Box className="address-book-details">
             <Box className="address-book-head">
-              <Typography className="address-book-title">
-                Payment Request 
+              <Typography
+                className={`address-book-title ${
+                  isRtl ? "text-align-right" : ""
+                }`}
+              >
+                {t("PaymentRequest")}
               </Typography>
               {tab == 2 && (
                 <button className="icon-btn" onClick={handleOpen}>
-                  <img src={Index.Plusadd} alt="Add" />
+                  <img src={Index.Plusadd} alt={t("Add")} />
                 </button>
               )}
             </Box>
@@ -208,11 +215,15 @@ const PaymentRequest = () => {
                 {receivedData.length > 0 ? (
                   receivedData.map((item, index) => (
                     <ListItem key={index} className="list-item-address">
-                     <Box className={`flex-justify-gap-add ${item?.status !== "pending" ? "custom-align" : ""}`}>
+                      <Box
+                        className={`flex-justify-gap-add ${
+                          item?.status !== "pending" ? "custom-align" : ""
+                        }`}
+                      >
                         <Box className="address-left-contain">
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Request By :
+                              {t("RequestBy")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.merchantName}
@@ -220,7 +231,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Amount :
+                              {t("Amount")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.amount}
@@ -228,7 +239,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Description :
+                              {t("Description")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.description}
@@ -236,7 +247,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Status :
+                              {t("Status")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
                               {item?.status}
@@ -244,7 +255,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Date :
+                              {t("Date")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
                             {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
@@ -253,14 +264,17 @@ const PaymentRequest = () => {
                         </Box>
                         <Box className=" request-payment-pay-btn-box">
                           <button
-                            className={`${item?.status === "pending" ? "request-payment-pay-btn" : "request-payment-pay-success-btn"}`}
+                            className={`${
+                              item?.status === "pending"
+                                ? "request-payment-pay-btn"
+                                : "request-payment-pay-success-btn"
+                            }`}
                             onClick={() => handleSubmitPin(item)}
                             disabled={item?.status == "pending" ? false : true}
                           >
-                            {item?.status == "pending" ? "Pay" : "Paid"}
+                            {item?.status == "pending" ? t("Pay") : t("Paid")}
                           </button>
                         </Box>
-                      
                       </Box>
                     </ListItem>
                   ))
@@ -279,7 +293,7 @@ const PaymentRequest = () => {
                         <Box className="address-left-contain">
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Username :
+                              {t("Username")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.userName}
@@ -287,7 +301,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Amount :
+                              {t("Amount")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.amount}
@@ -295,7 +309,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Description :
+                              {t("Description")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.description}
@@ -303,7 +317,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Status :
+                              {t("Status")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
                               {item?.status}
@@ -311,7 +325,7 @@ const PaymentRequest = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Date :
+                              {t("Date")} :
                             </Typography>
                             <Typography className="field-contain-address custom-field-contain-status">
                             {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
@@ -334,7 +348,9 @@ const PaymentRequest = () => {
             <Box sx={modalStyle} className="common-style-modal address-style">
               <Box className="modal-header-common address-modal-header">
                 <Typography className="add-title">
-                  {id ? "Edit Payment Request" : "Add Payment Request"}
+                  {id
+                    ? `${t("Edit")} ${t("PaymentRequest")}`
+                    : `${t("Add")} ${t("PaymentRequest")}`}
                 </Typography>
                 <button className="btn-close" onClick={handleClose}></button>
               </Box>
@@ -344,7 +360,17 @@ const PaymentRequest = () => {
                   amount: "",
                   description: "",
                 }}
-                validationSchema={Index.addPaymentRequestSchema}
+                validationSchema={Yup.object({
+                  userName: Yup.string().required(
+                    `${t("Username")} ${t("IsRequired")}`
+                  ),
+                  amount: Yup.string().required(
+                    `${t("Amount")} ${t("IsRequired")}`
+                  ),
+                  description: Yup.string().required(
+                    `${t("Description")} ${t("IsRequired")}`
+                  ),
+                })}
                 onSubmit={handleSubmit}
               >
                 {(formik) => (
@@ -354,16 +380,19 @@ const PaymentRequest = () => {
                         <Box className="common-grid">
                           <div className="input-wrapper">
                             <Typography className="label-field">
-                              Username
+                              {t("Username")}
                             </Typography>
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder="Enter Username"
+                              placeholder={t("EnterUserName")}
                               name="userName"
                               value={formik.values.userName}
                               onChange={(e) => {
-                                const noSpaces = e.target.value.replace(/\s/g, "");
+                                const noSpaces = e.target.value.replace(
+                                  /\s/g,
+                                  ""
+                                );
                                 formik.setFieldValue("userName", noSpaces);
                               }}
                               onBlur={formik.handleBlur}
@@ -379,12 +408,12 @@ const PaymentRequest = () => {
                         <Box className="common-grid">
                           <div className="input-wrapper">
                             <Typography className="label-field">
-                              Amount
+                              {t("Amount")}
                             </Typography>
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder="Enter Amount"
+                              placeholder={t("EnterAmount")}
                               name="amount"
                               value={formik.values.amount}
                               onChange={(e) => {
@@ -406,12 +435,12 @@ const PaymentRequest = () => {
                         <Box className="common-grid">
                           <div className="input-wrapper">
                             <Typography className="label-field">
-                              Description
+                              {t("Description")}
                             </Typography>
                             <input
                               type="text"
                               className="notes-input"
-                              placeholder="Enter Description"
+                              placeholder={t("EnterDescription")}
                               name="description"
                               value={formik.values.description}
                               onChange={formik.handleChange}
@@ -437,7 +466,7 @@ const PaymentRequest = () => {
                             {buttonLoader ? (
                               <CircularProgress size={20} />
                             ) : (
-                              "Submit"
+                              t("Submit")
                             )}
                           </button>
                         </Box>

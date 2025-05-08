@@ -4,7 +4,25 @@ import { Formik } from "formik";
 import Index from "../Index";
 
 const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
+  const { t } = Index.useTranslation();
   const [showPin, setShowPin] = useState(false);
+  const navigate = Index.useNavigate();
+
+  const validationSchema = Yup.object().shape({
+    pinFields: Yup.array()
+      .of(Yup.string().matches(/^\d$/, t("OnlyDigitsAllowed")))
+      .test("pin-required", t("PleaseEnterPIN"), (arr) =>
+        arr.some((val) => val && val.trim() !== "")
+      )
+      .test(
+        "pin-length",
+        t("PINDigits"),
+        (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
+      ),
+  });
+
+  console.log("verifiction");
+
   const renderPinInputs = (values, setFieldValue) => (
     <Box className="set-pin-row common-pin-flex">
       {values.pinFields.map((val, idx) => (
@@ -72,22 +90,21 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
               <Box className="p-20">
                 <Box className="common-head-details">
                   <Typography variant="h5" className="heading" gutterBottom>
-                    Verify PIN
+                    {t("VerifyPIN")}
                   </Typography>
                   <Typography
                     variant="h6"
                     className="heading-note"
                     gutterBottom
                   >
-                    For your security, please enter your 5-digit transaction PIN
-                    to continue with this transaction.
+                    {t("ForPIN")}
                   </Typography>
                 </Box>
 
                 <Grid container spacing={4}>
                   <Grid item xs={12} md={6} className="set-pin-box">
                     <Typography variant="h6" className="text" gutterBottom>
-                      Enter PIN
+                      {t("EnterPIN")}
                     </Typography>
                     {renderPinInputs(values, setFieldValue)}
 
@@ -106,7 +123,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                     type="submit"
                     className="secondary-btn share-btn"
                   >
-                    Verify
+                    {t("Verify")}
                   </button>
                 </Box>
               </Box>
