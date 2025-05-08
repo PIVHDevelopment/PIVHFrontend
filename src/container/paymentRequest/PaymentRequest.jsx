@@ -82,12 +82,12 @@ const PaymentRequest = () => {
         payload
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         fetchRequests();
         handleClose();
       }
     } catch (err) {
-      Index.toasterError(err?.response?.data?.message);
+      Index.toasterError(err?.response?.data?.message?.[language]);
     } finally {
         setLoading(false);
     }

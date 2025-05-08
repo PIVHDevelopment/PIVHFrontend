@@ -5,8 +5,8 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export default function KYBVerification() {
-
-
+const navigate = Index.useNavigate();
+const { t } = Index.useTranslation();
     // for open handleChangedropdown
 
     const [age, setAge] = React.useState("");
@@ -18,7 +18,7 @@ export default function KYBVerification() {
         <>
             <div className="app-container">
                 <header className="receive-center">
-                    <button className="back-btn">
+                    <button className="back-btn" onClick={() => navigate(-1)}>
                         <img src={Index.back} alt="Back" />
                     </button>
                     <div className="app-icon">
@@ -29,7 +29,7 @@ export default function KYBVerification() {
                 <Index.Box className="address-book-details">
                     <Index.Box className="address-book-head">
                         <Index.Typography className="address-book-title">
-                            KYB Verification
+                            {t("KYB Verification")}
                         </Index.Typography>
                     </Index.Box>
 
@@ -51,7 +51,7 @@ export default function KYBVerification() {
                                 >
                                     <div className="input-box">
                                         <Index.Typography className="input-form-label">
-                                            Select Country
+                                            {t("Select Country")}
                                         </Index.Typography>
                                         <Index.Box className="user-dropdown-box">
                                             <Index.FormControl className="user-from-control">
@@ -92,7 +92,7 @@ export default function KYBVerification() {
                                 >
                                     <div className="input-box">
                                         <Index.Typography className="input-form-label">
-                                            Upload Document Front
+                                            {t("Upload Document Front")}
                                         </Index.Typography>
                                         <div className='user-file-upload-btn-main'>
                                             {/* <img
@@ -123,7 +123,7 @@ export default function KYBVerification() {
                                 >
                                     <div className="input-box">
                                         <Index.Typography className="input-form-label">
-                                            Upload Document Back
+                                            {t("Upload Document Back")}
                                         </Index.Typography>
                                         <div className='user-file-upload-btn-main'>
                                             {/* <img
@@ -149,7 +149,7 @@ export default function KYBVerification() {
                             className="action-btn full-width button-top-space"
                             type="submit"
                         >
-                            Submit
+                            {t("Submit")}
                         </button>
                     </Index.Box>
                 </Index.Box>

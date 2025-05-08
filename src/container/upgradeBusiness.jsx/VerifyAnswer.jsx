@@ -38,7 +38,7 @@ const VerifyAnswer = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
+          err?.response?.data?.message?.[language] || t("SomethingWrong")
         );
       })
       .finally(() => {

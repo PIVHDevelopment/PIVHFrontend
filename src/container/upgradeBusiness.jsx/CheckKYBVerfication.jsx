@@ -3,7 +3,7 @@ import Index from "../Index";
 
 function CheckKYBVerfication() {
   const navigate = Index.useNavigate();
-
+  const { t } = Index.useTranslation();
   return (
     <div className="app-container">
       <header className="receive-center">
@@ -11,19 +11,19 @@ function CheckKYBVerfication() {
           <img src={Index.back} alt="Back" />
         </button>
         <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
       <div className="send-form">
         <button disabled={true} className="action-btn full-width send-pi-btn">
-          KYB Verification
+          {t("KYB Verification")}
         </button>
         <button
           onClick={() => navigate("/upgrade-business")}
           className="action-btn full-width send-pi-btn"
         >
-          Skip for now
+          {t("Skip for now")}
         </button>
       </div>
     </div>

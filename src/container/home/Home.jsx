@@ -383,7 +383,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">{t("Address Book")}</h6>
+            <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
             (tab === 1 && userData?.isIndividualSubscription) ? (

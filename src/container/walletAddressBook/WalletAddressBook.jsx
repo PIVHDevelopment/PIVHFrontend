@@ -36,6 +36,7 @@ const style = {
 
 const WalletAddressBook = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [wallets, setWallets] = useState([]);
   const [open, setOpen] = useState(false);
@@ -93,11 +94,11 @@ const WalletAddressBook = () => {
         payload
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getWallets();
         handleClose();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     } catch (error) {
       Index.toasterError(
@@ -115,10 +116,10 @@ const WalletAddressBook = () => {
         `${Index.Api.DELETE_WALLET_ADDRESS}/${id}`
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getWallets();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     } catch (error) {
       Index.toasterError(t("SomethingWrong"));

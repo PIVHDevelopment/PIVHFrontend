@@ -73,7 +73,7 @@ function SignIn() {
                 {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
-                Sign In
+                {t("Sign In")}
                 {/* )} */}
               </button>
             </div>

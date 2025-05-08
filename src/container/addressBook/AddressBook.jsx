@@ -106,10 +106,10 @@ const AddressBook = () => {
     setButtonLoader(true);
     Index.DataService.post(Index.Api.DELETE_ADDRESS + "/" + id).then((res) => {
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getAddress();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     });
     setButtonLoader(false);

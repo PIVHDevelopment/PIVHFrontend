@@ -100,7 +100,7 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
-        Index.toasterError(err?.response?.data?.message || t("SomethingWrong"));
+        Index.toasterError(err?.response?.data?.message?.[language] || t("SomethingWrong"));
       })
       .finally(() => {
         setIsLoading(false);

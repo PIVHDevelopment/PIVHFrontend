@@ -52,7 +52,7 @@ const Subscription = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
+          err?.response?.data?.message?.[language] || t("SomethingWrong")
         );
       })
       .finally(() => {
@@ -109,7 +109,7 @@ const Subscription = () => {
                 {isLoading ? (
                   <Spinner animation="border" role="status" size="sm" />
                 ) : (
-                    userData?.isIndividualSubscription ? t("Subscribed") : t("Okay")
+                    userData?.isIndividualSubscription ? t("Subscribed") : t("Oky")
                 )}
               </button>}
             </Box>
