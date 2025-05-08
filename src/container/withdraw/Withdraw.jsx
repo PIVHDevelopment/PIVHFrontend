@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
+import { CircularProgress } from "@mui/material";
+import VerificationPin from "../verificationPin/VerificationPin";
 import { Autocomplete, TextField } from "@mui/material";
 
 function Withdraw() {
@@ -14,6 +16,8 @@ function Withdraw() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
+  const [nextPage, setNextPage] = useState(false);
+   const [txnData, setTxnData] = useState({});
 
   const getWallets = async () => {
     try {
@@ -32,12 +36,13 @@ function Withdraw() {
 
   const handleSubmitFunction = async (values) => {
     try {
+     const pin = values.pinFields.join("");
       setButtonLoader(true);
-
       const paymentData = {
+        pin,
         uid: userData?.uid,
-        amount: values?.amount,
-        address: values?.address,
+        amount: txnData?.amount,
+        address: txnData?.address,
         userName: userData?.userName,
         typeTxn,
       };
@@ -45,7 +50,8 @@ function Withdraw() {
       const res = await Index.DataService.post(Index.Api.WITHDRAW, paymentData);
       setButtonLoader(false);
       if (res?.data?.status === 200) {
-        Index.toasterSuccess(res?.data?.message);
+        setTxnData({});
+        // Index.toasterSuccess(res?.data?.message);
         navigate("/transaction-success", {
           state: { isBusiness: typeTxn == "business" ? true : false },
         });
@@ -75,12 +81,24 @@ function Withdraw() {
     getWallets();
   }, []);
 
+    const handleSubmit = (values) => {
+      setTxnData(values);
+      setNextPage(true);
+    };
+
   return (
     <>
       {buttonLoader ? (
         <Index.Loader />
       ) : (
         <div className="app-container">
+          {nextPage ? (
+             <VerificationPin
+               handleSubmitFunction={handleSubmitFunction}
+               setNextPage={setNextPage}
+                />
+               ) : (
+             <>
           <header className="receive-center">
             <button
               className="back-btn"
@@ -100,10 +118,10 @@ function Withdraw() {
 
           <Index.Formik
             initialValues={{
-              amount: "",
-              address: "",
+              amount: txnData?.amount ||"",
+              address: txnData?.address || "",
             }}
-            onSubmit={handleSubmitFunction}
+            onSubmit={handleSubmit}
             validationSchema={Index.withdrawPiFormSchema(t)}
             innerRef={formRef}
           >
@@ -226,6 +244,8 @@ function Withdraw() {
               </form>
             )}
           </Index.Formik>
+          </>
+          )}
         </div>
       )}
     </>

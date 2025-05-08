@@ -90,7 +90,7 @@ function Send() {
         paymentData
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res?.data?.message);
+        // Index.toasterSuccess(res?.data?.message);
         navigate("/transaction-success", {
           state: { isBusiness: type == "business" ? true : false },
         });

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { Formik } from "formik";
+import * as Yup from "yup";
 import Index from "../Index";
 
 const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
