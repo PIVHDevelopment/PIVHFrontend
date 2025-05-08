@@ -3,6 +3,7 @@ import Index from "../Index";
 import { Autocomplete, TextField } from "@mui/material";
 
 function Withdraw() {
+  const { t } = Index.useTranslation();
   const [buttonLoader, setButtonLoader] = useState(false);
   const [balance, setBalance] = useState("0");
   const [wallets, setWallets] = useState([]);
@@ -92,7 +93,7 @@ function Withdraw() {
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon" style={{ marginLeft: "-26px" }}>
-              <img src={Index.pocketPi} alt="PocketPi" />
+              <img src={Index.pocketPi} alt={t("PocketPi")} />
             </div>
             <div className="header-right"></div>
           </header>
@@ -103,7 +104,7 @@ function Withdraw() {
               address: "",
             }}
             onSubmit={handleSubmitFunction}
-            validationSchema={Index.withdrawPiFormSchema}
+            validationSchema={Index.withdrawPiFormSchema(t)}
             innerRef={formRef}
           >
             {(formik) => (
@@ -111,7 +112,7 @@ function Withdraw() {
                 <div className="input-group">
                   {console.log("onCancel", formik.errors)}
                   <div className="amount-section">
-                    <label>Available Balance</label>
+                    <label>{t("AvailableBalance")}</label>
                     <div className="amount-display">
                       {parseFloat(
                         typeTxn == "business" ? businessBalance : balance
@@ -126,7 +127,7 @@ function Withdraw() {
                           type="text"
                           inputMode="numeric"
                           className="notes-input"
-                          placeholder="Enter Amount"
+                          placeholder={t("EnterAmount")}
                           name="amount"
                           value={formik.values.amount}
                           onChange={(e) => {
@@ -190,7 +191,7 @@ function Withdraw() {
                               placeholder={
                                 formik?.values?.address
                                   ? ""
-                                  : "Enter Wallet Address"
+                                  : t("EnterWalletAddress")
                               }
                               variant="outlined"
                               fullWidth
@@ -207,7 +208,7 @@ function Withdraw() {
                       </div>
                       {formik.values.amount >= 0.01 ? (
                         <label className="text-color deduction-message">
-                          0.01 will be deducted as transaction fees
+                          0.01 {t("DeductFees")}
                         </label>
                       ) : (
                         ""
@@ -220,7 +221,7 @@ function Withdraw() {
                   type="submit"
                   disabled={buttonLoader}
                 >
-                  {buttonLoader ? "Processing..." : "Withdraw"}
+                  {buttonLoader ? t("Processing") : t("Withdraw")}
                 </button>
               </form>
             )}

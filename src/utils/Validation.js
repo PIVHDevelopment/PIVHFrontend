@@ -1,43 +1,43 @@
 import * as Yup from "yup";
 
-export const sendPiFormSchema = Yup.object({
-  userName: Yup.string().required("Please enter username"),
+export const sendPiFormSchema = (t) => Yup.object({
+  userName: Yup.string().required(t("PleaseEnterUserName")),
   // .test("check username", "You can't send pi coins to own account", (val) => {
   //   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   //   return val !== userData?.userName;
   // }),
   amount: Yup.string()
-    .required("Please enter amount")
-    .test("min-amount", "Amount must be at least 0.001", (value) => {
+    .required(t("PleaseEnterAmount"))
+    .test("min-amount", t("PleaseEnterAmountAtLeast"), (value) => {
       const num = parseFloat(value || "0");
       return num >= 0.001;
     }),
-  memo: Yup.string().required("Please enter memo"),
+  memo: Yup.string().required(t("PleaseEnterMemo")),
 });
-export const depositPiFormSchema = Yup.object({
+export const depositPiFormSchema = (t) => Yup.object({
   amount: Yup.string()
-    .required("Please enter amount")
-    .test("min-amount", "Amount must be at least 0.05", (value) => {
+    .required(t("PleaseEnterAmount"))
+    .test("min-amount", t("PleaseEnterAmountAtLeaseMust"), (value) => {
       const num = parseFloat(value || "0");
       return num >= 0.05;
     }),
 });
-export const withdrawPiFormSchema = Yup.object({
+export const withdrawPiFormSchema=(t) => Yup.object({
   amount: Yup.string()
-    .required("Please enter amount")
-    .test("min-amount", "Amount must be at least 0.01", (value) => {
+    .required(t("PleaseEnterAmount"))
+    .test("min-amount", t("PleaseEnterAmountAtLeaseMust1"), (value) => {
       const num = parseFloat(value || "0");
       return num >= 0.01;
     }),
-  address: Yup.string().required("Please enter wallet address"),
+  address: Yup.string().required(t("PleaseEnterWallet")),
 });
-export const addWalletAddressFormSchema = Yup.object({
-  walletAddress: Yup.string().required("Please enter wallet address"),
+export const addWalletAddressFormSchema = (t) => Yup.object({
+  walletAddress: Yup.string().required(t("PleaseEnterWalletAddress")),
 });
 
-export const addBusinessAddressFormSchema = Yup.object({
-  userName: Yup.string().required("Please enter user name"),
-  businessName: Yup.string().required("Please enter business name"),
+export const addBusinessAddressFormSchema = (t) => Yup.object({
+  userName: Yup.string().required(t("PleaseEnterUserName")),
+  businessName: Yup.string().required(t("PleaseEnterBusinessName")),
 });
 
 

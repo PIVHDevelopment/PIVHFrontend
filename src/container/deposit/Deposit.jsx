@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function Deposit() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -30,11 +31,11 @@ function Deposit() {
             state: { isBusiness: typeTxn == "business" ? true : false },
           });
         } else {
-          Index.toasterError(res?.data?.message || "Something went wrong.");
+          Index.toasterError(res?.data?.message || t("SomethingWrong"));
         }
       } catch (error) {
         Index.toasterError(
-          error?.response?.data?.message || "An unexpected error occurred."
+          error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
         );
       }
       setButtonLoader(false);
@@ -127,7 +128,7 @@ function Deposit() {
               amount: "",
             }}
             onSubmit={handleSubmitFunction}
-            validationSchema={Index.depositPiFormSchema}
+            validationSchema={Index.depositPiFormSchema(t)}
             innerRef={formRef}
           >
             {(formik) => (
@@ -138,7 +139,7 @@ function Deposit() {
                       type="text"
                       inputMode="numeric" 
                       className="notes-input"
-                      placeholder="Enter Amount"
+                      placeholder={t("EnterAmount")}
                       name="amount"
                       value={formik.values.amount}
                       onChange={(e) => {
@@ -158,7 +159,7 @@ function Deposit() {
                   </div>
                 </div>
                 <div className="amount-section">
-                  <label>Enter Pi Amount</label>
+                  <label>{t("EnterPiAmount")}</label>
                   <div className="amount-display">
                     {formik.values.amount || "0"} Pi
                   </div>
@@ -169,7 +170,8 @@ function Deposit() {
                   type="submit"
                   disabled={buttonLoader}
                 >
-                  Deposit
+                  {/* {buttonLoader ? "Processing..." : "Deposit"} */}
+                  {t("Deposit")}
                 </button>
               </form>
             )}

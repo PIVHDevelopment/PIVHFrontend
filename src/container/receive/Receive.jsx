@@ -6,8 +6,8 @@ import {
   TwitterShareButton,
   WhatsappIcon,
   EmailIcon,
-  TwitterIcon
-} from 'react-share';
+  TwitterIcon,
+} from "react-share";
 import { Box, Modal, Typography } from "@mui/material";
 
 const style = {
@@ -22,20 +22,21 @@ const style = {
 };
 
 function Receive() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const ImageURL = import.meta.env.VITE_IMAGE_URL;
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
-  const[qrData, setQrData]= useState({});
+  const [qrData, setQrData] = useState({});
   let typeTxn = location?.state?.typeTxn;
   const shareRef = useRef();
   const [copied, setCopied] = useState(false);
- const [loading,setLoading]=useState(false)
-   const [open, setOpen] = React.useState(false);
-   const [shareUrl, setShareUrl] = useState("");
-   const handleClose = () => {
-     setOpen(false);
-   };
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
@@ -45,110 +46,121 @@ function Receive() {
     setTimeout(() => setCopied(false), 3000);
   };
   useEffect(() => {
-    if(qrData?.qrCodes){
-    const url = typeTxn === "business"
-    ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
-    : `${ImageURL}${qrData?.qrCodes?.userQr}`;
+    if (qrData?.qrCodes) {
+      const url =
+        typeTxn === "business"
+          ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+          : `${ImageURL}${qrData?.qrCodes?.userQr}`;
       setShareUrl(url);
     }
-    },[typeTxn,qrData])
+  }, [typeTxn, qrData]);
 
   const handleShare = () => {
-  setOpen(true);
+    setOpen(true);
   };
 
-
-  const handleFetchQrCode = async ()=>{
+  const handleFetchQrCode = async () => {
     setLoading(true);
     try {
-      const res = await Index.DataService.get(Index.Api.FETCH_QR_CODE+`/${userData?.uid}`);
-      if(res?.data?.status === 200){
+      const res = await Index.DataService.get(
+        Index.Api.FETCH_QR_CODE + `/${userData?.uid}`
+      );
+      if (res?.data?.status === 200) {
         setQrData(res?.data?.data);
       }
     } catch (error) {
       console.log(error);
-      
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     handleFetchQrCode();
-  },[])
-console.log({qrData});
+  }, []);
+  console.log({ qrData });
 
-const handleCopyLink = ()=>{
-  navigator.clipboard.writeText(shareUrl);
-    Index.toasterSuccess("QR code link copied successfully");
-}
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl);
+    Index.toasterSuccess(t("QRCopy"));
+  };
 
-const shareImage = async () => {
-  const imageUrl = typeTxn === "business"
-    ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
-    : `${ImageURL}${qrData?.qrCodes?.userQr}`;
+  const shareImage = async () => {
+    const imageUrl =
+      typeTxn === "business"
+        ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+        : `${ImageURL}${qrData?.qrCodes?.userQr}`;
 
-  const response = await fetch(imageUrl);
-  console.log({response});
-  
-  const blob = await response.blob();
-  const file = new File([blob], "qr_code.png", { type: blob.type });
+    const response = await fetch(imageUrl);
+    console.log({ response });
 
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({
-        files: [file],
-        title: "Share QR Code",
-        text: "Scan QR Code",
-      });
-    } catch (error) {
-      console.error("Share failed:", error);
+    const blob = await response.blob();
+    const file = new File([blob], "qr_code.png", { type: blob.type });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: "Share QR Code",
+          text: "Scan QR Code",
+        });
+      } catch (error) {
+        console.error("Share failed:", error);
+      }
+    } else {
+      Index.toasterError(t("SharingFiels"));
     }
-  } else {
-    Index.toasterError("Sharing files is not supported on this device.");
-  }
-};
+  };
 
   return (
     <>
-        {loading ? (
-            <Index.Loader />
-          ) : (
-    <div className="app-container">
-      <header className="receive-center">
-      <button className="back-btn" onClick={() => navigate("/home", {
-         state: { isBusiness: typeTxn == "business" ? true : false },
-      })}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
-        </div>
-        <div className="header-right"></div>
-      </header>
+      {loading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button
+              className="back-btn"
+              onClick={() =>
+                navigate("/home", {
+                  state: { isBusiness: typeTxn == "business" ? true : false },
+                })
+              }
+            >
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
 
-      <div className="wallet-id">
-        <span id="walletAddress">
-          {typeTxn == "business"
-            ? userData?.businessUserName
-            : userData?.userName}
-        </span>
-        <button className="copy-btn" onClick={handleCopy}>
-          {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
-        </button>
-      </div>
+          <div className="wallet-id">
+            <span id="walletAddress">
+              {typeTxn == "business"
+                ? userData?.businessUserName
+                : userData?.userName}
+            </span>
+            <button className="copy-btn" onClick={handleCopy}>
+              {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
+            </button>
+          </div>
 
-      <div className="qr-section">
-        <div className="qr-code">
-        <img  src={ 
-      typeTxn === "business" 
-      ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
-      : `${ImageURL}${qrData?.qrCodes?.userQr}`
-     }  alt="QR Code" className="generate-qr-code" />
-        </div>
-      </div>
+          <div className="qr-section">
+            <div className="qr-code">
+              <img
+                src={
+                  typeTxn === "business"
+                    ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
+                    : `${ImageURL}${qrData?.qrCodes?.userQr}`
+                }
+                alt="QR Code"
+                className="generate-qr-code"
+              />
+            </div>
+          </div>
 
-      {/* <div className="action-buttons">
+          {/* <div className="action-buttons">
         <button className="circle-btn">
           <span className="icon">
             <img src={Index.copyBtn} alt="Copy" />
@@ -163,24 +175,27 @@ const shareImage = async () => {
         </button>
       </div> */}
 
-      <div className="receive-btn-share">
-      <button className="secondary-btn share-btn" onClick={handleCopyLink}>
-          <span className="icon">
-            <img src={Index.copyLink} alt="Share" />
-          </span>
-          Copy
-        </button>
-        <button className="secondary-btn share-btn" onClick={handleShare}>
-        {/* <button className="secondary-btn share-btn"  onClick={shareImage}> */}
-          <span className="icon">
-            <img src={Index.share} alt="Share" />
-          </span>
-          Share
-        </button>
-      </div>
-    </div>
-  )}
-     <Modal
+          <div className="receive-btn-share">
+            <button
+              className="secondary-btn share-btn"
+              onClick={handleCopyLink}
+            >
+              <span className="icon">
+                <img src={Index.copyLink} alt="Share" />
+              </span>
+              {t("Copy")}
+            </button>
+            <button className="secondary-btn share-btn" onClick={handleShare}>
+              {/* <button className="secondary-btn share-btn"  onClick={shareImage}> */}
+              <span className="icon">
+                <img src={Index.share} alt={t("Share")} />
+              </span>
+              {t("Share")}
+            </button>
+          </div>
+        </div>
+      )}
+      <Modal
         className="address-modal common-modall"
         open={open}
         onClose={handleClose}
@@ -189,7 +204,7 @@ const shareImage = async () => {
       >
         <Box sx={style} className="common-style-modal address-style">
           <Box className="modal-header-common address-modal-header">
-            <Typography className="add-title">Share QR Code </Typography>
+            <Typography className="add-title">{t("ShareQRCode")} </Typography>
             <button
               type="button"
               className="btn-close"
@@ -199,33 +214,24 @@ const shareImage = async () => {
             ></button>
           </Box>
           <div className="qr-btn-share-box">
-              <WhatsappShareButton
-            url={shareUrl} 
-          title="Share QR Code"
-          >
-         <WhatsappIcon size={45} round />
-               </WhatsappShareButton>
-               <EmailShareButton
-            url={shareUrl}
-          subject="Share QR Code"
-          body="Scan QR Code:"
-          >
-           <EmailIcon size={45} round />
-              </EmailShareButton>
+            <WhatsappShareButton url={shareUrl} title={t("ShareQRCode")}>
+              <WhatsappIcon size={45} round />
+            </WhatsappShareButton>
+            <EmailShareButton
+              url={shareUrl}
+              subject="Share QR Code"
+              body="Scan QR Code:"
+            >
+              <EmailIcon size={45} round />
+            </EmailShareButton>
 
-               <TwitterShareButton
-               url={shareUrl}
-                title="Share QR Code"
-                >
-                <TwitterIcon size={45} round />
-              </TwitterShareButton>
-            </div>
-
-
-          </Box>
-    </Modal>
-
-  </>
+            <TwitterShareButton url={shareUrl} title={t("ShareQRCode")}>
+              <TwitterIcon size={45} round />
+            </TwitterShareButton>
+          </div>
+        </Box>
+      </Modal>
+    </>
   );
 }
 
