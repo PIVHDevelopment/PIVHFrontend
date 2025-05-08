@@ -256,6 +256,8 @@ function Home() {
           </Index.TabContainer>
         </div>
 
+        <button onClick={() => navigate("/kyb-verification")}>Demo</button>
+
         {transactionList?.length ? (
           <div
             // className={`transaction-section${
