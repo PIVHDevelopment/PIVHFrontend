@@ -64,7 +64,7 @@ const Subscription = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container p-20-0 set-pin-div" mx="auto">
+        <Box className="app-container set-pin-div" mx="auto">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />

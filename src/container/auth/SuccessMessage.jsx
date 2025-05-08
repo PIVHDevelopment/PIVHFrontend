@@ -8,7 +8,7 @@ const SuccessMessage = () => {
   const isBusiness = location?.state?.isBusiness;
 
   return (
-    <div className="app-container p-20-0 signin-main">
+    <div className="app-container signin-main">
       <div className="p-26">
         <div className="pin-success-message-div">
           <div className="logo-box">

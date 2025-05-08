@@ -32,6 +32,7 @@ import WalletAddressBook from "../container/walletAddressBook/WalletAddressBook"
 import PaymentRequest from "../container/paymentRequest/PaymentRequest";
 import TransactionSuccess from "../container/transactionSuccess/TransactionSuccess";
 import FeedbackComplaint from "../container/feedbackComplaint/FeedbackComplaint";
+import KYBVerification from "../container/kybVerification/KYBVerification";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -158,7 +159,6 @@ const Routers = () => {
           path: "/feedback-comaplaint",
           element: <FeedbackComplaint />,
         },
-
         {
           path: "/loader",
           element: <Loader />,
@@ -166,6 +166,10 @@ const Routers = () => {
         {
           path: "/transaction-success",
           element: <TransactionSuccess />,
+        },
+        {
+          path: "/kyb-verification",
+          element: <KYBVerification />,
         },
       ],
     },
