@@ -65,7 +65,6 @@ const SetPinRecoveryQuestion = () => {
   console.log("ddddd", ln)
   let questions =
     ln === "Hi" ? questionsHi : ln === "Ar" ? questionsAr : questionsEn;
-    console.log("ddddddd", questions)
   let businessQuestions =
     ln === "Hi"
       ? businessQuestionsHi
