@@ -222,7 +222,7 @@ header {
 }
 
 .balance-amount {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 500;
   color: var(--white);
 }
@@ -566,7 +566,7 @@ body.direction-rtl .transaction-section h2 {
 
 .amount-section {
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 0;
 }
 
 .amount-section label {
@@ -577,7 +577,7 @@ body.direction-rtl .transaction-section h2 {
 }
 
 .amount-display {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 500;
 }
 
@@ -757,7 +757,9 @@ button.address-book-btn {
   top: auto;
   height: unset;
 }
+.modal.user-setting-modal .btn-close{
 
+}
 .modal.show.user-setting-modal .modal-dialog {
   margin: 0 auto;
   padding: 8px 8px 0px 8px;
@@ -1028,14 +1030,14 @@ button.address-book-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 15px;
+  padding: 10px 15px;
   border-bottom: 1px solid #82828294;
 }
 
 .modal-header-common .add-title {
   color: var(--white);
   font-family: "Poppins";
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .common-grid .label-field {
@@ -1090,7 +1092,7 @@ button.address-book-btn {
 }
 
 .flex-filed-details .radio-group-flex span svg {
-  color: #523b88;
+  color: var(--white);
 }
 
 .common-style-modal .modal-footer {
@@ -1120,6 +1122,10 @@ button.address-book-btn {
   border-radius: 8px;
   background: var(--dark-bg);
   margin-bottom: 10px;
+}
+
+.list-ul-address .list-item-address:last-child {
+  margin-bottom: 0;
 }
 
 .address-book-listing .list-ul-address {
@@ -1171,10 +1177,11 @@ button.address-book-btn {
 
 .address-left-contain .list-field-show {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   width: 100%;
   margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .flex-justify-gap-add {
@@ -1191,7 +1198,7 @@ button.address-book-btn {
   width: 100%;
   font-family: "Poppins";
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 20px;
   color: var(--white);
 }
@@ -1202,6 +1209,7 @@ button.address-book-btn {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
+  word-break: break-word;
 }
 
 .address-left-contain {
@@ -1218,8 +1226,8 @@ button.address-book-btn {
 .address-auth-details .btn:hover,
 .address-auth-details .btn:active {
   padding: 2px;
-  border: none !important;
-  background-color: #ffffff45 !important;
+  border: none;
+  background-color: #ffffff45;
   border-radius: 50%;
   max-width: 30px;
   height: 30px;
@@ -1389,7 +1397,7 @@ button.address-book-btn {
 }
 
 .notes-input-box .notes-input .MuiInputBase-formControl {
-  padding: 11.35px 9px;
+  padding:8px 9px !important;
   font-family: "Poppins";
 }
 
@@ -1548,9 +1556,9 @@ span.icon {
   cursor: pointer;
 }
 
-.receiver-addres-scanner-box .scanner-icon {
+/* .receiver-addres-scanner-box .scanner-icon {
   min-width: 50px;
-}
+} */
 
 .deduction-message {
   margin: 10px 0 0 10px;
@@ -1664,12 +1672,12 @@ span.icon {
   position: absolute;
   top: 12px;
   bottom: 0px;
-  right: 0px;
-  margin: auto;
+  right: 12px;
+  inset-inline-end: 12px;
 }
 
 .notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
-  padding: 7.5px 49px 7.5px 5px !important;
+  padding: 7.5px 25px 7.5px 5px !important;
   cursor: pointer;
 }
 
@@ -1682,12 +1690,13 @@ span.icon {
 .qr-btn-share-box {
   padding: 33px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 25px;
 }
 
 .qr-btn-share-box button svg {
-  /* height: 40px;
-  width: 40px;  */
+  height: 40px;
+  width: 40px;
 }
 
 .textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
@@ -1734,6 +1743,23 @@ span.icon {
   border-radius: 8px;
   max-width: 50px;
   border: none;
+}
+
+.request-payment-pay-btn-box .request-payment-pay-success-btn {
+  background-color: var(--success-color);
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  font-size: 12px;
+  line-height: 16px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  border: 0;
 }
 
 .custom-field-contain-status {
@@ -2216,6 +2242,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   color: var(--white);
   margin-bottom: 5px;
 }
-.button-top-space{
+
+.button-top-space {
   margin-top: 25px;
 }
