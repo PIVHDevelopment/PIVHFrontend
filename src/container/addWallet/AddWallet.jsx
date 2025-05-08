@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function AddWallet() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -32,7 +33,7 @@ function AddWallet() {
           <img src={Index.back} alt="Back" />
         </button>
         <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
@@ -42,7 +43,7 @@ function AddWallet() {
           walletAddress: text,
         }}
         onSubmit={handleSubmitFunction}
-        validationSchema={Index.addWalletAddressFormSchema}
+        validationSchema={Index.addWalletAddressFormSchema(t)}
         innerRef={formRef}
       >
         {(formik) => (
@@ -51,7 +52,7 @@ function AddWallet() {
               <div className="input-wrapper send-input-box">
                 <input
                   type="text"
-                  placeholder="Enter Wallet Address"
+                  placeholder={t("EnterWalletAddress")}
                   name="walletAddress"
                   value={formik.values.walletAddress}
                   onChange={formik.handleChange}
@@ -65,7 +66,7 @@ function AddWallet() {
                       setText(res);
                     }}
                   >
-                    Paste
+                    {t("Paste")}
                   </button>
                 )}
               </div>
@@ -80,7 +81,7 @@ function AddWallet() {
             </div>
 
             <button className="action-btn full-width send-pi-btn" type="submit">
-              Save
+              {t("Save")}
             </button>
           </form>
         )}

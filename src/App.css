@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 h1,
@@ -253,7 +253,8 @@ header {
   font-size: 13px;
   font-weight: 500;
 }
-.action-btn img{
+
+.action-btn img {
   height: 20px;
   width: 20px;
 }
@@ -261,7 +262,6 @@ header {
 .action-btn.receive-btn img {
   transform: rotate(180deg);
 }
-
 
 .action-btn:disabled,
 .action-btn.send-pi-btn:disabled {
@@ -371,12 +371,28 @@ header {
   background: #16151a;
   border-radius: var(--border-radius);
   padding: 20px;
-  margin-top: auto;
+  margin: auto;
+  height: 30%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 480px;
+  transition: 0.3s ease-in-out;
+}
+
+.transaction-section.expanded {
+  height: calc(100% - 20%);
+  /* Expanded height */
 }
 
 .transaction-section.transaction-section-top {
   padding-top: 100px;
   margin-top: -120px;
+}
+
+.transaction-section.expanded .transaction-list {
+  max-height: 100%;
 }
 
 .transaction-section h2 {
@@ -488,7 +504,7 @@ header {
   color: var(--text-color);
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .input-wrapper input::placeholder {
@@ -600,7 +616,6 @@ header {
   opacity: 0.9;
   margin: 16px 0;
 }
-
 
 .circle-btn {
   display: flex;
@@ -839,7 +854,7 @@ button.address-book-btn {
   font-weight: 600;
   word-spacing: 2px;
   margin-bottom: 13px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .app-container {
@@ -848,7 +863,6 @@ button.address-book-btn {
   border-radius: 12px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 
 .set-pin-row .show-icon {
   height: 30px;
@@ -906,7 +920,7 @@ button.address-book-btn {
 
 .app-container .heading {
   font-weight: 600;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   text-align: center;
 }
 
@@ -919,7 +933,7 @@ button.address-book-btn {
   margin-bottom: 36px;
   font-weight: 600;
   font-size: 13px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   line-height: 18px;
 }
 
@@ -955,7 +969,6 @@ button.address-book-btn {
   padding: 18px 60px;
   border-radius: 46px;
   border: none;
-
 }
 
 .pin-success-message-div .success-message {
@@ -992,10 +1005,18 @@ button.address-book-btn {
   margin-bottom: 35px;
 }
 
-.common-style-modal {
+.address-modal .common-style-modal {
   border: 0px;
   border-radius: 10px;
   padding: 0px;
+  background: rgba(255, 255, 255, 0.15);
+  /* semi-transparent white */
+  backdrop-filter: blur(10px);
+  /* frosted glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .common-style-modal .modal-header-common {
@@ -1007,15 +1028,15 @@ button.address-book-btn {
 }
 
 .modal-header-common .add-title {
-  color: #000;
-  font-family: 'Poppins';
+  color: #fff;
+  font-family: "Poppins";
   font-weight: 600;
 }
 
 .common-grid .label-field {
   font-size: 14px;
-  color: #000000;
-  font-family: 'Poppins';
+  color: #eae1e1;
+  font-family: "Poppins";
   font-weight: 400;
   margin-bottom: 3px;
   line-height: 20px;
@@ -1035,7 +1056,7 @@ button.address-book-btn {
 
 .radio-group-flex .MuiFormControlLabel-label {
   font-size: 14px;
-  color: #000;
+  color: #fff;
   font-family: Poppins;
   font-weight: 500;
 }
@@ -1051,16 +1072,16 @@ button.address-book-btn {
 .common-grid .input-wrapper input {
   border-radius: 7px;
   background: transparent;
-  color: #000;
-  border: 1px solid #00000080;
+  color: #fff;
+  border: 1px solid #8f8e8e80;
   padding: 10px 20px;
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .common-grid .input-wrapper input::placeholder {
-  color: #00000080;
+  color: #b8b3b3;
 }
 
 .flex-filed-details .radio-group-flex span svg {
@@ -1078,6 +1099,7 @@ button.address-book-btn {
   background: #523b88;
   font-size: 17px;
   padding: 15px 20px;
+  border: 1px solid transparent;
 }
 
 .modal-footer-address .footer-address-center {
@@ -1162,7 +1184,7 @@ button.address-book-btn {
   flex: 0 0 90px;
   max-width: 90px;
   width: 100%;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -1171,7 +1193,7 @@ button.address-book-btn {
 
 .address-left-contain .list-field-show .field-contain-address {
   flex: 1;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -1204,8 +1226,6 @@ button.address-book-btn {
   width: 30px;
 }
 
-
-
 .address-left-contain .list-field-show:last-child {
   margin-bottom: 0px;
 }
@@ -1225,7 +1245,7 @@ button.address-book-btn {
 }
 
 .address-book-head .address-book-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
 }
@@ -1240,15 +1260,15 @@ button.address-book-btn {
 
 .modal-header-common.address-modal-header .btn-close {
   margin-left: auto;
+  background-color: #fff;
 }
-
 
 .delete-modal-contain {
   text-align: center;
 }
 
 .delete-modal-contain .are-you-sure-title {
-  color: #000;
+  color: #fff;
   font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
@@ -1256,7 +1276,7 @@ button.address-book-btn {
 }
 
 .delete-modal-contain .are-you-sure-desc {
-  color: #000;
+  color: #fff;
   font-size: 15px;
   line-height: 20px;
   font-family: "Poppins";
@@ -1267,10 +1287,10 @@ button.address-book-btn {
   background: transparent;
   font-size: 17px;
   padding: 15px 20px;
-  color: #523b88;
+  color: #f8f6fc;
   outline: none;
   border-radius: 30px;
-  border: 1px solid #523b88;
+  border: 1px solid #e0dee6;
   width: 100%;
   font-weight: 500;
 }
@@ -1279,7 +1299,7 @@ button.address-book-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 15px;
 }
 
 .delete-flex button {
@@ -1288,7 +1308,7 @@ button.address-book-btn {
 }
 
 .no-address-book {
-  min-height: calc(100vh - 210px);
+  min-height: calc(100vh - 290px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1297,14 +1317,14 @@ button.address-book-btn {
 }
 
 .no-address-book .no-address-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 18px;
   line-height: 26px;
   color: #fff;
 }
 
 .security-question-details .security-question-title {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -1312,7 +1332,7 @@ button.address-book-btn {
 
 .verify-answer-content .verify-answer-label {
   font-size: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
   line-height: 23px;
   margin-bottom: 5px;
@@ -1324,7 +1344,7 @@ button.address-book-btn {
 
 .verify-answer-content .verify-answer-label {
   font-size: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
   line-height: 23px;
   margin-bottom: 5px;
@@ -1337,7 +1357,7 @@ button.address-book-btn {
 .textarea-question-sequrity .MuiInputBase-fullWidth {
   padding: 16px;
   font-size: 14px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: #fff;
   background: var(--dark-bg);
   border: none;
@@ -1353,7 +1373,6 @@ button.address-book-btn {
   opacity: 0.6;
 }
 
-
 .verify-answer-content .textarea-question-sequrity {
   margin: 5px 0px 0px 0px;
 }
@@ -1364,8 +1383,8 @@ button.address-book-btn {
 }
 
 .notes-input-box .notes-input .MuiInputBase-formControl {
-  padding: 11.35px 9px ;
-  font-family: 'Poppins';
+  padding: 11.35px 9px;
+  font-family: "Poppins";
 }
 
 .notes-input-box .notes-input svg {
@@ -1402,7 +1421,6 @@ span.icon {
   display: flex;
   margin-top: -2px;
 }
-
 
 .loader-main {
   background: #00000085;
@@ -1452,7 +1470,6 @@ span.icon {
   }
 }
 
-
 .loader-inner {
   width: 72px;
   height: 72px;
@@ -1486,11 +1503,11 @@ span.icon {
 .security-ques-div h5 {
   text-align: center;
   margin-bottom: 15px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .question-radio label .MuiFormControlLabel-label {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .btn-home-content {
@@ -1514,40 +1531,39 @@ span.icon {
   margin: 10px 0px;
 }
 
-
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
+    hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
-
-
-.receiver-addres-scanner-box .scanner-icon img{
+.receiver-addres-scanner-box .scanner-icon img {
   height: 24px;
   width: 24px;
   cursor: pointer;
 }
 
-.receiver-addres-scanner-box .scanner-icon{
+.receiver-addres-scanner-box .scanner-icon {
   min-width: 50px;
 }
 
-.deduction-message{
-  margin:10px 0 0 10px;
+.deduction-message {
+  margin: 10px 0 0 10px;
 }
 
-.subscription-main{
+.subscription-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 0px 20px;
 }
-.subscrip-heading p{
+
+.subscrip-heading p {
   text-align: center;
   font-weight: 700;
   font-size: 26px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .tick-mark-icons {
@@ -1556,13 +1572,13 @@ span.icon {
   gap: 5px;
 }
 
-.subscrip-description p{
+.subscrip-description p {
   font-weight: 500;
   font-size: 18px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
-.subscrip-icon img{
+.subscrip-icon img {
   height: 20px;
   width: 20px;
 }
@@ -1580,7 +1596,8 @@ span.icon {
   align-items: center;
   width: 100%;
 }
-.app-container .qr-scanner-main-div #qr-reader{ 
+
+.app-container .qr-scanner-main-div #qr-reader {
   margin: 20px;
   padding: 20px !important;
   border-radius: 12px;
@@ -1588,20 +1605,20 @@ span.icon {
   width: 100% !important;
 }
 
-
-#html5-qrcode-button-camera-permission{
+#html5-qrcode-button-camera-permission {
   width: 100%;
-    margin-bottom: 16px;
-    background: #e38cff;
-    color: #fff;
-    font-size: 17px;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
+  margin-bottom: 16px;
+  background: #e38cff;
+  color: #fff;
+  font-size: 17px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
 }
+
 #html5-qrcode-button-camera-start,
-#html5-qrcode-button-camera-stop{
+#html5-qrcode-button-camera-stop {
   width: 100%;
   margin-bottom: 16px;
   background: #e38cff;
@@ -1614,10 +1631,11 @@ span.icon {
 }
 
 #qr-reader__scan_region img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
+    hue-rotate(128deg) brightness(100%) contrast(101%);
 }
 
-.action-send-main-contain .action-btn ,
+.action-send-main-contain .action-btn,
 .action-send-main-contain .action-btn:hover,
 .action-send-main-contain .action-btn:active {
   background: transparent;
@@ -1626,8 +1644,10 @@ span.icon {
   max-width: 160px;
   padding: 9px 10px;
 }
-.action-send-main-contain .action-btn img{
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
+
+.action-send-main-contain .action-btn img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
+    hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .tick-mark-icons .verify-icons {
@@ -1635,51 +1655,122 @@ span.icon {
   width: 20px;
 }
 
-
-.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment{
+.notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiAutocomplete-inputRoot
+  .MuiAutocomplete-endAdornment {
   display: none;
 }
 
-.receiver-addres-scanner-box{
+.receiver-addres-scanner-box {
   position: relative;
 }
 
-.receiver-addres-scanner-box .scanner-icon { 
+.receiver-addres-scanner-box .scanner-icon {
   position: absolute;
   top: 12px;
   bottom: 0px;
   right: 0px;
   margin: auto;
-
 }
 
-
-
-
-.notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+.notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
   padding: 7.5px 49px 7.5px 5px !important;
   cursor: pointer;
 }
 
-.qr-code .generate-qr-code{
+.qr-code .generate-qr-code {
   height: 250px;
   width: 250px;
   border-radius: 12px;
 }
 
-.qr-btn-share-box{
+.qr-btn-share-box {
   padding: 33px;
   display: flex;
   justify-content: space-around;
-
 }
 
-
-.qr-btn-share-box button svg{
+.qr-btn-share-box button svg {
   /* height: 40px;
   width: 40px;  */
 }
 
+.textarea-question-sequrity.question-custom .MuiInputBase-fullWidth {
+  padding: 0;
+}
+
+.custom-address-right-contain {
+  display: flex;
+  max-width: 92px;
+}
+
+.cus-address-left-contain p {
+  word-break: break-all;
+}
+
+.input-wrapper
+  .custom-notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
+  padding: 7.5px 0px 7.5px 5px !important;
+}
+
+.custom-dropdown-withdrow {
+  border-radius: 12px;
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper {
+  background-color: #593c8a;
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper ul li {
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 20px;
+  font-family: "Poppins";
+}
+
+.custom-dropdown-withdrow .MuiAutocomplete-paper ul li:hover {
+  background-color: #b270cc;
+}
+
+.request-payment-pay-btn-box .request-payment-pay-btn {
+  background: #e38cff;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 50px;
+  border: none;
+}
+
+.custom-field-contain-status {
+  text-transform: capitalize;
+}
+
+.payment-request-tabs .tab-btn {
+  padding: 10px 25px;
+}
+
+.receive-btn .pay-request-icon {
+  transform: rotate(180deg);
+}
+
+.transaction-title {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 200px;
+}
 
 .success-main {
   /* background-image: url('./assets/images/transaction-bg.jpg'); */
@@ -1692,7 +1783,6 @@ span.icon {
   overflow: hidden;
   background-color: #fda342;
 }
- 
 .success-btn {
   background: linear-gradient(135deg, #2d1b69, #6b2a96);
   color: #fff;
@@ -1706,7 +1796,6 @@ span.icon {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
 }
- 
 .success-btn::before {
   content: "";
   position: absolute;
@@ -1718,23 +1807,22 @@ span.icon {
   transform: skewX(-20deg);
   transition: left 0.5s ease;
 }
- 
+
 .success-btn:hover::before {
   left: 100%;
 }
- 
+
 .success-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
- 
 .success-icon {
   height: 70px;
   width: 70px;
   object-fit: contain;
   margin: 50px auto 20px auto;
 }
- 
+
 .success-message-box {
   position: absolute;
   bottom: 100px;
@@ -1749,7 +1837,6 @@ span.icon {
   margin: 0 0 40px 0;
   text-align: center;
 }
- 
 .character {
   position: absolute;
   top: 50%;
@@ -1757,17 +1844,14 @@ span.icon {
   width: 150px;
   transition: transform 1s ease-in-out;
 }
- 
 .coin {
   left: -200px;
   animation: moveCoin 5s forwards;
 }
- 
 .wallet {
   right: -200px;
   animation: moveWallet 5s forwards;
 }
- 
 /* @keyframes moveCoin {
   to {
     left: 50%;
@@ -1778,7 +1862,6 @@ span.icon {
     -o-transform: translate(-100%, -50%);
   }
 }
- 
 @keyframes moveWallet {
   to {
     right: 50%;
@@ -1789,63 +1872,254 @@ span.icon {
     -o-transform: translate(100%, -50%);
   }
 } */
- 
- 
+
 @keyframes moveCoin {
   0% {
     left: -200px;
     transform: translate(0, -50%);
   }
- 
+
   25% {
     transform: translate(0, -70%);
   }
- 
+
   50% {
     transform: translate(-50%, -50%);
   }
- 
+
   75% {
     transform: translate(-100%, -70%);
   }
- 
+
   100% {
     left: 50%;
     transform: translate(-100%, -50%);
   }
 }
- 
 @keyframes moveWallet {
   0% {
     right: -200px;
     transform: translate(0, -50%);
   }
- 
+
   25% {
     transform: translate(0, -70%);
   }
- 
+
   50% {
     transform: translate(50%, -50%);
   }
- 
+
   75% {
     transform: translate(100%, -70%);
   }
- 
+
   100% {
     right: 50%;
     transform: translate(100%, -50%);
   }
 }
 
-.transaction-title {
-  font-size: 15px;
+.app-btn-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-icon-btn {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: #ffffff45;
+}
+
+.app-icon-btn .app-icon {
+  height: 18px;
+  width: 18px;
+  object-fit: contain;
+  fill: #fff;
+}
+
+.cus-address-left-contain .field-contain-address {
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
   font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+.toggle-arrow {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  /*Initialbackgroundcolor*/
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 35px;
+  width: 35px;
+  animation: colorChange 2.5s infinite alternate;
+  /*animation: colorChange 2.5s infinite alternate, bounce 5s infinite ease-in-out;
+  */
+  -webkit-animation: colorChange 2.5s infinite alternate;
+}
+
+/* Define the background color animation */
+/* @keyframes colorChange {
+  0% {
+    background: rgba(255, 255, 255, 0.15); 
+  }
+  50% {
+    background: #ffc107; /
+  }
+  100% {
+    background: rgba(255, 255, 255, 0.6);
+  }
+} */
+
+/* Define the bouncing animation */
+/* @keyframes bounce {
+  0% {
+    transform: translateY(0); /
+  }
+  25% {
+    transform: translateY(-10px); 
+  }
+  50% {
+    transform: translateY(0); /
+  }
+  75% {
+    transform: translateY(-5px); 
+  }
+  100% {
+    transform: translateY(0);
+  }
+} */
+
+/* Hover effect for button interaction */
+.toggle-arrow:hover {
+  transform: scale(1.1); /* Slight scale up on hover */
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+.toggle-arrow .arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 17px;
+}
+
+.transaction-section.expanded .arrow-icon {
+  transform: ro
+  tate(180deg);
+}
+body .text-align-right {
+  text-align: right;
   width: 100%;
-  box-sizing: border-box;
-  max-width: 200px;
+}
+
+.direction-rtl {
+  direction: rtl;
+}
+.lang-dropdown-main {
+  position: relative;
+}
+.lang-dropdown-main .MuiSelect-select {
+  padding: 6px 21px 6px 36px;
+  border: 1px solid #2f2f2f1a;
+  background: #ffffff45;
+  color: #fff;
+  font-size: 12px;
+  font-family: "Poppins-Regular";
+  text-transform: uppercase;
+  border-radius: 25px;
+  max-width: 92px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+.lang-dropdown-main .MuiSelect-icon {
+  display: none;
+}
+.lang-dropdown-main fieldset {
+  display: none;
+}
+.lang-dropdown-main
+  .MuiFormControl-root
+  .Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+  border-width: 0px;
+}
+
+.lang-change-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0px;
+  left: 12px;
+  inset-inline-start: 12px;
+}
+
+.lang-dropdown-main .search-down-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%)
+    hue-rotate(243deg) brightness(101%) contrast(94%);
+  inset-inline-end: 12px; /* ← Always visual left in RTL */
+}
+
+body.direction-rtl .lang-dropdown-main .search-down-arrow {
+  right: auto; /* Remove right for RTL */
+  left: 12px; /* Add left for RTL */
+  transform: rotate(180deg);
+}
+
+.notes-input-multiline .MuiInputBase-formControl{
+  border-radius: 7px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #8f8e8e80;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Poppins'
+}
+.notes-input-multiline .MuiInputBase-formControl fieldset{
+  display: none;
+}
+
+.notes-input-multiline textarea {
+  overflow: auto !important; 
+  resize: none !important;   
+  resize: vertical;           
+  max-height: 200px;           
+  padding-right: 8px;          
+  scrollbar-width: unset;
+}
+
+.notes-input-multiline textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notes-input-multiline textarea::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 3px;
 }

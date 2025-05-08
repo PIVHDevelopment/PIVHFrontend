@@ -3,10 +3,10 @@ import { Box, Typography, TextField } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Index from "../Index";
-import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
+  const { t } = Index.useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -16,7 +16,7 @@ const VerifyAnswer = () => {
   const type = isBusiness ? "business" : "individual";
 
   const validationSchema = Yup.object().shape({
-    answer: Yup.string().trim().required("Please enter your answer"),
+    answer: Yup.string().trim().required(t("EnterAnswer")),
   });
 
   const handleSubmit = (values) => {
@@ -37,7 +37,7 @@ const VerifyAnswer = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || "Something went wrong"
+          err?.response?.data?.message || t("SomethingWrong")
         );
       })
       .finally(() => {
@@ -71,7 +71,7 @@ const VerifyAnswer = () => {
         <Box className="app-container p-20-0 set-pin-div" mx="auto">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
-              <img src={Index.back} alt="Back" />
+              <img src={Index.back} alt={t("Back")} />
             </button>
             <div className="app-icon" style={{ marginLeft: "-26px" }}>
               <img src={Index.pocketPi} alt="PocketPi" />
@@ -84,7 +84,7 @@ const VerifyAnswer = () => {
               gutterBottom
               className="security-question-title"
             >
-              {isBusiness && "Business "}Security Question
+              {isBusiness && t("Business")}{" "}{t("SecurityQuestion")}
             </Typography>
 
             <Box className="verify-answer-content">
@@ -100,11 +100,11 @@ const VerifyAnswer = () => {
                       variant="subtitle1"
                       className="verify-answer-label"
                     >
-                      {question || "Security question not found"}
+                      {question || t("SecurityNotFound")}
                     </Typography>
                     <TextField
                       name="answer"
-                      placeholder="Enter your Answer"
+                      placeholder={t("EnterYourAnswer")}
                       fullWidth
                       className="textarea-question-sequrity"
                       multiline
@@ -124,12 +124,11 @@ const VerifyAnswer = () => {
                         type="submit"
                         className="action-btn full-width send-pi-btn"
                         disabled={!question}
-                        // className="secondary-btn share-btn"
                       >
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
-                        Submit
+                        {t("Submit")}
                         {/* )} */}
                       </button>
                     </Box>

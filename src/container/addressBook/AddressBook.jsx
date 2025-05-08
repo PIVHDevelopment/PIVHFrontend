@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import * as Yup from "yup"; // For validation
 import Index from "../Index";
+import * as Yup from "yup";
 import {
   Box,
   CircularProgress,
@@ -33,6 +33,9 @@ const initialValues = {
   id: "",
 };
 const AddressBook = () => {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -41,7 +44,7 @@ const AddressBook = () => {
     setId("");
     setSelectedData(initialValues);
   };
-
+ const [loading , setLoading]= React.useState(false)
   const [openDelete, setOpenDelete] = React.useState(false);
   const [address, setAddress] = React.useState([]);
   const [buttonLoader, setButtonLoader] = React.useState(false);
@@ -79,13 +82,14 @@ const AddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || "An unexpected error occurred."
+        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
     }
   };
   const getAddress = async () => {
+    setLoading(true);
     Index.DataService.get(
       Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + type
     ).then((res) => {
@@ -93,6 +97,9 @@ const AddressBook = () => {
         setAddress(res.data.data);
       }
     });
+    setTimeout(() => {
+      setLoading(false);
+    },300);
   };
   const handleDelete = async () => {
     setButtonLoader(true);
@@ -112,9 +119,14 @@ const AddressBook = () => {
   }, []);
   return (
     <>
+       {loading ? (
+       <Index.Loader />
+       ) : (
       <div className="app-container">
         <header className="receive-center">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+        <button className="back-btn" onClick={() => navigate("/home", {
+                 state: { isBusiness },
+                   })}>
             <img src={Index.back} alt="Back" />
           </button>
           <div className="app-icon" style={{ marginLeft: "-26px" }}>
@@ -125,7 +137,9 @@ const AddressBook = () => {
 
         <Box className="address-book-details">
           <Box className="address-book-head">
-            <Typography className="address-book-title">Address Book</Typography>
+            <Typography className="address-book-title">
+              {t("AddressBook")}
+            </Typography>
             <button className="icon-btn" onClick={handleOpen}>
               <img src={Index.Plusadd} alt="Setting" />
             </button>
@@ -135,12 +149,16 @@ const AddressBook = () => {
               {address.length ? (
                 address.map((item) => {
                   return (
-                    <ListItem className="list-item-address">
+                    <ListItem 
+                    className={`list-item-address ${
+                      isRtl ? "text-align-right" : ""
+                    }`}
+                    >
                       <Box className="flex-justify-gap-add">
                         <Box className="address-left-contain">
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Type :
+                              {t("Type")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.type}
@@ -148,7 +166,7 @@ const AddressBook = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Name :
+                              {t("Name")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.name}
@@ -156,7 +174,7 @@ const AddressBook = () => {
                           </Box>
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              Username :
+                              {t("Username")} :
                             </Typography>
                             <Typography className="field-contain-address">
                               {item?.userName}
@@ -165,11 +183,11 @@ const AddressBook = () => {
                                 onClick={() => {
                                   navigator.clipboard.writeText(item?.userName);
                                   Index.toasterSuccess(
-                                    "Username copied to clipboard!"
+                                    t("UsernameCopiedToClipboard")
                                   );
                                 }}
                               >
-                                <img src={Index.copy} alt="Copy" />
+                                <img src={Index.copy} alt={t("Copy")} />
                               </button>
                             </Typography>
                           </Box>
@@ -203,7 +221,7 @@ const AddressBook = () => {
                 <div className="no-address-book">
                   {/* <img src={Index.addressbook} alt="addressbook" /> */}
                   <Typography className="no-address-title">
-                    No Address Data Found
+                    {t("NoAddressDataFound")}
                   </Typography>
                 </div>
               )}
@@ -211,7 +229,7 @@ const AddressBook = () => {
           </Box>
         </Box>
       </div>
-
+     )}
       <Modal
         className="address-modal common-modall"
         open={open}
@@ -221,7 +239,7 @@ const AddressBook = () => {
       >
         <Box sx={style} className="common-style-modal address-style">
           <Box className="modal-header-common address-modal-header">
-            <Typography className="add-title">Add Address </Typography>
+            <Typography className="add-title">{t("AddAddress")} </Typography>
             <button
               type="button"
               className="btn-close"
@@ -237,16 +255,13 @@ const AddressBook = () => {
               userName: selectedData?.userName || "",
             }}
             validationSchema={Yup.object({
-              type: Yup.string().required("Type is required"),
+              type: Yup.string().required(t("TypeRequired")),
               name: Yup.string()
-                .required("Name is required"),
-                // .matches(
-                //   /^\S.*\S$|^\S$/,
-                //   "Name cannot start or end with a space"
-                // ),
+                .required(t("NameRequired"))
+                .matches(/^\S.*\S$|^\S$/, t("NameSpace")),
               userName: Yup.string()
-                .required("Username is required")
-                .matches(/^\S+$/, "Username cannot contain spaces"),
+                .required(t("UsernameRequired"))
+                .matches(/^\S+$/, t("UsernameSpace")),
             })}
             onSubmit={(values) => {
               handleSubmit(values);
@@ -259,7 +274,9 @@ const AddressBook = () => {
                     <Box className="grid-row">
                       <Box className="common-grid">
                         <div className="flex-filed-details">
-                          <Typography className="label-field">Type</Typography>
+                          <Typography className="label-field">
+                            {t("Type")}
+                          </Typography>
                           <RadioGroup
                             className="radio-group-flex"
                             name="type"
@@ -270,30 +287,27 @@ const AddressBook = () => {
                               className="radio-label"
                               value="Individual"
                               control={<Radio />}
-                              label="Individual"
+                              label={t("Individual")}
                             />
                             <FormControlLabel
                               className="radio-label"
                               value="Business"
                               control={<Radio />}
-                              label="Business"
+                              label={t("Business")}
                             />
                           </RadioGroup>
-                          {/* {formik.errors.type && formik.touched.type && (
-                            <Typography className="error-text">
-                              {formik.errors.type}
-                            </Typography>
-                          )} */}
                         </div>
                       </Box>
 
                       <Box className="common-grid">
                         <div className="input-wrapper">
-                          <Typography className="label-field">Name</Typography>
+                          <Typography className="label-field">
+                            {t("Name")}
+                          </Typography>
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder="Enter Name"
+                            placeholder={t("EnterName")}
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -310,12 +324,12 @@ const AddressBook = () => {
                       <Box className="common-grid">
                         <div className="input-wrapper">
                           <Typography className="label-field">
-                            Username
+                            {t("Username")}
                           </Typography>
                           <input
                             type="text"
                             className="notes-input"
-                            placeholder="Enter Username"
+                            placeholder={t("EnterUserName")}
                             name="userName"
                             value={formik.values.userName}
                             onChange={formik.handleChange}
@@ -339,7 +353,11 @@ const AddressBook = () => {
                       type="submit"
                       disabled={buttonLoader}
                     >
-                      {buttonLoader ? <CircularProgress size={20} /> : "Submit"}
+                      {buttonLoader ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        t("Submit")
+                      )}
                     </button>
                   </Box>
                 </Box>
@@ -370,10 +388,10 @@ const AddressBook = () => {
           <Box className="modal-body address-body">
             <Box className="delete-modal-contain">
               <Typography className="are-you-sure-title">
-                Are you sure ?
+                {t("AreYouSure")}?
               </Typography>
               <Typography className="are-you-sure-desc  ">
-                Are you sure you want to delete address records.
+                {t("DeleteRecords")}
               </Typography>
             </Box>
           </Box>
@@ -385,7 +403,7 @@ const AddressBook = () => {
                 type="button"
                 onClick={handleCloseDelete}
               >
-                Cancel
+                {t("Cancel")}
               </button>
               <button
                 className="action-btn full-width send-pi-btn"
@@ -393,7 +411,7 @@ const AddressBook = () => {
                 onClick={(e) => handleDelete(e.target.values)}
                 disabled={buttonLoader}
               >
-                {buttonLoader ? <CircularProgress size={20} /> : "Delete"}
+                {buttonLoader ? <CircularProgress size={20} /> : t("Delete")}
               </button>
             </Box>
           </Box>

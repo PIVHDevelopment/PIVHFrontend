@@ -5,6 +5,7 @@ import Shop from "./Shop";
 import Routers from "./routes/Routes";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
 function App() {
   const theme = createTheme({
@@ -19,21 +20,21 @@ function App() {
 
   return (
     // <ThemeProvider theme={theme}>
-      <div className="App">
-        <Toaster
-          reverseOrder={false}
-          toastOptions={{
-            duration: 3000,
-            style: {
-              maxWidth: "unset",
-            },
-             position: "bottom-center"
-          }}
-        />
-        <ThemeProvider theme={theme}>
-            <Routers />
-        </ThemeProvider>
-      </div>
+    <div className="App">
+      <Toaster
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+          style: {
+            maxWidth: "unset",
+          },
+          position: "bottom-center",
+        }}
+      />
+      <ThemeProvider theme={theme}>
+        <Routers />
+      </ThemeProvider>
+    </div>
     // </ThemeProvider>
   );
 }
