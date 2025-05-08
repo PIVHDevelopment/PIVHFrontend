@@ -1838,3 +1838,14 @@ span.icon {
     transform: translate(100%, -50%);
   }
 }
+
+.transaction-title {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 200px;
+}
