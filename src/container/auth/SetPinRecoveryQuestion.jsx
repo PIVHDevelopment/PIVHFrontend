@@ -177,7 +177,7 @@ const SetPinRecoveryQuestion = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container p-20-0 set-pin-div">
+        <Box className="app-container set-pin-div">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
@@ -187,7 +187,7 @@ const SetPinRecoveryQuestion = () => {
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="p-20 security-ques-div">
+          <Box className="security-ques-div">
             <Typography variant="h5" gutterBottom>
               {isBusiness && t("Business")} {t("SecurityQuestion")}
             </Typography>
@@ -283,7 +283,7 @@ const SetPinRecoveryQuestion = () => {
                     helperText={touched.answer && errors.answer}
                   />
 
-                  <Box textAlign="center" mt={5}>
+                  <Box textAlign="center">
                     <button
                       variant="contained"
                       type="submit"

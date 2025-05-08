@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Index from "../Index";
-import * as Yup from "yup";
 import {
   Box,
   CircularProgress,
@@ -12,6 +11,7 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import * as Yup from "yup";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useLocation } from "react-router-dom";

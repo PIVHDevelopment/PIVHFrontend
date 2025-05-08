@@ -7,7 +7,7 @@ export default function TransactionSuccess() {
   const navigate = Index.useNavigate();
   return (
     <>
-      <div className="app-container p-20-0">
+      <div className="app-container">
         <div className="success-main">
           <img src={Index.piCoiImg} class="character coin" />
           <img src={Index.piWallettImg} class="character wallet" />
