@@ -39,3 +39,54 @@ export const addBusinessAddressFormSchema = (t) => Yup.object({
   userName: Yup.string().required(t("PleaseEnterUserName")),
   businessName: Yup.string().required(t("PleaseEnterBusinessName")),
 });
+
+
+export const addFeedbackFormSchema = Yup.object({
+  email: Yup.string()
+  .email("Enter a valid email")
+  .matches(
+    /^(([^<>()[\]\\.,;:-\s@#"]+(\.[^<>()[\]\\.,;:-\s@#"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    "Enter the valid email"
+  )
+  .required("Email is required"),
+  description: Yup.string().required("Description is required"),
+})
+
+
+export const addPaymentRequestSchema = Yup.object({
+  userName: Yup.string().required("Username is required"),
+  amount: Yup.string().required("Amount is required"),
+  description: Yup.string().required("Description is required"),
+})
+
+  export const addVerificationPinSchema = Yup.object().shape({
+    pinFields: Yup.array()
+      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
+      .test("pin-required", "Please enter PIN", (arr) =>
+        arr.some((val) => val && val.trim() !== "")
+      )
+      .test(
+        "pin-length",
+        "PIN must be 5 digits",
+        (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
+      ),
+  });
+
+  export const addWalletAddressBookSchema = Yup.object({
+    walletAddress: Yup.string()
+      .min(3, "Wallet Address must be at least 3 characters")
+      .required("Wallet Address is required")
+  })
+
+  export const addAddressBookSchema =Yup.object({
+    type: Yup.string().required("Type is required"),
+    name: Yup.string()
+      .required("Name is required")
+      .matches(
+        /^\S.*\S$|^\S$/,
+        "Name cannot start or end with a space"
+      ),
+    userName: Yup.string()
+      .required("Username is required")
+      .matches(/^\S+$/, "Username cannot contain spaces"),
+  })

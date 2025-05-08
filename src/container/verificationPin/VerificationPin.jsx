@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import Index from "../Index";
 
 const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
@@ -75,7 +74,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
       <div className="transaction-pin-details common-pin-details">
         <Formik
           initialValues={{ pinFields: ["", "", "", "", ""] }}
-          validationSchema={validationSchema}
+          validationSchema={Index.addVerificationPinSchema}
           onSubmit={handleSubmitFunction}
         >
           {({
@@ -123,15 +122,6 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                   <button
                     type="submit"
                     className="secondary-btn share-btn"
-                    // onClick={async () => {
-                    //   await setTouched({
-                    //     pinFields: [true, true, true, true, true],
-                    //   });
-                    //   const errors = await validateForm();
-                    //   if (!errors.pinFields) {
-                    //     handleSubmit();
-                    //   }
-                    // }}
                   >
                     {t("Verify")}
                   </button>

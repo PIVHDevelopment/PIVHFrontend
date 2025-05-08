@@ -17,7 +17,7 @@ function Individual({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.send} alt="Send Money" />
+            <img src={Index.downarrow} alt="Send Money" />
           </span>
           {t("Receive")}
         </button>
@@ -32,7 +32,7 @@ function Individual({ balance }) {
           }
         >
           <span className="btn-icon">
-            <img src={Index.downarrow} alt="Send Money" />
+            <img src={Index.send} alt="Send Money" />
           </span>
           {t("Send")}
         </button>

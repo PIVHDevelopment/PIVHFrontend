@@ -19,8 +19,10 @@ function Send() {
   const [nextPage, setNextPage] = useState(false);
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
-  const [txnData, setTxnData] = useState({});
 
+  console.log({ users });
+
+  const [txnData, setTxnData] = useState({});
 
   const location = Index.useLocation();
   const type = location?.state?.typeTxn;
@@ -47,9 +49,18 @@ function Send() {
           Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + capitalizedType
         );
         const resAllData = await Index.DataService.get(Index.Api.GET_USERS);
-        setCheckUser(resAllData?.data?.data);
-        if (res?.data?.status) {
-          setUsers(res?.data?.data);
+
+        const checkUsers = resAllData?.data?.data;
+        if (res?.data?.status && Array.isArray(res?.data?.data)) {
+          const rawUsers = res?.data?.data;
+          const filteredUsers = rawUsers.filter((user) => {
+            const match = checkUsers.find(
+              (cu) => cu.userName === user.userName
+            );
+            return !(match && match.isBlocked);
+          });
+          setCheckUser(checkUsers);
+          setUsers(filteredUsers);
         }
       } catch (error) {
         console.error("Error fetching users", error);
@@ -96,7 +107,9 @@ function Send() {
   };
 
   const handleSubmit = (values) => {
-    const result = checkUser?.find((user) => user.userName === values?.userName);
+    const result = checkUser?.find(
+      (user) => user.userName === values?.userName
+    );
     if (!result) {
       Index.toasterError(t("UserNotExist"));
       return false;
@@ -105,6 +118,7 @@ function Send() {
     setTxnData(values);
     setNextPage(true);
   };
+
   return (
     <>
       {buttonLoader ? (
@@ -119,9 +133,14 @@ function Send() {
           ) : (
             <>
               <header className="receive-center">
-                <button className="back-btn" onClick={() => navigate("/home", {
-                 state: { isBusiness: type == "business" ? true : false },
-                   })}>
+                <button
+                  className="back-btn"
+                  onClick={() =>
+                    navigate("/home", {
+                      state: { isBusiness: type == "business" ? true : false },
+                    })
+                  }
+                >
                   <img src={Index.back} alt="Back" />
                 </button>
                 <div className="app-icon" style={{ marginLeft: "-26px" }}>
@@ -159,14 +178,20 @@ function Send() {
                               typeof option === "string"
                                 ? option
                                 : option?.type
-                                  ? `${option.userName} (${option.type})`
-                                  : option.userName
+                                ? `${option.userName} (${option.type})`
+                                : option.userName
                             }
                             inputValue={inputValue}
                             value={
-                              users.find((user) => user.userName === formik.values.userName) ||
+                              users.find(
+                                (user) =>
+                                  user.userName === formik.values.userName
+                              ) ||
                               (Array.isArray(checkUser) &&
-                                checkUser.find((user) => user.userName === formik.values.userName)) ||
+                                checkUser.find(
+                                  (user) =>
+                                    user.userName === formik.values.userName
+                                )) ||
                               null
                             }
                             open={userDropDown}
@@ -207,7 +232,6 @@ function Send() {
                             )}
                           />
 
-
                           <div
                             className="scanner-icon"
                             onClick={() =>
@@ -230,7 +254,7 @@ function Send() {
                       <div className="input-group">
                         <div className="input-wrapper">
                           <input
-                            type="text" 
+                            type="text"
                             className="notes-input"
                             placeholder={t("EnterAmount")}
                             name="amount"
@@ -287,7 +311,7 @@ function Send() {
                         {t("SendPi")}
                       </button>
                     </form>
-                  )
+                  );
                 }}
               </Index.Formik>
             </>

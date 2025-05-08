@@ -42,6 +42,7 @@ const WalletAddressBook = () => {
   const [selectedData, setSelectedData] = useState({ walletAddress: "" });
   const [id, setId] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
+   const [loading , setLoading]= React.useState(false)
   const location = Index.useLocation();
   const navigate = Index.useNavigate();
   const isBusiness = location?.state?.isBusiness;
@@ -63,6 +64,7 @@ const WalletAddressBook = () => {
   };
 
   const getWallets = async () => {
+    setLoading(true);
     try {
       const res = await Index.DataService.get(
         `${Index.Api.GET_WALLET_ADDRESS}/${userData?._id}/${type}`
@@ -72,6 +74,8 @@ const WalletAddressBook = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 

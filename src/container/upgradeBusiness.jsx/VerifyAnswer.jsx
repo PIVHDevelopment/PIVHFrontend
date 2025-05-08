@@ -3,7 +3,6 @@ import { Box, Typography, TextField } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Index from "../Index";
-import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
@@ -125,7 +124,6 @@ const VerifyAnswer = () => {
                         type="submit"
                         className="action-btn full-width send-pi-btn"
                         disabled={!question}
-                        // className="secondary-btn share-btn"
                       >
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
