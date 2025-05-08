@@ -90,3 +90,70 @@ export const addPaymentRequestSchema = Yup.object({
       .required("Username is required")
       .matches(/^\S+$/, "Username cannot contain spaces"),
   })
+
+  export const addKybVerificationSchema =  Yup.object({
+    country: Yup.object().nullable().required("Country is required"),
+    frontDocument: Yup.mixed().when("country", {
+      is: (val) => val?.name === "India",
+      then: (schema) =>
+        schema
+          .required("Front aadhar is required")
+          .test(
+            "fileSize",
+            "File too large",
+            (value) => !value || value.size <= 5 * 1024 * 1024
+          )
+          .test(
+            "fileType",
+            "Unsupported file format",
+            (value) =>
+              !value ||
+              ["application/pdf", "image/jpeg", "image/png"].includes(
+                value.type
+              )
+          ),
+      otherwise: (schema) => schema.nullable(),
+    }),
+    backDocument: Yup.mixed().when("country", {
+      is: (val) => val?.name === "India",
+      then: (schema) =>
+        schema
+          .required("Back aadhar is required")
+          .test(
+            "fileSize",
+            "File too large",
+            (value) => !value || value.size <= 5 * 1024 * 1024
+          )
+          .test(
+            "fileType",
+            "Unsupported file format",
+            (value) =>
+              !value ||
+              ["application/pdf", "image/jpeg", "image/png"].includes(
+                value.type
+              )
+          ),
+      otherwise: (schema) => schema.nullable(),
+    }),
+    singleDocument: Yup.mixed().when("country", {
+      is: (val) => val?.name !== "India",
+      then: (schema) =>
+        schema
+          .required("Document is required")
+          .test(
+            "fileSize",
+            "File too large",
+            (value) => !value || value.size <= 5 * 1024 * 1024
+          )
+          .test(
+            "fileType",
+            "Unsupported file format",
+            (value) =>
+              !value ||
+              ["application/pdf", "image/jpeg", "image/png"].includes(
+                value.type
+              )
+          ),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  })

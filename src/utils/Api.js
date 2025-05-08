@@ -50,6 +50,16 @@ const Api = {
 
   ADD_FEEDBACK:"/user/add-feedback",
   GET_USER_FEEDBACK:"/user/get-feedback",
+
+
+ADD_KYB_VERIFICATION:"/user/add-kyb-request",
+GET_KYB_VERIFICATION:"/user/get-kyb-request",
+GET_ALL_KYB_VERIFICATION:"/admin/get-kyb-requests",
+UDATE_KYB_VERIFICATION:"/admin/update-kyb-status",
+
+
+GET_LANUGAGE:"/user/get-user-language",
+UPDATE_LANGUAGE:"/user/update-user-language",
   
 };
 

@@ -45,6 +45,14 @@ function Home() {
     localStorage.setItem("language", lang);
     i18n.changeLanguage(lang);
     setLanguageCh(lang);
+    updateLanugage(lang);
+  };
+
+  const updateLanugage = (lang) => {
+    Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
+      id : userData._id,
+      language:lang,
+    });
   };
 
   const handleCopy = () => {
@@ -68,7 +76,6 @@ function Home() {
   };
   const handleLogout = async () => {
     await signOutUser();
-    localStorage.clear();
     sessionStorage.clear();
     navigate("/");
   };
@@ -256,7 +263,6 @@ function Home() {
           </Index.TabContainer>
         </div>
 
-        <button onClick={() => navigate("/kyb-verification")}>Demo</button>
 
         {transactionList?.length ? (
           <div
