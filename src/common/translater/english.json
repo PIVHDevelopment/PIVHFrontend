@@ -126,5 +126,6 @@
   "PleaseEnterBusinessName": "Please enter business name",
   "PleaseEnterMemo": "Please enter memo",
   "YourTransactionWasSuccessful": "Your transaction was successful",
-  "GoToHome": "Go to Home"
+  "GoToHome": "Go to Home",
+  "No Request Found": "No Request Found"
 }

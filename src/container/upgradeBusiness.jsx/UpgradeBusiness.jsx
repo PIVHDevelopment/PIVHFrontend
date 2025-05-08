@@ -30,7 +30,7 @@ function UpgradeBusiness() {
         );
 
         if (!userData?.businessTxn?.isPin) {
-          // Index.toasterSuccess(res?.data?.message);
+          // Index.toasterSuccess(res?.data?.message?.[language]);
           navigate("/set-txn-pin", { state: { isBusiness: true } });
         } else if (!userData?.businessTxn?.isQuestion) {
           navigate("/set-recovery-pin-question", {

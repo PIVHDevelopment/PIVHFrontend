@@ -101,7 +101,7 @@ const WalletAddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || t("SomethingWrong")
+        error?.response?.data?.message?.[language] || t("SomethingWrong")
       );
     } finally {
       setButtonLoader(false);

@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [isLoading, setIsLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -27,7 +28,7 @@ const VerifyAnswer = () => {
       type: isBusiness ? "business" : "individual",
     })
       .then((res) => {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         if (res?.data?.status === 200) {
           navigate("/set-txn-pin", {
             state: { isBusiness: isBusiness, isRecover: true },

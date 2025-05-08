@@ -117,7 +117,7 @@ function Home() {
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
 
-<div className="lang-dropdown-main">
+              <div className="lang-dropdown-main">
                 <Index.FormControl>
                   <Index.Select
                     value={languageCh}
@@ -128,15 +128,12 @@ function Home() {
                     <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
                   </Index.Select>
                 </Index.FormControl>
+                <img src={Index.languageImg} className="lang-change-icon" />
                 <img
-                    src={Index.languageImg}
-                    className="lang-change-icon"
-                  />
-                  <img
-                    src={Index.downblackAarrow}
-                    className="search-down-arrow"
-                    alt="Dropdown"
-                  />
+                  src={Index.downblackAarrow}
+                  className="search-down-arrow"
+                  alt="Dropdown"
+                />
               </div>
             </div>
             <div
@@ -164,7 +161,6 @@ function Home() {
                   <img src={Index.subscribedIcon} alt="Setting" />
                 </button>
               )} */}
-
 
               <button
                 className="icon-btn"
@@ -269,7 +265,11 @@ function Home() {
             }`}
           >
             <div className="toggle-arrow" onClick={toggleSection}>
-              <span className="arrow-icon">↑</span>
+              {isExpanded ? (
+                <span className="arrow-icon">↑</span>
+              ) : (
+                <span className="arrow-icon">↓</span>
+              )}
             </div>
             <h2>{t("TransactionHistory")}</h2>
             <div className="transaction-list">

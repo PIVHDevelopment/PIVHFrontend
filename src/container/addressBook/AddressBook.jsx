@@ -44,7 +44,7 @@ const AddressBook = () => {
     setId("");
     setSelectedData(initialValues);
   };
- const [loading , setLoading]= React.useState(false)
+  const [loading, setLoading] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [address, setAddress] = React.useState([]);
   const [buttonLoader, setButtonLoader] = React.useState(false);
@@ -74,7 +74,7 @@ const AddressBook = () => {
         userId: userData?._id,
       });
       if (res?.data?.status === 200 || res?.data?.status === 201) {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         getAddress();
         handleClose();
       } else {
@@ -82,7 +82,8 @@ const AddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
+        error?.response?.data?.message?.[language] ||
+          t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
@@ -99,7 +100,7 @@ const AddressBook = () => {
     });
     setTimeout(() => {
       setLoading(false);
-    },300);
+    }, 300);
   };
   const handleDelete = async () => {
     setButtonLoader(true);
@@ -119,117 +120,124 @@ const AddressBook = () => {
   }, []);
   return (
     <>
-       {loading ? (
-       <Index.Loader />
-       ) : (
-      <div className="app-container">
-        <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate("/home", {
-                 state: { isBusiness },
-                   })}>
-            <img src={Index.back} alt="Back" />
-          </button>
-          <div className="app-icon" style={{ marginLeft: "-26px" }}>
-            <img src={Index.pocketPi} alt="PocketPi" />
-          </div>
-          <div className="header-right"></div>
-        </header>
-
-        <Box className="address-book-details">
-          <Box className="address-book-head">
-            <Typography className="address-book-title">
-              {t("AddressBook")}
-            </Typography>
-            <button className="icon-btn" onClick={handleOpen}>
-              <img src={Index.Plusadd} alt="Setting" />
+      {loading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button
+              className="back-btn"
+              onClick={() =>
+                navigate("/home", {
+                  state: { isBusiness },
+                })
+              }
+            >
+              <img src={Index.back} alt="Back" />
             </button>
-          </Box>
-          <Box className="address-book-listing">
-            <List className="list-ul-address">
-              {address.length ? (
-                address.map((item) => {
-                  return (
-                    <ListItem 
-                    className={`list-item-address ${
-                      isRtl ? "text-align-right" : ""
-                    }`}
-                    >
-                      <Box className="flex-justify-gap-add">
-                        <Box className="address-left-contain">
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              {t("Type")} :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.type}
-                            </Typography>
+            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+              <img src={Index.pocketPi} alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+
+          <Box className="address-book-details">
+            <Box className="address-book-head">
+              <Typography className="address-book-title">
+                {t("AddressBook")}
+              </Typography>
+              <button className="icon-btn" onClick={handleOpen}>
+                <img src={Index.Plusadd} alt="Setting" />
+              </button>
+            </Box>
+            <Box className="address-book-listing">
+              <List className="list-ul-address">
+                {address.length ? (
+                  address.map((item) => {
+                    return (
+                      <ListItem
+                        className={`list-item-address ${
+                          isRtl ? "text-align-right" : ""
+                        }`}
+                      >
+                        <Box className="flex-justify-gap-add">
+                          <Box className="address-left-contain">
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Type")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.type}
+                              </Typography>
+                            </Box>
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Name")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.name}
+                              </Typography>
+                            </Box>
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Username")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.userName}
+                                <button
+                                  className="copy-btn ms-1"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(
+                                      item?.userName
+                                    );
+                                    Index.toasterSuccess(
+                                      t("UsernameCopiedToClipboard")
+                                    );
+                                  }}
+                                >
+                                  <img src={Index.copy} alt={t("Copy")} />
+                                </button>
+                              </Typography>
+                            </Box>
                           </Box>
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              {t("Name")} :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.name}
-                            </Typography>
-                          </Box>
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              {t("Username")} :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.userName}
+
+                          <Box className="address-right-contain">
+                            <Box className="address-auth-details">
                               <button
-                                className="copy-btn ms-1"
+                                className="btn btn-edit-icons"
                                 onClick={() => {
-                                  navigator.clipboard.writeText(item?.userName);
-                                  Index.toasterSuccess(
-                                    t("UsernameCopiedToClipboard")
-                                  );
+                                  setSelectedData(item);
+                                  handleOpen();
+                                  setId(item?._id);
                                 }}
                               >
-                                <img src={Index.copy} alt={t("Copy")} />
+                                <EditOutlinedIcon />
                               </button>
-                            </Typography>
+                              <button
+                                className="btn btn-delete-icons"
+                                onClick={() => handleOpenDelete(item?._id)}
+                              >
+                                <DeleteOutlineRoundedIcon />
+                              </button>
+                            </Box>
                           </Box>
                         </Box>
-
-                        <Box className="address-right-contain">
-                          <Box className="address-auth-details">
-                            <button
-                              className="btn btn-edit-icons"
-                              onClick={() => {
-                                setSelectedData(item);
-                                handleOpen();
-                                setId(item?._id);
-                              }}
-                            >
-                              <EditOutlinedIcon />
-                            </button>
-                            <button
-                              className="btn btn-delete-icons"
-                              onClick={() => handleOpenDelete(item?._id)}
-                            >
-                              <DeleteOutlineRoundedIcon />
-                            </button>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </ListItem>
-                  );
-                })
-              ) : (
-                <div className="no-address-book">
-                  {/* <img src={Index.addressbook} alt="addressbook" /> */}
-                  <Typography className="no-address-title">
-                    {t("NoAddressDataFound")}
-                  </Typography>
-                </div>
-              )}
-            </List>
+                      </ListItem>
+                    );
+                  })
+                ) : (
+                  <div className="no-address-book">
+                    {/* <img src={Index.addressbook} alt="addressbook" /> */}
+                    <Typography className="no-address-title">
+                      {t("NoAddressDataFound")}
+                    </Typography>
+                  </div>
+                )}
+              </List>
+            </Box>
           </Box>
-        </Box>
-      </div>
-     )}
+        </div>
+      )}
       <Modal
         className="address-modal common-modall"
         open={open}

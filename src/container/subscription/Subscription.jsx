@@ -5,6 +5,7 @@ import { Spinner } from "react-bootstrap";
 
 const Subscription = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [isLoading, setIsLoading] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
@@ -19,7 +20,7 @@ const Subscription = () => {
       subscriptionType : type,
     })
       .then((res) => {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         if (res?.data?.status === 200) {
             navigate("/home", {
                 state: { isBusiness: isBusiness },

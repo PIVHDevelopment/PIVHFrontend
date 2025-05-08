@@ -126,5 +126,6 @@
   "PleaseEnterBusinessName": "يرجى إدخال اسم العمل",
   "PleaseEnterMemo": "يرجى إدخال المذكرة",
   "YourTransactionWasSuccessful": "تمت معاملتك بنجاح",
-  "GoToHome": "اذهب إلى الصفحة الرئيسية"
+  "GoToHome": "اذهب إلى الصفحة الرئيسية",
+  "No Request Found": "لم يتم العثور على أي طلب"
 }

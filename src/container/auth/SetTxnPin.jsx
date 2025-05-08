@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const SetTxnPin = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [showPin, setShowPin] = useState(false);
   const [showConfirmPin, setShowConfirmPin] = useState(false);
   const location = useLocation();
@@ -86,7 +87,7 @@ const SetTxnPin = () => {
             );
           }
           if (isRecover) {
-            Index.toasterSuccess(res?.data?.message);
+            Index.toasterSuccess(res?.data?.message?.[language]);
             navigate("/home", {
               state: { isBusiness: isBusiness },
             });
@@ -99,9 +100,7 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
-        Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
-        );
+        Index.toasterError(err?.response?.data?.message || t("SomethingWrong"));
       })
       .finally(() => {
         setIsLoading(false);
@@ -188,7 +187,8 @@ const SetTxnPin = () => {
               <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
                 <Box className="p-20">
                   <Typography variant="h5" className="heading" gutterBottom>
-                    {t("Set")} {isBusiness && t("Business")} {t("TransactionPIN")}
+                    {t("Set")} {isBusiness && t("Business")}{" "}
+                    {t("TransactionPIN")}
                   </Typography>
 
                   <Typography
@@ -196,7 +196,7 @@ const SetTxnPin = () => {
                     className="heading-note"
                     gutterBottom
                   >
-                  {t("PINContaint")}
+                    {t("PINContaint")}
                   </Typography>
 
                   <Grid container spacing={4}>
@@ -267,7 +267,7 @@ const SetTxnPin = () => {
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
-                        {t("Set PIN")}
+                        {t("SetPIN")}
                         {/* )} */}
                       </button>
                     )}

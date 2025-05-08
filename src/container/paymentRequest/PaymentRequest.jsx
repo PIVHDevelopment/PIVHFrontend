@@ -130,7 +130,7 @@ const PaymentRequest = () => {
         setNextPage(false);
       }
     } catch (error) {
-      Index.toasterError(error?.response?.data?.message);
+      Index.toasterError(error?.response?.data?.message?.[language]);
     } finally {
       setButtonLoader(false);
     }
@@ -282,7 +282,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                      <Index.NoDataFound message={"No Request Found"} />
+                      <Index.NoDataFound message={t("No Request Found")} />
                 )}
               </List>
             )}
@@ -339,7 +339,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                     <Index.NoDataFound message={"No Request Found"} />
+                     <Index.NoDataFound message={t("No Request Found")} />
                 )}
               </List>
             )}

@@ -126,5 +126,6 @@
   "PleaseEnterBusinessName": "कृपया व्यवसाय का नाम दर्ज करें",
   "PleaseEnterMemo": "कृपया मेमो दर्ज करें",
   "YourTransactionWasSuccessful": "आपका लेन-देन सफल रहा",
-  "GoToHome": "होम पर जाएं"
+  "GoToHome": "होम पर जाएं",
+  "No Request Found": "कोई अनुरोध नहीं मिला"
 }
