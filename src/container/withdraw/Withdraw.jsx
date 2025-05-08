@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Index from "../Index";
 import { CircularProgress } from "@mui/material";
+import VerificationPin from "../verificationPin/VerificationPin";
 
 function Withdraw() {
   const [buttonLoader, setButtonLoader] = useState(false);
@@ -11,16 +12,18 @@ function Withdraw() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
-  const [tab, setTab] = useState(1);
+  const [nextPage, setNextPage] = useState(false);
+   const [txnData, setTxnData] = useState({});
 
   const handleSubmitFunction = async (values) => {
     try {
+     const pin = values.pinFields.join("");
       setButtonLoader(true);
-
       const paymentData = {
+        pin,
         uid: userData?.uid,
-        amount: values?.amount,
-        address: values?.address,
+        amount: txnData?.amount,
+        address: txnData?.address,
         userName: userData?.userName,
         typeTxn,
       };
@@ -28,6 +31,7 @@ function Withdraw() {
       const res = await Index.DataService.post(Index.Api.WITHDRAW, paymentData);
       setButtonLoader(false);
       if (res?.data?.status === 200) {
+        setTxnData({});
         Index.toasterSuccess(res?.data?.message);
         navigate("/transaction-success", {
           state: { isBusiness: typeTxn == "business" ? true : false },
@@ -45,42 +49,6 @@ function Withdraw() {
     }
   };
 
-  // const onReadyForServerApproval = (paymentId) => {
-  //   Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
-  //     ...formRef?.current?.values,
-  //     paymentId,
-  //   }).then(() => {});
-  // };
-  // const onReadyForServerCompletion = (paymentId, txid) => {
-  //   Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_COMPLETE, {
-  //     paymentId,
-  //     txid,
-  //   }).then((res) => {
-  //     if (res?.data?.status) {
-  //       sessionStorage.setItem(
-  //         "pi_user_data",
-  //         JSON.stringify(res?.data?.data?.user)
-  //       );
-  //       navigate("/home");
-  //     }
-  //   });
-  // };
-
-  // const onCancel = (paymentId) => {
-  //   console.log("onCancel", paymentId);
-  //   return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_CANCEL, {
-  //     paymentId,
-  //   });
-  // };
-
-  // const onError = (error, payment) => {
-  //   console.log("onError", error);
-  //   if (payment) {
-  //     console.log(payment);
-  //     // handle the error accordingly
-  //   }
-  // };
-
   const handleGetTransactions = () => {
     Index.DataService.get(
       Index.Api.GET_TRANSACTIONS + "/" + userData?.uid
@@ -94,12 +62,24 @@ function Withdraw() {
     handleGetTransactions();
   }, []);
 
+    const handleSubmit = (values) => {
+      setTxnData(values);
+      setNextPage(true);
+    };
+
   return (
     <>
       {buttonLoader ? (
         <Index.Loader />
       ) : (
         <div className="app-container">
+          {nextPage ? (
+             <VerificationPin
+               handleSubmitFunction={handleSubmitFunction}
+               setNextPage={setNextPage}
+                />
+               ) : (
+             <>
           <header className="receive-center">
           <button className="back-btn" onClick={() => navigate("/home", {
                  state: { isBusiness: typeTxn == "business" ? true : false },
@@ -111,39 +91,12 @@ function Withdraw() {
             </div>
             <div className="header-right"></div>
           </header>
-
-          {/* <Index.TabContainer
-        id="left-tabs-example"
-        defaultActiveKey="individual"
-        activeKey={tab}
-      >
-        <div className="wallet-tabs" style={{ width: "100%" }}>
-          <button
-            className={`tab-btn${tab === 1 ? " active" : ""}`}
-            data-tab="individual"
-            onClick={() => setTab(1)}
-          >
-            Waller Address
-          </button>
-          <button
-            className={`tab-btn${tab === 2 ? " active" : ""}`}
-            data-tab="business"
-            onClick={() => setTab(2)}
-          >
-            Scan QR
-          </button>
-        </div>
-        <Index.TabContent>
-          <Index.TabPane eventKey={1}></Index.TabPane>
-          <Index.TabPane eventKey={2}></Index.TabPane>
-        </Index.TabContent>
-      </Index.TabContainer> */}
           <Index.Formik
             initialValues={{
-              amount: "",
-              address: "",
+              amount: txnData?.amount ||"",
+              address: txnData?.address || "",
             }}
-            onSubmit={handleSubmitFunction}
+            onSubmit={handleSubmit}
             validationSchema={Index.withdrawPiFormSchema}
             innerRef={formRef}
           >
@@ -218,13 +171,6 @@ function Withdraw() {
                     </div>
                   </div>
                 </div>
-                {/* <button
-              className="action-btn full-width send-pi-btn"
-              type="submit"
-              disabled={buttonLoader}
-            >
-              Withdraw
-            </button> */}
                 <button
                   className="action-btn full-width send-pi-btn"
                   type="submit"
@@ -235,6 +181,8 @@ function Withdraw() {
               </form>
             )}
           </Index.Formik>
+          </>
+          )}
         </div>
       )}
     </>
