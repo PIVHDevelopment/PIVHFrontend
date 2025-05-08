@@ -53,7 +53,7 @@ function SignIn() {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <div className="app-container p-20-0 signin-main">
+        <div className="app-container signin-main">
           <div className="p-20">
             <header className="signin-header">
               <div

@@ -5,7 +5,7 @@ import Index from "../../container/Index";
 const Loader = () => {
   return (
     <>
-      <div className="app-container p-20-0">
+      <div className="app-container">
         <div className="loader-main">
           <Box className="loader-details">
             <div class="loader-ring"></div>

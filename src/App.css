@@ -56,7 +56,6 @@ body {
 .app-container {
   max-width: 480px;
   margin: 0 auto;
-  padding: 16px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -64,6 +63,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Status Bar */
@@ -91,7 +94,8 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding: 0 4px;
+  border-bottom: 1px solid #dfdfdf1f;
+  padding-bottom: 16px
 }
 
 .back-btn {
@@ -215,14 +219,12 @@ header {
 .balance-label {
   font-size: 15px;
   opacity: 0.9;
-  margin-bottom: 8px;
 }
 
 .balance-amount {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 500;
-  margin-bottom: 8px;
-  margin-top: 10px;
+  color: #fff;
 }
 
 .wallet-limit {
@@ -372,7 +374,7 @@ header {
   border-radius: var(--border-radius);
   padding: 20px;
   margin: auto;
-  height: 30%;
+  height: 40%;
   position: fixed;
   left: 0;
   right: 0;
@@ -382,7 +384,7 @@ header {
 }
 
 .transaction-section.expanded {
-  height: calc(100% - 20%);
+  height: calc(100% - 40%);
   /* Expanded height */
 }
 
@@ -399,14 +401,18 @@ header {
   font-size: 16px;
   margin-bottom: 16px;
   font-weight: 500;
+  color: #fff;
+  border-bottom:1px solid #dfdfdf1f;
+  padding-bottom: 16px;
+}
+
+body.direction-rtl .transaction-section h2 {
+  padding-right: 50px;
 }
 
 .transaction-list {
-  max-height: 300px;
+  max-height: 265px;
   overflow-y: auto;
-  gap: 12px;
-  display: flex;
-  flex-direction: column;
 }
 
 .transaction-item {
@@ -434,15 +440,16 @@ header {
 .transaction-time {
   font-size: 13px;
   opacity: 0.7;
+  color: #fff;
+  font-weight: 400;
+  margin: 0;
 }
 
 .transaction-amount {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: end;
+  text-align: right;
+  margin: 0;
 }
 
 .transaction-amount .transaction-date {
@@ -450,6 +457,7 @@ header {
   opacity: 0.7;
   color: #fff;
   font-weight: 400;
+  margin: 0;
 }
 
 .transaction-amount.positive {
@@ -687,19 +695,18 @@ button.address-book-btn {
   cursor: pointer;
 }
 
-.app-container.p-20-0 {
+/* .app-container.p-20-0 {
   padding: 0;
 }
 
 .app-container .p-20 {
   padding: 20px;
-}
+} */
 
 .transaction-main-box {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 16px;
-  padding-right: 16px;
+  padding: 10px 16px 10px 10px;
   background: transparent;
   border-radius: 0;
   border-bottom: 1px solid #272727;
@@ -708,6 +715,7 @@ button.address-book-btn {
 .transaction-details {
   display: flex;
   gap: 16px;
+  align-items: center;
 }
 
 .stat-card:first-child {
@@ -740,6 +748,8 @@ button.address-book-btn {
 
 .transaction-icon {
   object-fit: contain;
+  height: 35px;
+  width: 35px;
 }
 
 .modal.user-setting-modal {
@@ -759,27 +769,29 @@ button.address-book-btn {
 }
 
 .user-setting-modal .modal-title {
-  font-size: 14px;
+  font-size: 16px;
   color: #000;
+  margin: 0;
 }
 
 .setting-icon-box img {
   max-width: 100%;
+  height: 18px;
+  width: 18px;
 }
 
 .setting-cont-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: #000;
-  margin-top: 4px;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .setting-cont-box {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 26px;
+  margin-bottom: 10px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -855,13 +867,6 @@ button.address-book-btn {
   word-spacing: 2px;
   margin-bottom: 13px;
   font-family: "Poppins";
-}
-
-.app-container {
-  background-color: #fff;
-  padding: 40px 20px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .set-pin-row .show-icon {
@@ -1246,8 +1251,9 @@ button.address-book-btn {
 
 .address-book-head .address-book-title {
   font-family: "Poppins";
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
 }
 
 .address-book-head {
@@ -1318,20 +1324,20 @@ button.address-book-btn {
 
 .no-address-book .no-address-title {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 14px;
   line-height: 26px;
   color: #fff;
 }
 
 .security-question-details .security-question-title {
   font-family: "Poppins";
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
 }
 
 .verify-answer-content .verify-answer-label {
-  font-size: 15px;
+  font-size: 14px;
   font-family: "Poppins";
   font-weight: 400;
   line-height: 23px;
@@ -1526,16 +1532,14 @@ span.icon {
 }
 
 .action-send-main-contain {
-  gap: 10px;
   flex-wrap: wrap;
-  margin: 10px 0px;
+  margin: 10px 0px 0;
 }
 
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
-    hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
 .receiver-addres-scanner-box .scanner-icon img {
@@ -1552,18 +1556,11 @@ span.icon {
   margin: 10px 0 0 10px;
 }
 
-.subscription-main {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0px 20px;
-}
-
 .subscrip-heading p {
-  text-align: center;
   font-weight: 700;
-  font-size: 26px;
+  font-size: 20px;
   font-family: "Poppins";
+  margin-bottom: 20px;
 }
 
 .tick-mark-icons {
@@ -1573,8 +1570,10 @@ span.icon {
 }
 
 .subscrip-description p {
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
   font-family: "Poppins";
 }
 
@@ -1631,8 +1630,7 @@ span.icon {
 }
 
 #qr-reader__scan_region img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
-    hue-rotate(128deg) brightness(100%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
 }
 
 .action-send-main-contain .action-btn,
@@ -1646,8 +1644,7 @@ span.icon {
 }
 
 .action-send-main-contain .action-btn img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
-    hue-rotate(317deg) brightness(112%) contrast(106%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .tick-mark-icons .verify-icons {
@@ -1655,10 +1652,7 @@ span.icon {
   width: 20px;
 }
 
-.notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiAutocomplete-inputRoot
-  .MuiAutocomplete-endAdornment {
+.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -1674,10 +1668,7 @@ span.icon {
   margin: auto;
 }
 
-.notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 49px 7.5px 5px !important;
   cursor: pointer;
 }
@@ -1712,11 +1703,7 @@ span.icon {
   word-break: break-all;
 }
 
-.input-wrapper
-  .custom-notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 0px 7.5px 5px !important;
 }
 
@@ -1762,7 +1749,7 @@ span.icon {
 }
 
 .transaction-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -1770,6 +1757,7 @@ span.icon {
   width: 100%;
   box-sizing: border-box;
   max-width: 200px;
+  margin: 0;
 }
 
 .success-main {
@@ -1783,6 +1771,7 @@ span.icon {
   overflow: hidden;
   background-color: #fda342;
 }
+
 .success-btn {
   background: linear-gradient(135deg, #2d1b69, #6b2a96);
   color: #fff;
@@ -1796,6 +1785,7 @@ span.icon {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
 }
+
 .success-btn::before {
   content: "";
   position: absolute;
@@ -1816,6 +1806,7 @@ span.icon {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
+
 .success-icon {
   height: 70px;
   width: 70px;
@@ -1829,7 +1820,7 @@ span.icon {
   left: 0;
   right: 0;
 }
- 
+
 .success-message {
   color: #6610f2;
   font-size: 20px;
@@ -1837,6 +1828,7 @@ span.icon {
   margin: 0 0 40px 0;
   text-align: center;
 }
+
 .character {
   position: absolute;
   top: 50%;
@@ -1844,14 +1836,17 @@ span.icon {
   width: 150px;
   transition: transform 1s ease-in-out;
 }
+
 .coin {
   left: -200px;
   animation: moveCoin 5s forwards;
 }
+
 .wallet {
   right: -200px;
   animation: moveWallet 5s forwards;
 }
+
 /* @keyframes moveCoin {
   to {
     left: 50%;
@@ -1896,6 +1891,7 @@ span.icon {
     transform: translate(-100%, -50%);
   }
 }
+
 @keyframes moveWallet {
   0% {
     right: -200px;
@@ -1954,6 +1950,7 @@ span.icon {
   color: #fff;
   font-weight: 500;
 }
+
 .toggle-arrow {
   text-align: center;
   padding: 10px;
@@ -2015,9 +2012,12 @@ span.icon {
 
 /* Hover effect for button interaction */
 .toggle-arrow:hover {
-  transform: scale(1.1); /* Slight scale up on hover */
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  transform: scale(1.1);
+  /* Slight scale up on hover */
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  /* Enhanced shadow on hover */
 }
+
 .toggle-arrow .arrow-icon {
   display: inline-block;
   transition: transform 0.3s ease;
@@ -2025,9 +2025,9 @@ span.icon {
 }
 
 .transaction-section.expanded .arrow-icon {
-  transform: ro
-  tate(180deg);
+  transform: ro tate(180deg);
 }
+
 body .text-align-right {
   text-align: right;
   width: 100%;
@@ -2036,9 +2036,11 @@ body .text-align-right {
 .direction-rtl {
   direction: rtl;
 }
+
 .lang-dropdown-main {
   position: relative;
 }
+
 .lang-dropdown-main .MuiSelect-select {
   padding: 6px 21px 6px 36px;
   border: 1px solid #2f2f2f1a;
@@ -2054,18 +2056,30 @@ body .text-align-right {
   -ms-border-radius: 25px;
   -o-border-radius: 25px;
 }
+
 .lang-dropdown-main .MuiSelect-icon {
   display: none;
 }
+
 .lang-dropdown-main fieldset {
   display: none;
 }
-.lang-dropdown-main
-  .MuiFormControl-root
-  .Mui-focused
-  .MuiOutlinedInput-notchedOutline {
+
+.lang-dropdown-main .MuiSelect-select:focus {
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+
+.lang-dropdown-main .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: transparent;
   border-width: 0px;
+}
+
+body.direction-rtl .lang-dropdown-main .MuiSelect-select {
+  padding: 6px 36px 6px 30px;
 }
 
 .lang-change-icon {
@@ -2082,18 +2096,20 @@ body .text-align-right {
   top: 50%;
   transform: translateY(-50%);
   right: 12px;
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%)
-    hue-rotate(243deg) brightness(101%) contrast(94%);
-  inset-inline-end: 12px; /* ← Always visual left in RTL */
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%) hue-rotate(243deg) brightness(101%) contrast(94%);
+  inset-inline-end: 12px;
+  /* ← Always visual left in RTL */
 }
 
 body.direction-rtl .lang-dropdown-main .search-down-arrow {
-  right: auto; /* Remove right for RTL */
-  left: 12px; /* Add left for RTL */
+  right: auto;
+  /* Remove right for RTL */
+  left: 12px;
+  /* Add left for RTL */
   transform: rotate(180deg);
 }
 
-.notes-input-multiline .MuiInputBase-formControl{
+.notes-input-multiline .MuiInputBase-formControl {
   border-radius: 7px;
   background: transparent;
   color: #fff;
@@ -2102,16 +2118,17 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   line-height: 20px;
   font-family: 'Poppins'
 }
-.notes-input-multiline .MuiInputBase-formControl fieldset{
+
+.notes-input-multiline .MuiInputBase-formControl fieldset {
   display: none;
 }
 
 .notes-input-multiline textarea {
-  overflow: auto !important; 
-  resize: none !important;   
-  resize: vertical;           
-  max-height: 200px;           
-  padding-right: 8px;          
+  overflow: auto !important;
+  resize: none !important;
+  resize: vertical;
+  max-height: 200px;
+  padding-right: 8px;
   scrollbar-width: unset;
 }
 

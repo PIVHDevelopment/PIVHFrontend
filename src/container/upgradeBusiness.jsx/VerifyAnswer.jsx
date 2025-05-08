@@ -68,7 +68,7 @@ const VerifyAnswer = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container p-20-0 set-pin-div" mx="auto">
+        <Box className="app-container set-pin-div" mx="auto">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
@@ -78,7 +78,7 @@ const VerifyAnswer = () => {
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="p-20 security-question-details">
+          <Box className="security-question-details">
             <Typography
               variant="h5"
               gutterBottom
