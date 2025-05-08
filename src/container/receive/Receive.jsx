@@ -154,7 +154,7 @@ function Receive() {
                     ? `${ImageURL}${qrData?.qrCodes?.businessQr}`
                     : `${ImageURL}${qrData?.qrCodes?.userQr}`
                 }
-                alt="QR Code"
+                alt={t("QRCode")}
                 className="generate-qr-code"
               />
             </div>

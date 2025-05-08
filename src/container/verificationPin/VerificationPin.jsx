@@ -75,7 +75,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
       <div className="transaction-pin-details common-pin-details">
         <Formik
           initialValues={{ pinFields: ["", "", "", "", ""] }}
-          validationSchema={Index.addVerificationPinSchema}
+          validationSchema={Index.addVerificationPinSchema(t)}
           onSubmit={handleSubmitFunction}
         >
           {({

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Index from "../Index";
 
 function CheckKYBVerfication() {
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
  const [loading , setLoading]= React.useState(true);
@@ -37,20 +38,20 @@ function CheckKYBVerfication() {
           <img src={Index.back} alt="Back" />
         </button>
         <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
       <div className="send-form">
         <button disabled={true} className="action-btn full-width send-pi-btn" onClick={() => navigate("/kyb-verification")}>
-          KYB Verification
+        {t("KYB Verification")}
         </button>
 
         <button
           onClick={() => navigate("/upgrade-business")}
           className="action-btn full-width send-pi-btn"
         >
-          Skip for now
+          {t("Skip for now")}
         </button>
       </div>
     </div>

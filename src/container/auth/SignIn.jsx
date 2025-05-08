@@ -85,7 +85,7 @@ function SignIn() {
                 {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
-                Sign In
+                {t("Sign In")}
                 {/* )} */}
               </button>
             </div>
@@ -113,9 +113,9 @@ function SignIn() {
           </div>
           <div className="sigin-footer">
             <p onClick={() => navigate("/term-conditions")}>
-              Terms & Conditions
+              {t("Terms & Conditions")}
             </p>
-            <p onClick={() => navigate("/privacy-policy")}>Privacy Policy</p>
+            <p onClick={() => navigate("/privacy-policy")}>{t("Privacy Policy")}</p>
           </div>
         </div>
       )}

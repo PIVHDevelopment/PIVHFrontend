@@ -3,13 +3,14 @@ import Index from "../Index";
 
 function TermsAndConditions() {
   const navigate = Index.useNavigate();
+  const { t } = Index.useTranslation();
   return (
     <div className="app-container settings-page">
       <header>
         <button className="back-btn" onClick={() => navigate(-1)}>
           ←
         </button>
-        <h1>Terms and Conditions</h1>
+        <h1>{t("Terms & Conditions")}</h1>
         <div className="header-right"></div>
       </header>
 

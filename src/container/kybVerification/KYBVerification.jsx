@@ -14,7 +14,8 @@ import countries from "./countries.json";
 
 export default function KYBVerification() {
  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-const navigate = Index.useNavigate();
+ const navigate = Index.useNavigate();
+ const { t } = Index.useTranslation();
 
  const formik = useFormik({
     initialValues: {
