@@ -16,64 +16,19 @@ const Subscription = () => {
   const [setting, setSetting] = useState({});
   console.log(setting, "setting");
   const [nextPage, setNextPage] = useState(false);
-  const [buttonLoader, setButtonLoader] = useState(false);
-
-  const handleSubmit = () => {
-    setIsLoading(true);
-    Index.DataService.post(Index.Api.ADD_SUBSCRIPTION, {
-      uid: userData?.uid,
-      subscriptionType: type,
-    })
-      .then((res) => {
-        Index.toasterSuccess(res?.data?.message?.[language]);
-        if (res?.data?.status === 200) {
-          navigate("/home", {
-            state: { isBusiness: isBusiness },
-          });
-          const sessionData = JSON.parse(
-            sessionStorage.getItem("pi_user_data")
-          );
-          if (isBusiness) {
-            const updatedSessionData = {
-              ...sessionData,
-              isBusinessSubscription: true,
-            };
-            sessionStorage.setItem(
-              "pi_user_data",
-              JSON.stringify(updatedSessionData)
-            );
-          } else {
-            const updatedSessionData = {
-              ...sessionData,
-              isIndividualSubscription: true,
-            };
-            sessionStorage.setItem(
-              "pi_user_data",
-              JSON.stringify(updatedSessionData)
-            );
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        Index.toasterError(
-          err?.response?.data?.message?.[language] || t("SomethingWrong")
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
 
   const fetchData = () => {
+    setIsLoading(true);
     Index.DataService.get(Index.Api.GET_SUBS_SETTING)
       .then((res) => {
         if (res?.data?.status === 200) {
           setSetting(res?.data?.data);
+          setIsLoading(false);
         }
       })
       .catch((e) => {
         console.log("Failed to fetch question", err);
+        setIsLoading(false);
       });
   };
 
@@ -82,27 +37,51 @@ const Subscription = () => {
   }, []);
 
   const handleSubmitFunction = async (values) => {
+    setIsLoading(true);
     const pin = values.pinFields.join("");
-    setButtonLoader(true);
     try {
       const res = await Index.DataService.post(Index.Api.ADD_SUBSCRIPTION, {
         pin,
         uid: userData?.uid,
         subscriptionType: type,
+        amount:
+          type == "business" ? setting?.businessFee : setting?.individualFee,
       });
       if (res?.data?.status == 200) {
+        const sessionData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+        if (isBusiness) {
+          const updatedSessionData = {
+            ...sessionData,
+            isBusinessSubscription: true,
+          };
+          sessionStorage.setItem(
+            "pi_user_data",
+            JSON.stringify(updatedSessionData)
+          );
+        } else {
+          const updatedSessionData = {
+            ...sessionData,
+            isIndividualSubscription: true,
+          };
+          sessionStorage.setItem(
+            "pi_user_data",
+            JSON.stringify(updatedSessionData)
+          );
+        }
         navigate("/transaction-success", {
           state: { isBusiness: type == "business" ? true : false },
         });
       } else {
-        Index.toasterError(res?.data?.message || t("SomethingWrong"));
+        Index.toasterError(
+          res?.data?.message?.[language] || t("SomethingWrong")
+        );
       }
-    } catch (error) {
+    } catch (err) {
       Index.toasterError(
-        error?.response?.data?.message || t("AnUnexpectedErrorOccurred")
+        err?.response?.data?.message?.[language] || t("SomethingWrong")
       );
     } finally {
-      setButtonLoader(false);
+      setIsLoading(false);
     }
   };
 
@@ -118,7 +97,7 @@ const Subscription = () => {
               setNextPage={setNextPage}
             />
           ) : (
-            <Box className="p-20-0 set-pin-div" mx="auto">
+            <Box>
               <header className="receive-center">
                 <button className="back-btn" onClick={() => navigate(-1)}>
                   <img src={Index.back} alt={t("Back")} />

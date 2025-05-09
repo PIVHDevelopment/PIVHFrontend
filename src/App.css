@@ -2247,6 +2247,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   font-weight: 500;
   font-size: 16px;
   font-family: "Poppins";
+  margin-top: 20px;
 }
 .user-dropdown-box .user-from-control {
   position: relative;
