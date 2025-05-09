@@ -1106,8 +1106,8 @@ button.address-book-btn {
 }
 
 .address-book-head .address-book-title {
-  font-family: "Poppins";
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 20px;
   font-weight: 500;
   color: var(--white);
 }
@@ -2136,6 +2136,7 @@ span.icon {
   top: 5px;
   bottom: 0;
   inset-inline-end: 12px;
+  cursor: pointer;
 }
 
 .user-form-group .MuiOutlinedInput-root.MuiInputBase-sizeSmall {
