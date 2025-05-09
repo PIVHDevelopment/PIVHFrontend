@@ -117,7 +117,7 @@
   "QRCopy": "QR code link copied successfully",
   "SharingFiels": "Sharing files is not supported on this device",
   "PleaseEnterUserName": "Please enter user name",
-  "PleaseEnterAmount": "PleaseEnterAmount",
+  "PleaseEnterAmount": "Please Enter Amount",
   "PleaseEnterAmountAtLeast": "Amount must be at least 0.001",
   "PleaseEnterAmountAtLeaseMust": "Amount must be at least 0.05",
   "PleaseEnterAmountAtLeaseMust1": "Amount must be at least 0.01",
