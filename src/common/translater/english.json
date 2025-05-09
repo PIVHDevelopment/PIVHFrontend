@@ -126,5 +126,27 @@
   "PleaseEnterBusinessName": "Please enter business name",
   "PleaseEnterMemo": "Please enter memo",
   "YourTransactionWasSuccessful": "Your transaction was successful",
-  "GoToHome": "Go to Home"
+  "GoToHome": "Go to Home",
+  "No Request Found": "No Request Found",
+
+  "Terms & Conditions": "Terms & Conditions",
+  "Privacy Policy": "Privacy Policy",
+  "Go to home page": "Go to home page",
+  "Sign In": "Sign In",
+  "KYB Verification": "KYB Verification",
+  "Skip for now": "Skip for now",
+  "Select Country": "Select Country",
+  "Upload Document Front": "Upload Document Front",
+  "Upload Document Back": "Upload Document Back",
+  "Your account is setup successfully, you can now perform transactions securely": "Your account is setup successfully, you can now perform transactions securely.",
+  
+  "Feedback And Complaint": "Feedback And Complaint",
+  "No Feedback And Complaint Found": "No Feedback And Complaint Found",
+  "Enter Email": "Enter Email",
+  "Add Feedback And Complaint": "Add Feedback And Complaint",
+  "Email is required": "Email is required",
+  "Email": "Email",
+  "Enter a valid email": "Enter a valid email",
+  "Description is required": "Description is required"
+
 }

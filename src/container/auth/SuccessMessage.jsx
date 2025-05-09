@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const SuccessMessage = () => {
   const navigate = Index.useNavigate();
+  const { t } = Index.useTranslation();
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
 
@@ -16,8 +17,9 @@ const SuccessMessage = () => {
           </div>
           <div className="success-message">
             <p>
-              Your account is setup successfully, you can now perform
-              transactions securely.
+              {t(
+                "Your account is setup successfully, you can now perform transactions securely"
+              )}
             </p>
           </div>
           <div className="button-box">
@@ -28,7 +30,7 @@ const SuccessMessage = () => {
                 })
               }
             >
-              Go to home page
+              {t("Go to home page")}
             </button>
           </div>
         </div>
