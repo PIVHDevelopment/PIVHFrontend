@@ -43,7 +43,7 @@ const WalletAddressBook = () => {
   const [selectedData, setSelectedData] = useState({ walletAddress: "" });
   const [id, setId] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
-   const [loading , setLoading]= React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   const location = Index.useLocation();
   const navigate = Index.useNavigate();
   const isBusiness = location?.state?.isBusiness;
@@ -146,7 +146,7 @@ const WalletAddressBook = () => {
           >
             <img src={Index.back} alt="Back" />
           </button>
-          <div className="app-icon" style={{ marginLeft: "-26px" }}>
+          <div className="app-icon">
             <img src={Index.pocketPi} alt="PocketPi" />
           </div>
           <div className="header-right"></div>
@@ -231,14 +231,14 @@ const WalletAddressBook = () => {
               {(formik) => (
                 <form onSubmit={formik.handleSubmit}>
                   <Box className="modal-body address-body">
-                    <Box className="common-grid">
-                      <div className="input-wrapper">
-                        <Typography className="label-field">
-                          {t("WalletAddress")}
-                        </Typography>
+                    <div className="input-box">
+                      <p className="user-form-lable">
+                        {t("WalletAddress")}
+                      </p>
+                      <div className="user-form-group">
                         <input
                           type="text"
-                          className="notes-input"
+                          className="user-form-control"
                           placeholder={t("EnterWalletAddress")}
                           name="walletAddress"
                           value={formik.values.walletAddress}
@@ -248,24 +248,24 @@ const WalletAddressBook = () => {
                         />
                         <div className="input-error">
                           {formik.errors.walletAddress &&
-                          formik.touched.walletAddress
+                            formik.touched.walletAddress
                             ? formik.errors.walletAddress
                             : null}
                         </div>
                       </div>
-                    </Box>
+                    </div>
                     <Box className="modal-footer">
-                        <button
-                          className="common-btn"
-                          type="submit"
-                          disabled={buttonLoader}
-                        >
-                          {buttonLoader ? (
-                            <CircularProgress size={20} />
-                          ) : (
-                            t("Submit")
-                          )}
-                        </button>
+                      <button
+                        className="common-btn"
+                        type="submit"
+                        disabled={buttonLoader}
+                      >
+                        {buttonLoader ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          t("Submit")
+                        )}
+                      </button>
                     </Box>
                   </Box>
                 </form>

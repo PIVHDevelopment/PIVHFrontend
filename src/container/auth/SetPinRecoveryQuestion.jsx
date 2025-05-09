@@ -307,7 +307,7 @@ const SetPinRecoveryQuestion = () => {
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -373,43 +373,49 @@ const SetPinRecoveryQuestion = () => {
                       label={t("Custom")}
                     />
                   </FormGroup>
+                  <div className="common-space">
+                    {/* Custom question input */}
+                    {parseInt(values.selectedQuestion) === -1 && (
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <TextField
+                            name="customQuestion"
+                            placeholder={t("EnterQuestion")}
+                            fullWidth
+                            className="user-from-control"
+                            margin="normal"
+                            value={values.customQuestion}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              touched.customQuestion && Boolean(errors.customQuestion)
+                            }
+                            helperText={
+                              touched.customQuestion && errors.customQuestion
+                            }
+                          />
+                        </div>
+                      </div>
+                    )}
 
-                  {/* Custom question input */}
-                  {parseInt(values.selectedQuestion) === -1 && (
-                    <div className="user-form-group">
-                      <TextField
-                        name="customQuestion"
-                        placeholder={t("EnterQuestion")}
-                        fullWidth
-                        className="user-from-control"
-                        margin="normal"
-                        value={values.customQuestion}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={
-                          touched.customQuestion && Boolean(errors.customQuestion)
-                        }
-                        helperText={
-                          touched.customQuestion && errors.customQuestion
-                        }
-                      />
+
+                    <div className="input-box">
+                      <div className="user-form-group">
+                        <TextField
+                          name="answer"
+                          placeholder={t("EnterYourAnswer")}
+                          fullWidth
+                          className="user-form-control-textarea"
+                          multiline
+                          margin="normal"
+                          value={values.answer}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.answer && Boolean(errors.answer)}
+                          helperText={touched.answer && errors.answer}
+                        />
+                      </div>
                     </div>
-                  )}
-
-                  <div className="user-form-group">
-                    <TextField
-                      name="answer"
-                      placeholder={t("EnterYourAnswer")}
-                      fullWidth
-                      className="user-form-control-textarea"
-                      multiline
-                      margin="normal"
-                      value={values.answer}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.answer && Boolean(errors.answer)}
-                      helperText={touched.answer && errors.answer}
-                    />
                   </div>
 
                   <div className="common-btn-space-main">

@@ -1042,18 +1042,6 @@ button.address-book-btn {
   overflow: auto;
 }
 
-.flex-filed-details .radio-group-flex {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.radio-group-flex .MuiFormControlLabel-label {
-  font-size: 14px;
-  color: var(--white);
-  font-family: Poppins;
-  font-weight: 500;
-}
 
 .common-grid .input-wrapper {
   flex-direction: column;
@@ -1678,12 +1666,7 @@ span.icon {
   position: relative;
 }
 
-.receiver-addres-scanner-box .scanner-icon {
-  position: absolute;
-  top: 12px;
-  bottom: 0;
-  inset-inline-end: 12px;
-}
+
 
 .notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 25px 7.5px 5px !important;
@@ -1744,33 +1727,6 @@ span.icon {
   background-color: #b270cc;
 }
 
-.request-payment-pay-btn-box .request-payment-pay-success-btn {
-  background-color: var(--success-color);
-}
-
-.request-payment-pay-btn-box .request-payment-pay-pending-btn {
-  background-color: #e38cff;
-}
-
-.request-payment-pay-btn-box .request-payment-pay-btn {
-  color: var(--white);
-  padding: 3px 10px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  font-size: 12px;
-  line-height: 16px;
-  border: 0;
-  max-width: max-content;
-}
-
-.request-payment-pay-btn-box {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-}
 
 .custom-field-contain-status {
   text-transform: capitalize;
@@ -2220,12 +2176,12 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .user-file-upload-btn-main {
   position: relative;
-  height: 150px;
+  height: 200px;
 }
 
 .user-upload-profile-img {
-  height: 60px;
-  width: 60px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -2390,7 +2346,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .user-form-group input::placeholder {
   color: var(--white);
-  opacity: 0.6;
+  opacity: 0.5;
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
@@ -2401,7 +2357,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .user-form-group fieldset {
@@ -2500,4 +2456,114 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .user-form-group .MuiTextField-root {
   margin: 0;
+}
+
+.set-pin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.set-pin-main {
+  margin-top: 30px;
+}
+
+.common-space {
+  margin-top: 10px;
+}
+
+.scanner-img {
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+}
+
+.user-form-group {
+  position: relative;
+}
+
+.scanner-icon-box {
+  position: absolute;
+  top: 5px;
+  bottom: 0;
+  inset-inline-end: 12px;
+}
+
+.user-form-group .MuiOutlinedInput-root.MuiInputBase-sizeSmall {
+  padding: 0 !important;
+}
+
+.user-form-group .MuiAutocomplete-input {
+  padding: 9px 15px !important;
+}
+
+.user-form-group .MuiAutocomplete-hasPopupIcon .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root {
+  padding: 0 !important;
+}
+
+.flex-filed-details .radio-group-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.radio-group-flex .MuiFormControlLabel-label {
+  font-size: 14px;
+  color: var(--white);
+  font-family: Poppins;
+  font-weight: 500;
+}
+
+.radio-group-flex .MuiFormControlLabel-root {
+  margin: 0;
+  gap: 10px;
+}
+
+.radio-group-flex .MuiRadio-root {
+  padding: 0px 0px 0px 0px;
+}
+
+.request-payment-pay-btn-box .request-payment-pay-success-btn {
+  background-color: var(--success-color);
+}
+
+.request-payment-pay-btn-box .request-payment-pay-pending-btn {
+  background-color: #e38cff;
+}
+
+.request-payment-pay-btn-box .request-payment-pay-btn {
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  font-size: 12px;
+  line-height: 16px;
+  border: 0;
+  max-width: max-content;
+}
+
+.request-payment-pay-btn-box {
+  position: absolute;
+  inset-inline-end: 5px;
+  bottom: 5px;
+}
+
+.input-box .radio-group-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.input-box .radio-group-flex svg{
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  color: var(--white);
+}
+.address-book-details ul{
+  padding: 0;
 }
