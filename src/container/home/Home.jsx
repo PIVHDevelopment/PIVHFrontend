@@ -86,7 +86,7 @@ function Home() {
   const handleLogout = async () => {
     await signOutUser();
     sessionStorage.clear();
-    navigate("/");
+    navigate("/signin");
   };
   const handleGetTransactions = () => {
     Index.DataService.get(

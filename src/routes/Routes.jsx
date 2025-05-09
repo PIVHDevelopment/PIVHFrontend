@@ -33,6 +33,7 @@ import PaymentRequest from "../container/paymentRequest/PaymentRequest";
 import TransactionSuccess from "../container/transactionSuccess/TransactionSuccess";
 import FeedbackComplaint from "../container/feedbackComplaint/FeedbackComplaint";
 import KYBVerification from "../container/kybVerification/KYBVerification";
+import SplashScreen from "../container/auth/SplashScreen";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -47,6 +48,14 @@ const Routers = () => {
   const appRoutes = [
     {
       path: "/",
+      element: (
+        <PublicRoute>
+          <SplashScreen />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/signin",
       element: (
         <PublicRoute>
           <SignIn />
