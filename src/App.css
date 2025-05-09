@@ -78,7 +78,7 @@ header {
   align-items: center;
   margin-bottom: 15px;
   border-bottom: 1px solid #dfdfdf1f;
-  padding-bottom: 16px
+  padding-bottom: 16px;
 }
 
 .back-btn {
@@ -656,7 +656,6 @@ button.address-book-btn {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     transform: scale(1);
@@ -737,7 +736,6 @@ button.address-book-btn {
   cursor: pointer;
 }
 
-
 .set-pin-box {
   width: 100%;
 }
@@ -749,7 +747,6 @@ button.address-book-btn {
 .textarea-question-sequrity .MuiOutlinedInput-root fieldset {
   display: none;
 }
-
 
 .set-pin-row .set-pin-input-box {
   width: 100%;
@@ -1400,7 +1397,8 @@ span.icon {
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
+    hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
 .receiver-addres-scanner-box .scanner-icon img {
@@ -1463,7 +1461,8 @@ span.icon {
 }
 
 .action-send-main-contain .action-btn img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
+    hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .verify-icons {
@@ -1471,7 +1470,10 @@ span.icon {
   width: 20px;
 }
 
-.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
+.notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiAutocomplete-inputRoot
+  .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -1515,7 +1517,11 @@ span.icon {
   word-break: break-all;
 }
 
-.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
+.input-wrapper
+  .custom-notes-input-box
+  .MuiFormControl-fullWidth
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
   padding: 7.5px 0px 7.5px 5px !important;
 }
 
@@ -1758,9 +1764,8 @@ span.icon {
   border: 1px solid #8f8e8e80;
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins'
+  font-family: "Poppins";
 }
-
 .notes-input-multiline .MuiInputBase-formControl fieldset {
   display: none;
 }
@@ -1783,9 +1788,19 @@ span.icon {
   border-radius: 3px;
 }
 
+.subscrip-amount {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
 
-
-/* start new css  */
+.subscrip-amount p {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Poppins";
+  margin-top: 20px;
+}
 .user-dropdown-box .user-from-control {
   position: relative;
   width: 100%;
@@ -1886,7 +1901,8 @@ span.icon {
   height: 20px;
   width: 20px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%) hue-rotate(174deg) brightness(104%) contrast(100%);
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%)
+    hue-rotate(174deg) brightness(104%) contrast(100%);
 }
 
 .common-btn {
@@ -1932,10 +1948,13 @@ span.icon {
   font-size: 15px;
   line-height: 20px;
   font-family: "Poppins";
-
 }
 
-.kyb-autocomplete-input .dropdown-select .MuiAutocomplete-endAdornment button svg {
+.kyb-autocomplete-input
+  .dropdown-select
+  .MuiAutocomplete-endAdornment
+  button
+  svg {
   color: var(--white);
 }
 

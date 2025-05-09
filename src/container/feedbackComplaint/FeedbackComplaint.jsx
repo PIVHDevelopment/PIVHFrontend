@@ -62,10 +62,7 @@ const FeedbackComplaint = () => {
         ...values,
         userId: userData?._id,
       };
-      const res = await Index.DataService.post(
-        Index.Api.ADD_FEEDBACK,
-        payload
-      );
+      const res = await Index.DataService.post(Index.Api.ADD_FEEDBACK, payload);
       if (res?.data?.status) {
         Index.toasterSuccess(res.data.message?.[language]);
         fetchRequests();
@@ -108,7 +105,7 @@ const FeedbackComplaint = () => {
           <Box className="address-book-details">
             <Box className="address-book-head">
               <Typography className="address-book-title">
-                {t("Feedback And Complaint")}
+                {t("Tickets")}
               </Typography>
               <button className="icon-btn" onClick={handleOpen}>
                 <img src={Index.Plusadd} alt={t("Add")} />
@@ -117,11 +114,16 @@ const FeedbackComplaint = () => {
             <List className="list-ul-address">
               {feedbackData.length > 0 ? (
                 feedbackData.map((item, index) => (
-                  <ListItem key={index} className={`list-item-address ${isRtl ? "text-align-right" : ""
-                    }`}>
+                  <ListItem
+                    key={index}
+                    className={`list-item-address ${
+                      isRtl ? "text-align-right" : ""
+                    }`}
+                  >
                     <Box
-                      className={`flex-justify-gap-add ${item?.status !== "pending" ? "custom-align" : ""
-                        }`}
+                      className={`flex-justify-gap-add ${
+                        item?.status !== "pending" ? "custom-align" : ""
+                      }`}
                     >
                       <Box className="address-left-contain">
                         <Box className="list-field-show">
@@ -158,20 +160,25 @@ const FeedbackComplaint = () => {
                             )}
                           </Typography>
                         </Box>
-                        <Box className="list-field-show list-field-show-full">
-                          <Typography className="label-contain-address">
-                            Description :
-                          </Typography>
-                          <Typography className="field-contain-address">
-                            {item?.description}
-                          </Typography>
-                        </Box>
+                        {/* <Box className="list-field-show list-field-show-full"> */}
+                        {item?.status == "close" && (
+                          <Box className="list-field-show">
+                            <Typography className="label-contain-address">
+                              {t("Reason")} :
+                            </Typography>
+                            <Typography className="field-contain-address">
+                              {item?.reason}
+                            </Typography>
+                          </Box>
+                        )}
                       </Box>
                     </Box>
                   </ListItem>
                 ))
               ) : (
-                <Index.NoDataFound message={t("No Feedback And Complaint Found")} />
+                <Index.NoDataFound
+                  message={t("No Feedback And Complaint Found")}
+                />
               )}
             </List>
           </Box>
@@ -180,9 +187,7 @@ const FeedbackComplaint = () => {
           <Modal open={open} onClose={handleClose} className="address-modal">
             <Box sx={modalStyle} className="common-style-modal address-style">
               <Box className="modal-header-common address-modal-header">
-                <Typography className="add-title">
-                  {t("Add Feedback And Complaint")}
-                </Typography>
+                <Typography className="add-title">{t("Add Ticket")}</Typography>
                 <button className="btn-close" onClick={handleClose}></button>
               </Box>
               <Index.Formik
@@ -218,9 +223,7 @@ const FeedbackComplaint = () => {
                           </div>
                         </div>
                         <div className="input-box">
-                          <p className="user-form-lable">
-                            {t("Description")}
-                          </p>
+                          <p className="user-form-lable">{t("Description")}</p>
                           <div className="user-form-group">
                             <TextField
                               type="text"
@@ -237,7 +240,7 @@ const FeedbackComplaint = () => {
 
                             <p className="input-error">
                               {formik.errors.description &&
-                                formik.touched.description
+                              formik.touched.description
                                 ? t(formik.errors.description)
                                 : null}
                             </p>
