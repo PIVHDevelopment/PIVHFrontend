@@ -354,10 +354,10 @@ const AddressBook = () => {
                   </Box>
                 </Box>
 
-                <Box className="modal-footer modal-footer-address">
+                <Box className="modal-footer">
                   <Box className="footer-address-center">
                     <button
-                      className="action-btn full-width send-pi-btn"
+                      className="common-btn"
                       type="submit"
                       disabled={buttonLoader}
                     >
@@ -404,17 +404,17 @@ const AddressBook = () => {
             </Box>
           </Box>
 
-          <Box className="modal-footer modal-footer-address">
-            <Box className="footer-address-center delete-flex">
+          <Box className="modal-footer">
+            <Box className="footer-address-center">
               <button
-                className="action-btn-border  send-pi-btn"
+                className="common-btn"
                 type="button"
                 onClick={handleCloseDelete}
               >
                 {t("Cancel")}
               </button>
               <button
-                className="action-btn full-width send-pi-btn"
+                className="border-btn"
                 type="button"
                 onClick={(e) => handleDelete(e.target.values)}
                 disabled={buttonLoader}

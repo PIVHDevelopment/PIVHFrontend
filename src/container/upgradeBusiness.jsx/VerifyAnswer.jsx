@@ -119,11 +119,11 @@ const VerifyAnswer = () => {
                       disabled={!question}
                     />
 
-                    <Box textAlign="center" mt={5}>
+                    <Box className="common-btn-space-main">
                       <button
                         variant="contained"
                         type="submit"
-                        className="action-btn full-width send-pi-btn"
+                        className="common-btn"
                         disabled={!question}
                       >
                         {/* {isLoading ? (

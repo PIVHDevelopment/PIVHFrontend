@@ -38,9 +38,9 @@ function Business({ balance }) {
           {t("Receive")}
         </button>
       </div>
-      <div className="action-buttons action-send-main-contain">
+      <div className="outline-tabs-main">
         <button
-          className="action-btn send-btn receive-btn"
+          className="outline-tabs"
           id="sendBtn"
           disabled={balance <= 0}
           onClick={() =>
@@ -49,14 +49,12 @@ function Business({ balance }) {
             })
           }
         >
-          <span className="btn-icon">
-            <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} />
-          </span>
+          <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} className="outline-tabs-icon" />
           {t("Withdraw")}
         </button>
 
         <button
-          className="action-btn send-btn receive-btn"
+          className=" outline-tabs"
           id="paymentrequest"
           style={{ maxWidth: "184px" }}
           onClick={() =>
@@ -65,9 +63,7 @@ function Business({ balance }) {
             })
           }
         >
-          <span className="btn-icon pay-request-icon">
-            <img src={Index.withdraw} alt={t("PaymentRequest")} />
-          </span>
+          <img src={Index.withdraw} alt={t("PaymentRequest")} className="outline-tabs-icon" />
           {t("PaymentRequest")}
         </button>
       </div>

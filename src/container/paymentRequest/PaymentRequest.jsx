@@ -269,8 +269,8 @@ const PaymentRequest = () => {
                           <button
                             className={`${
                               item?.status === "pending"
-                                ? "request-payment-pay-btn"
-                                : "request-payment-pay-success-btn"
+                                ? "request-payment-pay-btn request-payment-pay-pending-btn"
+                                : "request-payment-pay-btn request-payment-pay-success-btn"
                             }`}
                             onClick={() => handleSubmitPin(item)}
                             disabled={item?.status == "pending" ? false : true}
@@ -459,10 +459,10 @@ const PaymentRequest = () => {
                           </div>
                         </Box>
                       </Box>
-                      <Box className="modal-footer modal-footer-address">
+                      <Box className="modal-footer">
                         <Box className="footer-address-center">
                           <button
-                            className="action-btn full-width send-pi-btn"
+                            className="common-btn"
                             type="submit"
                             disabled={buttonLoader}
                           >

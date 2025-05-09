@@ -160,6 +160,14 @@ const FeedbackComplaint = () => {
                         )}
                       </Typography>
                     </Box>
+                    <Box className="list-field-show list-field-show-full">
+                      <Typography className="label-contain-address">
+                        Description :
+                      </Typography>
+                      <Typography className="field-contain-address">
+                        {item?.description}
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
               </ListItem>
@@ -238,10 +246,10 @@ const FeedbackComplaint = () => {
                       </div>
                     </Box>
                   </Box>
-                  <Box className="modal-footer modal-footer-address">
+                  <Box className="modal-footer">
                     <Box className="footer-address-center">
                       <button
-                        className="action-btn full-width send-pi-btn"
+                        className="common-btn"
                         type="submit"
                         disabled={buttonLoader}
                       >

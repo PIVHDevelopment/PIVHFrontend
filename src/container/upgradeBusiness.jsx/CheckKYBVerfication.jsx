@@ -43,13 +43,13 @@ function CheckKYBVerfication() {
         <div className="header-right"></div>
       </header>
       <div className="send-form">
-        <button disabled={true} className="action-btn full-width send-pi-btn" onClick={() => navigate("/kyb-verification")}>
+        <button disabled={true} className="common-btn" onClick={() => navigate("/kyb-verification")}>
         {t("KYB Verification")}
         </button>
 
         <button
           onClick={() => navigate("/upgrade-business")}
-          className="action-btn full-width send-pi-btn"
+          className="common-btn"
         >
           {t("Skip for now")}
         </button>

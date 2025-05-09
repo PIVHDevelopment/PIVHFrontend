@@ -167,7 +167,7 @@ function Deposit() {
                 </div>
 
                 <button
-                  className="action-btn full-width send-pi-btn"
+                  className="common-btn"
                   type="submit"
                   disabled={buttonLoader}
                 >

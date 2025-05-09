@@ -275,7 +275,7 @@ function Home() {
                 <span className="arrow-icon">↓</span>
               )}
             </div>
-            <h2>{t("TransactionHistory")}</h2>
+            <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";

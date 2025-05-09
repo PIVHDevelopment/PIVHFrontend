@@ -69,8 +69,8 @@ const SetPinRecoveryQuestion = () => {
     ln === "Hi"
       ? businessQuestionsHi
       : ln === "Ar"
-      ? businessQuestionsAr
-      : businessQuestionsEn;
+        ? businessQuestionsAr
+        : businessQuestionsEn;
   const [submitted, setSubmitted] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
@@ -140,19 +140,19 @@ const SetPinRecoveryQuestion = () => {
           );
           const updatedSessionData = isBusiness
             ? {
-                ...sessionData,
-                businessTxn: {
-                  ...sessionData.businessTxn,
-                  isQuestion: true,
-                },
-              }
+              ...sessionData,
+              businessTxn: {
+                ...sessionData.businessTxn,
+                isQuestion: true,
+              },
+            }
             : {
-                ...sessionData,
-                userTxn: {
-                  ...sessionData.userTxn,
-                  isQuestion: true,
-                },
-              };
+              ...sessionData,
+              userTxn: {
+                ...sessionData.userTxn,
+                isQuestion: true,
+              },
+            };
 
           sessionStorage.setItem(
             "pi_user_data",
@@ -283,11 +283,11 @@ const SetPinRecoveryQuestion = () => {
                     helperText={touched.answer && errors.answer}
                   />
 
-                  <Box textAlign="center">
+                  <div className="common-btn-space-main">
                     <button
                       variant="contained"
                       type="submit"
-                      className="action-btn full-width send-pi-btn"
+                      className="common-btn"
                     >
                       {isLoading ? (
                         <Spinner animation="border" role="status" size="sm" />
@@ -295,7 +295,7 @@ const SetPinRecoveryQuestion = () => {
                         t("Submit")
                       )}
                     </button>
-                  </Box>
+                  </div>
                 </Form>
               )}
             </Formik>
