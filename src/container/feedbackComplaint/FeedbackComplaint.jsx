@@ -215,11 +215,11 @@ const FeedbackComplaint = () => {
                               onBlur={formik.handleBlur}
                               maxLength={164}
                             />
-                            <div className="input-error">
+                            <p className="input-error">
                               {formik.errors.email && formik.touched.email
                                 ? t(formik.errors.email)
                                 : null}
-                            </div>
+                            </p>
                           </div>
                         </div>
                         <div className="input-box">
@@ -238,12 +238,12 @@ const FeedbackComplaint = () => {
                               inputProps={{ maxLength: 512 }}
                             />
 
-                            <div className="input-error">
+                            <p className="input-error">
                               {formik.errors.description &&
                               formik.touched.description
                                 ? t(formik.errors.description)
                                 : null}
-                            </div>
+                            </p>
                           </div>
                         </div>
                       </Box>

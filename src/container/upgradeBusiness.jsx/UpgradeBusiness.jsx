@@ -112,11 +112,11 @@ function UpgradeBusiness() {
                       disabled={businessData?.businessUserName}
                     />
                   </div>
-                  <div className="input-error">
+                  <p className="input-error">
                     {formik.errors?.userName && formik.touched?.userName
                       ? formik.errors?.userName
                       : null}
-                  </div>
+                  </p>
                 </div>
 
                 <div className="input-box">
@@ -130,11 +130,11 @@ function UpgradeBusiness() {
                       onChange={formik.handleChange}
                     />
                   </div>
-                  <div className="input-error">
+                  <p className="input-error">
                     {formik.errors?.businessName && formik.touched?.businessName
                       ? formik.errors?.businessName
                       : null}
-                  </div>
+                  </p>
                 </div>
 
                 <div className="common-btn-space-main">

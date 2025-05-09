@@ -50,7 +50,7 @@ export const addFeedbackFormSchema = Yup.object({
     .email("Enter a valid email")
     .matches(
       /^(([^<>()[\]\\.,;:-\s@#"]+(\.[^<>()[\]\\.,;:-\s@#"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Enter the valid email"
+      "Enter a valid email"
     )
     .required("Email is required"),
   description: Yup.string().required("Description is required"),

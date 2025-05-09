@@ -68,7 +68,7 @@ function SignIn() {
       ) : (
         <div className="app-container signin-main">
             <header className="signin-header">
-                <img src={Index.pocketPi2} alt="PocketPi" className="app-logo"/>
+                <img src={Index.pocketPi2} alt="PocketPi" className="auth-logo"/>
             </header>
             <div className="sigin-body">
               <button className="secondary-btn" onClick={signIn}>

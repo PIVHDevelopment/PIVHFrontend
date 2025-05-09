@@ -115,7 +115,7 @@ function Deposit() {
       ) : (
         <div className="app-container">
           <header className="receive-center">
-            <button className="back-btn" onClick={() => navigate("/home",{state:{isBusiness:false}})}>
+            <button className="back-btn" onClick={() => navigate("/home", { state: { isBusiness: false } })}>
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon">
@@ -135,31 +135,29 @@ function Deposit() {
             {(formik) => (
               <form onSubmit={formik.handleSubmit}>
                 <div className="input-box">
-                  <div className="input-group">
-                    <div className="user-form-group">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        className="user-form-control"
-                        placeholder={t("EnterAmount")}
-                        name="amount"
-                        value={formik.values.amount}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          // Only allow digits
-                          if (/^\d*\.?\d{0,6}$/.test(value)) {
-                            formik.setFieldValue("amount", value);
-                            setAmount(value);
-                          }
-                        }}
-                      />
-                    </div>
-                    <div className="input-error">
-                      {formik.errors?.amount && formik.touched?.amount
-                        ? formik.errors?.amount
-                        : null}
-                    </div>
+                  <div className="user-form-group">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      className="user-form-control"
+                      placeholder={t("EnterAmount")}
+                      name="amount"
+                      value={formik.values.amount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Only allow digits
+                        if (/^\d*\.?\d{0,6}$/.test(value)) {
+                          formik.setFieldValue("amount", value);
+                          setAmount(value);
+                        }
+                      }}
+                    />
                   </div>
+                  <p className="input-error">
+                    {formik.errors?.amount && formik.touched?.amount
+                      ? formik.errors?.amount
+                      : null}
+                  </p>
                 </div>
                 <div className="amount-section">
                   <label>{t("EnterPiAmount")}</label>

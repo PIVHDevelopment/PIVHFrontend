@@ -379,72 +379,78 @@ const PaymentRequest = () => {
                               <p className="user-form-lable">
                                 {t("Username")}
                               </p>
-                              <input
-                                type="text"
-                                className="user-form-control"
-                                placeholder={t("EnterUserName")}
-                                name="userName"
-                                value={formik.values.userName}
-                                onChange={(e) => {
-                                  const noSpaces = e.target.value.replace(
-                                    /\s/g,
-                                    ""
-                                  );
-                                  formik.setFieldValue("userName", noSpaces);
-                                }}
-                                onBlur={formik.handleBlur}
-                                maxLength={64}
-                              />
-                              <div className="input-error">
+                              <div className="user-form-group">
+                                <input
+                                  type="text"
+                                  className="user-form-control"
+                                  placeholder={t("EnterUserName")}
+                                  name="userName"
+                                  value={formik.values.userName}
+                                  onChange={(e) => {
+                                    const noSpaces = e.target.value.replace(
+                                      /\s/g,
+                                      ""
+                                    );
+                                    formik.setFieldValue("userName", noSpaces);
+                                  }}
+                                  onBlur={formik.handleBlur}
+                                  maxLength={64}
+                                />
+                              </div>
+                              <p className="input-error">
                                 {formik.errors.userName && formik.touched.userName
                                   ? formik.errors.userName
                                   : null}
-                              </div>
+                              </p>
                             </div>
                             <div className="input-box">
                               <p className="user-form-lable">
                                 {t("Amount")}
                               </p>
-                              <input
-                                type="text"
-                                className="user-form-control"
-                                placeholder={t("EnterAmount")}
-                                name="amount"
-                                value={formik.values.amount}
-                                onChange={(e) => {
-                                  const value = e?.target?.value;
-                                  if (/^\d*\.?\d*$/.test(value)) {
-                                    formik.setFieldValue("amount", value);
-                                  }
-                                }}
-                                onBlur={formik.handleBlur}
-                                maxLength={12}
-                              />
-                              <div className="input-error">
-                                {formik.errors.amount && formik.touched.amount
-                                  ? formik.errors.amount
-                                  : null}
+                              <div className="user-form-group">
+                                <input
+                                  type="text"
+                                  className="user-form-control"
+                                  placeholder={t("EnterAmount")}
+                                  name="amount"
+                                  value={formik.values.amount}
+                                  onChange={(e) => {
+                                    const value = e?.target?.value;
+                                    if (/^\d*\.?\d*$/.test(value)) {
+                                      formik.setFieldValue("amount", value);
+                                    }
+                                  }}
+                                  onBlur={formik.handleBlur}
+                                  maxLength={12}
+                                />
+                                <p className="input-error">
+                                  {formik.errors.amount && formik.touched.amount
+                                    ? formik.errors.amount
+                                    : null}
+                                </p>
                               </div>
                             </div>
                             <div className="input-box">
                               <p className="user-form-lable">
                                 {t("Description")}
                               </p>
-                              <input
-                                type="text"
-                                className="user-form-control"
-                                placeholder={t("EnterDescription")}
-                                name="description"
-                                value={formik.values.description}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                maxLength={164}
-                              />
-                              <div className="input-error">
-                                {formik.errors.description &&
-                                  formik.touched.description
-                                  ? formik.errors.description
-                                  : null}
+                              <div className="user-form-group">
+                                <input
+                                  type="text"
+                                  className="user-form-control"
+                                  placeholder={t("EnterDescription")}
+                                  name="description"
+                                  value={formik.values.description}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  maxLength={164}
+                                />
+                                <p className="input-error">
+                                  {formik.errors.description &&
+                                    formik.touched.description
+                                    ? formik.errors.description
+                                    : null}
+                                </p>
                               </div>
                             </div>
                           </Box>

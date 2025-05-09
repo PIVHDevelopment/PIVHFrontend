@@ -164,11 +164,11 @@ function Withdraw() {
                             }}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.amount && formik.touched?.amount
                             ? formik.errors?.amount
                             : null}
-                        </div>
+                        </p>
                       </div>
                       <div className="input-box">
                         <div className="user-form-group">
@@ -215,7 +215,7 @@ function Withdraw() {
                             renderInput={(params) => (
                               <TextField
                                 {...params}
-                                className="notes-input"
+                                className="user-form-control"
                                 placeholder={
                                   formik?.values?.address
                                     ? ""
@@ -227,11 +227,11 @@ function Withdraw() {
                             )}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.address && formik.touched?.address
                             ? formik.errors?.address
                             : null}
-                        </div>
+                        </p>
                         {(typeTxn === "individual" &&
                           userData?.isIndividualSubscription) ||
                         (typeTxn === "business" &&

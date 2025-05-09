@@ -138,7 +138,7 @@ const Subscription = () => {
                     <button
                       variant="contained"
                       type="submit"
-                      className="action-btn full-width"
+                      className="common-btn"
                       // onClick={handleSubmit}
                       onClick={() => setNextPage(true)}
                       disabled={isLoading || userData?.isBusinessSubscription}
@@ -155,7 +155,7 @@ const Subscription = () => {
                     <button
                       variant="contained"
                       type="submit"
-                      className="action-btn full-width"
+                      className="common-btn"
                       // onClick={handleSubmit}
                       onClick={() => setNextPage(true)}
                       disabled={isLoading || userData?.isIndividualSubscription}
