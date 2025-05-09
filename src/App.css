@@ -2249,10 +2249,9 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   color: lightgray;
 }
 
-<<<<<<< HEAD
 .send-form .kyb-btn{
   font-weight: 600;
-=======
+}
 .user-form-lable {
   font-size: 14px;
   line-height: 18px;
@@ -2577,5 +2576,4 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   font-size: 13px;
   margin-top: 3px;
   font-weight: 400;
->>>>>>> 5dbdd58d1face3ba3f94045d2bc4287ce9134d4d
 }
