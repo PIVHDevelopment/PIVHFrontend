@@ -74,7 +74,7 @@
   "SendPi": "Send Pi",
   "Pi": "Pi",
   "EnterName": "Enter Name",
-  "EnterUserName": "Enter User Name",
+  "EnterUserName": "Enter Username",
   "EnterWalletAddress": "Enter Wallet Address",
   "EnterAmount": "Enter Amount",
   "EnterDescription": "Enter Description",
@@ -117,7 +117,7 @@
   "QRCopy": "QR code link copied successfully",
   "SharingFiels": "Sharing files is not supported on this device",
   "PleaseEnterUserName": "Please enter user name",
-  "PleaseEnterAmount": "PleaseEnterAmount",
+  "PleaseEnterAmount": "Please enter amount",
   "PleaseEnterAmountAtLeast": "Amount must be at least 0.001",
   "PleaseEnterAmountAtLeaseMust": "Amount must be at least 0.05",
   "PleaseEnterAmountAtLeaseMust1": "Amount must be at least 0.01",
@@ -147,6 +147,7 @@
   "Email is required": "Email is required",
   "Email": "Email",
   "Enter a valid email": "Enter a valid email",
+  "Send Money":"Send Money",
   "Description is required": "Description is required"
 
 }

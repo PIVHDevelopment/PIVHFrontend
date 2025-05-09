@@ -5,17 +5,17 @@ function CheckKYBVerfication() {
   const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
- const [loading , setLoading]= React.useState(true);
- const [data , setData]= React.useState([])
-  const getKybVerification = async()=>{
+  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState([])
+  const getKybVerification = async () => {
     try {
       const res =  await Index.DataService.get(Index.Api.GET_KYB_VERIFICATION + `/${userData?._id}`);
       if (res?.data?.status === 200) {        
         setData(res.data.data);
       }
     } catch (error) {
-      console.log(error,"error")
-    } finally{
+      console.log(error, "error")
+    } finally {
       setLoading(false)
     }
   }
@@ -25,8 +25,8 @@ function CheckKYBVerfication() {
     getKybVerification();
   }, []);
 
-  console.log({data});
-  
+  console.log({ data });
+
   return (
     <>
           {loading ? (
@@ -50,6 +50,13 @@ function CheckKYBVerfication() {
           {!data?.status && <>{t("Start Process of KYB Verification")} </>}
         </button> */}
       {/* {data?.status === "approved" && */}
+      <button
+          className="common-btn"
+          disabled
+        >
+          {t("KYB Verification")}
+        </button>
+
         <button
           // onClick={() => navigate("/upgrade-business")}
           className="common-btn"

@@ -25,7 +25,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
   console.log("verifiction");
 
   const renderPinInputs = (values, setFieldValue) => (
-    <Box className="set-pin-row common-pin-flex">
+    <Box className="set-pin-row">
       {values.pinFields.map((val, idx) => (
         <input
           key={idx}
@@ -48,7 +48,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
               if (inputs[idx - 1]) inputs[idx - 1].focus();
             }
           }}
-          className="set-pin-input-box common-pin-input"
+          className="set-pin-input-box"
         />
       ))}
       <img
@@ -102,27 +102,24 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                   </Typography>
                 </Box>
 
-                <Grid container spacing={4}>
-                  <Grid item xs={12} md={6} className="set-pin-box">
-                    <Typography variant="h6" className="text" gutterBottom>
-                      {t("EnterPIN")}
-                    </Typography>
-                    {renderPinInputs(values, setFieldValue)}
 
-                    {touched.pinFields &&
-                      errors.pinFields &&
-                      typeof errors.pinFields === "string" && (
-                        <Typography color="error" variant="body2" mt={1}>
-                          {errors.pinFields}
-                        </Typography>
-                      )}
-                  </Grid>
-                </Grid>
+                <p variant="h6" className="user-form-lable" gutterBottom>
+                  {t("EnterPIN")}
+                </p>
+                {renderPinInputs(values, setFieldValue)}
 
-                <Box className="common-pin-btn-center">
+                {touched.pinFields &&
+                  errors.pinFields &&
+                  typeof errors.pinFields === "string" && (
+                    <p color="error" className="input-error">
+                      {errors.pinFields}
+                    </p>
+                  )}
+
+                <Box className="common-btn-space-main">
                   <button
                     type="submit"
-                    className="secondary-btn share-btn"
+                    className="common-btn"
                   >
                     {t("Verify")}
                   </button>

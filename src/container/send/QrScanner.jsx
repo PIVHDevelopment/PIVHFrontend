@@ -51,14 +51,14 @@ const QrScanner = () => {
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt={t("Back")} />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+        <div className="app-icon">
           <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
 
-      <div className='qr-scanner-main-div'>
-        <div id="qr-reader" style={{ width: '300px' }} />
+      <div className='qr-scanner-main'>
+        <div id="qr-reader" />
       </div>
     </div>
   );

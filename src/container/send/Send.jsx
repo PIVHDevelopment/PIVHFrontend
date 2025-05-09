@@ -167,20 +167,20 @@ function Send() {
                   }, [scannerResult]);
 
                   return (
-                    <form onSubmit={formik.handleSubmit} className="send-form">
-                      <div className="input-group">
-                        <div className="input-wrapper send-input-box receiver-addres-scanner-box">
+                    <form onSubmit={formik.handleSubmit}>
+                      <div className="input-box">
+                        <div className="user-form-group">
                           <Autocomplete
                             id="userName"
-                            className="notes-input-box"
+                            className="user-form-control"
                             freeSolo
                             options={users}
                             getOptionLabel={(option) =>
                               typeof option === "string"
                                 ? option
                                 : option?.type
-                                ? `${option.userName} (${option.type})`
-                                : option.userName
+                                  ? `${option.userName} (${option.type})`
+                                  : option.userName
                             }
                             inputValue={inputValue}
                             value={
@@ -234,29 +234,29 @@ function Send() {
                           />
 
                           <div
-                            className="scanner-icon"
+                            className="scanner-icon-box"
                             onClick={() =>
                               navigate("/qr-scanner", {
                                 state: { typeTxn: type },
                               })
                             }
                           >
-                            <img src={Index.scannerIcon} alt="scanner" />
+                            <img src={Index.scannerIcon} alt="scanner" className="scanner-img" />
                           </div>
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.userName && formik.touched?.userName
                             ? formik.errors?.userName
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       {/* Other fields for Amount and Memo */}
-                      <div className="input-group">
-                        <div className="input-wrapper">
+                      <div className="input-box">
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
+                            className="user-form-control"
                             placeholder={t("EnterAmount")}
                             name="amount"
                             value={formik.values.amount}
@@ -272,45 +272,47 @@ function Send() {
                             }}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.amount && formik.touched?.amount
                             ? formik.errors?.amount
                             : null}
-                        </div>
+                        </p>
                       </div>
 
-                      <div className="input-group">
-                        <div className="input-wrapper">
+                      <div className="input-box">
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
+                            className="user-form-control"
                             placeholder={t("EnterMemo")}
                             name="memo"
                             value={formik.values.memo}
                             onChange={formik.handleChange}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.memo && formik.touched?.memo
                             ? formik.errors?.memo
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       <div className="amount-section">
                         <label>{t("EnterPiAmount")}</label>
-                        <div className="amount-display">
+                        <p className="amount-display">
                           {formik.values.amount || "0"} {t("Pi")}
-                        </div>
+                        </p>
                       </div>
 
-                      <button
-                        className="common-btn"
-                        type="submit"
-                        disabled={buttonLoader}
-                      >
-                        {t("SendPi")}
-                      </button>
+                      <div className="common-btn-space-main">
+                        <button
+                          className="common-btn"
+                          type="submit"
+                          disabled={buttonLoader}
+                        >
+                          {t("SendPi")}
+                        </button>
+                      </div>
                     </form>
                   );
                 }}

@@ -5,9 +5,8 @@ export default function SplashScreen() {
         <>
             <div className="app-container signin-main">
                 <header className="signin-header">
-                    <div>
-                        <img src={Index.pocketPi2} alt="PocketPi" className="app-logo" />
-                    </div>
+                    <img src={Index.pocketPi2} alt="PocketPi" className="app-logo" />
+                    <button className='secondary-btn'>Continue</button>
                 </header>
             </div>
         </>

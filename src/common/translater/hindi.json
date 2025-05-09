@@ -74,7 +74,7 @@
   "SendPi": "Pi भेजें",
   "Pi": "Pi",
   "EnterName": "नाम दर्ज करें",
-  "EnterUserName": "यूज़र नाम दर्ज करें",
+  "EnterUserName": "यूज़रनाम दर्ज करें",
   "EnterWalletAddress": "वॉलेट पता दर्ज करें",
   "EnterAmount": "राशि दर्ज करें",
   "EnterDescription": "विवरण दर्ज करें",
@@ -147,5 +147,6 @@
   "Email is required": "ईमेल आवश्यक है",
   "Enter a valid email": "मान्य ईमेल दर्ज करें",
   "Description is required": "विवरण आवश्यक है",
+  "Send Money": "पैसे भेजें",
   "Your account is setup successfully, you can now perform transactions securely": "आपका खाता सफलतापूर्वक सेटअप हो गया है, अब आप सुरक्षित रूप से लेनदेन कर सकते हैं।"
 }

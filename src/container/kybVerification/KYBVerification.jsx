@@ -145,9 +145,9 @@ export default function KYBVerification() {
                     />
                      {formik.touched.country &&
                             formik.errors.country && (
-                              <Typography color="error" fontSize={12}>
+                              <p color="error" className="input-error">
                                 {formik.errors.country}
-                              </Typography>
+                              </p>
                             )}
                   </div>
                 </Index.Box>
@@ -188,9 +188,9 @@ export default function KYBVerification() {
                           </Button>
                           {formik.touched.frontDocument &&
                             formik.errors.frontDocument && (
-                              <Typography color="error" fontSize={12}>
+                              <p color="error" className="input-error">
                                 {formik.errors.frontDocument}
-                              </Typography>
+                              </p>
                             )}
                         </div>
                       </div>
@@ -230,9 +230,9 @@ export default function KYBVerification() {
                           </Button>
                           {formik.touched.backDocument &&
                             formik.errors.backDocument && (
-                              <Typography color="error" fontSize={12}>
+                              <p color="error" className="input-error">
                                 {formik.errors.backDocument}
-                              </Typography>
+                              </p>
                             )}
                         </div>
                       </div>
@@ -277,9 +277,9 @@ export default function KYBVerification() {
                         </Button>
                         {formik.touched.singleDocument &&
                           formik.errors.singleDocument && (
-                            <Typography color="error" fontSize={12}>
+                            <p color="error" className="input-error">
                               {formik.errors.singleDocument}
-                            </Typography>
+                            </p>
                           )}
                       </div>
                     </div>

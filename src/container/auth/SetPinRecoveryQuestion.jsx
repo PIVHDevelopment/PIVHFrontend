@@ -120,10 +120,16 @@ const SetPinRecoveryQuestion = () => {
       ? Index.Api.SET_PIN_QUESTION_BUSINESS
       : Index.Api.SET_PIN_QUESTION;
 
+    // const selectedQuestion =
+    //   parseInt(values.selectedQuestion) === -1
+    //     ? values.customQuestion
+    //     : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
+
+    const questionIndex = parseInt(values.selectedQuestion);
     const selectedQuestion =
-      parseInt(values.selectedQuestion) === -1
+      questionIndex === -1
         ? values.customQuestion
-        : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
+        : (isBusiness ? businessQuestionsEn : questionsEn)[questionIndex];
 
     setSubmitted(true);
     setIsLoading(true);
@@ -177,18 +183,18 @@ const SetPinRecoveryQuestion = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container set-pin-div">
+        <Box className="app-container">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="security-ques-div">
-            <Typography variant="h5" gutterBottom>
+          <Box className="security-ques-page">
+            <Typography variant="h5" gutterBottom className="common-heading">
               {isBusiness && t("Business")} {t("SecurityQuestion")}
             </Typography>
 
@@ -249,39 +255,48 @@ const SetPinRecoveryQuestion = () => {
                     />
                   </FormGroup>
 
-                  {/* Custom question input */}
-                  {parseInt(values.selectedQuestion) === -1 && (
-                    <TextField
-                      name="customQuestion"
-                      placeholder={t("EnterQuestion")}
-                      fullWidth
-                      className="textarea-question-sequrity question-custom"
-                      margin="normal"
-                      value={values.customQuestion}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={
-                        touched.customQuestion && Boolean(errors.customQuestion)
-                      }
-                      helperText={
-                        touched.customQuestion && errors.customQuestion
-                      }
-                    />
-                  )}
-
-                  <TextField
-                    name="answer"
-                    placeholder={t("EnterYourAnswer")}
-                    fullWidth
-                    className="textarea-question-sequrity"
-                    multiline
-                    margin="normal"
-                    value={values.answer}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.answer && Boolean(errors.answer)}
-                    helperText={touched.answer && errors.answer}
-                  />
+                  <div className="common-space">
+                    {/* Custom question input */}
+                    {parseInt(values.selectedQuestion) === -1 && (
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <TextField
+                            name="customQuestion"
+                            placeholder={t("EnterQuestion")}
+                            fullWidth
+                            className="form-control-control"
+                            margin="normal"
+                            value={values.customQuestion}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              touched.customQuestion && Boolean(errors.customQuestion)
+                            }
+                            helperText={
+                              touched.customQuestion && errors.customQuestion
+                            }
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="input-box">
+                      <div className="user-form-group">
+                        <TextField
+                          name="answer"
+                          placeholder={t("EnterYourAnswer")}
+                          fullWidth
+                          className="form-control-textarea"
+                          multiline
+                          margin="normal"
+                          value={values.answer}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.answer && Boolean(errors.answer)}
+                          helperText={touched.answer && errors.answer}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="common-btn-space-main">
                     <button

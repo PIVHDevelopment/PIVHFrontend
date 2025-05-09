@@ -79,7 +79,7 @@ function UpgradeBusiness() {
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -95,14 +95,15 @@ function UpgradeBusiness() {
             innerRef={formRef}
           >
             {(formik) => (
-              <form onSubmit={formik.handleSubmit} className="send-form">
-                <h5>{t("UpgradeVersion")}</h5>
-                <div className="input-group">
-                  <div className="input-wrapper send-input-box">
+              <form onSubmit={formik.handleSubmit}>
+                <h5 className="common-heading">{t("UpgradeVersion")}</h5>
+                <div className="input-box">
+                  <div className="user-form-group">
                     <input
                       type="text"
                       placeholder={t("EnterUserName")}
                       name="userName"
+                      className="user-form-control"
                       value={formik.values.userName}
                       onChange={(e) => {
                         const noSpaces = e.target.value.replace(/\s/g, "");
@@ -111,36 +112,39 @@ function UpgradeBusiness() {
                       disabled={businessData?.businessUserName}
                     />
                   </div>
-                  <div className="input-error">
+                  <p className="input-error">
                     {formik.errors?.userName && formik.touched?.userName
                       ? formik.errors?.userName
                       : null}
-                  </div>
+                  </p>
                 </div>
 
-                <div className="input-group">
-                  <div className="input-wrapper send-input-box">
+                <div className="input-box">
+                  <div className="user-form-group">
                     <input
                       type="text"
+                      className="user-form-control"
                       placeholder={t("EnterBusinessName")}
                       name="businessName"
                       value={formik.values.businessName}
                       onChange={formik.handleChange}
                     />
                   </div>
-                  <div className="input-error">
+                  <p className="input-error">
                     {formik.errors?.businessName && formik.touched?.businessName
                       ? formik.errors?.businessName
                       : null}
-                  </div>
+                  </p>
                 </div>
 
-                <button
-                  className="common-btn"
-                  type="submit"
-                >
-                  {t("Save")}
-                </button>
+                <div className="common-btn-space-main">
+                  <button
+                    className="common-btn"
+                    type="submit"
+                  >
+                    {t("Save")}
+                  </button>
+                </div>
               </form>
             )}
           </Index.Formik>
