@@ -435,7 +435,12 @@ const arabicText = () => {
 
 function PrivacyPolicy() {
   const navigate = Index.useNavigate();
-  return englishText();
+  const language = localStorage.getItem("language");
+  return language == "Ar"
+    ? arabicText()
+    : language == "Hi"
+    ? hindiText()
+    : englishText();
 }
 
 export default PrivacyPolicy;
