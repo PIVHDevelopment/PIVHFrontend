@@ -234,14 +234,14 @@ function Send() {
                           />
 
                           <div
-                            className="scanner-icon"
+                            className="scanner-icon-box"
                             onClick={() =>
                               navigate("/qr-scanner", {
                                 state: { typeTxn: type },
                               })
                             }
                           >
-                            <img src={Index.scannerIcon} alt="scanner" />
+                            <img src={Index.scannerIcon} alt="scanner" className="scanner-img" />
                           </div>
                         </div>
                         <div className="input-error">
@@ -252,45 +252,49 @@ function Send() {
                       </div>
 
                       {/* Other fields for Amount and Memo */}
-                      <div className="user-form-group">
-                        <input
-                          type="text"
-                          className="user-form-control"
-                          placeholder={t("EnterAmount")}
-                          name="amount"
-                          value={formik.values.amount}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (/^\d*\.?\d{0,5}$/.test(value)) {
-                              if (parseFloat(value) > parseFloat(balance)) {
-                                formik.setFieldValue("amount", balance);
-                              } else {
-                                formik.setFieldValue("amount", value);
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <input
+                            type="text"
+                            className="user-form-control"
+                            placeholder={t("EnterAmount")}
+                            name="amount"
+                            value={formik.values.amount}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*\.?\d{0,5}$/.test(value)) {
+                                if (parseFloat(value) > parseFloat(balance)) {
+                                  formik.setFieldValue("amount", balance);
+                                } else {
+                                  formik.setFieldValue("amount", value);
+                                }
                               }
-                            }
-                          }}
-                        />
-                      </div>
-                      <div className="input-error">
-                        {formik.errors?.amount && formik.touched?.amount
-                          ? formik.errors?.amount
-                          : null}
+                            }}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.amount && formik.touched?.amount
+                            ? formik.errors?.amount
+                            : null}
+                        </div>
                       </div>
 
-                      <div className="user-form-group">
-                        <input
-                          type="text"
-                          className="user-form-control"
-                          placeholder={t("EnterMemo")}
-                          name="memo"
-                          value={formik.values.memo}
-                          onChange={formik.handleChange}
-                        />
-                      </div>
-                      <div className="input-error">
-                        {formik.errors?.memo && formik.touched?.memo
-                          ? formik.errors?.memo
-                          : null}
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <input
+                            type="text"
+                            className="user-form-control"
+                            placeholder={t("EnterMemo")}
+                            name="memo"
+                            value={formik.values.memo}
+                            onChange={formik.handleChange}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.memo && formik.touched?.memo
+                            ? formik.errors?.memo
+                            : null}
+                        </div>
                       </div>
 
                       <div className="amount-section">

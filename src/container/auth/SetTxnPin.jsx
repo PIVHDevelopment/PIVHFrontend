@@ -108,7 +108,7 @@ const SetTxnPin = () => {
   };
 
   const renderPinInputs = (name, values, setFieldValue, show, setShow) => (
-    <Box className="set-pin-row" sx={{ display: "flex", gap: 1 }}>
+    <Box className="set-pin-row">
       {values[name].map((val, idx) => (
         <input
           key={idx}
@@ -133,7 +133,6 @@ const SetTxnPin = () => {
             }
           }}
           className="set-pin-input-box"
-          style={{ width: "40px", fontSize: "24px", textAlign: "center" }}
         />
       ))}
       <img
@@ -199,12 +198,12 @@ const SetTxnPin = () => {
                     {t("PINContaint")}
                   </Typography>
 
-                  <Grid container spacing={4}>
+                  <div className="set-pin-main">
                     {step === 1 && (
-                      <Grid item xs={12} md={6} className="set-pin-box">
-                        <Typography variant="h6" className="text" gutterBottom>
+                      <div className="input-box">
+                        <p className="user-form-lable" gutterBottom>
                           {t("EnterPIN")}
-                        </Typography>
+                        </p>
                         {renderPinInputs(
                           "pinFields",
                           values,
@@ -219,14 +218,14 @@ const SetTxnPin = () => {
                               {errors.pinFields}
                             </Typography>
                           )}
-                      </Grid>
+                      </div>
                     )}
 
                     {step === 2 && (
-                      <Grid item xs={12} md={6} className="set-pin-box">
-                        <Typography variant="h6" className="text" gutterBottom>
+                      <div className="input-box">
+                        <p className="user-form-lable" gutterBottom>
                           {t("ConfirmPIN")}
-                        </Typography>
+                        </p>
                         {renderPinInputs(
                           "confirmPinFields",
                           values,
@@ -241,15 +240,15 @@ const SetTxnPin = () => {
                               {errors.confirmPinFields}
                             </Typography>
                           )}
-                      </Grid>
+                      </div>
                     )}
-                  </Grid>
+                  </div>
 
-                  <Box textAlign="center" mt={8}>
+                  <div className="common-btn-space-main">
                     {step === 1 ? (
                       <button
                         type="button"
-                        className="secondary-btn share-btn"
+                        className="common-btn"
                         onClick={async () => {
                           await setTouched({
                             pinFields: [true, true, true, true, true],
@@ -263,7 +262,7 @@ const SetTxnPin = () => {
                         {t("Next")}
                       </button>
                     ) : (
-                      <button type="submit" className="secondary-btn share-btn">
+                      <button type="submit" className="common-btn">
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
@@ -271,7 +270,7 @@ const SetTxnPin = () => {
                         {/* )} */}
                       </button>
                     )}
-                  </Box>
+                  </div>
                 </>
               </form>
             )}
