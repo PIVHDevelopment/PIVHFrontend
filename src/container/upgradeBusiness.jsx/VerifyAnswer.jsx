@@ -129,12 +129,12 @@ const VerifyAnswer = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container set-pin-div" mx="auto">
+        <Box className="app-container">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -143,7 +143,7 @@ const VerifyAnswer = () => {
             <Typography
               variant="h5"
               gutterBottom
-              className="security-question-title"
+              className="common-heading"
             >
               {isBusiness && t("Business")}{" "}{t("SecurityQuestion")}
             </Typography>
@@ -158,8 +158,7 @@ const VerifyAnswer = () => {
                   <Form>
                     {/* Show fetched question */}
                     <Typography
-                      variant="subtitle1"
-                      className="verify-answer-label"
+                      className="user-form-lable"
                     >
                   {question
                     ? getTranslatedQuestion(question, language, isBusiness)
