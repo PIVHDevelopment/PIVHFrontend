@@ -115,7 +115,7 @@ function Deposit() {
       ) : (
         <div className="app-container">
           <header className="receive-center">
-            <button className="back-btn" onClick={() => navigate(-1)}>
+            <button className="back-btn" onClick={() => navigate("/home",{state:{isBusiness:false}})}>
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon">
