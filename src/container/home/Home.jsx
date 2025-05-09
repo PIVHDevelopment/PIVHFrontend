@@ -48,19 +48,19 @@ function Home() {
     updateLanugage(lang);
   };
 
-   useEffect(()=>{
-        if (languageCh == "Ar") {
-          document.body.classList.add("direction-rtl");
-        } else {
-        document.body.classList.remove("direction-rtl");
-      }
-        i18n.changeLanguage(languageCh);
-      },[languageCh])
+  useEffect(() => {
+    if (languageCh == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
+      document.body.classList.remove("direction-rtl");
+    }
+    i18n.changeLanguage(languageCh);
+  }, [languageCh])
 
   const updateLanugage = (lang) => {
     Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
-      id : userData._id,
-      language:lang,
+      id: userData._id,
+      language: lang,
     });
   };
 
@@ -125,42 +125,42 @@ function Home() {
   return (
     <>
       <div className="app-container">
-        <div className="home-page-main">
-          <header>
-              {/* <div className="profile-pic">
+
+        <header>
+          {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
 
-              <div className="lang-dropdown-main">
-                <Index.FormControl>
-                  <Index.Select
-                    value={languageCh}
-                    onChange={handleLanguageChange}
-                  >
-                    <Index.MenuItem value={"En"}>En</Index.MenuItem>
-                    <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
-                    <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
-                  </Index.Select>
-                </Index.FormControl>
-                <img src={Index.languageImg} className="lang-change-icon" />
-                <img
-                  src={Index.downblackAarrow}
-                  className="search-down-arrow"
-                  alt="Dropdown"
-                />
-              </div>
-            <div
-              className="app-icon"
-            >
-              <img src={Index.pocketPi} alt={t("PocketPi")} />
-            </div>
-            <div className="header-icons">
-              {/* <button className="icon-btn" id="syncBtn">
+          <div className="lang-dropdown-main">
+            <Index.FormControl>
+              <Index.Select
+                value={languageCh}
+                onChange={handleLanguageChange}
+              >
+                <Index.MenuItem value={"En"}>En</Index.MenuItem>
+                <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
+                <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
+              </Index.Select>
+            </Index.FormControl>
+            <img src={Index.languageImg} className="lang-change-icon" />
+            <img
+              src={Index.downblackAarrow}
+              className="search-down-arrow"
+              alt="Dropdown"
+            />
+          </div>
+          <div
+            className="app-icon"
+          >
+            <img src={Index.pocketPi} alt={t("PocketPi")} />
+          </div>
+          <div className="header-icons">
+            {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button> */}
 
-              {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
+            {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
               (tab === 1 && !userData?.isIndividualSubscription) ? (
                 ""
               ) : (
@@ -175,20 +175,21 @@ function Home() {
                 </button>
               )} */}
 
-              <button
-                className="icon-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalMerchant"
-                onClick={handleOpen}
-              // onClick={() => navigate("/add-wallet")}
-              >
-                <img src={Index.setting} alt={t("Setting")} />
-              </button>
-              <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
-                <img src={Index.logout} alt="logout" />
-              </button>
-            </div>
-          </header>
+            <button
+              className="icon-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModalMerchant"
+              onClick={handleOpen}
+            // onClick={() => navigate("/add-wallet")}
+            >
+              <img src={Index.setting} alt={t("Setting")} />
+            </button>
+            <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
+              <img src={Index.logout} alt="logout" />
+            </button>
+          </div>
+        </header>
+        <div className="home-page-main">
           <Index.TabContainer
             id="left-tabs-example"
             defaultActiveKey="individual"
@@ -266,75 +267,72 @@ function Home() {
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
-        </div>
 
 
-        {transactionList?.length ? (
-          <div
-            // className={`transaction-section${
-            //   tab === 2 ? " transaction-section-top" : ""
-            // }`}
-            className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
-              }`}
-          >
-            <div className="toggle-arrow" onClick={toggleSection}>
-              {isExpanded ? (
-                <span className="arrow-icon">↑</span>
-              ) : (
-                <span className="arrow-icon">↓</span>
-              )}
-            </div>
-            <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
-            <div className="transaction-list">
-              {transactionList?.map((transaction, index) => {
-                const isPositive = transaction.paymentType === "received";
-                const amountPrefix = isPositive ? "+" : "-";
-                return (
-                  <div className="transaction-main-box" key={index}>
-                    <div className="transaction-details">
-                      <img
-                        src={isPositive ? Index.income : Index.expense}
-                        alt={t("expense")}
-                        className="transaction-icon"
-                      />
-                      <div className="transaction-info">
-                        <p className="transaction-title">
-                          {transaction?.memo || transaction?.type}{" "}
-                          {transaction?.receiver_name &&
-                            `(${transaction?.paymentType === "sent"
-                              ? transaction?.receiver_name
-                              : transaction?.user_name
-                            })`}
+          {transactionList?.length ? (
+            <div
+              className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
+                }`}
+            >
+              <div className="toggle-arrow" onClick={toggleSection}>
+                {isExpanded ? (
+                  <span className="arrow-icon">↓</span>
+                ) : (
+                  <span className="arrow-icon">↑</span>
+                )}
+              </div>
+              <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
+              <div className="transaction-list">
+                {transactionList?.map((transaction, index) => {
+                  const isPositive = transaction.paymentType === "received";
+                  const amountPrefix = isPositive ? "+" : "-";
+                  return (
+                    <div className="transaction-main-box" key={index}>
+                      <div className="transaction-details">
+                        <img
+                          src={isPositive ? Index.income : Index.expense}
+                          alt={t("expense")}
+                          className="transaction-icon"
+                        />
+                        <div className="transaction-info">
+                          <p className="transaction-title">
+                            {transaction?.memo || transaction?.type}{" "}
+                            {transaction?.receiver_name &&
+                              `(${transaction?.paymentType === "sent"
+                                ? transaction?.receiver_name
+                                : transaction?.user_name
+                              })`}
+                          </p>
+                          <p className="transaction-time">
+                            {Index.moment(transaction.createdAt).format(
+                              "hh:mm A"
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className={`transaction-amount ${isPositive ? "positive" : "negative"
+                          }`}
+                      >
+                        <p className="transaction-amount">
+                          {amountPrefix}
+                          {Math.abs(transaction.amount)?.toFixed(5)} Pi
                         </p>
-                        <p className="transaction-time">
+                        <p className="transaction-date">
                           {Index.moment(transaction.createdAt).format(
-                            "hh:mm A"
+                            "DD MMM, YYYY"
                           )}
                         </p>
                       </div>
                     </div>
-                    <div
-                      className={`transaction-amount ${isPositive ? "positive" : "negative"
-                        }`}
-                    >
-                      <p className="transaction-amount">
-                        {amountPrefix}
-                        {Math.abs(transaction.amount)?.toFixed(5)} Pi
-                      </p>
-                      <p className="transaction-date">
-                        {Index.moment(transaction.createdAt).format(
-                          "DD MMM, YYYY"
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          <></>
-        )}
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <Index.Modal
         className="user-setting-modal"
@@ -354,39 +352,6 @@ function Home() {
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          {/* <NavLink className="setting-cont-box" to={"/add-wallet"}>
-            <div className="setting-icon-box">
-              <img src={Index.walletaddress} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Wallet Address</h6>
-          </NavLink> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.businessaddress} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Business Address</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.employee} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Employee Address</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.autopay} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Set Autopay</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
-            </div>
-            <h6 className="setting-cont-title">
-              Configure Salary Disbursement
-            </h6>
-          </div> */}
-
           <div
             className="setting-cont-box"
             onClick={() =>
