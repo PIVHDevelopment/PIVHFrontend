@@ -129,7 +129,7 @@ function Receive() {
             >
               <img src={Index.back} alt="Back" />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -177,19 +177,15 @@ function Receive() {
 
           <div className="receive-btn-share">
             <button
-              className="secondary-btn share-btn"
+              className="secondary-btn"
               onClick={handleCopyLink}
             >
-              <span className="icon">
-                <img src={Index.copyLink} alt="Share" />
-              </span>
+                <img src={Index.copyLink} alt="Share" className="btn-icon-img"/>
               {t("Copy")}
             </button>
-            <button className="secondary-btn share-btn" onClick={handleShare}>
+            <button className="secondary-btn" onClick={handleShare}>
               {/* <button className="secondary-btn share-btn"  onClick={shareImage}> */}
-              <span className="icon">
-                <img src={Index.share} alt={t("Share")} />
-              </span>
+                <img src={Index.share} alt={t("Share")} className="btn-icon-img" />
               {t("Share")}
             </button>
           </div>

@@ -10,26 +10,24 @@ function ReceiveMerchant() {
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt={t("Back")} />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+        <div className="app-icon">
           <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
 
-      <div className="send-form">
-        <div className="input-group">
-          <div className="input-wrapper send-input-box">
+      <div className="input-box">
+        <div className="user-form-group">
             <input
               type="text"
               placeholder=""
-              style={{ borderRadius: "14px" }}
+              className="user-form-control"
             />
             <button className="paste-btn" style={{ color: "#ffffff" }}>
               {t("Mainnet")}
             </button>
             <div className="left-icon">
-              <img src={Index.piLeft} alt="" />
-            </div>
+            <img src={Index.piLeft} alt="" />
           </div>
         </div>
       </div>

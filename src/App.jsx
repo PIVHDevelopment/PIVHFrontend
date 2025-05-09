@@ -17,7 +17,10 @@ function App() {
       },
     },
   });
-
+  let ln = localStorage.getItem("language");
+  if (!ln) {
+    localStorage.setItem("language", "En");
+  }
   return (
     // <ThemeProvider theme={theme}>
     <div className="App">

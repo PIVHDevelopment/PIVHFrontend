@@ -202,14 +202,12 @@ const FeedbackComplaint = () => {
                   <form onSubmit={formik.handleSubmit}>
                     <Box className="modal-body address-body">
                       <Box className="grid-row">
-                        <Box className="common-grid">
-                          <div className="input-wrapper">
-                            <Typography className="label-field">
-                              {t("Email")}
-                            </Typography>
+                        <div className="input-box">
+                          <p className="user-form-lable">{t("Email")}</p>
+                          <div className="user-form-group">
                             <input
                               type="text"
-                              className="notes-input"
+                              className="user-form-control"
                               placeholder={t("Enter Email")}
                               name="email"
                               value={formik.values.userName}
@@ -223,17 +221,15 @@ const FeedbackComplaint = () => {
                                 : null}
                             </div>
                           </div>
-                        </Box>
-                        <Box className="common-grid">
-                          <div className="input-wrapper">
-                            <Typography className="label-field">
-                              {t("Description")}
-                            </Typography>
+                        </div>
+                        <div className="input-box">
+                          <p className="user-form-lable">{t("Description")}</p>
+                          <div className="user-form-group">
                             <TextField
                               type="text"
                               multiline
                               rows={3}
-                              className="notes-input-multiline"
+                              className="user-form-control-textarea"
                               placeholder={t("EnterDescription")}
                               name="description"
                               value={formik.values.description}
@@ -249,7 +245,7 @@ const FeedbackComplaint = () => {
                                 : null}
                             </div>
                           </div>
-                        </Box>
+                        </div>
                       </Box>
                       <Box className="modal-footer">
                         <Box className="footer-address-center">
