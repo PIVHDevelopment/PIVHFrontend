@@ -45,6 +45,14 @@ function Home() {
     localStorage.setItem("language", lang);
     i18n.changeLanguage(lang);
     setLanguageCh(lang);
+    updateLanugage(lang);
+  };
+
+  const updateLanugage = (lang) => {
+    Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
+      id : userData._id,
+      language:lang,
+    });
   };
 
   const handleCopy = () => {
@@ -68,7 +76,6 @@ function Home() {
   };
   const handleLogout = async () => {
     await signOutUser();
-    localStorage.clear();
     sessionStorage.clear();
     navigate("/");
   };
@@ -127,10 +134,7 @@ function Home() {
                     <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
                   </Index.Select>
                 </Index.FormControl>
-                <img
-                  src={Index.languageImg}
-                  className="lang-change-icon"
-                />
+                <img src={Index.languageImg} className="lang-change-icon" />
                 <img
                   src={Index.downblackAarrow}
                   className="search-down-arrow"
@@ -161,7 +165,6 @@ function Home() {
                   <img src={Index.subscribedIcon} alt="Setting" />
                 </button>
               )} */}
-
 
               <button
                 className="icon-btn"
@@ -256,7 +259,6 @@ function Home() {
           </Index.TabContainer>
         </div>
 
-        {/* <button onClick={() => navigate("/kyb-verification")}>Demo</button> */}
 
         {transactionList?.length ? (
           <div
@@ -267,7 +269,11 @@ function Home() {
               }`}
           >
             <div className="toggle-arrow" onClick={toggleSection}>
-              <span className="arrow-icon">↑</span>
+              {isExpanded ? (
+                <span className="arrow-icon">↑</span>
+              ) : (
+                <span className="arrow-icon">↓</span>
+              )}
             </div>
             <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
             <div className="transaction-list">

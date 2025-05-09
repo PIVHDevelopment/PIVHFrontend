@@ -5,6 +5,7 @@ import { Spinner } from "react-bootstrap";
 
 const Subscription = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [isLoading, setIsLoading] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
@@ -19,7 +20,7 @@ const Subscription = () => {
       subscriptionType : type,
     })
       .then((res) => {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         if (res?.data?.status === 200) {
             navigate("/home", {
                 state: { isBusiness: isBusiness },
@@ -51,7 +52,7 @@ const Subscription = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
+          err?.response?.data?.message?.[language] || t("SomethingWrong")
         );
       })
       .finally(() => {
@@ -108,7 +109,7 @@ const Subscription = () => {
                 {isLoading ? (
                   <Spinner animation="border" role="status" size="sm" />
                 ) : (
-                    userData?.isIndividualSubscription ? t("Subscribed") : t("Okay")
+                    userData?.isIndividualSubscription ? t("Subscribed") : t("Oky")
                 )}
               </button>}
             </Box>

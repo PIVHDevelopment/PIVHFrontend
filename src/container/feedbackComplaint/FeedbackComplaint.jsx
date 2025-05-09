@@ -22,6 +22,9 @@ const modalStyle = {
 };
 
 const FeedbackComplaint = () => {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
@@ -64,12 +67,12 @@ const FeedbackComplaint = () => {
         payload
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         fetchRequests();
         handleClose();
       }
     } catch (err) {
-      Index.toasterError(err?.response?.data?.message);
+      Index.toasterError(err?.response?.data?.message?.[language]);
     } finally {
       setButtonLoader(false);
     }
@@ -94,10 +97,10 @@ const FeedbackComplaint = () => {
             })
           }
         >
-          <img src={Index.back} alt="Back" />
+          <img src={Index.back} alt={t("Back")} />
         </button>
         <div className="app-icon">
-          <img src={Index.pocketPi} alt="PocketPi" />
+          <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
       </header>
@@ -105,16 +108,18 @@ const FeedbackComplaint = () => {
       <Box className="address-book-details">
         <Box className="address-book-head">
           <Typography className="address-book-title">
-            Feedback And Complaint
+            {t("Feedback And Complaint")}
           </Typography>
           <button className="icon-btn" onClick={handleOpen}>
-            <img src={Index.Plusadd} alt="Add" />
+            <img src={Index.Plusadd} alt={t("Add")} />
           </button>
         </Box>
         <List className="list-ul-address">
           {feedbackData.length > 0 ? (
             feedbackData.map((item, index) => (
-              <ListItem key={index} className="list-item-address">
+              <ListItem key={index}   className={`list-item-address ${
+                isRtl ? "text-align-right" : ""
+              }`}>
                 <Box
                   className={`flex-justify-gap-add ${
                     item?.status !== "pending" ? "custom-align" : ""
@@ -123,7 +128,7 @@ const FeedbackComplaint = () => {
                   <Box className="address-left-contain">
                     <Box className="list-field-show">
                       <Typography className="label-contain-address">
-                        Email :
+                        {t("Email")} :
                       </Typography>
                       <Typography className="field-contain-address">
                         {item?.email}
@@ -131,7 +136,15 @@ const FeedbackComplaint = () => {
                     </Box>
                     <Box className="list-field-show">
                       <Typography className="label-contain-address">
-                        Status :
+                        {t("Description")} :
+                      </Typography>
+                      <Typography className="field-contain-address">
+                        {item?.description}
+                      </Typography>
+                    </Box>
+                    <Box className="list-field-show">
+                      <Typography className="label-contain-address">
+                        {t("Status")} :
                       </Typography>
                       <Typography className="field-contain-address custom-field-contain-status">
                         {item?.status}
@@ -139,7 +152,7 @@ const FeedbackComplaint = () => {
                     </Box>
                     <Box className="list-field-show">
                       <Typography className="label-contain-address">
-                        Date :
+                        {t("Date")} :
                       </Typography>
                       <Typography className="field-contain-address custom-field-contain-status">
                         {Index.moment(item?.createdAt).format(
@@ -160,7 +173,7 @@ const FeedbackComplaint = () => {
               </ListItem>
             ))
           ) : (
-             <Index.NoDataFound message={" No Feedback And Complaint Found"} />
+             <Index.NoDataFound message={t("No Feedback And Complaint Found")} />
           )}
         </List>
       </Box>
@@ -170,7 +183,7 @@ const FeedbackComplaint = () => {
         <Box sx={modalStyle} className="common-style-modal address-style">
           <Box className="modal-header-common address-modal-header">
             <Typography className="add-title">
-              {"Add Feedback And Complaint"}
+              {t("Add Feedback And Complaint")}
             </Typography>
             <button className="btn-close" onClick={handleClose}></button>
           </Box>
@@ -188,11 +201,11 @@ const FeedbackComplaint = () => {
                   <Box className="grid-row">
                     <Box className="common-grid">
                       <div className="input-wrapper">
-                        <Typography className="label-field">Email</Typography>
+                        <Typography className="label-field">{t("Email")}</Typography>
                         <input
                           type="text"
                           className="notes-input"
-                          placeholder="Enter Email"
+                          placeholder={t("Enter Email")}
                           name="email"
                           value={formik.values.userName}
                           onChange={formik.handleChange}
@@ -201,7 +214,7 @@ const FeedbackComplaint = () => {
                         />
                         <div className="input-error">
                           {formik.errors.email && formik.touched.email
-                            ? formik.errors.email
+                            ? t(formik.errors.email)
                             : null}
                         </div>
                       </div>
@@ -209,14 +222,14 @@ const FeedbackComplaint = () => {
                     <Box className="common-grid">
                       <div className="input-wrapper">
                         <Typography className="label-field">
-                          Description
+                          {t("Description")}
                         </Typography>
                         <TextField
                           type="text"
                           multiline
                           rows={3}
                           className="notes-input-multiline"
-                          placeholder="Enter Description"
+                          placeholder={t("EnterDescription")}
                           name="description"
                           value={formik.values.description}
                           onChange={formik.handleChange}
@@ -227,7 +240,7 @@ const FeedbackComplaint = () => {
                         <div className="input-error">
                           {formik.errors.description &&
                           formik.touched.description
-                            ? formik.errors.description
+                            ? t(formik.errors.description)
                             : null}
                         </div>
                       </div>
@@ -243,7 +256,7 @@ const FeedbackComplaint = () => {
                         {buttonLoader ? (
                           <CircularProgress size={20} />
                         ) : (
-                          "Submit"
+                          t("Submit")
                         )}
                       </button>
                     </Box>
