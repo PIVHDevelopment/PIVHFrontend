@@ -205,7 +205,7 @@ function Withdraw() {
                             renderInput={(params) => (
                               <TextField
                                 {...params}
-                                className="notes-input"
+                                className="user-form-control"
                                 placeholder={
                                   formik?.values?.address
                                     ? ""

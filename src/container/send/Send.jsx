@@ -222,7 +222,7 @@ function Send() {
                               <TextField
                                 {...params}
                                 name="userName"
-                                className="notes-input"
+                                className="user-form-control"
                                 placeholder={
                                   formik?.values?.userName ? "" : t("EnterUserName")
                                 }
