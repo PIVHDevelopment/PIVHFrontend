@@ -160,11 +160,11 @@ function Withdraw() {
                             }}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.amount && formik.touched?.amount
                             ? formik.errors?.amount
                             : null}
-                        </div>
+                        </p>
                       </div>
                       <div className="input-box">
                         <div className="user-form-group">
@@ -219,11 +219,11 @@ function Withdraw() {
                             )}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.address && formik.touched?.address
                             ? formik.errors?.address
                             : null}
-                        </div>
+                        </p>
                         {formik.values.amount >= 0.01 ? (
                           <label className="text-color deduction-message">
                             0.01 {t("DeductFees")}

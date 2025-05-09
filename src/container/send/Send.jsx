@@ -244,11 +244,11 @@ function Send() {
                             <img src={Index.scannerIcon} alt="scanner" className="scanner-img" />
                           </div>
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.userName && formik.touched?.userName
                             ? formik.errors?.userName
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       {/* Other fields for Amount and Memo */}
@@ -272,11 +272,11 @@ function Send() {
                             }}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.amount && formik.touched?.amount
                             ? formik.errors?.amount
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       <div className="input-box">
@@ -290,11 +290,11 @@ function Send() {
                             onChange={formik.handleChange}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.memo && formik.touched?.memo
                             ? formik.errors?.memo
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       <div className="amount-section">

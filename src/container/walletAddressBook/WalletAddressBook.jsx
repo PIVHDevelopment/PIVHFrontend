@@ -246,12 +246,12 @@ const WalletAddressBook = () => {
                           onBlur={formik.handleBlur}
                           maxLength={132}
                         />
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors.walletAddress &&
                             formik.touched.walletAddress
                             ? formik.errors.walletAddress
                             : null}
-                        </div>
+                        </p>
                       </div>
                     </div>
                     <Box className="modal-footer">

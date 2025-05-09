@@ -71,11 +71,11 @@ function AddWallet() {
                   </button>
                 )}
               </div>
-              <div className="input-error">
+              <p className="input-error">
                 {formik.errors?.walletAddress && formik.touched?.walletAddress
                   ? formik.errors?.walletAddress
                   : null}
-              </div>
+              </p>
               {/* <button className="address-book-link">
                 Select from Address Book
               </button> */}
