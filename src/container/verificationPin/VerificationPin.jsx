@@ -111,9 +111,9 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                 {touched.pinFields &&
                   errors.pinFields &&
                   typeof errors.pinFields === "string" && (
-                    <Typography color="error" variant="body2" mt={1}>
+                    <p color="error" className="input-error">
                       {errors.pinFields}
-                    </Typography>
+                    </p>
                   )}
 
                 <Box className="common-btn-space-main">

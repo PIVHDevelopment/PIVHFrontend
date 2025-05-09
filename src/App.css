@@ -143,24 +143,6 @@ header {
   justify-content: flex-end;
 }
 
-.icon-btn {
-  height: 36px;
-  width: 36px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  outline: 0;
-  border: 0;
-  cursor: pointer;
-  background-color: #ffffff45;
-}
-
-.icon-btn img {
-  width: 20px;
-  height: 20px;
-}
 
 /* Tab Styles */
 .wallet-tabs {
@@ -849,10 +831,6 @@ button.address-book-btn {
   color: lightgray;
 }
 
-.input-error {
-  color: #b90005;
-  font-size: 13px;
-}
 
 .set-pin-box .set-pin-input .MuiOtpInput-TextField {
   border: 1px solid var(--white);
@@ -1168,10 +1146,13 @@ button.address-book-btn {
   align-items: flex-start;
   gap: 10px;
   width: 100%;
-  margin-bottom: 6px;
+  padding: 5px 0px;
   flex-wrap: wrap;
+  border-bottom: 1px solid #ffffff17;
 }
-
+.address-left-contain .list-field-show:last-child{
+  border-bottom: none;
+}
 .flex-justify-gap-add {
   display: flex;
   align-items: center;
@@ -1253,7 +1234,7 @@ button.address-book-btn {
 
 .address-book-head .address-book-title {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--white);
 }
@@ -1624,8 +1605,6 @@ span.icon {
 .receiver-addres-scanner-box {
   position: relative;
 }
-
-
 
 .notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 25px 7.5px 5px !important;
@@ -2462,6 +2441,10 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   padding: 0 !important;
 }
 
+.user-form-group .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
+  display: none;
+}
+
 .flex-filed-details .radio-group-flex {
   display: flex;
   flex-direction: row;
@@ -2517,15 +2500,18 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   flex-direction: row;
   gap: 20px;
 }
-.input-box .radio-group-flex svg{
+
+.input-box .radio-group-flex svg {
   height: 20px;
   width: 20px;
   object-fit: contain;
   color: var(--white);
 }
-.address-book-details ul{
+
+.address-book-details ul {
   padding: 0;
 }
+
 .qr-scanner-main {
   display: flex;
   justify-content: center;
@@ -2566,4 +2552,29 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 #qr-reader__scan_region img {
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
+}
+
+.icon-btn {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: #ffffff45;
+}
+
+.icon-btn img {
+  width: 18px;
+  height: 18px;
+}
+.input-error {
+  color: #b90005;
+  font-size: 13px;
+  margin-top: 3px;
+  font-weight: 400;
 }

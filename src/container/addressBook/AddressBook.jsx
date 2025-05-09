@@ -319,11 +319,11 @@ const AddressBook = () => {
                             onBlur={formik.handleBlur}
                           />
                         </div>
-                        <div className="input-error">
+                        <p className="input-error">
                           {formik.errors?.name && formik.touched?.name
                             ? formik.errors?.name
                             : null}
-                        </div>
+                        </p>
                       </div>
 
                       <div className="input-box">
@@ -340,11 +340,11 @@ const AddressBook = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           />
-                          <div className="input-error">
+                          <p className="input-error">
                             {formik.errors?.userName && formik.touched?.userName
                               ? formik.errors?.userName
                               : null}
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </Box>

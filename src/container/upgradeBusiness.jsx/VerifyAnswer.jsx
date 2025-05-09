@@ -157,13 +157,13 @@ const VerifyAnswer = () => {
                 {({ values, errors, touched, handleChange, handleBlur }) => (
                   <Form>
                     {/* Show fetched question */}
-                    <Typography
+                    <p
                       className="user-form-lable"
                     >
                   {question
                     ? getTranslatedQuestion(question, language, isBusiness)
                      : t("SecurityNotFound")}
-                    </Typography>
+                    </p>
                     <TextField
                       name="answer"
                       placeholder={t("EnterYourAnswer")}
