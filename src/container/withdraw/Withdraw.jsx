@@ -233,6 +233,7 @@ function Withdraw() {
                         )}
                       </div>
                     </>
+                    <div className="common-btn-space-main">
                     <button
                       className="common-btn"
                       type="submit"
@@ -240,6 +241,7 @@ function Withdraw() {
                     >
                       {buttonLoader ? t("Processing") : t("Withdraw")}
                     </button>
+                    </div>
                   </form>
                 )}
               </Index.Formik>

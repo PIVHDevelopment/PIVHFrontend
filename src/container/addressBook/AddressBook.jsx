@@ -83,7 +83,7 @@ const AddressBook = () => {
     } catch (error) {
       Index.toasterError(
         error?.response?.data?.message?.[language] ||
-          t("AnUnexpectedErrorOccurred")
+        t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
@@ -135,7 +135,7 @@ const AddressBook = () => {
             >
               <img src={Index.back} alt="Back" />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -156,9 +156,8 @@ const AddressBook = () => {
                   address.map((item) => {
                     return (
                       <ListItem
-                        className={`list-item-address ${
-                          isRtl ? "text-align-right" : ""
-                        }`}
+                        className={`list-item-address ${isRtl ? "text-align-right" : ""
+                          }`}
                       >
                         <Box className="flex-justify-gap-add">
                           <Box className="address-left-contain">
@@ -280,63 +279,61 @@ const AddressBook = () => {
                 <Box className="modal-body address-body">
                   <Box className="address-details">
                     <Box className="grid-row">
-                      <Box className="common-grid">
-                        <div className="flex-filed-details">
-                          <Typography className="label-field">
-                            {t("Type")}
-                          </Typography>
-                          <RadioGroup
-                            className="radio-group-flex"
-                            name="type"
-                            value={formik.values.type}
-                            onChange={formik.handleChange}
-                          >
-                            <FormControlLabel
-                              className="radio-label"
-                              value="Individual"
-                              control={<Radio />}
-                              label={t("Individual")}
-                            />
-                            <FormControlLabel
-                              className="radio-label"
-                              value="Business"
-                              control={<Radio />}
-                              label={t("Business")}
-                            />
-                          </RadioGroup>
-                        </div>
-                      </Box>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Type")}
+                        </p>
+                        <RadioGroup
+                          className="radio-group-flex"
+                          name="type"
+                          value={formik.values.type}
+                          onChange={formik.handleChange}
+                        >
+                          <FormControlLabel
+                            className="radio-label"
+                            value="Individual"
+                            control={<Radio />}
+                            label={t("Individual")}
+                          />
+                          <FormControlLabel
+                            className="radio-label"
+                            value="Business"
+                            control={<Radio />}
+                            label={t("Business")}
+                          />
+                        </RadioGroup>
+                      </div>
 
-                      <Box className="common-grid">
-                        <div className="input-wrapper">
-                          <Typography className="label-field">
-                            {t("Name")}
-                          </Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Name")}
+                        </p>
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
+                            className="user-form-control"
                             placeholder={t("EnterName")}
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           />
-                          <div className="input-error">
-                            {formik.errors?.name && formik.touched?.name
-                              ? formik.errors?.name
-                              : null}
-                          </div>
                         </div>
-                      </Box>
+                        <div className="input-error">
+                          {formik.errors?.name && formik.touched?.name
+                            ? formik.errors?.name
+                            : null}
+                        </div>
+                      </div>
 
-                      <Box className="common-grid">
-                        <div className="input-wrapper">
-                          <Typography className="label-field">
-                            {t("Username")}
-                          </Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Username")}
+                        </p>
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
+                            className="user-form-control"
                             placeholder={t("EnterUserName")}
                             name="userName"
                             value={formik.values.userName}
@@ -349,7 +346,7 @@ const AddressBook = () => {
                               : null}
                           </div>
                         </div>
-                      </Box>
+                      </div>
                     </Box>
                   </Box>
                 </Box>

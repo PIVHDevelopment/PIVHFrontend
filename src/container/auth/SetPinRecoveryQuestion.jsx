@@ -120,10 +120,16 @@ const SetPinRecoveryQuestion = () => {
       ? Index.Api.SET_PIN_QUESTION_BUSINESS
       : Index.Api.SET_PIN_QUESTION;
 
+    // const selectedQuestion =
+    //   parseInt(values.selectedQuestion) === -1
+    //     ? values.customQuestion
+    //     : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
+
+    const questionIndex = parseInt(values.selectedQuestion);
     const selectedQuestion =
-      parseInt(values.selectedQuestion) === -1
+      questionIndex === -1
         ? values.customQuestion
-        : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
+        : (isBusiness ? businessQuestionsEn : questionsEn)[questionIndex];
 
     setSubmitted(true);
     setIsLoading(true);
