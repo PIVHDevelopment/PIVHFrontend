@@ -2274,18 +2274,14 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .user-file-upload-btn-main {
   position: relative;
-  height: 150px;
+  height: 200px;
 }
 
 .user-upload-profile-img {
-  height: 60px;
-  width: 60px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+ 
 }
 
 .user-file-upload-btn-main .user-upload-icon-img {
@@ -2401,4 +2397,8 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .sigin-lang-footer p:hover {
   color: lightgray;
+}
+
+.send-form .kyb-btn{
+  font-weight: 600;
 }

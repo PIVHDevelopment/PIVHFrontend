@@ -9,6 +9,7 @@ import {
   Autocomplete,
   TextField,
 } from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import countries from "./countries.json";
 
@@ -58,6 +59,32 @@ export default function KYBVerification() {
       }
     },
   });
+
+
+  const FilePreview = ({ file }) => {
+    if (!file) return null;
+    const fileURL = URL.createObjectURL(file);
+    if (file.type === "application/pdf") {
+      return (
+        <iframe
+          src={fileURL}
+          title="PDF Preview"
+          width="100%"
+          height="200px"
+          style={{ border: "1px solid #ccc", borderRadius: "8px" }}
+        />
+      );
+    }
+  
+    return (
+      <img
+        src={fileURL}
+        alt="Document Preview"
+       className="user-upload-profile-img"
+      />
+    );
+  };
+  
 
   return (
     <div className="app-container">
@@ -140,7 +167,13 @@ export default function KYBVerification() {
                             component="label"
                             className="user-file-upload-btn"
                           >
-                            <CloudUploadIcon className="user-upload-icon-img" />
+                              {formik.values.frontDocument ?
+                              <img
+                              src={URL.createObjectURL(formik.values.frontDocument)}
+                              alt="Front Document Preview"
+                             className="user-upload-profile-img"
+                            /> :
+                            <CloudUploadIcon className="user-upload-icon-img" /> }
                             <input
                               hidden
                               accept="image/*,.pdf"
@@ -175,7 +208,14 @@ export default function KYBVerification() {
                             component="label"
                             className="user-file-upload-btn"
                           >
+                         {formik.values.backDocument ?
+                              <img
+                              src={URL.createObjectURL(formik.values.backDocument)}
+                              alt="Front Document Preview"
+                             className="user-upload-profile-img"
+                            /> :
                             <CloudUploadIcon className="user-upload-icon-img" />
+                            }
                             <input
                               hidden
                               accept="image/*,.pdf"
@@ -211,7 +251,18 @@ export default function KYBVerification() {
                           component="label"
                           className="user-file-upload-btn"
                         >
-                          <CloudUploadIcon className="user-upload-icon-img" />
+                        {formik.values.singleDocument ? (
+                          <>
+                         <FilePreview file={formik.values.singleDocument} />
+                          <ClearIcon  onClick={(e) => {
+                            e.stopPropagation();
+                           formik.setFieldValue("singleDocument", null);
+                           }}/>
+                          </>
+                       ) : (
+                         <CloudUploadIcon className="user-upload-icon-img" />
+                       )}
+
                           <input
                             hidden
                             accept="image/*,.pdf"
