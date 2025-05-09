@@ -1027,14 +1027,14 @@ button.address-book-btn {
   font-weight: 500;
 }
 
-.common-grid .label-field {
+/* .common-grid .label-field {
   font-size: 14px;
   color: #eae1e1;
   font-family: "Poppins";
   font-weight: 400;
   margin-bottom: 3px;
   line-height: 20px;
-}
+} */
 
 .common-style-modal .modal-body {
   padding: 15px;
@@ -1043,15 +1043,15 @@ button.address-book-btn {
 }
 
 
-.common-grid .input-wrapper {
+/* .common-grid .input-wrapper {
   flex-direction: column;
-}
-
+} */
+/* 
 .grid-row .common-grid {
   margin-bottom: 14px;
-}
+} */
 
-.common-grid .input-wrapper input {
+/* .common-grid .input-wrapper input {
   border-radius: 7px;
   background: transparent;
   color: var(--white);
@@ -1060,11 +1060,11 @@ button.address-book-btn {
   font-size: 15px;
   line-height: 20px;
   font-family: "Poppins";
-}
+} */
 
-.common-grid .input-wrapper input::placeholder {
+/* .common-grid .input-wrapper input::placeholder {
   color: #b8b3b3;
-}
+} */
 
 .flex-filed-details .radio-group-flex span svg {
   color: var(--white);
@@ -1101,9 +1101,9 @@ button.address-book-btn {
 }
 
 
-.grid-row .common-grid:last-child {
+/* .grid-row .common-grid:last-child {
   margin: 0px;
-}
+} */
 
 .list-ul-address .list-item-address {
   padding: 10px;
@@ -2456,6 +2456,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 
 .user-form-group .MuiTextField-root {
   margin: 0;
+  width: 100%;
 }
 
 .set-pin-row {
