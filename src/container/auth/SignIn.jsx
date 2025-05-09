@@ -67,21 +67,14 @@ function SignIn() {
         <Index.Loader />
       ) : (
         <div className="app-container signin-main">
-          <div className="p-20">
             <header className="signin-header">
               <div
-                className="app-icon"
-                style={{
-                  textAlign: "center",
-                  flex: "0 0 33.3%",
-                  height: "80px",
-                }}
               >
-                <img src={Index.pocketPi2} alt="PocketPi" />
+                <img src={Index.pocketPi2} alt="PocketPi" className="app-logo"/>
               </div>
             </header>
             <div className="sigin-body">
-              <button className="secondary-btn share-btn" onClick={signIn}>
+              <button className="secondary-btn" onClick={signIn}>
                 {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
@@ -89,7 +82,6 @@ function SignIn() {
                 {/* )} */}
               </button>
             </div>
-          </div>
 
           {/* Language Switcher */}
           <div className="sigin-lang-footer">
