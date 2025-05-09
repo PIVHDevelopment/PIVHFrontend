@@ -48,19 +48,19 @@ function Home() {
     updateLanugage(lang);
   };
 
-   useEffect(()=>{
-        if (languageCh == "Ar") {
-          document.body.classList.add("direction-rtl");
-        } else {
-        document.body.classList.remove("direction-rtl");
-      }
-        i18n.changeLanguage(languageCh);
-      },[languageCh])
+  useEffect(() => {
+    if (languageCh == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
+      document.body.classList.remove("direction-rtl");
+    }
+    i18n.changeLanguage(languageCh);
+  }, [languageCh]);
 
   const updateLanugage = (lang) => {
     Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
-      id : userData._id,
-      language:lang,
+      id: userData._id,
+      language: lang,
     });
   };
 
@@ -127,32 +127,30 @@ function Home() {
       <div className="app-container">
         <div className="home-page-main">
           <header>
-              {/* <div className="profile-pic">
+            {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
 
-              <div className="lang-dropdown-main">
-                <Index.FormControl>
-                  <Index.Select
-                    value={languageCh}
-                    onChange={handleLanguageChange}
-                  >
-                    <Index.MenuItem value={"En"}>En</Index.MenuItem>
-                    <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
-                    <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
-                  </Index.Select>
-                </Index.FormControl>
-                <img src={Index.languageImg} className="lang-change-icon" />
-                <img
-                  src={Index.downblackAarrow}
-                  className="search-down-arrow"
-                  alt="Dropdown"
-                />
-              </div>
-            <div
-              className="app-icon"
-            >
+            <div className="lang-dropdown-main">
+              <Index.FormControl>
+                <Index.Select
+                  value={languageCh}
+                  onChange={handleLanguageChange}
+                >
+                  <Index.MenuItem value={"En"}>En</Index.MenuItem>
+                  <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
+                  <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
+                </Index.Select>
+              </Index.FormControl>
+              <img src={Index.languageImg} className="lang-change-icon" />
+              <img
+                src={Index.downblackAarrow}
+                className="search-down-arrow"
+                alt="Dropdown"
+              />
+            </div>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt={t("PocketPi")} />
             </div>
             <div className="header-icons">
@@ -180,7 +178,7 @@ function Home() {
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-              // onClick={() => navigate("/add-wallet")}
+                // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt={t("Setting")} />
               </button>
@@ -226,7 +224,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                  (tab === 1 && !userData?.isIndividualSubscription) ? (
+                (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -268,14 +266,14 @@ function Home() {
           </Index.TabContainer>
         </div>
 
-
         {transactionList?.length ? (
           <div
             // className={`transaction-section${
             //   tab === 2 ? " transaction-section-top" : ""
             // }`}
-            className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
-              }`}
+            className={`transaction-section ${
+              isExpanded ? "expanded" : "collapsed"
+            }`}
           >
             <div className="toggle-arrow" onClick={toggleSection}>
               {isExpanded ? (
@@ -284,7 +282,9 @@ function Home() {
                 <span className="arrow-icon">↓</span>
               )}
             </div>
-            <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
+            <h2 className="transaction-section-title">
+              {t("TransactionHistory")}
+            </h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
@@ -301,9 +301,10 @@ function Home() {
                         <p className="transaction-title">
                           {transaction?.memo || transaction?.type}{" "}
                           {transaction?.receiver_name &&
-                            `(${transaction?.paymentType === "sent"
-                              ? transaction?.receiver_name
-                              : transaction?.user_name
+                            `(${
+                              transaction?.paymentType === "sent"
+                                ? transaction?.receiver_name
+                                : transaction?.user_name
                             })`}
                         </p>
                         <p className="transaction-time">
@@ -314,8 +315,9 @@ function Home() {
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${isPositive ? "positive" : "negative"
-                        }`}
+                      className={`transaction-amount ${
+                        isPositive ? "positive" : "negative"
+                      }`}
                     >
                       <p className="transaction-amount">
                         {amountPrefix}
@@ -401,7 +403,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-            (tab === 1 && userData?.isIndividualSubscription) ? (
+          (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -421,18 +423,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-              <NavLink
-                className="setting-cont-box"
-                to={"/check-kyb-verification"}
-              >
-                <div className="setting-icon-box">
-                  <img src={Index.businessversion} alt="" />
-                </div>
-                <h6 className="setting-cont-title">
-                  {t("UpgradeToBusinessVersion")}
-                </h6>
-              </NavLink>
-            )}
+            <NavLink
+              className="setting-cont-box"
+              to={"/check-kyb-verification"}
+            >
+              <div className="setting-icon-box">
+                <img src={Index.businessversion} alt="" />
+              </div>
+              <h6 className="setting-cont-title">
+                {t("UpgradeToBusinessVersion")}
+              </h6>
+            </NavLink>
+          )}
 
           <div
             className="setting-cont-box"
@@ -484,7 +486,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.complainIcon} alt="" />
             </div>
-            <h6 className="setting-cont-title">{t("FeedbackAndComplaint")}</h6>
+            <h6 className="setting-cont-title">{t("Tickets")}</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>
