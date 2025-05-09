@@ -103,9 +103,9 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                 </Box>
 
 
-                <Typography variant="h6" className="text" gutterBottom>
+                <p variant="h6" className="user-form-lable" gutterBottom>
                   {t("EnterPIN")}
-                </Typography>
+                </p>
                 {renderPinInputs(values, setFieldValue)}
 
                 {touched.pinFields &&
