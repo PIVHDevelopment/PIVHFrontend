@@ -69,12 +69,12 @@ const VerifyAnswer = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container set-pin-div" mx="auto">
+        <Box className="app-container">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -83,7 +83,7 @@ const VerifyAnswer = () => {
             <Typography
               variant="h5"
               gutterBottom
-              className="security-question-title"
+              className="common-heading"
             >
               {isBusiness && t("Business")}{" "}{t("SecurityQuestion")}
             </Typography>
@@ -97,28 +97,30 @@ const VerifyAnswer = () => {
                 {({ values, errors, touched, handleChange, handleBlur }) => (
                   <Form>
                     {/* Show fetched question */}
-                    <Typography
-                      variant="subtitle1"
-                      className="verify-answer-label"
+                    <p
+                      className="user-form-lable"
                     >
                       {question || t("SecurityNotFound")}
-                    </Typography>
-                    <TextField
-                      name="answer"
-                      placeholder={t("EnterYourAnswer")}
-                      fullWidth
-                      className="textarea-question-sequrity"
-                      multiline
-                      // rows={3}
-                      margin="normal"
-                      value={values.answer}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.answer && Boolean(errors.answer)}
-                      helperText={touched.answer && errors.answer}
-                      disabled={!question}
-                    />
-
+                    </p>
+                    <div className="input-box">
+                      <div className="user-form-group">
+                        <TextField
+                          name="answer"
+                          placeholder={t("EnterYourAnswer")}
+                          fullWidth
+                          className="user-form-control"
+                          multiline
+                          // rows={3}
+                          margin="normal"
+                          value={values.answer}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.answer && Boolean(errors.answer)}
+                          helperText={touched.answer && errors.answer}
+                          disabled={!question}
+                        />
+                      </div>
+                    </div>
                     <Box className="common-btn-space-main">
                       <button
                         variant="contained"

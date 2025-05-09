@@ -32,7 +32,7 @@ function AddWallet() {
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt="Back" />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+        <div className="app-icon">
           <img src={Index.pocketPi} alt={t("PocketPi")} />
         </div>
         <div className="header-right"></div>
@@ -47,13 +47,14 @@ function AddWallet() {
         innerRef={formRef}
       >
         {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form">
-            <div className="input-group">
-              <div className="input-wrapper send-input-box">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="input-box">
+              <div className="user-form-group">
                 <input
                   type="text"
                   placeholder={t("EnterWalletAddress")}
                   name="walletAddress"
+                  className="user-form-control"
                   value={formik.values.walletAddress}
                   onChange={formik.handleChange}
                 />

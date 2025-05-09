@@ -64,7 +64,7 @@ function Deposit() {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
       amount,
       paymentId,
-    }).then(() => {}).catch((res)=>{
+    }).then(() => { }).catch((res) => {
       setButtonLoader(false);
       navigate("/home");
     });
@@ -84,7 +84,7 @@ function Deposit() {
         });
         setButtonLoader(false);
       }
-    }).catch((res)=>{
+    }).catch((res) => {
       setButtonLoader(false);
       navigate("/home");
     });
@@ -118,7 +118,7 @@ function Deposit() {
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt="Back" />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -133,37 +133,39 @@ function Deposit() {
             innerRef={formRef}
           >
             {(formik) => (
-              <form onSubmit={formik.handleSubmit} className="send-form">
-                <div className="input-group">
-                  <div className="input-wrapper">
-                    <input
-                      type="text"
-                      inputMode="numeric" 
-                      className="notes-input"
-                      placeholder={t("EnterAmount")}
-                      name="amount"
-                      value={formik.values.amount}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        // Only allow digits
-                        if (/^\d*\.?\d{0,6}$/.test(value)) {
-                          formik.setFieldValue("amount", value);
-                          setAmount(value);
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="input-error">
-                    {formik.errors?.amount && formik.touched?.amount
-                      ? formik.errors?.amount
-                      : null}
+              <form onSubmit={formik.handleSubmit}>
+                <div className="input-box">
+                  <div className="input-group">
+                    <div className="user-form-group">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        className="user-form-control"
+                        placeholder={t("EnterAmount")}
+                        name="amount"
+                        value={formik.values.amount}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Only allow digits
+                          if (/^\d*\.?\d{0,6}$/.test(value)) {
+                            formik.setFieldValue("amount", value);
+                            setAmount(value);
+                          }
+                        }}
+                      />
+                    </div>
+                    <div className="input-error">
+                      {formik.errors?.amount && formik.touched?.amount
+                        ? formik.errors?.amount
+                        : null}
+                    </div>
                   </div>
                 </div>
                 <div className="amount-section">
                   <label>{t("EnterPiAmount")}</label>
-                  <div className="amount-display">
+                  <p className="amount-display">
                     {formik.values.amount || "0"} Pi
-                  </div>
+                  </p>
                 </div>
 
                 <button
