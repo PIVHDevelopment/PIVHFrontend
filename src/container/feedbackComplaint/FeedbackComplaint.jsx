@@ -162,7 +162,7 @@ const FeedbackComplaint = () => {
                     </Box>
                     <Box className="list-field-show list-field-show-full">
                       <Typography className="label-contain-address">
-                        Description :
+                      {t("Description")}  :
                       </Typography>
                       <Typography className="field-contain-address">
                         {item?.description}

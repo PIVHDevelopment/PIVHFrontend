@@ -9,8 +9,8 @@ function CheckKYBVerfication() {
  const [data , setData]= React.useState([])
   const getKybVerification = async()=>{
     try {
-      const res =  await Index.DataService.get(Index.Api.GET_KYB_VERIFICATION + "/" + userData?._id);
-      if (res?.data?.status) {        
+      const res =  await Index.DataService.get(Index.Api.GET_KYB_VERIFICATION + `/${userData?._id}`);
+      if (res?.data?.status === 200) {        
         setData(res.data.data);
       }
     } catch (error) {
@@ -23,7 +23,7 @@ function CheckKYBVerfication() {
 
   useEffect(() => {
     getKybVerification();
-  }, [userData]);
+  }, []);
 
   console.log({data});
   
@@ -43,9 +43,19 @@ function CheckKYBVerfication() {
         <div className="header-right"></div>
       </header>
       <div className="send-form">
-        {/* <button  className="common-btn" onClick={() => navigate("/kyb-verification")}>
-        {t("KYB Verification")}
+        {/* <button disabled={data?.status === "pending" || data?.status === "approved"} className="common-btn kyb-btn" onClick={() => navigate("/kyb-verification")}>
+          {data?.status === "pending" && <>{t("KYB Verification Pending")} </>}  
+          {data?.status === "approved" && <>{t("KYB Verification Approved")} </>}
+          {data?.status === "rejected" && <>{t("KYB Verification Rejected Kindly Try Again")} </>}
+          {!data?.status && <>{t("Start Process of KYB Verification")} </>}
         </button> */}
+      {/* {data?.status === "approved" && */}
+      <button
+          className="common-btn"
+          disabled
+        >
+          {t("KYB Verification")}
+        </button>
 
         <button
           onClick={() => navigate("/upgrade-business")}
@@ -53,6 +63,7 @@ function CheckKYBVerfication() {
         >
           {t("Skip for now")}
         </button>
+         {/* } */}
       </div>
     </div>
   )}
