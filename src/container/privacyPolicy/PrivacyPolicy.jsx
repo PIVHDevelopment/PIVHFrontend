@@ -1,9 +1,7 @@
 import React from "react";
 import Index from "../Index";
 
-const englishText = () => {
-  const { t } = Index.useTranslation();
-  const navigate = Index.useNavigate();
+const englishText = (t, navigate) => {
   return (
     <div className="app-container settings-page">
       <header>
@@ -146,7 +144,7 @@ const englishText = () => {
   );
 };
 
-const hindiText = () => {
+const hindiText = (t, navigate) => {
   return (
     <div className="app-container settings-page">
       <header>
@@ -295,7 +293,7 @@ const hindiText = () => {
   );
 };
 
-const arabicText = () => {
+const arabicText = (t, navigate) => {
   return (
     <div className="app-container settings-page">
       <header>
@@ -434,8 +432,14 @@ const arabicText = () => {
 };
 
 function PrivacyPolicy() {
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
-  return englishText();
+  const language = localStorage.getItem("language");
+  return language == "Ar"
+    ? arabicText(t, navigate)
+    : language == "Hi"
+    ? hindiText(t, navigate)
+    : englishText(t, navigate);
 }
 
 export default PrivacyPolicy;
