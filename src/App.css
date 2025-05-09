@@ -1829,7 +1829,7 @@ span.icon {
   left: 0;
   right: 0;
 }
- 
+
 .success-message {
   color: #6610f2;
   font-size: 20px;
@@ -2025,8 +2025,7 @@ span.icon {
 }
 
 .transaction-section.expanded .arrow-icon {
-  transform: ro
-  tate(180deg);
+  transform: ro tate(180deg);
 }
 body .text-align-right {
   text-align: right;
@@ -2093,25 +2092,25 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   transform: rotate(180deg);
 }
 
-.notes-input-multiline .MuiInputBase-formControl{
+.notes-input-multiline .MuiInputBase-formControl {
   border-radius: 7px;
   background: transparent;
   color: #fff;
   border: 1px solid #8f8e8e80;
   font-size: 15px;
   line-height: 20px;
-  font-family: 'Poppins'
+  font-family: "Poppins";
 }
-.notes-input-multiline .MuiInputBase-formControl fieldset{
+.notes-input-multiline .MuiInputBase-formControl fieldset {
   display: none;
 }
 
 .notes-input-multiline textarea {
-  overflow: auto !important; 
-  resize: none !important;   
-  resize: vertical;           
-  max-height: 200px;           
-  padding-right: 8px;          
+  overflow: auto !important;
+  resize: none !important;
+  resize: vertical;
+  max-height: 200px;
+  padding-right: 8px;
   scrollbar-width: unset;
 }
 
@@ -2122,4 +2121,17 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 .notes-input-multiline textarea::-webkit-scrollbar-thumb {
   background-color: #fff;
   border-radius: 3px;
+}
+
+.subscrip-amount {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscrip-amount p {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Poppins";
 }
