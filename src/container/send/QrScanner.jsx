@@ -57,8 +57,8 @@ const QrScanner = () => {
         <div className="header-right"></div>
       </header>
 
-      <div className='qr-scanner-main-div'>
-        <div id="qr-reader" style={{ width: '300px' }} />
+      <div className='qr-scanner-main'>
+        <div id="qr-reader" />
       </div>
     </div>
   );
