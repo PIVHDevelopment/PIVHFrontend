@@ -18,7 +18,7 @@ function Withdraw() {
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const [nextPage, setNextPage] = useState(false);
-   const [txnData, setTxnData] = useState({});
+  const [txnData, setTxnData] = useState({});
 
   const getWallets = async () => {
     try {
@@ -37,7 +37,7 @@ function Withdraw() {
 
   const handleSubmitFunction = async (values) => {
     try {
-     const pin = values.pinFields.join("");
+      const pin = values.pinFields.join("");
       setButtonLoader(true);
       const paymentData = {
         pin,
@@ -82,10 +82,10 @@ function Withdraw() {
     getWallets();
   }, []);
 
-    const handleSubmit = (values) => {
-      setTxnData(values);
-      setNextPage(true);
-    };
+  const handleSubmit = (values) => {
+    setTxnData(values);
+    setNextPage(true);
+  };
 
   return (
     <>
@@ -94,158 +94,156 @@ function Withdraw() {
       ) : (
         <div className="app-container">
           {nextPage ? (
-             <VerificationPin
-               handleSubmitFunction={handleSubmitFunction}
-               setNextPage={setNextPage}
-                />
-               ) : (
-             <>
-          <header className="receive-center">
-            <button
-              className="back-btn"
-              onClick={() =>
-                navigate("/home", {
-                  state: { isBusiness: typeTxn == "business" ? true : false },
-                })
-              }
-            >
-              <img src={Index.back} alt="Back" />
-            </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
-              <img src={Index.pocketPi} alt={t("PocketPi")} />
-            </div>
-            <div className="header-right"></div>
-          </header>
-
-          <Index.Formik
-            initialValues={{
-              amount: txnData?.amount ||"",
-              address: txnData?.address || "",
-            }}
-            onSubmit={handleSubmit}
-            validationSchema={Index.withdrawPiFormSchema(t)}
-            innerRef={formRef}
-          >
-            {(formik) => (
-              <form onSubmit={formik.handleSubmit} className="send-form">
-                <div className="input-group">
-                  {console.log("onCancel", formik.errors)}
-                  <div className="amount-section">
-                    <label>{t("AvailableBalance")}</label>
-                    <div className="amount-display">
-                      {parseFloat(
-                        typeTxn == "business" ? businessBalance : balance
-                      ).toFixed(5)}{" "}
-                      Pi
-                    </div>
-                  </div>
-                  <div className="withdraw-form">
-                    <div className="input-mb-space">
-                      <div className="input-wrapper">
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          className="notes-input"
-                          placeholder={t("EnterAmount")}
-                          name="amount"
-                          value={formik.values.amount}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (/^\d*\.?\d{0,5}$/.test(value)) {
-                              if (parseFloat(value) > parseFloat(balance)) {
-                                formik.setFieldValue("amount", balance);
-                              } else {
-                                formik.setFieldValue("amount", value);
-                              }
-                            }
-                          }}
-                        />
-                      </div>
-                      <div className="input-error">
-                        {formik.errors?.amount && formik.touched?.amount
-                          ? formik.errors?.amount
-                          : null}
-                      </div>
-                    </div>
-                    <div className="input-mb-space">
-                      <div className="input-wrapper">
-                        <Autocomplete
-                          freeSolo
-                          slotProps={{
-                            popper: {
-                              modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
-                              className: 'custom-dropdown-withdrow',
-                            },
-                          }}
-                          className="notes-input-box custom-notes-input-box"
-                          options={wallets?.map((item) => item?.walletAddress) || []}
-                          value={formik?.values?.address || ""}
-                          open={open}
-                          onChange={(event, newValue) => {
-                            formik.setFieldValue("address", newValue);
-                            setOpen(false);
-                          }}
-                          onInputChange={(event, newInputValue, reason) => {
-                            if (reason !== "reset") {
-                              formik.setFieldValue("address", newInputValue);
-                              setOpen(newInputValue?.trim() !== "");
-                            }
-                          }}
-                          onBlur={() => setOpen(false)}
-                          onFocus={(e) => {
-                            if (!formik?.values?.address) setOpen(false);
-                          }}
-                          filterOptions={(options, state) => {
-                            const input = state?.inputValue?.toLowerCase();
-                            if (!input) return [];
-                            return options?.filter((option) =>
-                              option?.toLowerCase()?.startsWith(input)
-                            );
-                          }}
-                          
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              className="notes-input"
-                              placeholder={
-                                formik?.values?.address
-                                  ? ""
-                                  : t("EnterWalletAddress")
-                              }
-                              variant="outlined"
-                              fullWidth
-                             
-                            
-                            />
-                          )}
-                        />
-                      </div>
-                      <div className="input-error">
-                        {formik.errors?.address && formik.touched?.address
-                          ? formik.errors?.address
-                          : null}
-                      </div>
-                      {formik.values.amount >= 0.01 ? (
-                        <label className="text-color deduction-message">
-                          0.01 {t("DeductFees")}
-                        </label>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                </div>
+            <VerificationPin
+              handleSubmitFunction={handleSubmitFunction}
+              setNextPage={setNextPage}
+            />
+          ) : (
+            <>
+              <header className="receive-center">
                 <button
-                  className="common-btn"
-                  type="submit"
-                  disabled={buttonLoader}
+                  className="back-btn"
+                  onClick={() =>
+                    navigate("/home", {
+                      state: { isBusiness: typeTxn == "business" ? true : false },
+                    })
+                  }
                 >
-                  {buttonLoader ? t("Processing") : t("Withdraw")}
+                  <img src={Index.back} alt="Back" />
                 </button>
-              </form>
-            )}
-          </Index.Formik>
-          </>
+                <div className="app-icon">
+                  <img src={Index.pocketPi} alt={t("PocketPi")} />
+                </div>
+                <div className="header-right"></div>
+              </header>
+
+              <Index.Formik
+                initialValues={{
+                  amount: txnData?.amount || "",
+                  address: txnData?.address || "",
+                }}
+                onSubmit={handleSubmit}
+                validationSchema={Index.withdrawPiFormSchema(t)}
+                innerRef={formRef}
+              >
+                {(formik) => (
+                  <form onSubmit={formik.handleSubmit}>
+                    <>
+                      {console.log("onCancel", formik.errors)}
+                      <div className="amount-section">
+                        <label>{t("AvailableBalance")}</label>
+                        <p className="amount-display">
+                          {parseFloat(
+                            typeTxn == "business" ? businessBalance : balance
+                          ).toFixed(5)}{" "}
+                          Pi
+                        </p>
+                      </div>
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            className="user-form-control"
+                            placeholder={t("EnterAmount")}
+                            name="amount"
+                            value={formik.values.amount}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*\.?\d{0,5}$/.test(value)) {
+                                if (parseFloat(value) > parseFloat(balance)) {
+                                  formik.setFieldValue("amount", balance);
+                                } else {
+                                  formik.setFieldValue("amount", value);
+                                }
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.amount && formik.touched?.amount
+                            ? formik.errors?.amount
+                            : null}
+                        </div>
+                      </div>
+                      <div className="input-box">
+                        <div className="user-form-group">
+                          <Autocomplete
+                            freeSolo
+                            slotProps={{
+                              popper: {
+                                modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+                                className: 'custom-dropdown-withdrow',
+                              },
+                            }}
+                            className="user-form-control"
+                            options={wallets?.map((item) => item?.walletAddress) || []}
+                            value={formik?.values?.address || ""}
+                            open={open}
+                            onChange={(event, newValue) => {
+                              formik.setFieldValue("address", newValue);
+                              setOpen(false);
+                            }}
+                            onInputChange={(event, newInputValue, reason) => {
+                              if (reason !== "reset") {
+                                formik.setFieldValue("address", newInputValue);
+                                setOpen(newInputValue?.trim() !== "");
+                              }
+                            }}
+                            onBlur={() => setOpen(false)}
+                            onFocus={(e) => {
+                              if (!formik?.values?.address) setOpen(false);
+                            }}
+                            filterOptions={(options, state) => {
+                              const input = state?.inputValue?.toLowerCase();
+                              if (!input) return [];
+                              return options?.filter((option) =>
+                                option?.toLowerCase()?.startsWith(input)
+                              );
+                            }}
+
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="notes-input"
+                                placeholder={
+                                  formik?.values?.address
+                                    ? ""
+                                    : t("EnterWalletAddress")
+                                }
+                                variant="outlined"
+                                fullWidth
+
+
+                              />
+                            )}
+                          />
+                        </div>
+                        <div className="input-error">
+                          {formik.errors?.address && formik.touched?.address
+                            ? formik.errors?.address
+                            : null}
+                        </div>
+                        {formik.values.amount >= 0.01 ? (
+                          <label className="text-color deduction-message">
+                            0.01 {t("DeductFees")}
+                          </label>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </>
+                    <button
+                      className="common-btn"
+                      type="submit"
+                      disabled={buttonLoader}
+                    >
+                      {buttonLoader ? t("Processing") : t("Withdraw")}
+                    </button>
+                  </form>
+                )}
+              </Index.Formik>
+            </>
           )}
         </div>
       )}
