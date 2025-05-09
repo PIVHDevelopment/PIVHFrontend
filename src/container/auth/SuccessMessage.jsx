@@ -4,11 +4,12 @@ import { useLocation } from "react-router-dom";
 
 const SuccessMessage = () => {
   const navigate = Index.useNavigate();
+  const { t } = Index.useTranslation();
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
 
   return (
-    <div className="app-container p-20-0 signin-main">
+    <div className="app-container signin-main">
       <div className="p-26">
         <div className="pin-success-message-div">
           <div className="logo-box">
@@ -16,8 +17,9 @@ const SuccessMessage = () => {
           </div>
           <div className="success-message">
             <p>
-              Your account is setup successfully, you can now perform
-              transactions securely.
+              {t(
+                "Your account is setup successfully, you can now perform transactions securely"
+              )}
             </p>
           </div>
           <div className="button-box">
@@ -28,7 +30,7 @@ const SuccessMessage = () => {
                 })
               }
             >
-              Go to home page
+              {t("Go to home page")}
             </button>
           </div>
         </div>

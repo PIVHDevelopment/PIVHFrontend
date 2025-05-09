@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [isLoading, setIsLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -27,7 +28,7 @@ const VerifyAnswer = () => {
       type: isBusiness ? "business" : "individual",
     })
       .then((res) => {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         if (res?.data?.status === 200) {
           navigate("/set-txn-pin", {
             state: { isBusiness: isBusiness, isRecover: true },
@@ -37,7 +38,7 @@ const VerifyAnswer = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
+          err?.response?.data?.message?.[language] || t("SomethingWrong")
         );
       })
       .finally(() => {
@@ -68,7 +69,7 @@ const VerifyAnswer = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container p-20-0 set-pin-div" mx="auto">
+        <Box className="app-container set-pin-div" mx="auto">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
@@ -78,7 +79,7 @@ const VerifyAnswer = () => {
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="p-20 security-question-details">
+          <Box className="security-question-details">
             <Typography
               variant="h5"
               gutterBottom
@@ -118,11 +119,11 @@ const VerifyAnswer = () => {
                       disabled={!question}
                     />
 
-                    <Box textAlign="center" mt={5}>
+                    <Box className="common-btn-space-main">
                       <button
                         variant="contained"
                         type="submit"
-                        className="action-btn full-width send-pi-btn"
+                        className="common-btn"
                         disabled={!question}
                       >
                         {/* {isLoading ? (

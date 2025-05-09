@@ -45,6 +45,14 @@ function Home() {
     localStorage.setItem("language", lang);
     i18n.changeLanguage(lang);
     setLanguageCh(lang);
+    updateLanugage(lang);
+  };
+
+  const updateLanugage = (lang) => {
+    Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
+      id : userData._id,
+      language:lang,
+    });
   };
 
   const handleCopy = () => {
@@ -68,7 +76,6 @@ function Home() {
   };
   const handleLogout = async () => {
     await signOutUser();
-    localStorage.clear();
     sessionStorage.clear();
     navigate("/");
   };
@@ -108,16 +115,15 @@ function Home() {
 
   return (
     <>
-      <div className="app-container p-20-0">
-        <div className="p-20">
+      <div className="app-container">
+        <div className="home-page-main">
           <header>
-            <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
               {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
 
-<div className="lang-dropdown-main">
+              <div className="lang-dropdown-main">
                 <Index.FormControl>
                   <Index.Select
                     value={languageCh}
@@ -128,24 +134,19 @@ function Home() {
                     <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
                   </Index.Select>
                 </Index.FormControl>
+                <img src={Index.languageImg} className="lang-change-icon" />
                 <img
-                    src={Index.languageImg}
-                    className="lang-change-icon"
-                  />
-                  <img
-                    src={Index.downblackAarrow}
-                    className="search-down-arrow"
-                    alt="Dropdown"
-                  />
+                  src={Index.downblackAarrow}
+                  className="search-down-arrow"
+                  alt="Dropdown"
+                />
               </div>
-            </div>
             <div
               className="app-icon"
-              style={{ textAlign: "center", flex: "0 0 33.3%" }}
             >
               <img src={Index.pocketPi} alt={t("PocketPi")} />
             </div>
-            <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
+            <div className="header-icons">
               {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button> */}
@@ -165,13 +166,12 @@ function Home() {
                 </button>
               )} */}
 
-
               <button
                 className="icon-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalMerchant"
                 onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
               >
                 <img src={Index.setting} alt={t("Setting")} />
               </button>
@@ -217,7 +217,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
+                  (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -259,19 +259,23 @@ function Home() {
           </Index.TabContainer>
         </div>
 
+
         {transactionList?.length ? (
           <div
             // className={`transaction-section${
             //   tab === 2 ? " transaction-section-top" : ""
             // }`}
-            className={`transaction-section ${
-              isExpanded ? "expanded" : "collapsed"
-            }`}
+            className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
+              }`}
           >
             <div className="toggle-arrow" onClick={toggleSection}>
-              <span className="arrow-icon">↑</span>
+              {isExpanded ? (
+                <span className="arrow-icon">↑</span>
+              ) : (
+                <span className="arrow-icon">↓</span>
+              )}
             </div>
-            <h2>{t("TransactionHistory")}</h2>
+            <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
@@ -285,36 +289,34 @@ function Home() {
                         className="transaction-icon"
                       />
                       <div className="transaction-info">
-                        <span className="transaction-title">
+                        <p className="transaction-title">
                           {transaction?.memo || transaction?.type}{" "}
                           {transaction?.receiver_name &&
-                            `(${
-                              transaction?.paymentType === "sent"
-                                ? transaction?.receiver_name
-                                : transaction?.user_name
+                            `(${transaction?.paymentType === "sent"
+                              ? transaction?.receiver_name
+                              : transaction?.user_name
                             })`}
-                        </span>
-                        <span className="transaction-time">
+                        </p>
+                        <p className="transaction-time">
                           {Index.moment(transaction.createdAt).format(
                             "hh:mm A"
                           )}
-                        </span>
+                        </p>
                       </div>
                     </div>
                     <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
+                      className={`transaction-amount ${isPositive ? "positive" : "negative"
+                        }`}
                     >
-                      <span>
+                      <p className="transaction-amount">
                         {amountPrefix}
                         {Math.abs(transaction.amount)?.toFixed(5)} Pi
-                      </span>
-                      <span className="transaction-date">
+                      </p>
+                      <p className="transaction-date">
                         {Index.moment(transaction.createdAt).format(
                           "DD MMM, YYYY"
                         )}
-                      </span>
+                      </p>
                     </div>
                   </div>
                 );
@@ -331,7 +333,7 @@ function Home() {
         onHide={handleClose}
       >
         <Index.Modal.Header>
-          <h1 className="modal-title fs-5" id="exampleModalLabel">
+          <h1 className="modal-title" id="exampleModalLabel">
             {t("Settings")}
           </h1>
           <button
@@ -390,7 +392,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -410,18 +412,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                {t("UpgradeToBusinessVersion")}
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  {t("UpgradeToBusinessVersion")}
+                </h6>
+              </NavLink>
+            )}
 
           <div
             className="setting-cont-box"

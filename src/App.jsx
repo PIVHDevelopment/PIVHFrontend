@@ -11,7 +11,7 @@ function App() {
   const theme = createTheme({
     typography: {
       allVariants: {
-        fontFamily: "PlusJakartaSans, sans-serif",
+        fontFamily: "Poppins, sans-serif",
         fontWeight: "400",
         lineHeight: "normal",
       },

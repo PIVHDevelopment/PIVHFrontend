@@ -6,6 +6,7 @@ import { Autocomplete, TextField } from "@mui/material";
 
 function Withdraw() {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [buttonLoader, setButtonLoader] = useState(false);
   const [balance, setBalance] = useState("0");
   const [wallets, setWallets] = useState([]);
@@ -51,16 +52,16 @@ function Withdraw() {
       setButtonLoader(false);
       if (res?.data?.status === 200) {
         setTxnData({});
-        // Index.toasterSuccess(res?.data?.message);
+        // Index.toasterSuccess(res?.data?.message?.[language]);
         navigate("/transaction-success", {
           state: { isBusiness: typeTxn == "business" ? true : false },
         });
       } else {
-        Index.toasterError(res?.data?.message);
+        Index.toasterError(res?.data?.message?.[language]);
         setButtonLoader(false);
       }
     } catch (error) {
-      Index.toasterError(error?.response?.data?.message);
+      Index.toasterError(error?.response?.data?.message?.[language]);
       setButtonLoader(false);
     } finally {
       setButtonLoader(false);
@@ -235,7 +236,7 @@ function Withdraw() {
                   </div>
                 </div>
                 <button
-                  className="action-btn full-width send-pi-btn"
+                  className="common-btn"
                   type="submit"
                   disabled={buttonLoader}
                 >

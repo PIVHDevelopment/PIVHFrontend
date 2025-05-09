@@ -3,6 +3,7 @@ import Index from "../Index";
 
 function UpgradeBusiness() {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -30,7 +31,7 @@ function UpgradeBusiness() {
         );
 
         if (!userData?.businessTxn?.isPin) {
-          // Index.toasterSuccess(res?.data?.message);
+          // Index.toasterSuccess(res?.data?.message?.[language]);
           navigate("/set-txn-pin", { state: { isBusiness: true } });
         } else if (!userData?.businessTxn?.isQuestion) {
           navigate("/set-recovery-pin-question", {
@@ -44,7 +45,7 @@ function UpgradeBusiness() {
       })
       .catch((e) => {
         Index.toasterError(
-          e?.response?.data?.message || t("SomethingWrong")
+          e?.response?.data?.message?.[language] || t("SomethingWrong")
         );
         setLoading(false);
       });
@@ -100,7 +101,7 @@ function UpgradeBusiness() {
                   <div className="input-wrapper send-input-box">
                     <input
                       type="text"
-                      placeholder="Enter User Name"
+                      placeholder={t("EnterUserName")}
                       name="userName"
                       value={formik.values.userName}
                       onChange={(e) => {
@@ -135,7 +136,7 @@ function UpgradeBusiness() {
                 </div>
 
                 <button
-                  className="action-btn full-width send-pi-btn"
+                  className="common-btn"
                   type="submit"
                 >
                   {t("Save")}

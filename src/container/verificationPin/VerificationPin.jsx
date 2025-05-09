@@ -67,15 +67,15 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
         <button className="back-btn" onClick={() => setNextPage(false)}>
           <img src={Index.back} alt="Back" />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
+        <div className="app-icon">
           <img src={Index.pocketPi} alt="PocketPi" />
         </div>
         <div className="header-right"></div>
       </header>
-      <div className="transaction-pin-details common-pin-details">
+      <div className="common-pin-details">
         <Formik
           initialValues={{ pinFields: ["", "", "", "", ""] }}
-          validationSchema={Index.addVerificationPinSchema}
+          validationSchema={Index.addVerificationPinSchema(t)}
           onSubmit={handleSubmitFunction}
         >
           {({
@@ -87,15 +87,15 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
             setTouched,
             validateForm,
           }) => (
-            <form className="p-20-0 set-pin-div" onSubmit={handleSubmit}>
-              <Box className="p-20">
+            <form onSubmit={handleSubmit}>
+              <>
                 <Box className="common-head-details">
-                  <Typography variant="h5" className="heading" gutterBottom>
+                  <Typography variant="h5" className="common-heading" gutterBottom>
                     {t("VerifyPIN")}
                   </Typography>
                   <Typography
                     variant="h6"
-                    className="heading-note"
+                    className="common-para"
                     gutterBottom
                   >
                     {t("ForPIN")}
@@ -127,7 +127,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
                     {t("Verify")}
                   </button>
                 </Box>
-              </Box>
+              </>
             </form>
           )}
         </Formik>

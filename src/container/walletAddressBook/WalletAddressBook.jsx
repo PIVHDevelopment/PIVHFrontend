@@ -36,6 +36,7 @@ const style = {
 
 const WalletAddressBook = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [wallets, setWallets] = useState([]);
   const [open, setOpen] = useState(false);
@@ -93,15 +94,15 @@ const WalletAddressBook = () => {
         payload
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getWallets();
         handleClose();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || t("SomethingWrong")
+        error?.response?.data?.message?.[language] || t("SomethingWrong")
       );
     } finally {
       setButtonLoader(false);
@@ -115,10 +116,10 @@ const WalletAddressBook = () => {
         `${Index.Api.DELETE_WALLET_ADDRESS}/${id}`
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getWallets();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     } catch (error) {
       Index.toasterError(t("SomethingWrong"));
@@ -253,10 +254,9 @@ const WalletAddressBook = () => {
                         </div>
                       </div>
                     </Box>
-                    <Box className="modal-footer modal-footer-address">
-                      <Box className="footer-address-center">
+                    <Box className="modal-footer">
                         <button
-                          className="action-btn full-width send-pi-btn"
+                          className="common-btn"
                           type="submit"
                           disabled={buttonLoader}
                         >
@@ -266,7 +266,6 @@ const WalletAddressBook = () => {
                             t("Submit")
                           )}
                         </button>
-                      </Box>
                     </Box>
                   </Box>
                 </form>
@@ -304,17 +303,17 @@ const WalletAddressBook = () => {
             </Box>
           </Box>
 
-          <Box className="modal-footer modal-footer-address">
-            <Box className="footer-address-center delete-flex">
+          <Box className="modal-footer">
+            <Box className="footer-address-center">
               <button
-                className="action-btn-border  send-pi-btn"
+                className="common-btn"
                 type="button"
                 onClick={handleCloseDelete}
               >
                 {t("Cancel")}
               </button>
               <button
-                className="action-btn full-width send-pi-btn"
+                className="border-btn"
                 type="button"
                 onClick={(e) => handleDelete(e.target.values)}
                 disabled={buttonLoader}

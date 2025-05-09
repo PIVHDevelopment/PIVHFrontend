@@ -82,12 +82,12 @@ const PaymentRequest = () => {
         payload
       );
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         fetchRequests();
         handleClose();
       }
     } catch (err) {
-      Index.toasterError(err?.response?.data?.message);
+      Index.toasterError(err?.response?.data?.message?.[language]);
     } finally {
         setLoading(false);
     }
@@ -130,7 +130,7 @@ const PaymentRequest = () => {
         setNextPage(false);
       }
     } catch (error) {
-      Index.toasterError(error?.response?.data?.message);
+      Index.toasterError(error?.response?.data?.message?.[language]);
     } finally {
       setButtonLoader(false);
     }
@@ -269,8 +269,8 @@ const PaymentRequest = () => {
                           <button
                             className={`${
                               item?.status === "pending"
-                                ? "request-payment-pay-btn"
-                                : "request-payment-pay-success-btn"
+                                ? "request-payment-pay-btn request-payment-pay-pending-btn"
+                                : "request-payment-pay-btn request-payment-pay-success-btn"
                             }`}
                             onClick={() => handleSubmitPin(item)}
                             disabled={item?.status == "pending" ? false : true}
@@ -282,7 +282,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                      <Index.NoDataFound message={"No Request Found"} />
+                      <Index.NoDataFound message={t("No Request Found")} />
                 )}
               </List>
             )}
@@ -339,7 +339,7 @@ const PaymentRequest = () => {
                     </ListItem>
                   ))
                 ) : (
-                     <Index.NoDataFound message={"No Request Found"} />
+                     <Index.NoDataFound message={t("No Request Found")} />
                 )}
               </List>
             )}
@@ -459,10 +459,10 @@ const PaymentRequest = () => {
                           </div>
                         </Box>
                       </Box>
-                      <Box className="modal-footer modal-footer-address">
+                      <Box className="modal-footer">
                         <Box className="footer-address-center">
                           <button
-                            className="action-btn full-width send-pi-btn"
+                            className="common-btn"
                             type="submit"
                             disabled={buttonLoader}
                           >

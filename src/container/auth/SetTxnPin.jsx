@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const SetTxnPin = () => {
   const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [showPin, setShowPin] = useState(false);
   const [showConfirmPin, setShowConfirmPin] = useState(false);
   const location = useLocation();
@@ -86,7 +87,7 @@ const SetTxnPin = () => {
             );
           }
           if (isRecover) {
-            Index.toasterSuccess(res?.data?.message);
+            Index.toasterSuccess(res?.data?.message?.[language]);
             navigate("/home", {
               state: { isBusiness: isBusiness },
             });
@@ -99,9 +100,7 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
-        Index.toasterError(
-          err?.response?.data?.message || t("SomethingWrong")
-        );
+        Index.toasterError(err?.response?.data?.message?.[language] || t("SomethingWrong"));
       })
       .finally(() => {
         setIsLoading(false);
@@ -163,7 +162,7 @@ const SetTxnPin = () => {
             >
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -185,18 +184,19 @@ const SetTxnPin = () => {
               validateForm,
               setTouched,
             }) => (
-              <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
-                <Box className="p-20">
-                  <Typography variant="h5" className="heading" gutterBottom>
-                    {t("Set")} {isBusiness && t("Business")} {t("TransactionPIN")}
+              <form onSubmit={handleSubmit}>
+                <>
+                  <Typography variant="h5" className="common-heading" gutterBottom>
+                    {t("Set")} {isBusiness && t("Business")}{" "}
+                    {t("TransactionPIN")}
                   </Typography>
 
                   <Typography
                     variant="h6"
-                    className="heading-note"
+                    className="common-para"
                     gutterBottom
                   >
-                  {t("PINContaint")}
+                    {t("PINContaint")}
                   </Typography>
 
                   <Grid container spacing={4}>
@@ -267,12 +267,12 @@ const SetTxnPin = () => {
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
-                        {t("Set PIN")}
+                        {t("SetPIN")}
                         {/* )} */}
                       </button>
                     )}
                   </Box>
-                </Box>
+                </>
               </form>
             )}
           </Formik>
