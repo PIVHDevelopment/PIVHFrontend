@@ -14,188 +14,63 @@ import Index from "../Index";
 import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
-const questions = [
-  {
-    En: {
-      question: "What was your first school's name?",
-      id: "What was your first school's name?",
-      index: 1
-    },
-    Hi: {
-      question: "आपके पहले स्कूल का नाम क्या था?",
-      id: "What was your first school's name?",
-      index: 1
-    },
-    Ar: {
-      question: "ما اسم أول مدرسة التحقت بها؟",
-      id: "What was your first school's name?",
-      index: 1
-    },
-  },
-  {
-    En: {
-      question: "Who was your childhood best friend?",
-      id: "Who was your childhood best friend?",
-      index: 2
-    },
-    Hi: {
-      question: "आपके बचपन के सबसे अच्छे दोस्त का नाम क्या था?",
-      id: "Who was your childhood best friend?",
-      index: 2
-    },
-    Ar: {
-      question: "من كان أفضل صديق لك في الطفولة؟",
-      id: "Who was your childhood best friend?",
-      index: 2
-    },
-  },
-  {
-    En: {
-      question: "What was your dream job as a child?",
-      id: "What was your dream job as a child?",
-      index: 3
-    },
-    Hi: {
-      question: "बचपन में आपका सपना क्या बनना था?",
-      id: "What was your dream job as a child?",
-      index: 3
-    },
-    Ar: {
-      question: "ما هي وظيفة أحلامك عندما كنت طفلاً؟",
-      id: "What was your dream job as a child?",
-      index: 3
-    },
-  },
-  {
-    En: {
-      question: "What is your favorite teacher’s name?",
-      id: "What is your favorite teacher’s name?",
-      index: 4
-    },
-    Hi: {
-      question: "आपके पसंदीदा शिक्षक का नाम क्या है?",
-      id: "What is your favorite teacher’s name?",
-      index: 4
-    },
-    Ar: {
-      question: "ما اسم معلمك المفضل؟",
-      id: "What is your favorite teacher’s name?",
-      index: 4
-    },
-  },
-  {
-    En: {
-      question: "What city were you born in?",
-      id: "What city were you born in?",
-      index: 5
-    },
-    Hi: {
-      question: "आपका जन्म किस शहर में हुआ था?",
-      id: "What city were you born in?",
-      index: 5
-    },
-    Ar: {
-      question: "في أي مدينة وُلدت؟",
-      id: "What city were you born in?",
-      index: 5
-    },
-  },
+const questionsEn = [
+  "What was your first school's name?",
+  "Who was your childhood best friend?",
+  "What was your dream job as a child?",
+  "What is your favorite teacher’s name?",
+  "What city were you born in?",
+];
+const questionsHi = [
+  "आपके पहले स्कूल का नाम क्या था?",
+  "आपके बचपन के सबसे अच्छे दोस्त का नाम क्या था?",
+  "बचपन में आपका सपना क्या बनना था?",
+  "आपके पसंदीदा शिक्षक का नाम क्या है?",
+  "आपका जन्म किस शहर में हुआ था?",
+];
+const questionsAr = [
+  "ما اسم أول مدرسة التحقت بها؟",
+  "من كان أفضل صديق لك في الطفولة؟",
+  "ما هي وظيفة أحلامك عندما كنت طفلاً؟",
+  "ما اسم معلمك المفضل؟",
+  "في أي مدينة وُلدت؟",
 ];
 
-
-const businessQuestions = [
-  {
-    En: {
-      question: "What was your desk or office number when you joined?",
-      id: "What was your desk or office number when you joined?",
-      index: 1
-    },
-    Hi: {
-      question: "जब आपने जॉइन किया था, तब आपकी डेस्क या ऑफिस नंबर क्या था?",
-      id: "What was your desk or office number when you joined?",
-      index: 1
-    },
-    Ar: {
-      question: "ما رقم مكتبك أو مكتبك عند انضمامك؟",
-      id: "What was your desk or office number when you joined?",
-      index: 1
-    },
-  },
-  {
-    En: {
-      question: "What was the name of your first internal project?",
-      id: "What was the name of your first internal project?",
-      index: 2
-    },
-    Hi: {
-      question: "आपकी पहली आंतरिक परियोजना (इंटरनल प्रोजेक्ट) का नाम क्या था?",
-      id: "What was the name of your first internal project?",
-      index: 2
-    },
-    Ar: {
-      question: "ما اسم أول مشروع داخلي شاركت فيه؟",
-      id: "What was the name of your first internal project?",
-      index: 2
-    },
-  },
-  {
-    En: {
-      question: "What is the official email address associated with your account?",
-      id: "What is the official email address associated with your account?",
-      index: 3
-    },
-    Hi: {
-      question: "आपके खाते से जुड़ा आधिकारिक ईमेल पता क्या है?",
-      id: "What is the official email address associated with your account?",
-      index: 3
-    },
-    Ar: {
-      question: "ما هو عنوان البريد الإلكتروني الرسمي المرتبط بحسابك؟",
-      id: "What is the official email address associated with your account?",
-      index: 3
-    },
-  },
-  {
-    En: {
-      question: "What is your official job title?",
-      id: "What is your official job title?",
-      index: 4
-    },
-    Hi: {
-      question: "आपका आधिकारिक पदनाम (जॉब टाइटल) क्या है?",
-      id: "What is your official job title?",
-      index: 4
-    },
-    Ar: {
-      question: "ما هو المسمى الوظيفي الرسمي الخاص بك؟",
-      id: "What is your official job title?",
-      index: 4
-    },
-  },
-  {
-    En: {
-      question: "What was your onboarding trainer's name?",
-      id: "What was your onboarding trainer's name?",
-      index: 5
-    },
-    Hi: {
-      question: "आपके ऑनबोर्डिंग ट्रेनर का नाम क्या था?",
-      id: "What was your onboarding trainer's name?",
-      index: 5
-    },
-    Ar: {
-      question: "ما اسم مدرب التهيئة (onboarding) الخاص بك؟",
-      id: "What was your onboarding trainer's name?",
-      index: 5
-    },
-  },
+const businessQuestionsEn = [
+  "What was your desk or office number when you joined?",
+  "What was the name of your first internal project?",
+  "What is the official email address associated with your account?",
+  "What is your official job title?",
+  "What was your onboarding trainer's name?",
 ];
 
+const businessQuestionsHi = [
+  "जब आपने जॉइन किया था, तब आपकी डेस्क या ऑफिस नंबर क्या था?",
+  "आपकी पहली आंतरिक परियोजना (इंटरनल प्रोजेक्ट) का नाम क्या था?",
+  "आपके खाते से जुड़ा आधिकारिक ईमेल पता क्या है?",
+  "आपका आधिकारिक पदनाम (जॉब टाइटल) क्या है?",
+  "आपके ऑनबोर्डिंग ट्रेनर का नाम क्या था?",
+];
+const businessQuestionsAr = [
+  "ما رقم مكتبك أو مكتبك عند انضمامك؟",
+  "ما اسم أول مشروع داخلي شاركت فيه؟",
+  "ما هو عنوان البريد الإلكتروني الرسمي المرتبط بحسابك؟",
+  "ما هو المسمى الوظيفي الرسمي الخاص بك؟",
+  "ما اسم مدرب التهيئة (onboarding) الخاص بك؟",
+];
 
 const SetPinRecoveryQuestion = () => {
   const { t } = Index.useTranslation();
   let ln = localStorage.getItem("language");
   console.log("ddddd", ln)
+  let questions =
+    ln === "Hi" ? questionsHi : ln === "Ar" ? questionsAr : questionsEn;
+  let businessQuestions =
+    ln === "Hi"
+      ? businessQuestionsHi
+      : ln === "Ar"
+        ? businessQuestionsAr
+        : businessQuestionsEn;
   const [submitted, setSubmitted] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
@@ -232,7 +107,7 @@ const SetPinRecoveryQuestion = () => {
             const lowerCasedValue = normalizeText(value);
             const allQuestions = (
               isBusiness ? businessQuestions : questions
-            )?.map((q) => normalizeText(q?.[ln]?.id));
+            )?.map((q) => normalizeText(q));
 
             return !allQuestions?.includes(lowerCasedValue);
           }),
@@ -245,18 +120,17 @@ const SetPinRecoveryQuestion = () => {
       ? Index.Api.SET_PIN_QUESTION_BUSINESS
       : Index.Api.SET_PIN_QUESTION;
 
-      const questionIndex = parseInt(values.selectedQuestion);
-      const selectedQuestion =
-        questionIndex === -1
-          ? values.customQuestion
-          : (isBusiness ? businessQuestionsEn : questionsEn)[questionIndex]; 
+    const selectedQuestion =
+      parseInt(values.selectedQuestion) === -1
+        ? values.customQuestion
+        : (isBusiness ? businessQuestions : questions)[values.selectedQuestion];
 
     setSubmitted(true);
     setIsLoading(true);
 
     Index.DataService.post(endPoint, {
       uid: userData?.uid,
-      question: selectedQuestion?.[ln]?.id,
+      question: selectedQuestion,
       answer: values.answer,
     })
       .then((res) => {
@@ -303,7 +177,7 @@ const SetPinRecoveryQuestion = () => {
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container">
+        <Box className="app-container set-pin-div">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
               <img src={Index.back} alt={t("Back")} />
@@ -313,8 +187,8 @@ const SetPinRecoveryQuestion = () => {
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="security-ques-page">
-            <Typography variant="h5" gutterBottom className="common-heading">
+          <Box className="security-ques-div">
+            <Typography variant="h5" gutterBottom>
               {isBusiness && t("Business")} {t("SecurityQuestion")}
             </Typography>
 
@@ -345,17 +219,17 @@ const SetPinRecoveryQuestion = () => {
                           control={
                             <Radio
                               name="selectedQuestion"
-                              value={q?.[ln]?.index}
+                              value={index}
                               className="question-radio-box"
                               checked={
-                                parseInt(values.selectedQuestion) === q?.[ln]?.index
+                                parseInt(values.selectedQuestion) === index
                               }
                               onChange={() =>
-                                setFieldValue("selectedQuestion", q?.[ln]?.index)
+                                setFieldValue("selectedQuestion", index)
                               }
                             />
                           }
-                          label={q?.[ln]?.question}
+                          label={q}
                         />
                       )
                     )}
@@ -377,41 +251,37 @@ const SetPinRecoveryQuestion = () => {
 
                   {/* Custom question input */}
                   {parseInt(values.selectedQuestion) === -1 && (
-                    <div className="user-form-group">
-                      <TextField
-                        name="customQuestion"
-                        placeholder={t("EnterQuestion")}
-                        fullWidth
-                        className="user-from-control"
-                        margin="normal"
-                        value={values.customQuestion}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={
-                          touched.customQuestion && Boolean(errors.customQuestion)
-                        }
-                        helperText={
-                          touched.customQuestion && errors.customQuestion
-                        }
-                      />
-                    </div>
-                  )}
-
-                  <div className="user-form-group">
                     <TextField
-                      name="answer"
-                      placeholder={t("EnterYourAnswer")}
+                      name="customQuestion"
+                      placeholder={t("EnterQuestion")}
                       fullWidth
-                      className="user-form-control-textarea"
-                      multiline
+                      className="textarea-question-sequrity question-custom"
                       margin="normal"
-                      value={values.answer}
+                      value={values.customQuestion}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.answer && Boolean(errors.answer)}
-                      helperText={touched.answer && errors.answer}
+                      error={
+                        touched.customQuestion && Boolean(errors.customQuestion)
+                      }
+                      helperText={
+                        touched.customQuestion && errors.customQuestion
+                      }
                     />
-                  </div>
+                  )}
+
+                  <TextField
+                    name="answer"
+                    placeholder={t("EnterYourAnswer")}
+                    fullWidth
+                    className="textarea-question-sequrity"
+                    multiline
+                    margin="normal"
+                    value={values.answer}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.answer && Boolean(errors.answer)}
+                    helperText={touched.answer && errors.answer}
+                  />
 
                   <div className="common-btn-space-main">
                     <button
