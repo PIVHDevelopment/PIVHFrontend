@@ -48,6 +48,15 @@ function Home() {
     updateLanugage(lang);
   };
 
+   useEffect(()=>{
+        if (languageCh == "Ar") {
+          document.body.classList.add("direction-rtl");
+        } else {
+        document.body.classList.remove("direction-rtl");
+      }
+        i18n.changeLanguage(languageCh);
+      },[languageCh])
+
   const updateLanugage = (lang) => {
     Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
       id : userData._id,
