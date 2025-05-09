@@ -143,7 +143,7 @@ function Send() {
                 >
                   <img src={Index.back} alt="Back" />
                 </button>
-                <div className="app-icon" style={{ marginLeft: "-26px" }}>
+                <div className="app-icon">
                   <img src={Index.pocketPi} alt={t("PocketPi")} />
                 </div>
                 <div className="header-right"></div>
@@ -304,7 +304,7 @@ function Send() {
                       </div>
 
                       <button
-                        className="action-btn full-width send-pi-btn"
+                        className="common-btn"
                         type="submit"
                         disabled={buttonLoader}
                       >

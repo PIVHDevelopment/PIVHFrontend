@@ -256,7 +256,7 @@ function Home() {
           </Index.TabContainer>
         </div>
 
-        <button onClick={() => navigate("/kyb-verification")}>Demo</button>
+        {/* <button onClick={() => navigate("/kyb-verification")}>Demo</button> */}
 
         {transactionList?.length ? (
           <div
@@ -269,7 +269,7 @@ function Home() {
             <div className="toggle-arrow" onClick={toggleSection}>
               <span className="arrow-icon">↑</span>
             </div>
-            <h2>{t("TransactionHistory")}</h2>
+            <h2 className="transaction-section-title">{t("TransactionHistory")}</h2>
             <div className="transaction-list">
               {transactionList?.map((transaction, index) => {
                 const isPositive = transaction.paymentType === "received";
@@ -383,7 +383,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">{t("Address Book")}</h6>
+            <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
             (tab === 1 && userData?.isIndividualSubscription) ? (

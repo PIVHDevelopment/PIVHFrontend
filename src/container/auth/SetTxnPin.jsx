@@ -163,7 +163,7 @@ const SetTxnPin = () => {
             >
               <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
+            <div className="app-icon">
               <img src={Index.pocketPi} alt="PocketPi" />
             </div>
             <div className="header-right"></div>
@@ -185,15 +185,15 @@ const SetTxnPin = () => {
               validateForm,
               setTouched,
             }) => (
-              <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
-                <Box className="p-20">
-                  <Typography variant="h5" className="heading" gutterBottom>
+              <form onSubmit={handleSubmit}>
+                <Box>
+                  <Typography variant="h5" className="common-heading" gutterBottom>
                     {t("Set")} {isBusiness && t("Business")} {t("TransactionPIN")}
                   </Typography>
 
                   <Typography
                     variant="h6"
-                    className="heading-note"
+                    className="common-para"
                     gutterBottom
                   >
                   {t("PINContaint")}

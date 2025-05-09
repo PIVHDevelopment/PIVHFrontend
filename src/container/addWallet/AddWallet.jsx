@@ -80,9 +80,11 @@ function AddWallet() {
               </button> */}
             </div>
 
-            <button className="action-btn full-width send-pi-btn" type="submit">
-              {t("Save")}
-            </button>
+            <div className="common-btn-space-main">
+              <button className="common-btn" type="submit">
+                {t("Save")}
+              </button>
+            </div>
           </form>
         )}
       </Index.Formik>

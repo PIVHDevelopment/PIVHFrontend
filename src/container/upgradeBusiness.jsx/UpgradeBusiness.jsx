@@ -135,7 +135,7 @@ function UpgradeBusiness() {
                 </div>
 
                 <button
-                  className="action-btn full-width send-pi-btn"
+                  className="common-btn"
                   type="submit"
                 >
                   {t("Save")}

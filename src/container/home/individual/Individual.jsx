@@ -38,9 +38,9 @@ function Individual({ balance }) {
         </button>
       </div>
 
-      <div className="action-buttons action-send-main-contain">
+      <div className="outline-tabs-main">
         <button
-          className="action-btn send-btn"
+          className="outline-tabs"
           id="sendBtn"
           onClick={() =>
             navigate("/deposit", {
@@ -48,22 +48,18 @@ function Individual({ balance }) {
             })
           }
         >
-          <span className="btn-icon">
-            <img src={Index.deposit} alt="Send Money" />
-          </span>
+            <img src={Index.deposit} alt="Send Money" className="outline-tabs-icon" />
           {t("Deposit")}
         </button>
         <button
-          className="action-btn receive-btn"
+          className="outline-tabs"
           id="withdraw"
           disabled={balance <= 0}
           onClick={() =>
             navigate("/withdraw", { state: { typeTxn: "individual" } })
           }
         >
-          <span className="btn-icon">
-            <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} />
-          </span>
+            <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} className="outline-tabs-icon"/>
           {t("Withdraw")}
         </button>
 

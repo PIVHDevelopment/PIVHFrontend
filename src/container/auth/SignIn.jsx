@@ -54,28 +54,17 @@ function SignIn() {
         <Index.Loader />
       ) : (
         <div className="app-container signin-main">
-          <div className="p-20">
-            <header className="signin-header">
-              <div
-                className="app-icon"
-                style={{
-                  textAlign: "center",
-                  flex: "0 0 33.3%",
-                  height: "80px",
-                }}
-              >
-                <img src={Index.pocketPi2} alt="PocketPi" />
-              </div>
-            </header>
-            <div className="sigin-body">
-              <button className="secondary-btn share-btn" onClick={signIn}>
-                {/* {isLoading ? (
+          <header className="signin-header">
+            <img src={Index.pocketPi2} alt="PocketPi" className="app-logo" />
+          </header>
+          <div className="sigin-body">
+            <button className="secondary-btn" onClick={signIn}>
+              {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
-                Sign In
-                {/* )} */}
-              </button>
-            </div>
+              Sign In
+              {/* )} */}
+            </button>
           </div>
           <div className="sigin-footer">
             <p onClick={() => navigate("/term-conditions")}>
