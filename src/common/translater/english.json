@@ -148,6 +148,12 @@
   "Email": "Email",
   "Enter a valid email": "Enter a valid email",
   "Send Money":"Send Money",
-  "Description is required": "Description is required"
+  "Description is required": "Description is required",
+
+  "KYB Verification Pending": "KYB Verification Pending",
+  "KYB Verification Approved": "KYB Verification Approved",
+  "KYB Verification Rejected Kindly Try Again": "KYB Verification Rejected, Kindly Try Again",
+  "Start Process of KYB Verification": "Start Process of KYB Verification",
+  "Upgrade Business": "Upgrade Business"
 
 }

@@ -149,5 +149,11 @@
   "Description is required": "الوصف مطلوب",
   "Email": "البريد الإلكتروني",
   "Send Money": "إرسال الأموال",
-  "Your account is setup successfully, you can now perform transactions securely": "تم إعداد حسابك بنجاح، يمكنك الآن إجراء المعاملات بأمان."
+  "Your account is setup successfully, you can now perform transactions securely": "تم إعداد حسابك بنجاح، يمكنك الآن إجراء المعاملات بأمان.",
+    
+   "KYB Verification Pending": "التحقق من KYB قيد الانتظار",
+    "KYB Verification Approved": "تمت الموافقة على التحقق من KYB",
+    "KYB Verification Rejected Kindly Try Again": "تم رفض التحقق من KYB، يرجى المحاولة مرة أخرى",
+    "Start Process of KYB Verification": "ابدأ عملية التحقق من KYB",
+    "Upgrade Business": "ترقية النشاط التجاري"
 }

@@ -2577,3 +2577,23 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   margin-top: 3px;
   font-weight: 400;
 }
+
+
+.user-file-upload-btn .clear-icon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  border-radius: 6px;
+}
+
+.address-book-head .custom-address-book-title{
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid white;
+  line-height: 14px;
+}
