@@ -34,33 +34,32 @@ const Api = {
   GET_ADDRESS: "/user/get-address-book",
   DELETE_ADDRESS: "/user/delete-address",
 
-  ADD_SUBSCRIPTION:"/user/update-subscription-status",
-  
-  FETCH_QR_CODE:"/payments/fetch-qr-code",
+  ADD_SUBSCRIPTION: "/user/update-subscription-status",
+
+  FETCH_QR_CODE: "/payments/fetch-qr-code",
 
   ADD_UPDATE_WALLET_ADDRESS: "/user/add-update-wallet-address",
   GET_WALLET_ADDRESS: "/user/get-wallet-address-book",
   DELETE_WALLET_ADDRESS: "/user/delete-wallet-address",
 
-
   ADD_UPDATE_PAYMENT_REQUEST: "/payments/create-payment-request",
   GET_PAYMENT_REQUEST: "/payments/fetch-payment-request",
   ACCEPT_PAYMENT_REQUEST: "/payments/accept-payment-request",
 
+  ADD_FEEDBACK: "/user/add-feedback",
+  GET_USER_FEEDBACK: "/user/get-feedback",
 
-  ADD_FEEDBACK:"/user/add-feedback",
-  GET_USER_FEEDBACK:"/user/get-feedback",
+  GET_SUBS_SETTING: "/user/get-subscription-setting",
+  ADD_FEEDBACK: "/user/add-feedback",
+  GET_USER_FEEDBACK: "/user/get-feedback",
 
+  ADD_KYB_VERIFICATION: "/user/add-kyb-request",
+  GET_KYB_VERIFICATION: "/user/get-kyb-request",
+  GET_ALL_KYB_VERIFICATION: "/admin/get-kyb-requests",
+  UDATE_KYB_VERIFICATION: "/admin/update-kyb-status",
 
-ADD_KYB_VERIFICATION:"/user/add-kyb-request",
-GET_KYB_VERIFICATION:"/user/get-kyb-request",
-GET_ALL_KYB_VERIFICATION:"/admin/get-kyb-requests",
-UDATE_KYB_VERIFICATION:"/admin/update-kyb-status",
-
-
-GET_LANUGAGE:"/user/get-user-language",
-UPDATE_LANGUAGE:"/user/update-user-language",
-  
+  GET_LANUGAGE: "/user/get-user-language",
+  UPDATE_LANGUAGE: "/user/update-user-language",
 };
 
 export default Api;

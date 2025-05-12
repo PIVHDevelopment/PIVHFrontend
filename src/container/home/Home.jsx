@@ -86,7 +86,7 @@ function Home() {
   const handleLogout = async () => {
     await signOutUser();
     sessionStorage.clear();
-    navigate("/");
+    navigate("/signin");
   };
   const handleGetTransactions = () => {
     Index.DataService.get(
@@ -227,7 +227,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                  (tab === 1 && !userData?.isIndividualSubscription) ? (
+                (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -366,7 +366,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-            (tab === 1 && userData?.isIndividualSubscription) ? (
+          (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -386,18 +386,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-              <NavLink
-                className="setting-cont-box"
-                to={"/check-kyb-verification"}
-              >
-                <div className="setting-icon-box">
-                  <img src={Index.businessversion} alt="" />
-                </div>
-                <h6 className="setting-cont-title">
-                  {t("UpgradeToBusinessVersion")}
-                </h6>
-              </NavLink>
-            )}
+            <NavLink
+              className="setting-cont-box"
+              to={"/check-kyb-verification"}
+            >
+              <div className="setting-icon-box">
+                <img src={Index.businessversion} alt="" />
+              </div>
+              <h6 className="setting-cont-title">
+                {t("UpgradeToBusinessVersion")}
+              </h6>
+            </NavLink>
+          )}
 
           <div
             className="setting-cont-box"
@@ -449,7 +449,7 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.complainIcon} alt="" />
             </div>
-            <h6 className="setting-cont-title">{t("FeedbackAndComplaint")}</h6>
+            <h6 className="setting-cont-title">{t("Tickets")}</h6>
           </div>
         </Index.Modal.Body>
       </Index.Modal>

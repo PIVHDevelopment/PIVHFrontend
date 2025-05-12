@@ -139,7 +139,7 @@
   "Upload Document Front": "Upload Document Front",
   "Upload Document Back": "Upload Document Back",
   "Your account is setup successfully, you can now perform transactions securely": "Your account is setup successfully, you can now perform transactions securely.",
-  
+
   "Feedback And Complaint": "Feedback And Complaint",
   "No Feedback And Complaint Found": "No Feedback And Complaint Found",
   "Enter Email": "Enter Email",
@@ -154,6 +154,10 @@
   "KYB Verification Approved": "KYB Verification Approved",
   "KYB Verification Rejected Kindly Try Again": "KYB Verification Rejected, Kindly Try Again",
   "Start Process of KYB Verification": "Start Process of KYB Verification",
-  "Upgrade Business": "Upgrade Business"
+  "Upgrade Business": "Upgrade Business",
 
+  "Ticket": "Ticket",
+  "Add Ticket": "Add Ticket",
+  "Tickets": "Tickets",
+  "Reason": "Reason"
 }

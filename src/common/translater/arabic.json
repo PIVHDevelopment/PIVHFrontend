@@ -140,9 +140,6 @@
   "Feedback And Complaint": "الملاحظات والشكاوى",
   "No Feedback And Complaint Found": "لم يتم العثور على ملاحظات أو شكاوى",
   "Enter Email": "أدخل البريد الإلكتروني",
-  "Feedback And Complaint": "الملاحظات والشكاوى",
-  "No Feedback And Complaint Found": "لم يتم العثور على ملاحظات أو شكاوى",
-  "Enter Email": "أدخل البريد الإلكتروني",
   "Add Feedback And Complaint": "أضف ملاحظات وشكاوى",
   "Email is required": "البريد الإلكتروني مطلوب",
   "Enter a valid email": "أدخل بريدًا إلكترونيًا صالحًا",
@@ -155,5 +152,10 @@
     "KYB Verification Approved": "تمت الموافقة على التحقق من KYB",
     "KYB Verification Rejected Kindly Try Again": "تم رفض التحقق من KYB، يرجى المحاولة مرة أخرى",
     "Start Process of KYB Verification": "ابدأ عملية التحقق من KYB",
-    "Upgrade Business": "ترقية النشاط التجاري"
+    "Upgrade Business": "ترقية النشاط التجاري",
+
+  "Ticket": "تذكرة",
+  "Add Ticket": "أضف تذكرة",
+  "Tickets": "تذاكر",
+  "Reason": "سبب"
 }

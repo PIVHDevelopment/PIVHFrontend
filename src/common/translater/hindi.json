@@ -127,7 +127,8 @@
   "PleaseEnterMemo": "कृपया मेमो दर्ज करें",
   "YourTransactionWasSuccessful": "आपका लेन-देन सफल रहा",
   "GoToHome": "होम पर जाएं",
-  "No Request Found": "कोई अनुरोध नहीं मिला","Terms & Conditions": "नियम और शर्तें",
+  "No Request Found": "कोई अनुरोध नहीं मिला",
+  "Terms & Conditions": "नियम और शर्तें",
   "Privacy Policy": "गोपनीयता नीति",
   "Go to home page": "मुख्य पृष्ठ पर जाएं",
   "Sign In": "साइन इन करें",
@@ -136,9 +137,6 @@
   "Select Country": "देश चुनें",
   "Upload Document Front": "दस्तावेज़ का अगला भाग अपलोड करें",
   "Upload Document Back": "दस्तावेज़ का पिछला भाग अपलोड करें",
-  "Feedback And Complaint": "प्रतिक्रिया और शिकायत",
-  "No Feedback And Complaint Found": "कोई प्रतिक्रिया या शिकायत नहीं मिली",
-  "Enter Email": "ईमेल दर्ज करें",
   "Feedback And Complaint": "प्रतिक्रिया और शिकायत",
   "No Feedback And Complaint Found": "कोई प्रतिक्रिया या शिकायत नहीं मिली",
   "Enter Email": "ईमेल दर्ज करें",
@@ -154,5 +152,9 @@
     "KYB Verification Approved": "KYB सत्यापन स्वीकृत है",
     "KYB Verification Rejected Kindly Try Again": "KYB सत्यापन अस्वीकृत हुआ, कृपया पुनः प्रयास करें",
     "Start Process of KYB Verification": "KYB सत्यापन की प्रक्रिया शुरू करें",
-    "Upgrade Business": "व्यवसाय उन्नत करें"
+    "Upgrade Business": "व्यवसाय उन्नत करें",
+  "Ticket": "टिकट",
+  "Add Ticket": "टिकट जोड़ें",
+  "Tickets": "टिकट्स",
+  "Reason": "कारण"
 }

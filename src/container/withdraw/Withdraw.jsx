@@ -20,6 +20,8 @@ function Withdraw() {
   const [nextPage, setNextPage] = useState(false);
   const [txnData, setTxnData] = useState({});
 
+  console.log(typeTxn);
+
   const getWallets = async () => {
     try {
       const capitalizedType =
@@ -105,7 +107,9 @@ function Withdraw() {
                   className="back-btn"
                   onClick={() =>
                     navigate("/home", {
-                      state: { isBusiness: typeTxn == "business" ? true : false },
+                      state: {
+                        isBusiness: typeTxn == "business" ? true : false,
+                      },
                     })
                   }
                 >
@@ -172,12 +176,19 @@ function Withdraw() {
                             freeSolo
                             slotProps={{
                               popper: {
-                                modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
-                                className: 'custom-dropdown-withdrow',
+                                modifiers: [
+                                  {
+                                    name: "offset",
+                                    options: { offset: [0, 8] },
+                                  },
+                                ],
+                                className: "custom-dropdown-withdrow",
                               },
                             }}
                             className="user-form-control"
-                            options={wallets?.map((item) => item?.walletAddress) || []}
+                            options={
+                              wallets?.map((item) => item?.walletAddress) || []
+                            }
                             value={formik?.values?.address || ""}
                             open={open}
                             onChange={(event, newValue) => {
@@ -201,11 +212,10 @@ function Withdraw() {
                                 option?.toLowerCase()?.startsWith(input)
                               );
                             }}
-
                             renderInput={(params) => (
                               <TextField
                                 {...params}
-                                className="notes-input"
+                                className="user-form-control"
                                 placeholder={
                                   formik?.values?.address
                                     ? ""
@@ -213,8 +223,6 @@ function Withdraw() {
                                 }
                                 variant="outlined"
                                 fullWidth
-
-
                               />
                             )}
                           />
@@ -224,23 +232,26 @@ function Withdraw() {
                             ? formik.errors?.address
                             : null}
                         </p>
-                        {formik.values.amount >= 0.01 ? (
-                          <label className="text-color deduction-message">
-                            0.01 {t("DeductFees")}
-                          </label>
-                        ) : (
-                          ""
-                        )}
+                        {(typeTxn === "individual" &&
+                          userData?.isIndividualSubscription) ||
+                        (typeTxn === "business" &&
+                          userData?.isBusinessSubscription)
+                          ? null
+                          : formik.values.amount >= 0.01 && (
+                              <label className="text-color deduction-message">
+                                0.01 {t("DeductFees")}
+                              </label>
+                            )}
                       </div>
                     </>
                     <div className="common-btn-space-main">
-                    <button
-                      className="common-btn"
-                      type="submit"
-                      disabled={buttonLoader}
-                    >
-                      {buttonLoader ? t("Processing") : t("Withdraw")}
-                    </button>
+                      <button
+                        className="common-btn"
+                        type="submit"
+                        disabled={buttonLoader}
+                      >
+                        {buttonLoader ? t("Processing") : t("Withdraw")}
+                      </button>
                     </div>
                   </form>
                 )}
