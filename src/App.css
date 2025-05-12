@@ -2595,3 +2595,49 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
       transform: scale(1);
   }
 }
+
+.kyb-autocomplete-input .dropdown-select .MuiOutlinedInput-root {
+  padding: 9px 12px !important;
+}
+
+.kyb-verification-btn{
+      width: 100%;
+    background: #e38cff;
+    color: var(--white);
+        padding: 12px;
+    border-radius: 24px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 36px;
+}
+
+.app-container .check-kyb-verification-btn-box{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kyb-clear-icon {
+  text-align: end;
+ margin: 4px 0;
+}
+
+.kyb-clear-icon button{
+   text-transform: capitalize;
+   font-size: 12px;
+   line-height: 12px;
+   padding: 6px;
+
+}
+
+.kyb-clear-icon button:nth-child(1){
+background-color: red;
+color: var(--white);
+margin-right: 5px;
+}
+
+.kyb-clear-icon button:nth-child(2){
+background-color: #e38cff;
+color: var(--white);
+margin-right: 5px;
+}

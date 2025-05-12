@@ -8,17 +8,32 @@ import {
   Typography,
   Autocomplete,
   TextField,
+  Modal,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import countries from "./countries.json";
+
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "49%",
+  transform: "translate(-50%, -50%)",
+  width: "calc(100% - 40px)",
+  maxWidth: "450px",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+};
 
 export default function KYBVerification() {
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const navigate = Index.useNavigate();
   const { t } = Index.useTranslation();
   const language = localStorage.getItem("language");
-   const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [openPreviewModal, setOpenPreviewModal] = React.useState(false);
+  const [previewFile, setPreviewFile] = React.useState(null);
+  console.log(openPreviewModal, previewFile, "text");
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +44,7 @@ export default function KYBVerification() {
     },
     validationSchema: Index.addKybVerificationSchema,
     onSubmit: async (values) => {
-    setLoading(true);
+      setLoading(true);
       const formData = new FormData();
       formData.append("userId", userData?._id);
       formData.append("country", values?.country?.name);
@@ -54,7 +69,8 @@ export default function KYBVerification() {
         }
       } catch (error) {
         Index.toasterError(
-          error?.response?.data?.message?.[language] || t("AnUnexpectedErrorOccurred")
+          error?.response?.data?.message?.[language] ||
+            t("AnUnexpectedErrorOccurred")
         );
       } finally {
         setLoading(false);
@@ -86,10 +102,38 @@ export default function KYBVerification() {
     );
   };
 
+    const FilePreviewModal = ({ file }) => {
+    if (!file) return null;
+    const fileURL = URL.createObjectURL(file);
+    if (file.type === "application/pdf") {
+      return (
+        <iframe
+          src={fileURL}
+          title="PDF Preview"
+          width="100%"
+          height="500px"
+        />
+      );
+    }
+
+    return (
+      <img
+        src={fileURL}
+        alt="Document Preview"
+        className="user-upload-profile-img"
+              width="100%"
+          height="500px"
+      />
+    );
+  };
+
   return (
     <div className="app-container">
       <header className="receive-center">
-        <button className="back-btn" onClick={() =>  navigate("/check-kyb-verification")}>
+        <button
+          className="back-btn"
+          onClick={() => navigate("/check-kyb-verification")}
+        >
           <img src={Index.back} alt="Back" />
         </button>
         <div className="app-icon">
@@ -102,7 +146,7 @@ export default function KYBVerification() {
         <form onSubmit={formik.handleSubmit}>
           <Index.Box className="address-book-head">
             <Index.Typography className="address-book-title">
-              KYB Verification
+              {t("KYB Verification")}
             </Index.Typography>
           </Index.Box>
 
@@ -111,13 +155,13 @@ export default function KYBVerification() {
               <Index.Box
                 display="grid"
                 gridTemplateColumns="repeat(12, 1fr)"
-                gap={2}
+                gap={3}
               >
                 {/* Country Autocomplete */}
                 <Index.Box gridColumn="span 12" className="grid-column">
                   <div className="input-box">
                     <Typography className="input-form-label">
-                      Select Country
+                      {t("Select Country")}
                     </Typography>
                     <Autocomplete
                       options={countries}
@@ -139,7 +183,7 @@ export default function KYBVerification() {
                           //     formik.touched.country && formik.errors.country
                           //   }
                           className="dropdown-select"
-                          placeholder="Select Country"
+                          placeholder={t("Select Country")}
                         />
                       )}
                     />
@@ -158,7 +202,7 @@ export default function KYBVerification() {
                     <Index.Box gridColumn="span 12" className="grid-column">
                       <div className="input-box">
                         <Typography className="input-form-label">
-                          Upload Aadhar Card Front
+                          {t("Upload Aadhar Card Front")}
                         </Typography>
                         <div className="user-file-upload-btn-main">
                           <Button
@@ -171,18 +215,6 @@ export default function KYBVerification() {
                                 <FilePreview
                                   file={formik.values.frontDocument}
                                 />
-                                <Box className="clear-icon">
-                                  <ClearIcon
-                                    fontSize="small"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      formik.setFieldValue(
-                                        "frontDocument",
-                                        null
-                                      );
-                                    }}
-                                  />
-                                </Box>
                               </>
                             ) : (
                               <CloudUploadIcon className="user-upload-icon-img" />
@@ -192,6 +224,9 @@ export default function KYBVerification() {
                               hidden
                               accept="image/*,.pdf"
                               type="file"
+                              onClick={(e) => {
+                                e.target.value = null;
+                              }}
                               onChange={(event) => {
                                 formik.setFieldValue(
                                   "frontDocument",
@@ -200,6 +235,28 @@ export default function KYBVerification() {
                               }}
                             />
                           </Button>
+                          {formik.values.frontDocument && (
+                            <Index.Box className="kyb-clear-icon">
+                              <Button
+                                onClick={(e) => {
+                                  formik.setFieldValue("frontDocument", null);
+                                }}
+                              >
+                                Remove
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  if (formik.values.frontDocument) {
+                                    setPreviewFile(formik.values.frontDocument);
+                                    setOpenPreviewModal(true);
+                                  }
+                                }}
+                              >
+                                Preview
+                              </Button>
+                            </Index.Box>
+                          )}
+
                           {formik.touched.frontDocument &&
                             formik.errors.frontDocument && (
                               <p color="error" className="input-error">
@@ -214,7 +271,7 @@ export default function KYBVerification() {
                     <Index.Box gridColumn="span 12" className="grid-column">
                       <div className="input-box">
                         <Typography className="input-form-label">
-                          Upload Aadhar Card Back
+                          {t("Upload Aadhar Card Back")}
                         </Typography>
                         <div className="user-file-upload-btn-main">
                           <Button
@@ -227,18 +284,12 @@ export default function KYBVerification() {
                                 <FilePreview
                                   file={formik.values.backDocument}
                                 />
-                                <Box className="clear-icon">
+                                {/* <Box className="clear-icon">
                                   <ClearIcon
                                     fontSize="small"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      formik.setFieldValue(
-                                        "backDocument",
-                                        null
-                                      );
-                                    }}
+                                   
                                   />
-                                </Box>
+                                </Box> */}
                               </>
                             ) : (
                               <CloudUploadIcon className="user-upload-icon-img" />
@@ -247,6 +298,9 @@ export default function KYBVerification() {
                               hidden
                               accept="image/*,.pdf"
                               type="file"
+                              onClick={(e) => {
+                                e.target.value = null;
+                              }}
                               onChange={(event) => {
                                 formik.setFieldValue(
                                   "backDocument",
@@ -255,6 +309,26 @@ export default function KYBVerification() {
                               }}
                             />
                           </Button>
+                          {console.log(formik.values.backDocument, "check")}
+                          {formik.values.backDocument && (
+                            <Index.Box className="kyb-clear-icon">
+                              <Button
+                                onClick={(e) => {
+                                  formik.setFieldValue("backDocument", null);
+                                }}
+                              >
+                                Remove
+                              </Button>
+                              <Button 
+                               onClick={() => {
+                                  if (formik.values.backDocument) {
+                                    setPreviewFile(formik.values.backDocument);
+                                    setOpenPreviewModal(true);
+                                  }
+                                }}
+                                >Preview</Button>
+                            </Index.Box>
+                          )}
                           {formik.touched.backDocument &&
                             formik.errors.backDocument && (
                               <p color="error" className="input-error">
@@ -270,7 +344,7 @@ export default function KYBVerification() {
                   <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label">
-                        Upload Passport or Driving License
+                        {t("Upload Passport or Driving License")}
                       </Typography>
                       <div className="user-file-upload-btn-main">
                         <Button
@@ -283,18 +357,6 @@ export default function KYBVerification() {
                               <FilePreview
                                 file={formik.values.singleDocument}
                               />
-                              <Box className="clear-icon">
-                                <ClearIcon
-                                  fontSize="small"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    formik.setFieldValue(
-                                      "singleDocument",
-                                      null
-                                    );
-                                  }}
-                                />
-                              </Box>
                             </>
                           ) : (
                             <CloudUploadIcon className="user-upload-icon-img" />
@@ -304,6 +366,9 @@ export default function KYBVerification() {
                             hidden
                             accept="image/*,.pdf"
                             type="file"
+                            onClick={(e) => {
+                              e.target.value = null;
+                            }}
                             onChange={(event) => {
                               formik.setFieldValue(
                                 "singleDocument",
@@ -312,6 +377,25 @@ export default function KYBVerification() {
                             }}
                           />
                         </Button>
+                        {formik.values.singleDocument && (
+                          <Index.Box className="kyb-clear-icon">
+                            <Button
+                              onClick={(e) => {
+                                formik.setFieldValue("singleDocument", null);
+                              }}
+                            >
+                              Remove
+                            </Button>
+                            <Button
+                             onClick={() => {
+                                  if (formik.values.singleDocument) {
+                                    setPreviewFile(formik.values.singleDocument);
+                                    setOpenPreviewModal(true);
+                                  }
+                                }}>Preview</Button>
+                          </Index.Box>
+                        )}
+
                         {formik.touched.singleDocument &&
                           formik.errors.singleDocument && (
                             <p color="error" className="input-error">
@@ -326,15 +410,26 @@ export default function KYBVerification() {
             </Index.Box>
 
             <button
-              className="action-btn full-width button-top-space"
+              className="kyb-verification-btn"
               type="submit"
               disabled={loading}
             >
-              Submit
+              {t("Submit")}
             </button>
           </Index.Box>
         </form>
       </Index.Box>
+
+      {openPreviewModal && (
+        <Modal
+          open={openPreviewModal}
+          onClose={() => setOpenPreviewModal(false)}
+        >
+          <Box sx={modalStyle}>
+            <FilePreviewModal file={previewFile} />
+          </Box>
+        </Modal>
+      )}
     </div>
   );
 }
