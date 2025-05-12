@@ -148,6 +148,11 @@
   "Send Money": "पैसे भेजें",
   "Your account is setup successfully, you can now perform transactions securely": "आपका खाता सफलतापूर्वक सेटअप हो गया है, अब आप सुरक्षित रूप से लेनदेन कर सकते हैं।",
 
+  "KYB Verification Pending": "KYB सत्यापन लंबित है",
+    "KYB Verification Approved": "KYB सत्यापन स्वीकृत है",
+    "KYB Verification Rejected Kindly Try Again": "KYB सत्यापन अस्वीकृत हुआ, कृपया पुनः प्रयास करें",
+    "Start Process of KYB Verification": "KYB सत्यापन की प्रक्रिया शुरू करें",
+    "Upgrade Business": "व्यवसाय उन्नत करें",
   "Ticket": "टिकट",
   "Add Ticket": "टिकट जोड़ें",
   "Tickets": "टिकट्स",

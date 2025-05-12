@@ -1855,11 +1855,7 @@ span.icon {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+ 
 }
 
 .user-file-upload-btn-main .user-upload-icon-img {
@@ -1982,6 +1978,9 @@ span.icon {
   color: lightgray;
 }
 
+.send-form .kyb-btn{
+  font-weight: 600;
+}
 .user-form-lable {
   font-size: 14px;
   line-height: 18px;
@@ -2309,6 +2308,25 @@ span.icon {
   font-weight: 400;
 }
 
+
+.user-file-upload-btn .clear-icon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  border-radius: 6px;
+}
+
+.address-book-head .custom-address-book-title{
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid white;
+  line-height: 14px;
+}
 .transaction-section {
   background: #16151a;
   border-radius: var(--border-radius);

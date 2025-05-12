@@ -100,7 +100,7 @@ export const addWalletAddressBookSchema = Yup.object({
       is: (val) => val?.name === "India",
       then: (schema) =>
         schema
-          .required("Front aadhar is required")
+          .required("Aadhar card front is required")
           .test(
             "fileSize",
             "File too large",
@@ -121,7 +121,7 @@ export const addWalletAddressBookSchema = Yup.object({
       is: (val) => val?.name === "India",
       then: (schema) =>
         schema
-          .required("Back aadhar is required")
+          .required("Aadhar card back is required")
           .test(
             "fileSize",
             "File too large",
