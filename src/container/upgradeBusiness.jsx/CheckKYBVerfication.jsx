@@ -71,7 +71,7 @@ console.log({data});
             </div>
             <div className="header-right"></div>
           </header>
-          <div className="send-form">
+          <div className="send-form check-kyb-verification-btn-box">
             {!data?.status ? (
               <button
                 className="common-btn kyb-btn"
@@ -100,7 +100,7 @@ console.log({data});
                 onClick={() => navigate("/upgrade-business")}
                 className="common-btn kyb-btn"
               >
-                {t("Upgrade Business")}
+                {t("Continue to Upgrade Business")}
               </button>
             )}
 
@@ -117,7 +117,7 @@ console.log({data});
           <Index.Box className="address-book-details">
             <Index.Box className="address-book-head">
               <Index.Typography className="address-book-title custom-address-book-title">
-                KYB Verification Documents
+               {t("KYB Verification Documents")}
               </Index.Typography>
             </Index.Box>
          
@@ -132,7 +132,7 @@ console.log({data});
                   <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label">
-                        Country : {data?.country}
+                        {t("Country")} : {data?.country}
                       </Typography>
                     </div>
                   </Index.Box>
@@ -142,17 +142,13 @@ console.log({data});
                   <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label">
-                       Aadhar Card Front
+                       {t("Aadhar Card Front")}
                       </Typography>
                       <div className="user-file-upload-btn-main">
                         <Button
                           variant="contained"
                           component="label"
                           className="user-file-upload-btn"
-                            onClick={() => {
-                           const fileUrl = `${ImageURL}${data?.documents[0]}`;
-                           window.open(fileUrl, "_blank");
-                          }}
                         >
                               <FilePreview file={data?.documents[0]} />
                         </Button>
@@ -164,17 +160,13 @@ console.log({data});
                     <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label">
-                       Aadhar Card Back
+                       {t("Aadhar Card Back")}
                       </Typography>
                       <div className="user-file-upload-btn-main">
                         <Button
                           variant="contained"
                           component="label"
                           className="user-file-upload-btn"
-                             onClick={() => {
-                           const fileUrl = `${ImageURL}${data?.documents[1]}`;
-                           window.open(fileUrl, "_blank");
-                          }}
                         >
                               <FilePreview file={data?.documents[1]} />
                         </Button>
@@ -186,17 +178,13 @@ console.log({data});
                       <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label">
-                         Passport or Driving License
+                         {t("Passport or Driving License")}
                       </Typography>
                       <div className="user-file-upload-btn-main">
                         <Button
                           variant="contained"
                           component="label"
                           className="user-file-upload-btn"
-                             onClick={() => {
-                           const fileUrl = `${ImageURL}${data?.documents[0]}`;
-                           window.open(fileUrl, "_blank");
-                          }}
                         >
                               <FilePreview file={data?.documents[0]} />
                         </Button>

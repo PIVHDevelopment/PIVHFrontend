@@ -156,5 +156,17 @@
   "Ticket": "टिकट",
   "Add Ticket": "टिकट जोड़ें",
   "Tickets": "टिकट्स",
-  "Reason": "कारण"
+  "Reason": "कारण",
+
+   "Upload Aadhar Card Front": "आधार कार्ड का अगला भाग अपलोड करें",
+    "Upload Aadhar Card Back": "आधार कार्ड का पिछला भाग अपलोड करें",
+    "Upload Passport or Driving License": "पासपोर्ट या ड्राइविंग लाइसेंस अपलोड करें",
+     "Aadhar Card Front": "आधार कार्ड का अगला भाग",
+    "Country": "देश",
+    "Aadhar Card Back": "आधार कार्ड का पिछला भाग",
+    "Passport or Driving License": "पासपोर्ट या ड्राइविंग लाइसेंस",
+    "KYB Verification Documents": "KYB सत्यापन दस्तावेज़",
+    "Continue to Upgrade Business": "व्यवसाय उन्नत करना जारी रखें",
+     "Re-Upload documents": "दस्तावेज़ फिर से अपलोड करें",
+    "KYB Verification Rejected": "KYB सत्यापन अस्वीकृत किया गया"
 }

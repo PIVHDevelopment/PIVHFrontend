@@ -159,5 +159,17 @@
   "Ticket": "Ticket",
   "Add Ticket": "Add Ticket",
   "Tickets": "Tickets",
-  "Reason": "Reason"
+  "Reason": "Reason",
+
+    "Upload Aadhar Card Front": "Upload Aadhar Card Front",
+    "Upload Aadhar Card Back": "Upload Aadhar Card Back",
+    "Upload Passport or Driving License": "Upload Passport or Driving License",
+    "Aadhar Card Front": "Aadhar Card Front",
+    "Country": "Country",
+    "Aadhar Card Back": "Aadhar Card Back",
+    "Passport or Driving License": "Passport or Driving License",
+    "KYB Verification Documents": "KYB Verification Documents",
+     "Continue to Upgrade Business": "Continue to Upgrade Business",
+      "Re-Upload documents": "Re-Upload documents",
+    "KYB Verification Rejected": "KYB Verification Rejected"
 }

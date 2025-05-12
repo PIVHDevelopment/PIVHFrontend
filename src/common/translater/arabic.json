@@ -157,5 +157,17 @@
   "Ticket": "تذكرة",
   "Add Ticket": "أضف تذكرة",
   "Tickets": "تذاكر",
-  "Reason": "سبب"
+  "Reason": "سبب",
+
+   "Upload Aadhar Card Front": "تحميل الجهة الأمامية لبطاقة آدهار",
+    "Upload Aadhar Card Back": "تحميل الجهة الخلفية لبطاقة آدهار",
+    "Upload Passport or Driving License": "تحميل جواز السفر أو رخصة القيادة",
+      "Aadhar Card Front": "الجهة الأمامية لبطاقة آدهار",
+    "Country": "الدولة",
+    "Aadhar Card Back": "الجهة الخلفية لبطاقة آدهار",
+    "Passport or Driving License": "جواز السفر أو رخصة القيادة",
+    "KYB Verification Documents": "مستندات التحقق من KYB",
+    "Continue to Upgrade Business": "تابع لترقية النشاط التجاري",
+    "Re-Upload documents": "إعادة تحميل المستندات",
+    "KYB Verification Rejected": "تم رفض التحقق من KYB"
 }
