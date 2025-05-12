@@ -103,7 +103,7 @@ export const addWalletAddressBookSchema = Yup.object({
           .required("Aadhar card front is required")
           .test(
             "fileSize",
-            "File too large",
+            "File too large, please upload less than 5MB",
             (value) => !value || value.size <= 5 * 1024 * 1024
           )
           .test(
