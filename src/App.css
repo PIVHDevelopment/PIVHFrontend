@@ -2646,3 +2646,11 @@ margin-right: 5px;
   text-transform: capitalize;
   font-size: 13px;
 }
+
+.custom-capitalization .approved-span{
+  color: green;
+}
+
+.custom-capitalization .reject-span{
+  color: red;
+}

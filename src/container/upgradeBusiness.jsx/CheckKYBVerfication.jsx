@@ -126,7 +126,13 @@ console.log({data});
                      <Index.Box gridColumn="span 12" className="grid-column">
                     <div className="input-box">
                       <Typography className="input-form-label custom-capitalization">
-                        {t("Status")} : {data?.status}
+                        {t("Status")} : {
+                          data?.status == "rejected" ?
+                        <span className="reject-span">{data?.status}</span> : 
+                        data?.status == "approved" ?
+                        <span className="approved-span">{data?.status}</span> : 
+                        <span >{data?.status}</span> 
+                        }
                       </Typography>
                     </div>
                   </Index.Box>
