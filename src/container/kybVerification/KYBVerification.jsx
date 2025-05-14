@@ -155,7 +155,7 @@ export default function KYBVerification() {
               <Index.Box
                 display="grid"
                 gridTemplateColumns="repeat(12, 1fr)"
-                gap={3}
+                gap={5}
               >
                 {/* Country Autocomplete */}
                 <Index.Box gridColumn="span 12" className="grid-column">
@@ -391,7 +391,7 @@ export default function KYBVerification() {
                                   if (formik.values.singleDocument) {
                                     setPreviewFile(formik.values.singleDocument);
                                     setOpenPreviewModal(true);
-                                  }
+                                  } 
                                 }}>Preview</Button>
                           </Index.Box>
                         )}

@@ -72,28 +72,14 @@ console.log({data});
             <div className="header-right"></div>
           </header>
           <div className="send-form check-kyb-verification-btn-box">
-            {!data?.status ? (
+            {!data?.status && 
               <button
                 className="common-btn kyb-btn"
                 onClick={() => navigate("/kyb-verification")}
               >
                 {t("Start Process of KYB Verification")}
               </button>
-            ) : (
-              <>
-                <button disabled className="common-btn kyb-btn">
-                  {data?.status === "pending" && (
-                    <>{t("KYB Verification Pending")} </>
-                  )}
-                  {data?.status === "approved" && (
-                    <>{t("KYB Verification Approved")} </>
-                  )}
-                  {data?.status === "rejected" && (
-                    <>{t("KYB Verification Rejected")} </>
-                  )}
-                </button>
-              </>
-            )}
+            }
 
             {data?.status === "approved" && (
               <button
@@ -136,6 +122,30 @@ console.log({data});
                       </Typography>
                     </div>
                   </Index.Box>
+
+                     <Index.Box gridColumn="span 12" className="grid-column">
+                    <div className="input-box">
+                      <Typography className="input-form-label custom-capitalization">
+                        {t("Status")} : {
+                          data?.status == "rejected" ?
+                        <span className="reject-span">{data?.status}</span> : 
+                        data?.status == "approved" ?
+                        <span className="approved-span">{data?.status}</span> : 
+                        <span >{data?.status}</span> 
+                        }
+                      </Typography>
+                    </div>
+                  </Index.Box>
+                  {data?.rejectReason && (
+                      <Index.Box gridColumn="span 12" className="grid-column">
+                    <div className="input-box">
+                      <Typography className="input-form-label custom-capitalization">
+                        {t("Reason")} : {" "}
+                        {data?.rejectReason}
+                      </Typography>
+                    </div>
+                  </Index.Box>
+                  )}
 
                   {data?.documents && data?.documents?.length == 2 ? (<>
 

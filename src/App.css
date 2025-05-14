@@ -2641,3 +2641,16 @@ background-color: #e38cff;
 color: var(--white);
 margin-right: 5px;
 }
+
+.custom-capitalization{
+  text-transform: capitalize;
+  font-size: 13px;
+}
+
+.custom-capitalization .approved-span{
+  color: green;
+}
+
+.custom-capitalization .reject-span{
+  color: red;
+}
