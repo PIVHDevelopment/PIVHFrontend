@@ -391,7 +391,7 @@ export default function KYBVerification() {
                                   if (formik.values.singleDocument) {
                                     setPreviewFile(formik.values.singleDocument);
                                     setOpenPreviewModal(true);
-                                  }
+                                  } 
                                 }}>Preview</Button>
                           </Index.Box>
                         )}
