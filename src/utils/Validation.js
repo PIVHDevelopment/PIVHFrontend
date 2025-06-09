@@ -8,9 +8,9 @@ export const sendPiFormSchema = Yup.object({
   // }),
   amount: Yup.string()
     .required("Please enter amount")
-    .test("min-amount", "Amount must be at least 0.001", (value) => {
+    .test("min-amount", "Amount must be at least 0.00001", (value) => {
       const num = parseFloat(value || "0");
-      return num >= 0.001;
+      return num >= 0.00001;
     }),
   memo: Yup.string().required("Please enter memo"),
 });
