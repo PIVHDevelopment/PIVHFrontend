@@ -34,6 +34,9 @@ import TransactionSuccess from "../container/transactionSuccess/TransactionSucce
 import FeedbackComplaint from "../container/feedbackComplaint/FeedbackComplaint";
 import KYBVerification from "../container/kybVerification/KYBVerification";
 import SplashScreen from "../container/auth/SplashScreen";
+import InvoiceRequest from "../container/invoiceRequest/InvoiceRequest";
+import Invoice from "../container/invoiceRequest/Invoice";
+import SendInvoice from "../container/invoiceRequest/SendInvoice";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -125,7 +128,7 @@ const Routers = () => {
         },
         {
           path: "/qr-scanner",
-          element: < QrScanner/>,
+          element: <QrScanner />,
         },
         {
           path: "/receive",
@@ -163,6 +166,18 @@ const Routers = () => {
         {
           path: "/payment-request",
           element: <PaymentRequest />,
+        },
+        {
+          path: "/invoice",
+          element: <Invoice />,
+        },
+        {
+          path: "/invoice-request/:id",
+          element: <InvoiceRequest />,
+        },
+        {
+          path: "/send-invoice",
+          element: <SendInvoice />,
         },
         {
           path: "/feedback-comaplaint",

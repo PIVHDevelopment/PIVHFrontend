@@ -98,7 +98,7 @@ import downblackAarrow from "../assets/images/down-black-arrow.svg";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams  } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
@@ -155,6 +155,7 @@ const Index = {
   configure,
   useNavigate,
   useLocation,
+  useParams,
   receiveMoney,
   sendMoney,
   downArrow,

@@ -60,6 +60,11 @@ const Api = {
 
   GET_LANUGAGE: "/user/get-user-language",
   UPDATE_LANGUAGE: "/user/update-user-language",
+
+  CREATE_INVOICE: "/user/create-invoice",
+  RELEASE_PAYMENT: "/user/release-payment",
+  GET_INVOICE: "/user/get-invoice-list",
+  GET_ONE_INVOICE: "/user/get-invoice",
 };
 
 export default Api;
