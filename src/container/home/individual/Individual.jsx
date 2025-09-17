@@ -39,7 +39,7 @@ function Individual({ balance }) {
       </div>
 
       <div className="outline-tabs-main">
-        <button
+        {/* <button
           className="outline-tabs"
           id="sendBtn"
           onClick={() =>
@@ -50,8 +50,8 @@ function Individual({ balance }) {
         >
             <img src={Index.deposit} alt="Send Money" className="outline-tabs-icon" />
           {t("Deposit")}
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="outline-tabs"
           id="withdraw"
           disabled={balance <= 0}
@@ -61,7 +61,7 @@ function Individual({ balance }) {
         >
             <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} className="outline-tabs-icon"/>
           {t("Withdraw")}
-        </button>
+        </button> */}
 
         {/* <div className="action-button-listing">
           <div className="btn-home-content">

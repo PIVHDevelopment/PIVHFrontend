@@ -38,7 +38,7 @@ function Business({ balance }) {
           {t("Receive")}
         </button>
       </div>
-      <div className="outline-tabs-main">
+      {/* <div className="outline-tabs-main">
         <button
           className="outline-tabs"
           id="sendBtn"
@@ -66,7 +66,7 @@ function Business({ balance }) {
           <img src={Index.withdraw} alt={t("PaymentRequest")} className="outline-tabs-icon" />
           {t("PaymentRequest")}
         </button>
-      </div>
+      </div> */}
     </>
   );
 }

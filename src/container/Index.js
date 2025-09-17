@@ -44,6 +44,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import pocketPi from "../assets/images/PocketPi.png";
+import logo from "../assets/images/logo.png";
 import pocketPi2 from "../assets/images/pocketPi2.png";
 import profile from "../assets/images/Profile.png";
 import scan from "../assets/images/Scan.png";
@@ -138,6 +139,7 @@ const Index = {
   pocketPi2,
   profile,
   logout,
+  logo,
   scan,
   toasterSuccess,
   toasterError,

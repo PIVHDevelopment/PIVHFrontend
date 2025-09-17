@@ -1,9 +1,9 @@
 :root {
-  --primary-gradient: linear-gradient(135deg, #2d1b69, #6b2a96);
+  --primary-gradient: linear-gradient(135deg, #165197, #5da0f1);
   --primary-color: #6b2a96;
   --secondary-color: #2d1b69;
   --text-color: #ffffff;
-  --dark-bg: rgba(0, 0, 0, 0.15);
+  --dark-bg: rgba(0, 0, 0, 0.25);
   --transaction-bg: rgba(0, 0, 0, 0.2);
   --input-bg: rgba(255, 255, 255, 0.15);
   --danger-color: #ff4444;
@@ -60,10 +60,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("./assets/images/Dash-Board-BG.png");
+  /* background-image: url("./assets/images/Dash-Board-BG.png"); */
+  background-image: url("./assets/images/Dash-Board-BGnew.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   background-color: var(--white);
   padding: 15px;
   border-radius: 12px;
@@ -76,9 +77,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   border-bottom: 1px solid #dfdfdf1f;
-  padding-bottom: 16px;
+  padding-bottom: 12px;
 }
 
 .back-btn {
@@ -129,7 +130,8 @@ header {
 /* Tab Styles */
 .wallet-tabs {
   display: flex;
-  background: #352842;
+  /* background: #6a676c2f; */
+  background: var(--dark-bg);
   border-radius: var(--button-radius);
   padding: 4px;
   margin-bottom: 15px;
@@ -138,7 +140,7 @@ header {
 
 .tab-btn {
   flex: 1;
-  padding: 12px;
+  padding: 15px;
   border: none;
   background: none;
   color: var(--text-color);
@@ -149,8 +151,9 @@ header {
 }
 
 .tab-btn.active {
-  background: var(--white);
-  color: #000;
+  /* background: var(--white); */
+  background: #104d94;
+  color: #ffffff;
 }
 
 .wallet-id {
@@ -161,7 +164,7 @@ header {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   max-width: 340px;
   font-size: 14px;
   width: 100%;
@@ -179,8 +182,9 @@ header {
   font-size: 16px;
   margin-bottom: 5px;
   font-weight: 500;
-  color: var(--white);
-  border-bottom: 1px solid #dfdfdf1f;
+  /* color: var(--white); */
+  color: #000;
+  border-bottom: 1px solid #b9d9e9;
   padding-bottom: 16px;
 }
 
@@ -199,11 +203,12 @@ header {
 }
 
 .balance-amount {
-  font-size: 25px;
-  line-height: 30px;
+  font-size: 48px;
+  line-height: 48px;
   font-weight: 500;
   color: var(--white);
   margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .wallet-limit {
@@ -221,10 +226,10 @@ header {
 
 .action-btn {
   flex: 1;
-  padding: 12px 10px;
+  padding: 15px 10px;
   border: none;
-  background: var(--white);
-  color: var(--black);
+  background: #104d94;
+  color: var(--white);
   border-radius: var(--button-radius);
   display: flex;
   align-items: center;
@@ -237,6 +242,7 @@ header {
 .action-btn img {
   height: 20px;
   width: 20px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(21%) hue-rotate(44deg) brightness(105%) contrast(100%);
 }
 
 .action-btn.receive-btn img {
@@ -596,6 +602,8 @@ button.address-book-btn {
 
 .modal.show.user-setting-modal .modal-dialog {
   margin: 0 auto;
+  max-width: 480px;
+  width: 100%;
 }
 
 .modal.user-setting-modal .modal-content {
@@ -615,6 +623,7 @@ button.address-book-btn {
   max-width: 100%;
   height: 18px;
   width: 18px;
+  filter: brightness(0) saturate(100%) invert(21%) sepia(17%) saturate(3584%) hue-rotate(227deg) brightness(99%) contrast(100%);
 }
 
 .setting-cont-title {
@@ -656,6 +665,7 @@ button.address-book-btn {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
@@ -1319,8 +1329,10 @@ span.icon {
 .loader-ring {
   width: 90px;
   height: 90px;
-  border: 3px solid rgb(247 165 53 / 50%);
-  border-top-color: #f7a535;
+  /* border: 3px solid rgb(247 165 53 / 50%); */
+  /* border-top-color: #f7a535;  */
+  border: 3px solid rgb(63 137 225 / 27%);
+  border-top-color: #165197;
   border-radius: 50%;
   transform-origin: center;
   animation: rotatering 2s linear infinite;
@@ -1397,8 +1409,7 @@ span.icon {
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
-    hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
 .receiver-addres-scanner-box .scanner-icon img {
@@ -1461,8 +1472,7 @@ span.icon {
 }
 
 .action-send-main-contain .action-btn img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
-    hue-rotate(317deg) brightness(112%) contrast(106%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .verify-icons {
@@ -1470,10 +1480,7 @@ span.icon {
   width: 20px;
 }
 
-.notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiAutocomplete-inputRoot
-  .MuiAutocomplete-endAdornment {
+.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -1517,11 +1524,7 @@ span.icon {
   word-break: break-all;
 }
 
-.input-wrapper
-  .custom-notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 0px 7.5px 5px !important;
 }
 
@@ -1560,6 +1563,7 @@ span.icon {
 .transaction-title {
   font-size: 13px;
   font-weight: 500;
+  color: #000;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 200px;
@@ -1750,6 +1754,12 @@ span.icon {
   fill: var(--white);
 }
 
+.app-icon .logo-header {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+
 .cus-address-left-contain .field-contain-address {
   font-size: 14px;
   line-height: 20px;
@@ -1766,6 +1776,7 @@ span.icon {
   line-height: 20px;
   font-family: "Poppins";
 }
+
 .notes-input-multiline .MuiInputBase-formControl fieldset {
   display: none;
 }
@@ -1801,6 +1812,7 @@ span.icon {
   font-family: "Poppins";
   margin-top: 20px;
 }
+
 .user-dropdown-box .user-from-control {
   position: relative;
   width: 100%;
@@ -1901,13 +1913,13 @@ span.icon {
   height: 20px;
   width: 20px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%)
-    hue-rotate(174deg) brightness(104%) contrast(100%);
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%) hue-rotate(174deg) brightness(104%) contrast(100%);
 }
 
 .common-btn {
   width: 100%;
   background: #e38cff;
+  /* background: #104d94; */
   color: var(--white);
   font-size: 15px;
   padding: 10px 15px;
@@ -1926,6 +1938,7 @@ span.icon {
 
 .common-btn:hover {
   background-color: var(--secondary-color);
+  /* background-color: #255c9a; */
 }
 
 .common-btn-space-main {
@@ -1950,11 +1963,7 @@ span.icon {
   font-family: "Poppins";
 }
 
-.kyb-autocomplete-input
-  .dropdown-select
-  .MuiAutocomplete-endAdornment
-  button
-  svg {
+.kyb-autocomplete-input .dropdown-select .MuiAutocomplete-endAdornment button svg {
   color: var(--white);
 }
 
@@ -2092,7 +2101,8 @@ span.icon {
 }
 
 .secondary-btn:hover {
-  background-color: #e38cff;
+  /* background-color: #e38cff; */
+  background-color: #104d94;
 }
 
 .btn-icon-img {
@@ -2284,8 +2294,8 @@ span.icon {
 }
 
 .icon-btn {
-  height: 30px;
-  width: 30px;
+  height: 36px;
+  width: 36px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -2294,7 +2304,8 @@ span.icon {
   outline: 0;
   border: 0;
   cursor: pointer;
-  background-color: #ffffff45;
+  /* background-color: #ffffff45; */
+  background-color: var(--dark-bg);
 }
 
 .icon-btn img {
@@ -2310,7 +2321,8 @@ span.icon {
 }
 
 .transaction-section {
-  background: #16151a;
+  /* background: #16151a; */
+  background: #fff;
   border-radius: var(--border-radius);
   padding: 20px;
   margin: auto;
@@ -2319,7 +2331,7 @@ span.icon {
   left: 0;
   right: 0;
   bottom: 0;
-  max-width: 480px;
+  max-width: 440px;
   transition: 0.3s ease-in-out;
 }
 
@@ -2333,7 +2345,7 @@ span.icon {
   padding: 10px 0px 10px 0px;
   background: transparent;
   border-radius: 0;
-  border-bottom: 1px solid #272727;
+  border-bottom: 1px solid #ced6d9;
 }
 
 .transaction-details {
@@ -2377,7 +2389,7 @@ span.icon {
 .transaction-time {
   font-size: 13px;
   line-height: 16px;
-  color: var(--off-white);
+  color: #000000;
   font-weight: 400;
   margin: 0;
 }
@@ -2399,7 +2411,7 @@ span.icon {
 .transaction-amount .transaction-date {
   font-size: 13px;
   line-height: 18px;
-  color: var(--off-white);
+  color: #000000;
   font-weight: 400;
   margin: 0;
 }
@@ -2424,7 +2436,8 @@ span.icon {
   position: absolute;
   inset-inline-end: 10px;
   top: 10px;
-  background: rgba(255, 255, 255, 0.15);
+  /* background: rgba(255, 255, 255, 0.15); */
+  background: rgb(0 0 0 / 45%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -2542,11 +2555,13 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   align-items: center;
   justify-content: center;
 }
-.auth-logo{
+
+.auth-logo {
   width: 80px;
   height: 80px;
   object-fit: contain;
 }
+
 /* Splash Animation */
 .fade-in {
   animation: fadeIn 1s ease-out forwards;
@@ -2563,17 +2578,23 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0 }
-  100% { opacity: 1 }
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
 }
 
 @keyframes scaleIn {
   0% {
-      opacity: 0;
-      transform: scale(0.8);
+    opacity: 0;
+    transform: scale(0.8);
   }
+
   100% {
-      opacity: 1;
-      transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
   }
 }

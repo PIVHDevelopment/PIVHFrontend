@@ -130,7 +130,8 @@ function Receive() {
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon">
-              <img src={Index.pocketPi} alt="PocketPi" />
+              {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+               <img src={Index.logo} className="logo-header" alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>

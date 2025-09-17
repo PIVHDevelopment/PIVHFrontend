@@ -132,7 +132,7 @@ function Home() {
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
 
-          <div className="lang-dropdown-main">
+          {/* <div className="lang-dropdown-main">
             <Index.FormControl>
               <Index.Select
                 value={languageCh}
@@ -149,11 +149,26 @@ function Home() {
               className="search-down-arrow"
               alt="Dropdown"
             />
+          </div> */}
+          <div className="outline-tabs-main">
+            <button
+              className="outline-tabs"
+              id="sendBtn"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
+            >
+              <img src={Index.deposit} alt="Send Money" className="outline-tabs-icon" />
+              {t("Deposit")}
+            </button>
           </div>
           <div
             className="app-icon"
           >
-            <img src={Index.pocketPi} alt={t("PocketPi")} />
+            {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
+            <img src={Index.logo} alt={t("PocketPi")} className="logo-header" />
           </div>
           <div className="header-icons">
             {/* <button className="icon-btn" id="syncBtn">
@@ -227,7 +242,7 @@ function Home() {
                   />
                 </div> */}
                 {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
+                  (tab === 1 && !userData?.isIndividualSubscription) ? (
                   ""
                 ) : (
                   <div>
@@ -366,7 +381,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -386,18 +401,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                {t("UpgradeToBusinessVersion")}
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  {t("UpgradeToBusinessVersion")}
+                </h6>
+              </NavLink>
+            )}
 
           <div
             className="setting-cont-box"
@@ -451,6 +466,48 @@ function Home() {
             </div>
             <h6 className="setting-cont-title">{t("Tickets")}</h6>
           </div>
+           <div
+            className="setting-cont-box"
+              onClick={() =>
+            navigate("/withdraw", { state: { typeTxn: tab == 1 ? "individual" : "business" } })
+          }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.withdraw} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Withdraw")}</h6>
+          </div>
+          {tab == 1 &&
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.deposit} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("Deposit")}</h6>
+            </div>
+          }
+          {tab == 2 &&
+
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/payment-request", {
+                  state: { isBusiness: true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.withdraw} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
+            </div>
+          }
         </Index.Modal.Body>
       </Index.Modal>
     </>
