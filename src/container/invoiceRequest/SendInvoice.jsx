@@ -188,7 +188,7 @@ function SendInvoice() {
                     Create Bill / Invoice
                   </Index.Typography>
                 </Index.Box>
-
+{console.log("ddddddddd", data)}
                 <Index.Box className="invoices-details-content">
                   <Index.Box className="invoices-flex-space">
                     <Index.Box className="invoices-content">
