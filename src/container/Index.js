@@ -1,5 +1,3 @@
-
-
 import {
   Box,
   Button,
@@ -91,14 +89,14 @@ import walletAddressBook from "../assets/images/phone-book.png";
 import paymentRequestIcon from "../assets/images/paymentRequestIcon.png";
 import paymentRequestIcon2 from "../assets/images/payementRequestIcon2.png";
 import successfullIcon from "../assets/images/succes-icon.svg";
-import piWallettImg from "../assets/images/pi-wallet.png"; 
-import complainIcon from "../assets/images/complain.png"; 
+import piWallettImg from "../assets/images/pi-wallet.png";
+import complainIcon from "../assets/images/complain.png";
 import languageImg from "../assets/images/vector.png";
 import downblackAarrow from "../assets/images/down-black-arrow.svg";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
-import { useNavigate, useLocation, useParams  } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import DataService from "../utils/DataService";
 import Api from "../utils/Api";
 import { Formik } from "formik";
@@ -114,6 +112,7 @@ import {
   addWalletAddressBookSchema,
   addAddressBookSchema,
   addKybVerificationSchema,
+  createInvoiceSchema,
 } from "../utils/Validation";
 import moment from "moment";
 import {
@@ -125,7 +124,6 @@ import Loader from "../common/loader/Loader";
 import piCoiImg from "../assets/images/pi-coin.png";
 import NoDataFound from "../common/noDataFound/NoDataFound";
 import { useTranslation } from "react-i18next";
-
 
 const Index = {
   Modal,
@@ -251,6 +249,7 @@ const Index = {
   addAddressBookSchema,
   Autocomplete,
   addKybVerificationSchema,
+  createInvoiceSchema,
 };
 
 export default Index;

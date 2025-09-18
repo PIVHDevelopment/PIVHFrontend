@@ -42,13 +42,13 @@ function Invoice() {
 
   const handleGetInvoiceData = () => {
     Index.DataService.get(`${Index.Api.GET_INVOICE}`).then((res) => {
-      //   let filter = res?.data?.data?.filter(
-      //     (ele) =>
-      //       ele?.sendReqUserId?._id === userData?._id ||
-      //       ele?.receiveReqUserId?._id === userData?._id
-      //   );
-      //   let sliceData = filter?.slice(0, 5);
-      setInvoiceList(res?.data?.data);
+      let filter = res?.data?.data?.filter(
+        (ele) =>
+          ele?.sendReqUserId?._id === userData?._id ||
+          ele?.receiveReqUserId?._id === userData?._id
+      );
+      // let sliceData = filter?.slice(0, 5);
+      setInvoiceList(filter);
     });
   };
 
@@ -170,7 +170,17 @@ function Invoice() {
                                   />
                                   <img
                                     src={
-                                      isPositive ? Index.income : Index.expense
+                                      // isPositive ? Index.income : Index.expense
+
+                                      transaction?.sendReqUserId?._id ==
+                                        userData?._id &&
+                                      transaction?.senderStatus == "credit"
+                                        ? Index.income
+                                        : transaction?.receiveReqUserId?._id ==
+                                            userData?._id &&
+                                          transaction?.receiverStatus == "debit"
+                                        ? Index.expense
+                                        : Index.markIcon
                                     }
                                     alt={t("expense")}
                                     className="transaction-icon"
@@ -178,7 +188,15 @@ function Invoice() {
 
                                   <div className="transaction-info">
                                     <p className="transaction-title">
-                                      {isPositive ? t("Received") : t("Sent")}{" "}
+                                      {transaction?.sendReqUserId?._id ==
+                                        userData?._id &&
+                                      transaction?.senderStatus == "credit"
+                                        ? "Credit"
+                                        : transaction?.receiveReqUserId?._id ==
+                                            userData?._id &&
+                                          transaction?.receiverStatus == "debit"
+                                        ? "Debit"
+                                        : "Pending"}{" "}
                                       {userData?._id ==
                                       transaction?.receiveReqUserId?._id
                                         ? transaction?.sendReqUserId?.userName
@@ -194,7 +212,15 @@ function Invoice() {
                                 </div>
                                 <div
                                   className={`transaction-amount ${
-                                    isPositive ? "positive" : "negative"
+                                    transaction?.sendReqUserId?._id ==
+                                      userData?._id &&
+                                    transaction?.senderStatus == "credit"
+                                      ? "positive"
+                                      : transaction?.receiveReqUserId?._id ==
+                                          userData?._id &&
+                                        transaction?.receiverStatus == "debit"
+                                      ? "negative"
+                                      : "pending"
                                   }`}
                                 >
                                   <p className="transaction-amount">

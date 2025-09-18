@@ -2454,6 +2454,9 @@ span.icon {
 .transaction-amount.negative {
   color: var(--danger-color);
 }
+.transaction-amount.pending {
+  color: var(--text-yellow);
+}
 
 .toggle-arrow {
   text-align: center;

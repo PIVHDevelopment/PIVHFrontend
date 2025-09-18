@@ -160,3 +160,25 @@ export const addWalletAddressBookSchema = Yup.object({
       otherwise: (schema) => schema.nullable(),
     }),
   })
+
+  export const createInvoiceSchema = () =>
+  Yup.object({
+    userId: Yup.string().required("Please Select User"),
+    items: Yup.array()
+      .of(
+        Yup.object({
+          title: Yup.string().required("Please Enter Title"),
+          amount: Yup.string()
+            .required("Please Enter Amount")
+            .test(
+              "min-amount",
+              "Please Enter Amount At Least 0.001",
+              (value) => {
+                const num = parseFloat(value || "0");
+                return num >= 0.001;
+              }
+            ),
+        })
+      )
+      .min(1, "At least one item is required"),
+  });
