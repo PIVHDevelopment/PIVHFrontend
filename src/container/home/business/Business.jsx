@@ -1,12 +1,13 @@
 import React from "react";
 import Index from "../../Index";
+import { Link } from "react-router-dom";
 
 function Business({ balance }) {
   const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   return (
     <>
-      <div className="action-buttons">
+      {/* <div className="action-buttons">
         <button
           className="action-btn send-btn"
           id="sendBtn"
@@ -37,36 +38,24 @@ function Business({ balance }) {
           </span>
           {t("Receive")}
         </button>
-      </div>
-      {/* <div className="outline-tabs-main">
-        <button
-          className="outline-tabs"
-          id="sendBtn"
-          disabled={balance <= 0}
-          onClick={() =>
-            navigate("/withdraw", {
-              state: { typeTxn: "business" },
-            })
-          }
-        >
-          <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} className="outline-tabs-icon" />
-          {t("Withdraw")}
-        </button>
-
-        <button
-          className=" outline-tabs"
-          id="paymentrequest"
-          style={{ maxWidth: "184px" }}
-          onClick={() =>
-            navigate("/payment-request", {
-              state: { isBusiness: true },
-            })
-          }
-        >
-          <img src={Index.withdraw} alt={t("PaymentRequest")} className="outline-tabs-icon" />
-          {t("PaymentRequest")}
-        </button>
       </div> */}
+
+      <Index.Box className="business-home-details">
+        <Index.Box className="business-flex">
+          <Link to="/invoice" className=" business-box-main">
+            <img src={Index.bill} alt="bill" className="business-icons" />
+            <Index.Typography className="business-title">Invoices / Billing</Index.Typography>
+          </Link>
+          <Link to="/comming-soon" className=" business-box-main">
+            <img src={Index.employeetask} alt="bill" className="business-icons" />
+            <Index.Typography className="business-title">Employee Management</Index.Typography>
+          </Link>
+           <Link to="/comming-soon"  className=" business-box-main">
+            <img src={Index.salary} alt="bill" className="business-icons" />
+            <Index.Typography className="business-title">Payroll</Index.Typography>
+          </Link>
+        </Index.Box>
+      </Index.Box>
     </>
   );
 }

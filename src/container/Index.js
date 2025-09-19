@@ -124,6 +124,12 @@ import Loader from "../common/loader/Loader";
 import piCoiImg from "../assets/images/pi-coin.png";
 import NoDataFound from "../common/noDataFound/NoDataFound";
 import { useTranslation } from "react-i18next";
+import bill from "../assets/images/bill.png";
+import employeetask from "../assets/images/task-management.png";
+import salary from "../assets/images/salary.png";
+import comming from "../assets/images/comming.png";
+import pending from "../assets/images/pending.png";
+
 
 const Index = {
   Modal,
@@ -250,6 +256,11 @@ const Index = {
   Autocomplete,
   addKybVerificationSchema,
   createInvoiceSchema,
+  bill,
+  employeetask,
+  salary,
+  comming,
+  pending
 };
 
 export default Index;

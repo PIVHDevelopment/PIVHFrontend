@@ -37,6 +37,7 @@ import SplashScreen from "../container/auth/SplashScreen";
 import InvoiceRequest from "../container/invoiceRequest/InvoiceRequest";
 import Invoice from "../container/invoiceRequest/Invoice";
 import SendInvoice from "../container/invoiceRequest/SendInvoice";
+import CommingSoon from "../container/commingSoon/CommingSoon";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -113,6 +114,7 @@ const Routers = () => {
         {
           path: "/home",
           element: <Home />,
+          // element: <TransactionSuccess />,
         },
         {
           path: "/deposit",
@@ -196,6 +198,10 @@ const Routers = () => {
           element: <KYBVerification />,
         },
       ],
+    },
+      {
+      path: "/comming-soon",
+      element: <CommingSoon />,
     },
   ];
 

@@ -79,6 +79,17 @@ header {
   margin-bottom: 5px;
   border-bottom: 1px solid #dfdfdf1f;
   padding-bottom: 12px;
+  position: relative;
+}
+
+.app-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .back-btn {
@@ -88,7 +99,7 @@ header {
   font-size: 24px;
   cursor: pointer;
   padding: 8px;
-  opacity: 0.9;
+  z-index: 1;
 }
 
 .profile-section {
@@ -119,9 +130,15 @@ header {
   line-height: 20px;
 }
 
+.flex-header-title {
+  z-index: 1;
+}
+
+
 .header-icons {
   display: flex;
   gap: 8px;
+  z-index: 1;
   justify-content: flex-end;
 }
 
@@ -222,9 +239,16 @@ header {
   justify-content: center;
 }
 
-.action-btn {
+.coming-hgt {
+  height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body .action-btn {
   flex: 1;
-  padding: 15px 10px;
+  padding: 15px 20px;
   border: none;
   background: #104d94;
   color: var(--white);
@@ -240,8 +264,7 @@ header {
 .action-btn img {
   height: 20px;
   width: 20px;
-  filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(21%)
-    hue-rotate(44deg) brightness(105%) contrast(100%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(21%) hue-rotate(44deg) brightness(105%) contrast(100%);
 }
 
 .action-btn.receive-btn img {
@@ -618,8 +641,7 @@ button.address-book-btn {
   max-width: 100%;
   height: 18px;
   width: 18px;
-  filter: brightness(0) saturate(100%) invert(21%) sepia(17%) saturate(3584%)
-    hue-rotate(227deg) brightness(99%) contrast(100%);
+ filter: brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(5412%) hue-rotate(204deg) brightness(93%) contrast(87%);
 }
 
 .setting-cont-title {
@@ -661,6 +683,7 @@ button.address-book-btn {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
@@ -698,15 +721,15 @@ button.address-book-btn {
 }
 
 .sigin-footer p {
-  font-family: inherit;
+  font-family: 'Poppins-Medium';
   font-size: 12px;
-  color: white;
+  color: var(--black);
   line-height: 12px;
   cursor: pointer;
 }
 
 .sigin-footer p:hover {
-  color: lightgray;
+  color: #165197;
 }
 
 .set-pin-box .set-pin-input .MuiOtpInput-TextField {
@@ -850,11 +873,42 @@ button.address-book-btn {
   margin-bottom: 35px;
 }
 
+.business-flex .business-box-main .business-title {
+  font-size: 13px;
+  color: #fff;
+  line-height: 22px;
+  text-decoration: none;
+  font-family: 'Poppins-Medium';
+}
+
+.business-flex {
+  display: grid;
+  padding: 30px 0px 0px 0px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.business-flex .business-box-main {
+  background: var(--dark-bg);
+  border-radius: 10px;
+  padding: 20px 10px;
+  text-decoration: none;
+}
+
+.business-icons {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+  margin-bottom: 14PX;
+}
+
 .address-modal .common-style-modal {
   border: 0px;
   border-radius: 10px;
   padding: 0px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -870,7 +924,7 @@ button.address-book-btn {
 }
 
 .modal-header-common .add-title {
-  color: var(--white);
+  color: var(--black);
   font-family: "Poppins";
   font-weight: 500;
 }
@@ -885,7 +939,7 @@ button.address-book-btn {
 } */
 
 .common-style-modal .modal-body {
-  padding: 15px;
+  padding: 15px 15px 0px 15px;
   max-height: calc(100vh - 170px);
   overflow: auto;
 }
@@ -919,7 +973,7 @@ button.address-book-btn {
 
 .common-style-modal .modal-footer {
   padding: 15px;
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
 .footer-address-center {
@@ -1103,10 +1157,11 @@ button.address-book-btn {
 }
 
 .address-book-head .address-book-title {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--white);
+      font-family: "Poppins";
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 25px;
 }
 
 .address-book-head {
@@ -1120,8 +1175,9 @@ button.address-book-btn {
 .modal-header-common.address-modal-header .btn-close {
   position: absolute;
   inset-inline-end: 10px;
-  background-color: var(--white);
-  font-size: 10px;
+    background-color: var(--dark-bg);
+    font-size: 13px;
+    padding: 9px;
 }
 
 .delete-modal-contain {
@@ -1171,7 +1227,7 @@ button.address-book-btn {
 }
 
 .no-address-book {
-  min-height: calc(100vh - 290px);
+    min-height: calc(100vh - 148px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1290,13 +1346,14 @@ span.icon {
 }
 
 .loader-main {
-  background: #00000085;
+  background: #16519700;
   height: 100vh;
   border-radius: 11px;
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(71px);
 }
 
 .loader-main .loader-details {
@@ -1398,8 +1455,7 @@ span.icon {
 .action-send-main-contain .btn-icon img {
   height: 24px;
   width: 24px;
-  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%)
-    hue-rotate(137deg) brightness(91%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7481%) hue-rotate(137deg) brightness(91%) contrast(97%);
 }
 
 .receiver-addres-scanner-box .scanner-icon img {
@@ -1461,8 +1517,7 @@ span.icon {
 }
 
 .action-send-main-contain .action-btn img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%)
-    hue-rotate(317deg) brightness(112%) contrast(106%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(4097%) hue-rotate(317deg) brightness(112%) contrast(106%);
 }
 
 .verify-icons {
@@ -1470,10 +1525,7 @@ span.icon {
   width: 20px;
 }
 
-.notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiAutocomplete-inputRoot
-  .MuiAutocomplete-endAdornment {
+.notes-input-box .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -1481,10 +1533,7 @@ span.icon {
   position: relative;
 }
 
-.notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 25px 7.5px 5px !important;
   cursor: pointer;
 }
@@ -1520,11 +1569,7 @@ span.icon {
   word-break: break-all;
 }
 
-.input-wrapper
-  .custom-notes-input-box
-  .MuiFormControl-fullWidth
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.input-wrapper .custom-notes-input-box .MuiFormControl-fullWidth .MuiOutlinedInput-root .MuiAutocomplete-input {
   padding: 7.5px 0px 7.5px 5px !important;
 }
 
@@ -1578,21 +1623,28 @@ span.icon {
   background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
-  background-color: #fda342;
+  /* background-color: #fda342; */
 }
 
-.success-btn {
-  background: linear-gradient(135deg, #2d1b69, #6b2a96);
-  color: var(--white);
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
+body .success-btn {
+  border-radius: 30px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
+  background: #16519757;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-weight: 500;
+  color: #165197;
+  border: 1px solid #165197;
+  text-transform: capitalize;
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 12px;
+  box-shadow: none;
 }
 
 .success-btn::before {
@@ -1613,7 +1665,6 @@ span.icon {
 
 .success-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .success-icon {
@@ -1631,11 +1682,16 @@ span.icon {
 }
 
 .success-message {
-  color: #6610f2;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 600;
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
   text-align: center;
+  font-family: 'Poppins';
+}
+
+.character.coin {
+  margin-top: -4px;
 }
 
 .character {
@@ -1643,6 +1699,7 @@ span.icon {
   top: 50%;
   transform: translateY(-50%);
   width: 150px;
+  height: 154px;
   transition: transform 1s ease-in-out;
 }
 
@@ -1911,14 +1968,13 @@ span.icon {
   height: 20px;
   width: 20px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%)
-    hue-rotate(174deg) brightness(104%) contrast(100%);
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(6%) hue-rotate(174deg) brightness(104%) contrast(100%);
 }
 
 .common-btn {
   width: 100%;
-  background: #e38cff;
-  /* background: #104d94; */
+  /* background: #e38cff; */
+  background: #104d94;
   color: var(--white);
   font-size: 15px;
   padding: 10px 15px;
@@ -1936,12 +1992,16 @@ span.icon {
 }
 
 .common-btn:hover {
-  background-color: var(--secondary-color);
+    background: #104d94;
   /* background-color: #255c9a; */
 }
 
 .common-btn-space-main {
   margin-top: 40px;
+}
+
+.common-style-modal .modal-body .user-form-lable{
+  color: var(--black);
 }
 
 .kyb-autocomplete-input .dropdown-select fieldset {
@@ -1988,11 +2048,8 @@ span.icon {
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
 }
-.kyb-autocomplete-input
-  .dropdown-select
-  .MuiAutocomplete-endAdornment
-  button
-  svg {
+
+.kyb-autocomplete-input .dropdown-select .MuiAutocomplete-endAdornment button svg {
   color: var(--white);
 }
 
@@ -2006,18 +2063,20 @@ span.icon {
 .sigin-lang-footer p {
   font-weight: 500;
   font-size: 14px;
-  color: var(--white);
+  color: var(--black);
   line-height: 18px;
   cursor: pointer;
   margin: 0;
+  min-width: 50px;
+  text-align: center;
 }
 
 .sigin-lang-footer p.active-lang {
-  color: #f7a535;
+  color: #165197;
 }
 
 .sigin-lang-footer p:hover {
-  color: lightgray;
+  color: #165197;
 }
 
 .user-form-lable {
@@ -2045,6 +2104,7 @@ span.icon {
   -o-border-radius: 12px;
   width: 100%;
 }
+
 .user-form-group .MuiInputBase-root {
   padding: 0;
 }
@@ -2089,6 +2149,7 @@ span.icon {
   margin: 30px 0px;
   text-align: center;
 }
+
 .amount-section label {
   margin-bottom: 12px;
   font-size: 14px;
@@ -2208,10 +2269,7 @@ span.icon {
   padding: 0 !important;
 }
 
-.user-form-group
-  .MuiFormControl-fullWidth
-  .MuiAutocomplete-inputRoot
-  .MuiAutocomplete-endAdornment {
+.user-form-group .MuiFormControl-fullWidth .MuiAutocomplete-inputRoot .MuiAutocomplete-endAdornment {
   display: none;
 }
 
@@ -2223,9 +2281,13 @@ span.icon {
 
 .radio-group-flex .MuiFormControlLabel-label {
   font-size: 14px;
-  color: var(--white);
+  color: var(--black);
   font-family: Poppins;
   font-weight: 500;
+}
+
+.address-details .user-form-lable {
+    color: var(--black);
 }
 
 .radio-group-flex .MuiFormControlLabel-root {
@@ -2275,7 +2337,7 @@ span.icon {
   height: 20px;
   width: 20px;
   object-fit: contain;
-  color: var(--white);
+  color: #104d94;
 }
 
 .address-book-details ul {
@@ -2321,8 +2383,7 @@ span.icon {
 }
 
 #qr-reader__scan_region img {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
-    hue-rotate(128deg) brightness(100%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(128deg) brightness(100%) contrast(101%);
 }
 
 .icon-btn {
@@ -2427,8 +2488,8 @@ span.icon {
 
 .transaction-icon {
   object-fit: contain;
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
 }
 
 .transaction-amount {
@@ -2454,6 +2515,7 @@ span.icon {
 .transaction-amount.negative {
   color: var(--danger-color);
 }
+
 .transaction-amount.pending {
   color: var(--text-yellow);
 }
@@ -2543,9 +2605,7 @@ body .text-align-right {
   -o-border-radius: 25px;
 }
 
-.lang-dropdown-main
-  .MuiInputBase-root.Mui-focused
-  .MuiOutlinedInput-notchedOutline {
+.lang-dropdown-main .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: transparent;
   border-width: 0px;
 }
@@ -2568,8 +2628,7 @@ body.direction-rtl .lang-dropdown-main .MuiSelect-select {
   top: 50%;
   transform: translateY(-50%);
   right: 12px;
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%)
-    hue-rotate(243deg) brightness(101%) contrast(94%);
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7469%) hue-rotate(243deg) brightness(101%) contrast(94%);
   inset-inline-end: 12px;
 }
 
@@ -2726,10 +2785,8 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
 }
 
 .transaction-main-box .copy-btn img {
-  filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(7500%)
-    hue-rotate(345deg) brightness(105%) contrast(95%);
-  -webkit-filter: brightness(0) saturate(100%) invert(0%) sepia(100%)
-    saturate(7500%) hue-rotate(345deg) brightness(105%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(7500%) hue-rotate(345deg) brightness(105%) contrast(95%);
+  -webkit-filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(7500%) hue-rotate(345deg) brightness(105%) contrast(95%);
 }
 
 .invoices-heading {
@@ -2792,6 +2849,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   line-height: 17px;
   border-radius: 30px;
 }
+
 .input-box .form-labels {
   font-family: "Poppins";
   font-size: 14px;
@@ -2830,6 +2888,13 @@ span.error-star {
   line-height: 22px;
 }
 
+.app-comming-soon .coming-soon {
+  width: 100%;
+  height: 170px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
 .button-add-items {
   margin-bottom: 20px;
 }
@@ -2844,4 +2909,25 @@ span.error-star {
   padding: 10px 0px 0px 0px;
   border-top: 1px solid #9bbde5;
   border-radius: 0px;
+}
+
+.app-comming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-comming-soon p {
+  font-family: 'Poppins-Medium';
+  text-align: center;
+  font-size: 20px;
+  margin: 20px 0px 20px 0px;
+  color: #000;
+}
+
+.view-icon {
+  height: 20px;
+  width: 20px;
+  filter: brightness(0) saturate(100%) invert(21%) sepia(98%) saturate(1336%) hue-rotate(196deg) brightness(91%) contrast(90%);
 }

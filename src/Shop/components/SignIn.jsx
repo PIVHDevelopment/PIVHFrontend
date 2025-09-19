@@ -20,7 +20,7 @@ export default function SignIn(props) {
       <p style={{ fontWeight: "bold" }}>You need to sign in first.</p>
       <div>
         <button onClick={props.onSignIn} style={{ marginRight: "1em" }}>
-          Sign in
+          {/* Sign in */}
         </button>
         <button onClick={props.onModalClose}>Close</button>
       </div>

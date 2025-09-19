@@ -196,7 +196,7 @@ function Home() {
               data-bs-toggle="modal"
               data-bs-target="#exampleModalMerchant"
               onClick={handleOpen}
-              // onClick={() => navigate("/add-wallet")}
+            // onClick={() => navigate("/add-wallet")}
             >
               <img src={Index.setting} alt={t("Setting")} />
             </button>
@@ -233,52 +233,51 @@ function Home() {
                   </button>
                 )}
             </div>
-            <div className="wallet-id">
-              <div className="tick-mark-icons">
-                <span id="walletAddress">
-                  {tab == 1 ? userData?.userName : userData?.businessUserName}
-                </span>
-                {/* <div>
+
+            <Index.TabContent>
+              <Index.TabPane eventKey={1}>
+                <div className="wallet-id">
+                  <div className="tick-mark-icons">
+                    <span id="walletAddress">
+                      {tab == 1 ? userData?.userName : userData?.businessUserName}
+                    </span>
+                    {/* <div>
                   <img
                     src={Index.verify}
                     className="verify-icons"
                     alt="verify"
                   />
                 </div> */}
-                {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
-                  ""
-                ) : (
-                  <div>
-                    <img
-                      src={Index.verify}
-                      className="verify-icons"
-                      alt={t("verify")}
-                    />
+                    {(tab === 2 && !userData?.isBusinessSubscription) ||
+                      (tab === 1 && !userData?.isIndividualSubscription) ? (
+                      ""
+                    ) : (
+                      <div>
+                        <img
+                          src={Index.verify}
+                          className="verify-icons"
+                          alt={t("verify")}
+                        />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <button className="copy-btn" onClick={handleCopy}>
-                {copied ? (
-                  <span>✓</span>
-                ) : (
-                  <img src={Index.copy} alt={t("Copy")} />
-                )}
-              </button>
-            </div>
-            <div className="balance-section">
-              {/* <button className="add-btn" onClick={() => navigate("/transaction-success")}>Demo</button> */}
-              <p className="balance-label">{t("CurrentBalance")}</p>
-              <h1 className="balance-amount">
-                {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
-                {parseFloat(tab == 2 ? businessBalance : balance) > 0
-                  ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5)
-                  : 0}{" "}
-                Pi
-              </h1>
-            </div>
-            <Index.TabContent>
-              <Index.TabPane eventKey={1}>
+                  <button className="copy-btn" onClick={handleCopy}>
+                    {copied ? (
+                      <span>✓</span>
+                    ) : (
+                      <img src={Index.copy} alt={t("Copy")} />
+                    )}
+                  </button>
+                </div>
+                <div className="balance-section">
+                  <p className="balance-label">{t("CurrentBalance")}</p>
+                  <h1 className="balance-amount">
+                    {parseFloat(tab == 2 ? businessBalance : balance) > 0
+                      ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5)
+                      : 0}{" "}
+                    Pi
+                  </h1>
+                </div>
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
@@ -289,9 +288,8 @@ function Home() {
 
           {transactionList?.length ? (
             <div
-              className={`transaction-section ${
-                isExpanded ? "expanded" : "collapsed"
-              }`}
+              className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
+                }`}
             >
               <div className="toggle-arrow" onClick={toggleSection}>
                 {isExpanded ? (
@@ -319,10 +317,9 @@ function Home() {
                           <p className="transaction-title">
                             {transaction?.memo || transaction?.type}{" "}
                             {transaction?.receiver_name &&
-                              `(${
-                                transaction?.paymentType === "sent"
-                                  ? transaction?.receiver_name
-                                  : transaction?.user_name
+                              `(${transaction?.paymentType === "sent"
+                                ? transaction?.receiver_name
+                                : transaction?.user_name
                               })`}
                           </p>
                           <p className="transaction-time">
@@ -333,9 +330,8 @@ function Home() {
                         </div>
                       </div>
                       <div
-                        className={`transaction-amount ${
-                          isPositive ? "positive" : "negative"
-                        }`}
+                        className={`transaction-amount ${isPositive ? "positive" : "negative"
+                          }`}
                       >
                         <p className="transaction-amount">
                           {amountPrefix}
@@ -389,7 +385,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -409,18 +405,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                {t("UpgradeToBusinessVersion")}
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  {t("UpgradeToBusinessVersion")}
+                </h6>
+              </NavLink>
+            )}
 
           <div
             className="setting-cont-box"

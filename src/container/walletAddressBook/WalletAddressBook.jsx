@@ -203,9 +203,11 @@ const WalletAddressBook = () => {
                 </ListItem>
               ))
             ) : (
-              <Typography className="no-address-title">
+              <Box className="no-address-book">
+              <Typography className="no-address-title ">
                 {t("NoWalletAddressesFound")}
               </Typography>
+              </Box>
             )}
           </List>
         </Box>
@@ -231,6 +233,7 @@ const WalletAddressBook = () => {
             >
               {(formik) => (
                 <form onSubmit={formik.handleSubmit}>
+                  <Box>
                   <Box className="modal-body address-body">
                     <div className="input-box">
                       <p className="user-form-lable">
@@ -255,6 +258,7 @@ const WalletAddressBook = () => {
                         </p>
                       </div>
                     </div>
+                  </Box>
                     <Box className="modal-footer">
                       <button
                         className="common-btn"
@@ -268,7 +272,7 @@ const WalletAddressBook = () => {
                         )}
                       </button>
                     </Box>
-                  </Box>
+                    </Box>
                 </form>
               )}
             </Index.Formik>

@@ -144,6 +144,10 @@ function SendInvoice() {
   useEffect(() => {
     handleGetData();
   }, []);
+
+  const today = new Date();
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  const currentDate = today.toLocaleDateString("en-GB", options);
   return (
     <>
       {buttonLoader ? (
@@ -201,7 +205,7 @@ function SendInvoice() {
                         component="p"
                         className="invoices-heading-date"
                       >
-                        08 sept 2025 <span>- 7 day(s) to due</span>
+                        {currentDate} <span>- 7 day(s) to due</span>
                       </Index.Typography>
                     </Index.Box>
                   </Index.Box>

@@ -156,7 +156,7 @@ function Invoice() {
                                   <img
                                     src={Index.showIcon}
                                     alt={t("expense")}
-                                    className="transaction-icon"
+                                    className="view-icon"
                                     onClick={() => {
                                       navigate(
                                         "/invoice-request/" + transaction?._id,
@@ -180,7 +180,7 @@ function Invoice() {
                                             userData?._id &&
                                           transaction?.receiverStatus == "debit"
                                         ? Index.expense
-                                        : Index.markIcon
+                                        : Index.pending
                                     }
                                     alt={t("expense")}
                                     className="transaction-icon"
