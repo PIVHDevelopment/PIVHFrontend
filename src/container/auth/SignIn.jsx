@@ -81,7 +81,7 @@ function SignIn() {
             </div>
 
           {/* Language Switcher */}
-          <div className="sigin-lang-footer">
+          <div className="sigin-lang-footer" style={{ display: "none" }}>
             {[
               { code: "En", label: "English" },
               { code: "Ar", label: "Arabic" },
