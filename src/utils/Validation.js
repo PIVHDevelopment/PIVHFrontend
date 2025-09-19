@@ -53,7 +53,7 @@ export const addFeedbackFormSchema = Yup.object({
       "Enter a valid email"
     )
     .required("Email is required"),
-  description: Yup.string().required("Description is required"),
+  description: Yup.string().required("Description is required")
 });
 
 export const addPaymentRequestSchema = Yup.object({
