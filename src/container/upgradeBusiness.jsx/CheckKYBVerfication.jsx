@@ -1,49 +1,76 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect } from "react";
 import Index from "../Index";
 
 function CheckKYBVerfication() {
-  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const formRef = useRef();
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState([])
+  const getKybVerification = async () => {
+    try {
+      const res = await Index.DataService.get(Index.Api.GET_KYB_VERIFICATION + `/${userData?._id}`);
+      if (res?.data?.status === 200) {
+        setData(res.data.data);
+      }
+    } catch (error) {
+      console.log(error, "error")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+
+  useEffect(() => {
+    getKybVerification();
+  }, []);
+
+  console.log({ data });
 
   return (
-    <div className="app-container">
-      <header className="receive-center">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
-        </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+    <>
+      {loading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button className="back-btn" onClick={() => navigate(-1)}>
+              <img src={Index.back} alt="Back" />
+            </button>
+            <div className="app-icon">
+              {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
+               <img src={Index.logo} className="logo-header" alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+          <div className="check-kyb-verification-page">
+            {/* <button disabled={data?.status === "pending" || data?.status === "approved"} className="common-btn kyb-btn" onClick={() => navigate("/kyb-verification")}>
+          {data?.status === "pending" && <>{t("KYB Verification Pending")} </>}  
+          {data?.status === "approved" && <>{t("KYB Verification Approved")} </>}
+          {data?.status === "rejected" && <>{t("KYB Verification Rejected Kindly Try Again")} </>}
+          {!data?.status && <>{t("Start Process of KYB Verification")} </>}
+        </button> */}
+            {/* {data?.status === "approved" && */}
+            <div className="common-btn-space-main">
+              <button
+                className="common-btn"
+                disabled
+              >
+                {t("KYB Verification")}
+              </button>
+
+              <button
+                onClick={() => navigate("/upgrade-business")}
+                className="common-btn"
+              >
+                {t("Skip for now")}
+              </button>
+              {/* } */}
+            </div>
+          </div>
         </div>
-        <div className="header-right"></div>
-      </header>
-      {/* <Index.Formik
-        enableReinitialize
-        initialValues={{
-          userName: "",
-          businessName: "",
-        }}
-        onSubmit={handleSubmitFunction}
-        validationSchema={Index.addBusinessAddressFormSchema}
-        innerRef={formRef}
-      >
-        {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form"> */}
-      <div className="send-form">
-        <button disabled={true} className="action-btn full-width send-pi-btn">
-          KYB Verification
-        </button>
-        <button
-          onClick={() => navigate("/upgrade-business")}
-          className="action-btn full-width send-pi-btn"
-        >
-          Skip for now
-        </button>
-      </div>
-      {/* </form>
-        )}
-      </Index.Formik> */}
-    </div>
+      )}
+    </>
   );
 }
 

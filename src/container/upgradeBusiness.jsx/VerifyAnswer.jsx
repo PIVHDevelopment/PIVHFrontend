@@ -3,10 +3,11 @@ import { Box, Typography, TextField } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Index from "../Index";
-import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const VerifyAnswer = () => {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [isLoading, setIsLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -16,7 +17,7 @@ const VerifyAnswer = () => {
   const type = isBusiness ? "business" : "individual";
 
   const validationSchema = Yup.object().shape({
-    answer: Yup.string().trim().required("Please enter your answer"),
+    answer: Yup.string().trim().required(t("EnterAnswer")),
   });
 
   const handleSubmit = (values) => {
@@ -27,7 +28,7 @@ const VerifyAnswer = () => {
       type: isBusiness ? "business" : "individual",
     })
       .then((res) => {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         if (res?.data?.status === 200) {
           navigate("/set-txn-pin", {
             state: { isBusiness: isBusiness, isRecover: true },
@@ -37,7 +38,7 @@ const VerifyAnswer = () => {
       .catch((err) => {
         console.log(err);
         Index.toasterError(
-          err?.response?.data?.message || "Something went wrong"
+          err?.response?.data?.message?.[language] || t("SomethingWrong")
         );
       })
       .finally(() => {
@@ -63,28 +64,89 @@ const VerifyAnswer = () => {
     handleGetQuestion();
   }, []);
 
+  const questionsEn = [
+    "What was your first school's name?",
+    "Who was your childhood best friend?",
+    "What was your dream job as a child?",
+    "What is your favorite teacher’s name?",
+    "What city were you born in?",
+  ];
+  const questionsHi = [
+    "आपके पहले स्कूल का नाम क्या था?",
+    "आपके बचपन के सबसे अच्छे दोस्त का नाम क्या था?",
+    "बचपन में आपका सपना क्या बनना था?",
+    "आपके पसंदीदा शिक्षक का नाम क्या है?",
+    "आपका जन्म किस शहर में हुआ था?",
+  ];
+  const questionsAr = [
+    "ما اسم أول مدرسة التحقت بها؟",
+    "من كان أفضل صديق لك في الطفولة؟",
+    "ما هي وظيفة أحلامك عندما كنت طفلاً؟",
+    "ما اسم معلمك المفضل؟",
+    "في أي مدينة وُلدت؟",
+  ];
+  
+  const businessQuestionsEn = [
+    "What was your desk or office number when you joined?",
+    "What was the name of your first internal project?",
+    "What is the official email address associated with your account?",
+    "What is your official job title?",
+    "What was your onboarding trainer's name?",
+  ];
+  
+  const businessQuestionsHi = [
+    "जब आपने जॉइन किया था, तब आपकी डेस्क या ऑफिस नंबर क्या था?",
+    "आपकी पहली आंतरिक परियोजना (इंटरनल प्रोजेक्ट) का नाम क्या था?",
+    "आपके खाते से जुड़ा आधिकारिक ईमेल पता क्या है?",
+    "आपका आधिकारिक पदनाम (जॉब टाइटल) क्या है?",
+    "आपके ऑनबोर्डिंग ट्रेनर का नाम क्या था?",
+  ];
+  const businessQuestionsAr = [
+    "ما رقم مكتبك أو مكتبك عند انضمامك؟",
+    "ما اسم أول مشروع داخلي شاركت فيه؟",
+    "ما هو عنوان البريد الإلكتروني الرسمي المرتبط بحسابك؟",
+    "ما هو المسمى الوظيفي الرسمي الخاص بك؟",
+    "ما اسم مدرب التهيئة (onboarding) الخاص بك؟",
+  ];
+
+  const getTranslatedQuestion = (question, language, isBusiness) => {
+    const map = {
+      En: isBusiness ? businessQuestionsEn : questionsEn,
+      Hi: isBusiness ? businessQuestionsHi : questionsHi,
+      Ar: isBusiness ? businessQuestionsAr : questionsAr,
+    };
+  
+    const index = map["En"]?.indexOf(question);
+    if (index !== -1) {
+      return map[language]?.[index] || question;
+    }
+    return question; 
+  };
+  
+
   return (
     <>
       {isLoading ? (
         <Index.Loader />
       ) : (
-        <Box className="app-container p-20-0 set-pin-div" mx="auto">
+        <Box className="app-container">
           <header className="receive-center">
             <button className="back-btn" onClick={() => navigate(-1)}>
-              <img src={Index.back} alt="Back" />
+              <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
-              <img src={Index.pocketPi} alt="PocketPi" />
+            <div className="app-icon">
+              {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+               <img src={Index.logo} className="logo-header" alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>
-          <Box className="p-20 security-question-details">
+          <Box className="security-question-details">
             <Typography
               variant="h5"
               gutterBottom
-              className="security-question-title"
+              className="common-heading"
             >
-              {isBusiness && "Business "}Security Question
+              {isBusiness && t("Business")}{" "}{t("SecurityQuestion")}
             </Typography>
 
             <Box className="verify-answer-content">
@@ -96,15 +158,16 @@ const VerifyAnswer = () => {
                 {({ values, errors, touched, handleChange, handleBlur }) => (
                   <Form>
                     {/* Show fetched question */}
-                    <Typography
-                      variant="subtitle1"
-                      className="verify-answer-label"
+                    <p
+                      className="user-form-lable"
                     >
-                      {question || "Security question not found"}
-                    </Typography>
+                  {question
+                    ? getTranslatedQuestion(question, language, isBusiness)
+                     : t("SecurityNotFound")}
+                    </p>
                     <TextField
                       name="answer"
-                      placeholder="Enter your Answer"
+                      placeholder={t("EnterYourAnswer")}
                       fullWidth
                       className="textarea-question-sequrity"
                       multiline
@@ -118,18 +181,17 @@ const VerifyAnswer = () => {
                       disabled={!question}
                     />
 
-                    <Box textAlign="center" mt={5}>
+                    <Box className="common-btn-space-main">
                       <button
                         variant="contained"
                         type="submit"
-                        className="action-btn full-width send-pi-btn"
+                        className="common-btn"
                         disabled={!question}
-                        // className="secondary-btn share-btn"
                       >
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
-                        Submit
+                        {t("Submit")}
                         {/* )} */}
                       </button>
                     </Box>

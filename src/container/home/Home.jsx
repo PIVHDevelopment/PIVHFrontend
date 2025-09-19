@@ -15,10 +15,9 @@ const axiosClient = axios.create({
 });
 
 function Home() {
+  const { t, i18n } = Index.useTranslation();
   const location = useLocation();
   const isBusiness = location?.state?.isBusiness;
-  console.log({isBusiness});
-  
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [tab, setTab] = useState(isBusiness ? 2 : 1);
   const [copied, setCopied] = useState(false);
@@ -29,7 +28,41 @@ function Home() {
   const [businessBalance, setBusinessBalance] = useState("0");
   const [businessUserName, setBusinessUserName] = useState("");
   let typeTxn = tab == 1 ? "individual" : "business";
-  console.log({ userData });
+  const selectedLanguage = localStorage.getItem("language") || "En";
+  const [languageCh, setLanguageCh] = useState(selectedLanguage);
+
+  const handleLanguageChange = (eventOrValue) => {
+    const lang =
+      typeof eventOrValue === "string"
+        ? eventOrValue
+        : eventOrValue.target.value;
+
+    if (lang == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
+      document.body.classList.remove("direction-rtl");
+    }
+    localStorage.setItem("language", lang);
+    i18n.changeLanguage(lang);
+    setLanguageCh(lang);
+    updateLanugage(lang);
+  };
+
+  useEffect(() => {
+    if (languageCh == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
+      document.body.classList.remove("direction-rtl");
+    }
+    i18n.changeLanguage(languageCh);
+  }, [languageCh]);
+
+  const updateLanugage = (lang) => {
+    Index.DataService.post(Index.Api.UPDATE_LANGUAGE, {
+      id: userData._id,
+      language: lang,
+    });
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
@@ -52,9 +85,8 @@ function Home() {
   };
   const handleLogout = async () => {
     await signOutUser();
-    localStorage.clear();
     sessionStorage.clear();
-    navigate("/");
+    navigate("/signin");
   };
   const handleGetTransactions = () => {
     Index.DataService.get(
@@ -84,29 +116,67 @@ function Home() {
     // }
   }, [typeTxn]);
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSection = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <>
-      <div className="app-container p-20-0">
-        <div className="p-20">
-          <header>
-            <div className="profile-section" style={{ flex: "0 0 33.3%" }}>
-              {/* <div className="profile-pic">
+      <div className="app-container">
+        <header>
+          {/* <div className="profile-pic">
                 <img src={Index.profile} alt="Profile" />
               </div>
               {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
-            </div>
-            <div
-              className="app-icon"
-              style={{ textAlign: "center", flex: "0 0 33.3%" }}
+
+          {/* <div className="lang-dropdown-main">
+            <Index.FormControl>
+              <Index.Select
+                value={languageCh}
+                onChange={handleLanguageChange}
+              >
+                <Index.MenuItem value={"En"}>En</Index.MenuItem>
+                <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
+                <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
+              </Index.Select>
+            </Index.FormControl>
+            <img src={Index.languageImg} className="lang-change-icon" />
+            <img
+              src={Index.downblackAarrow}
+              className="search-down-arrow"
+              alt="Dropdown"
+            />
+          </div> */}
+          <div className="outline-tabs-main">
+            <button
+              className="outline-tabs"
+              id="sendBtn"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
             >
-              <img src={Index.pocketPi} alt="PocketPi" />
-            </div>
-            <div className="header-icons" style={{ flex: "1 1 33.3%" }}>
-              {/* <button className="icon-btn" id="syncBtn">
+              <img
+                src={Index.deposit}
+                alt="Send Money"
+                className="outline-tabs-icon"
+              />
+              {t("Deposit")}
+            </button>
+          </div>
+          <div className="app-icon">
+            {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
+            <img src={Index.logo} alt={t("PocketPi")} className="logo-header" />
+          </div>
+          <div className="header-icons">
+            {/* <button className="icon-btn" id="syncBtn">
                 <img src={Index.scan} alt="Scan" />
               </button> */}
 
-              {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
+            {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
               (tab === 1 && !userData?.isIndividualSubscription) ? (
                 ""
               ) : (
@@ -120,20 +190,22 @@ function Home() {
                   <img src={Index.subscribedIcon} alt="Setting" />
                 </button>
               )} */}
-              <button
-                className="icon-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModalMerchant"
-                onClick={handleOpen}
-                // onClick={() => navigate("/add-wallet")}
-              >
-                <img src={Index.setting} alt="Setting" />
-              </button>
-              <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
-                <img src={Index.logout} alt="logout" />
-              </button>
-            </div>
-          </header>
+
+            <button
+              className="icon-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModalMerchant"
+              onClick={handleOpen}
+            // onClick={() => navigate("/add-wallet")}
+            >
+              <img src={Index.setting} alt={t("Setting")} />
+            </button>
+            <button className="icon-btn" id="syncBtn" onClick={handleLogout}>
+              <img src={Index.logout} alt="logout" />
+            </button>
+          </div>
+        </header>
+        <div className="home-page-main">
           <Index.TabContainer
             id="left-tabs-example"
             defaultActiveKey="individual"
@@ -145,8 +217,11 @@ function Home() {
                 data-tab="individual"
                 onClick={() => setTab(1)}
               >
-                Individual
+                {t("Individual")}
               </button>
+              {
+                console.log("userData?.businessTxn?.isPin", userData?.businessTxn?.isPin, userData?.businessTxn?.isQuestion)
+              }
               {userData?.businessTxn?.isPin &&
                 userData?.businessTxn?.isQuestion && (
                   <button
@@ -154,48 +229,55 @@ function Home() {
                     data-tab="business"
                     onClick={() => setTab(2)}
                   >
-                    Business
+                    {t("Business")}
                   </button>
                 )}
             </div>
-            <div className="wallet-id">
-              <div className="tick-mark-icons">
-                <span id="walletAddress">
-                  {tab == 1 ? userData?.userName : userData?.businessUserName}
-                </span>
-                {/* <div>
+
+            <Index.TabContent>
+              <Index.TabPane eventKey={1}>
+                <div className="wallet-id">
+                  <div className="tick-mark-icons">
+                    <span id="walletAddress">
+                      {tab == 1 ? userData?.userName : userData?.businessUserName}
+                    </span>
+                    {/* <div>
                   <img
                     src={Index.verify}
                     className="verify-icons"
                     alt="verify"
                   />
                 </div> */}
-                {(tab === 2 && !userData?.isBusinessSubscription) ||
-                (tab === 1 && !userData?.isIndividualSubscription) ? (
-                  ""
-                ) : (
-                  <div>
-                    <img
-                      src={Index.verify}
-                      className="verify-icons"
-                      alt="verify"
-                    />
+                    {(tab === 2 && !userData?.isBusinessSubscription) ||
+                      (tab === 1 && !userData?.isIndividualSubscription) ? (
+                      ""
+                    ) : (
+                      <div>
+                        <img
+                          src={Index.verify}
+                          className="verify-icons"
+                          alt={t("verify")}
+                        />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <button className="copy-btn" onClick={handleCopy}>
-                {copied ? <span>✓</span> : <img src={Index.copy} alt="Copy" />}
-              </button>
-            </div>
-            <div className="balance-section">
-              <p className="balance-label">Current Balance</p>
-              <h1 className="balance-amount">
-                {/* {parseFloat(tab == 2 ? businessBalance : balance)?.toFixed(5)} Pi */}
-                {parseFloat(tab == 2 ? businessBalance : balance) > 0 ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5) : 0} Pi
-              </h1>
-            </div>
-            <Index.TabContent>
-              <Index.TabPane eventKey={1}>
+                  <button className="copy-btn" onClick={handleCopy}>
+                    {copied ? (
+                      <span>✓</span>
+                    ) : (
+                      <img src={Index.copy} alt={t("Copy")} />
+                    )}
+                  </button>
+                </div>
+                <div className="balance-section">
+                  <p className="balance-label">{t("CurrentBalance")}</p>
+                  <h1 className="balance-amount">
+                    {parseFloat(tab == 2 ? businessBalance : balance) > 0
+                      ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5)
+                      : 0}{" "}
+                    Pi
+                  </h1>
+                </div>
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
@@ -203,62 +285,73 @@ function Home() {
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>
-        </div>
 
-        {transactionList?.length ? (
-          <div
-            // className={`transaction-section${
-            //   tab === 2 ? " transaction-section-top" : ""
-            // }`}
-            className="transaction-section"
-          >
-            <h2>Transaction History</h2>
-            <div className="transaction-list">
-              {transactionList?.map((transaction, index) => {
-                const isPositive = transaction.paymentType === "received";
-                const amountPrefix = isPositive ? "+" : "-";
-                return (
-                  <div className="transaction-main-box" key={index}>
-                    <div className="transaction-details">
-                      <img
-                        src={isPositive ? Index.income : Index.expense}
-                        alt="expense"
-                        className="transaction-icon"
-                      />
-                      <div className="transaction-info">
-                        <span className="transaction-title">
-                        {transaction?.memo || transaction?.type} {transaction?.receiver_name && `(${ transaction?.paymentType ==="sent" ? transaction?.receiver_name : transaction?.user_name})`}
-                        </span>
-                        <span className="transaction-time">
+          {transactionList?.length ? (
+            <div
+              className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
+                }`}
+            >
+              <div className="toggle-arrow" onClick={toggleSection}>
+                {isExpanded ? (
+                  <span className="arrow-icon">↓</span>
+                ) : (
+                  <span className="arrow-icon">↑</span>
+                )}
+              </div>
+              <h2 className="transaction-section-title">
+                {t("TransactionHistory")}
+              </h2>
+              <div className="transaction-list">
+                {transactionList?.map((transaction, index) => {
+                  const isPositive = transaction.paymentType === "received";
+                  const amountPrefix = isPositive ? "+" : "-";
+                  return (
+                    <div className="transaction-main-box" key={index}>
+                      <div className="transaction-details">
+                        <img
+                          src={isPositive ? Index.income : Index.expense}
+                          alt={t("expense")}
+                          className="transaction-icon"
+                        />
+                        <div className="transaction-info">
+                          <p className="transaction-title">
+                            {transaction?.memo || transaction?.type}{" "}
+                            {transaction?.receiver_name &&
+                              `(${transaction?.paymentType === "sent"
+                                ? transaction?.receiver_name
+                                : transaction?.user_name
+                              })`}
+                          </p>
+                          <p className="transaction-time">
+                            {Index.moment(transaction.createdAt).format(
+                              "hh:mm A"
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className={`transaction-amount ${isPositive ? "positive" : "negative"
+                          }`}
+                      >
+                        <p className="transaction-amount">
+                          {amountPrefix}
+                          {Math.abs(transaction.amount)?.toFixed(5)} Pi
+                        </p>
+                        <p className="transaction-date">
                           {Index.moment(transaction.createdAt).format(
-                            "hh:mm A"
+                            "DD MMM, YYYY"
                           )}
-                        </span>
+                        </p>
                       </div>
                     </div>
-                    <div
-                      className={`transaction-amount ${
-                        isPositive ? "positive" : "negative"
-                      }`}
-                    >
-                      <span>
-                        {amountPrefix}
-                        {Math.abs(transaction.amount)?.toFixed(5)} Pi
-                      </span>
-                      <span className="transaction-date">
-                        {Index.moment(transaction.createdAt).format(
-                          "DD MMM, YYYY"
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          <></>
-        )}
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <Index.Modal
         className="user-setting-modal"
@@ -266,8 +359,8 @@ function Home() {
         onHide={handleClose}
       >
         <Index.Modal.Header>
-          <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Settings
+          <h1 className="modal-title" id="exampleModalLabel">
+            {t("Settings")}
           </h1>
           <button
             type="button"
@@ -278,39 +371,6 @@ function Home() {
           ></button>
         </Index.Modal.Header>
         <Index.Modal.Body>
-          {/* <NavLink className="setting-cont-box" to={"/add-wallet"}>
-            <div className="setting-icon-box">
-              <img src={Index.walletaddress} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Wallet Address</h6>
-          </NavLink> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.businessaddress} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Business Address</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.employee} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Add Employee Address</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.autopay} alt="" />
-            </div>
-            <h6 className="setting-cont-title">Set Autopay</h6>
-          </div> */}
-          {/* <div className="setting-cont-box">
-            <div className="setting-icon-box">
-              <img src={Index.configure} alt="" />
-            </div>
-            <h6 className="setting-cont-title">
-              Configure Salary Disbursement
-            </h6>
-          </div> */}
-
           <div
             className="setting-cont-box"
             onClick={() =>
@@ -322,10 +382,10 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.addressbook} alt="" />
             </div>
-            <h6 className="setting-cont-title">Address Book</h6>
+            <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-          (tab === 1 && userData?.isIndividualSubscription) ? (
+            (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -339,24 +399,52 @@ function Home() {
               <div className="setting-icon-box">
                 <img src={Index.subscriberIcon} alt="" />
               </div>
-              <h6 className="setting-cont-title">Subscription</h6>
+              <h6 className="setting-cont-title">{t("Subscription")}</h6>
             </div>
           )}
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-            <NavLink
-              className="setting-cont-box"
-              to={"/check-kyb-verification"}
-            >
-              <div className="setting-icon-box">
-                <img src={Index.businessversion} alt="" />
-              </div>
-              <h6 className="setting-cont-title">
-                Upgrade To Business Version
-              </h6>
-            </NavLink>
-          )}
+              <NavLink
+                className="setting-cont-box"
+                to={"/check-kyb-verification"}
+              >
+                <div className="setting-icon-box">
+                  <img src={Index.businessversion} alt="" />
+                </div>
+                <h6 className="setting-cont-title">
+                  {t("UpgradeToBusinessVersion")}
+                </h6>
+              </NavLink>
+            )}
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/payment-request", {
+                // state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.paymentRequestIcon} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
+          </div>
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/wallet-address-book", {
+                state: { isBusiness: tab === 2 && true },
+              });
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.walletAddressBook} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("WalletAddressBook")}</h6>
+          </div>
           <div
             className="setting-cont-box"
             onClick={() => {
@@ -368,8 +456,78 @@ function Home() {
             <div className="setting-icon-box">
               <img src={Index.recover} alt="" />
             </div>
-            <h6 className="setting-cont-title">Recover Pin</h6>
+            <h6 className="setting-cont-title">{t("RecoverPin")}</h6>
           </div>
+
+          <div
+            className="setting-cont-box"
+            onClick={() => {
+              navigate("/feedback-comaplaint");
+            }}
+          >
+            <div className="setting-icon-box">
+              <img src={Index.complainIcon} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Tickets")}</h6>
+          </div>
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/withdraw", {
+                state: { typeTxn: tab == 1 ? "individual" : "business" },
+              })
+            }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.withdraw} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Withdraw")}</h6>
+          </div>
+          {tab == 1 && (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/deposit", {
+                  state: { balance: balance, typeTxn: "individual" },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.deposit} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("Deposit")}</h6>
+            </div>
+          )}
+          {tab == 2 && (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/payment-request", {
+                  // state: { isBusiness: true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.withdraw} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
+            </div>
+          )}
+          {tab == 2 && (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/invoice", {
+                  state: { isBusiness: true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.withdraw} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("InvoiceRequest")}</h6>
+            </div>
+          )}
         </Index.Modal.Body>
       </Index.Modal>
     </>

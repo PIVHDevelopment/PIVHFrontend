@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Index from "../Index";
 
 function AddWallet() {
+  const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
@@ -31,8 +32,9 @@ function AddWallet() {
         <button className="back-btn" onClick={() => navigate(-1)}>
           <img src={Index.back} alt="Back" />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+        <div className="app-icon">
+          {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
+           <img src={Index.logo} className="logo-header" alt="PocketPi" />
         </div>
         <div className="header-right"></div>
       </header>
@@ -42,17 +44,18 @@ function AddWallet() {
           walletAddress: text,
         }}
         onSubmit={handleSubmitFunction}
-        validationSchema={Index.addWalletAddressFormSchema}
+        validationSchema={Index.addWalletAddressFormSchema(t)}
         innerRef={formRef}
       >
         {(formik) => (
-          <form onSubmit={formik.handleSubmit} className="send-form">
-            <div className="input-group">
-              <div className="input-wrapper send-input-box">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="input-box">
+              <div className="user-form-group">
                 <input
                   type="text"
-                  placeholder="Enter Wallet Address"
+                  placeholder={t("EnterWalletAddress")}
                   name="walletAddress"
+                  className="user-form-control"
                   value={formik.values.walletAddress}
                   onChange={formik.handleChange}
                 />
@@ -65,23 +68,25 @@ function AddWallet() {
                       setText(res);
                     }}
                   >
-                    Paste
+                    {t("Paste")}
                   </button>
                 )}
               </div>
-              <div className="input-error">
+              <p className="input-error">
                 {formik.errors?.walletAddress && formik.touched?.walletAddress
                   ? formik.errors?.walletAddress
                   : null}
-              </div>
+              </p>
               {/* <button className="address-book-link">
                 Select from Address Book
               </button> */}
             </div>
 
-            <button className="action-btn full-width send-pi-btn" type="submit">
-              Save
-            </button>
+            <div className="common-btn-space-main">
+              <button className="common-btn" type="submit">
+                {t("Save")}
+              </button>
+            </div>
           </form>
         )}
       </Index.Formik>

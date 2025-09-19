@@ -11,7 +11,8 @@ const Loader = () => {
             <div class="loader-ring"></div>
             <Box class="loader-inner">
               <img
-                src={Index.pocketPi}
+                // src={Index.pocketPi}
+                src={Index.logo}
                 alt="Loading..."
                 className="loader-img"
               />

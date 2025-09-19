@@ -1,0 +1,234 @@
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Index from "../Index";
+import {
+  Box,
+  Button,
+  Typography,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import countries from "./countries.json";
+
+export default function KYBVerification() {
+  const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
+  const navigate = Index.useNavigate();
+  const { t } = Index.useTranslation();
+
+  const formik = useFormik({
+    initialValues: {
+      country: { name: "India" } || null,
+      frontDocument: null,
+      backDocument: null,
+      singleDocument: null,
+    },
+    validationSchema: Index.addKybVerificationSchema,
+    onSubmit: async (values) => {
+      console.log({ values });
+
+      const formData = new FormData();
+
+      formData.append("userId", userData?._id);
+      formData.append("country", values?.country?.name);
+
+      // Append documents depending on country
+      if (values.country.name === "India") {
+        formData.append("documents", values.frontDocument);
+        formData.append("documents", values.backDocument);
+      } else {
+        formData.append("documents", values.singleDocument);
+      }
+
+      try {
+        const res = await Index.DataService.post(
+          Index.Api.ADD_KYB_VERIFICATION,
+          formData
+        );
+        if (res?.data?.status === 200 || res?.data?.status === 201) {
+          Index.toasterSuccess(res?.data?.message);
+          formik.resetForm();
+          navigate("/check-kyb-verification");
+        }
+      } catch (error) {
+        Index.toasterError(
+          error?.response?.data?.message
+        );
+      }
+    },
+  });
+
+  return (
+    <div className="app-container">
+      <header className="receive-center">
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          <img src={Index.back} alt="Back" />
+        </button>
+        <div className="app-icon">
+          {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+           <img src={Index.logo} className="logo-header" alt="PocketPi" />
+        </div>
+        <div className="header-right"></div>
+      </header>
+
+      <Index.Box className="address-book-details">
+        <form onSubmit={formik.handleSubmit}>
+          <Index.Box className="address-book-head">
+            <Index.Typography className="address-book-title">
+              KYB Verification
+            </Index.Typography>
+          </Index.Box>
+          {/* Country Autocomplete */}
+          <div className="input-box">
+            <Typography className="user-form-lable">
+              Select Country
+            </Typography>
+            <Autocomplete
+              options={countries}
+              getOptionLabel={(option) => option.name}
+              className="kyb-autocomplete-input"
+              value={formik.values.country}
+              onChange={(e, value) =>
+                formik.setFieldValue("country", value)
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="country"
+                  //   error={
+                  //     formik.touched.country &&
+                  //     Boolean(formik.errors.country)
+                  //   }
+                  //   helperText={
+                  //     formik.touched.country && formik.errors.country
+                  //   }
+                  className="dropdown-select"
+                  placeholder="Select Country"
+                />
+              )}
+            />
+            {formik.touched.country &&
+              formik.errors.country && (
+                <p color="error" className="input-error">
+                  {formik.errors.country}
+                </p>
+              )}
+          </div>
+
+          {/* Upload Front Document */}
+          {formik.values.country?.name === "India" ? (
+            <>
+              {/* Upload Aadhar Front */}
+              <div className="input-box">
+                <Typography className="user-form-lable">
+                  Upload Aadhar Card Front
+                </Typography>
+                <div className="user-file-upload-btn-main">
+                  <Button
+                    variant="contained"
+                    component="label"
+                    className="user-file-upload-btn"
+                  >
+                    <CloudUploadIcon className="user-upload-icon-img" />
+                    <input
+                      hidden
+                      accept="image/*,.pdf"
+                      type="file"
+                      onChange={(event) => {
+                        formik.setFieldValue(
+                          "frontDocument",
+                          event.currentTarget.files[0]
+                        );
+                      }}
+                    />
+                  </Button>
+                  {formik.touched.frontDocument &&
+                    formik.errors.frontDocument && (
+                      <p color="error" className="input-error">
+                        {formik.errors.frontDocument}
+                      </p>
+                    )}
+                </div>
+              </div>
+
+              {/* Upload Aadhar Back */}
+              <div className="input-box">
+                <Typography className="user-form-lable">
+                  Upload Aadhar Card Back
+                </Typography>
+                <div className="user-file-upload-btn-main">
+                  <Button
+                    variant="contained"
+                    component="label"
+                    className="user-file-upload-btn"
+                  >
+                    <CloudUploadIcon className="user-upload-icon-img" />
+                    <input
+                      hidden
+                      accept="image/*,.pdf"
+                      type="file"
+                      onChange={(event) => {
+                        formik.setFieldValue(
+                          "backDocument",
+                          event.currentTarget.files[0]
+                        );
+                      }}
+                    />
+                  </Button>
+                  {formik.touched.backDocument &&
+                    formik.errors.backDocument && (
+                      <p color="error" className="input-error">
+                        {formik.errors.backDocument}
+                      </p>
+                    )}
+                </div>
+              </div>
+            </>
+          ) : (
+            // Single Document Upload for Non-India
+            <div className="input-box">
+              <Typography className="user-form-lable">
+                Upload Passport or Driving License
+              </Typography>
+              <div className="user-file-upload-btn-main">
+                <Button
+                  variant="contained"
+                  component="label"
+                  className="user-file-upload-btn"
+                >
+                  <CloudUploadIcon className="user-upload-icon-img" />
+                  <input
+                    hidden
+                    accept="image/*,.pdf"
+                    type="file"
+                    onChange={(event) => {
+                      formik.setFieldValue(
+                        "singleDocument",
+                        event.currentTarget.files[0]
+                      );
+                    }}
+                  />
+                </Button>
+                {formik.touched.singleDocument &&
+                  formik.errors.singleDocument && (
+                    <p color="error" className="input-error">
+                      {formik.errors.singleDocument}
+                    </p>
+                  )}
+              </div>
+            </div>
+          )}
+          <div className="common-btn-space-main">
+            <button
+              className="common-btn"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </Index.Box>
+    </div>
+  );
+}

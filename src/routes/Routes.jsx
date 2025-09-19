@@ -28,7 +28,16 @@ import AddressBook from "../container/addressBook/AddressBook";
 import Loader from "../common/loader/Loader";
 import Subscription from "../container/subscription/Subscription";
 import QrScanner from "../container/send/QrScanner";
+import WalletAddressBook from "../container/walletAddressBook/WalletAddressBook";
+import PaymentRequest from "../container/paymentRequest/PaymentRequest";
 import TransactionSuccess from "../container/transactionSuccess/TransactionSuccess";
+import FeedbackComplaint from "../container/feedbackComplaint/FeedbackComplaint";
+import KYBVerification from "../container/kybVerification/KYBVerification";
+import SplashScreen from "../container/auth/SplashScreen";
+import InvoiceRequest from "../container/invoiceRequest/InvoiceRequest";
+import Invoice from "../container/invoiceRequest/Invoice";
+import SendInvoice from "../container/invoiceRequest/SendInvoice";
+import CommingSoon from "../container/commingSoon/CommingSoon";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -43,6 +52,14 @@ const Routers = () => {
   const appRoutes = [
     {
       path: "/",
+      element: (
+        <PublicRoute>
+          <SplashScreen />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/signin",
       element: (
         <PublicRoute>
           <SignIn />
@@ -97,6 +114,7 @@ const Routers = () => {
         {
           path: "/home",
           element: <Home />,
+          // element: <TransactionSuccess />,
         },
         {
           path: "/deposit",
@@ -112,7 +130,7 @@ const Routers = () => {
         },
         {
           path: "/qr-scanner",
-          element: < QrScanner/>,
+          element: <QrScanner />,
         },
         {
           path: "/receive",
@@ -143,7 +161,30 @@ const Routers = () => {
           path: "/address-book",
           element: <AddressBook />,
         },
-
+        {
+          path: "/wallet-address-book",
+          element: <WalletAddressBook />,
+        },
+        {
+          path: "/payment-request",
+          element: <PaymentRequest />,
+        },
+        {
+          path: "/invoice",
+          element: <Invoice />,
+        },
+        {
+          path: "/invoice-request/:id",
+          element: <InvoiceRequest />,
+        },
+        {
+          path: "/send-invoice",
+          element: <SendInvoice />,
+        },
+        {
+          path: "/feedback-comaplaint",
+          element: <FeedbackComplaint />,
+        },
         {
           path: "/loader",
           element: <Loader />,
@@ -152,7 +193,15 @@ const Routers = () => {
           path: "/transaction-success",
           element: <TransactionSuccess />,
         },
+        {
+          path: "/kyb-verification",
+          element: <KYBVerification />,
+        },
       ],
+    },
+      {
+      path: "/comming-soon",
+      element: <CommingSoon />,
     },
   ];
 

@@ -2,6 +2,7 @@ import React from "react";
 import Index from "../../Index";
 
 function Individual({ balance }) {
+  const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   return (
     <>
@@ -18,7 +19,7 @@ function Individual({ balance }) {
           <span className="btn-icon">
             <img src={Index.downarrow} alt="Send Money" />
           </span>
-          Receive
+          {t("Receive")}
         </button>
         <button
           className="action-btn send-btn"
@@ -33,13 +34,13 @@ function Individual({ balance }) {
           <span className="btn-icon">
             <img src={Index.send} alt="Send Money" />
           </span>
-          Send
+          {t("Send")}
         </button>
       </div>
 
-      <div className="action-buttons action-send-main-contain">
-        <button
-          className="action-btn send-btn"
+      <div className="outline-tabs-main">
+        {/* <button
+          className="outline-tabs"
           id="sendBtn"
           onClick={() =>
             navigate("/deposit", {
@@ -47,24 +48,20 @@ function Individual({ balance }) {
             })
           }
         >
-          <span className="btn-icon">
-            <img src={Index.deposit} alt="Send Money" />
-          </span>
-          Deposit
-        </button>
-        <button
-          className="action-btn receive-btn"
+            <img src={Index.deposit} alt="Send Money" className="outline-tabs-icon" />
+          {t("Deposit")}
+        </button> */}
+        {/* <button
+          className="outline-tabs"
           id="withdraw"
           disabled={balance <= 0}
           onClick={() =>
             navigate("/withdraw", { state: { typeTxn: "individual" } })
           }
         >
-          <span className="btn-icon">
-            <img src={Index.withdraw} alt="Receive Money" />
-          </span>
-          Withdraw
-        </button>
+            <img src={Index.withdraw} alt={`${t("Withdraw")} ${t("Money")}`} className="outline-tabs-icon"/>
+          {t("Withdraw")}
+        </button> */}
 
         {/* <div className="action-button-listing">
           <div className="btn-home-content">
@@ -136,6 +133,7 @@ function Individual({ balance }) {
               </span>
             </button>
             <p className="btn-home-content">Withdraw</p>
+
           </div>
         </div> */}
       </div>

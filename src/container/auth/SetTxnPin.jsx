@@ -7,6 +7,8 @@ import { Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 const SetTxnPin = () => {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const [showPin, setShowPin] = useState(false);
   const [showConfirmPin, setShowConfirmPin] = useState(false);
   const location = useLocation();
@@ -20,22 +22,22 @@ const SetTxnPin = () => {
 
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
-      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
-      .test("pin-required", "Please enter pin", (arr) =>
+      .of(Yup.string().matches(/^\d$/, t("OnlyDigitsAllowed")))
+      .test("pin-required", t("PleaseEnterPin"), (arr) =>
         arr.some((val) => val && val.trim() !== "")
       )
       .test(
         "pin-length",
-        "PIN must be 5 digits",
+        t("PINDigits"),
         (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
       ),
 
     confirmPinFields: Yup.array()
-      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
-      .test("confirm-required", "Please enter confirm pin", (arr) =>
+      .of(Yup.string().matches(/^\d$/, t("OnlyDigitsAllowed")))
+      .test("confirm-required", t("PleaseConformPin"), (arr) =>
         arr.some((val) => val && val.trim() !== "")
       )
-      .test("pin-match", "PIN does not match", function (value) {
+      .test("pin-match", t("PINNotMatch"), function (value) {
         const { pinFields } = this.parent;
         return value.join("") === pinFields.join("");
       }),
@@ -85,7 +87,7 @@ const SetTxnPin = () => {
             );
           }
           if (isRecover) {
-            Index.toasterSuccess(res?.data?.message);
+            Index.toasterSuccess(res?.data?.message?.[language]);
             navigate("/home", {
               state: { isBusiness: isBusiness },
             });
@@ -98,9 +100,7 @@ const SetTxnPin = () => {
       })
       .catch((err) => {
         console.log(err);
-        Index.toasterError(
-          err?.response?.data?.message || "Something went wrong"
-        );
+        Index.toasterError(err?.response?.data?.message?.[language] || t("SomethingWrong"));
       })
       .finally(() => {
         setIsLoading(false);
@@ -108,7 +108,7 @@ const SetTxnPin = () => {
   };
 
   const renderPinInputs = (name, values, setFieldValue, show, setShow) => (
-    <Box className="set-pin-row" sx={{ display: "flex", gap: 1 }}>
+    <Box className="set-pin-row">
       {values[name].map((val, idx) => (
         <input
           key={idx}
@@ -133,14 +133,13 @@ const SetTxnPin = () => {
             }
           }}
           className="set-pin-input-box"
-          style={{ width: "40px", fontSize: "24px", textAlign: "center" }}
         />
       ))}
       <img
         className="show-icon"
         onClick={() => setShow(!show)}
         src={show ? Index.showIcon : Index.invisibleIcon}
-        alt="icon"
+        alt={t("Icon")}
         style={{ cursor: "pointer" }}
       />
     </Box>
@@ -160,10 +159,11 @@ const SetTxnPin = () => {
                 else setStep(1);
               }}
             >
-              <img src={Index.back} alt="Back" />
+              <img src={Index.back} alt={t("Back")} />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
-              <img src={Index.pocketPi} alt="PocketPi" />
+            <div className="app-icon">
+              {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+               <img src={Index.logo} className="logo-header" alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>
@@ -184,28 +184,27 @@ const SetTxnPin = () => {
               validateForm,
               setTouched,
             }) => (
-              <form onSubmit={handleSubmit} className="p-20-0 set-pin-div">
-                <Box className="p-20">
-                  <Typography variant="h5" className="heading" gutterBottom>
-                    Set {isBusiness && "Business"} Transaction PIN
+              <form onSubmit={handleSubmit}>
+                <>
+                  <Typography variant="h5" className="common-heading" gutterBottom>
+                    {t("Set")} {isBusiness && t("Business")}{" "}
+                    {t("TransactionPIN")}
                   </Typography>
 
                   <Typography
                     variant="h6"
-                    className="heading-note"
+                    className="common-para"
                     gutterBottom
                   >
-                    Your PIN will be securely saved with PocketPie. You will
-                    need to enter this PIN every time when you make the payment
-                    in application.
+                    {t("PINContaint")}
                   </Typography>
 
-                  <Grid container spacing={4}>
+                  <div className="set-pin-main">
                     {step === 1 && (
-                      <Grid item xs={12} md={6} className="set-pin-box">
-                        <Typography variant="h6" className="text" gutterBottom>
-                          Enter PIN
-                        </Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable" gutterBottom>
+                          {t("EnterPIN")}
+                        </p>
                         {renderPinInputs(
                           "pinFields",
                           values,
@@ -220,14 +219,14 @@ const SetTxnPin = () => {
                               {errors.pinFields}
                             </Typography>
                           )}
-                      </Grid>
+                      </div>
                     )}
 
                     {step === 2 && (
-                      <Grid item xs={12} md={6} className="set-pin-box">
-                        <Typography variant="h6" className="text" gutterBottom>
-                          Confirm PIN
-                        </Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable" gutterBottom>
+                          {t("ConfirmPIN")}
+                        </p>
                         {renderPinInputs(
                           "confirmPinFields",
                           values,
@@ -242,15 +241,15 @@ const SetTxnPin = () => {
                               {errors.confirmPinFields}
                             </Typography>
                           )}
-                      </Grid>
+                      </div>
                     )}
-                  </Grid>
+                  </div>
 
-                  <Box textAlign="center" mt={8}>
+                  <div className="common-btn-space-main">
                     {step === 1 ? (
                       <button
                         type="button"
-                        className="secondary-btn share-btn"
+                        className="common-btn"
                         onClick={async () => {
                           await setTouched({
                             pinFields: [true, true, true, true, true],
@@ -261,19 +260,19 @@ const SetTxnPin = () => {
                           }
                         }}
                       >
-                        Next
+                        {t("Next")}
                       </button>
                     ) : (
-                      <button type="submit" className="secondary-btn share-btn">
+                      <button type="submit" className="common-btn">
                         {/* {isLoading ? (
                       <Spinner animation="border" role="status" size="sm" />
                     ) : ( */}
-                        Set PIN
+                        {t("SetPIN")}
                         {/* )} */}
                       </button>
                     )}
-                  </Box>
-                </Box>
+                  </div>
+                </>
               </form>
             )}
           </Formik>

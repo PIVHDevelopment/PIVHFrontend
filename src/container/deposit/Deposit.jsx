@@ -1,25 +1,18 @@
 import React, { useRef, useState } from "react";
 import Index from "../Index";
-import { CircularProgress } from "@mui/material";
 
 function Deposit() {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const formRef = useRef();
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
-  const balance = location?.state?.balance;
   const typeTxn = location?.state?.typeTxn;
-  const [tab, setTab] = useState(1);
   const [buttonLoader, setButtonLoader] = useState(false);
   const [amount, setAmount] = useState(0);
-  console.log({ typeTxn });
 
   const handleSubmitFunction = async (values) => {
-    console.log(parseFloat(balance) + parseFloat(values?.amount));
-    // if (parseFloat(balance) + parseFloat(values?.amount - 0.05) > 314) {
-    //   Index.toasterError("Your balance is exceeding the limit of 314");
-    //   return false;
-    // }
     setButtonLoader(true);
     if (typeTxn == "business") {
       try {
@@ -34,16 +27,16 @@ function Deposit() {
           bodyData
         );
         if (res?.data?.status === 200) {
-          Index.toasterSuccess(res?.data?.message);
-          navigate("/home", {
+          // Index.toasterSuccess(res?.data?.message?.[language]);
+          navigate("/transaction-success", {
             state: { isBusiness: typeTxn == "business" ? true : false },
           });
         } else {
-          Index.toasterError(res?.data?.message || "Something went wrong.");
+          Index.toasterError(res?.data?.message?.[language] || t("SomethingWrong"));
         }
       } catch (error) {
         Index.toasterError(
-          error?.response?.data?.message || "An unexpected error occurred."
+          error?.response?.data?.message?.[language] || t("AnUnexpectedErrorOccurred")
         );
       }
       setButtonLoader(false);
@@ -69,10 +62,9 @@ function Deposit() {
   };
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
-      // ...formRef?.current?.values,
       amount,
       paymentId,
-    }).then(() => {}).catch((res)=>{
+    }).then(() => { }).catch((res) => {
       setButtonLoader(false);
       navigate("/home");
     });
@@ -92,7 +84,7 @@ function Deposit() {
         });
         setButtonLoader(false);
       }
-    }).catch((res)=>{
+    }).catch((res) => {
       setButtonLoader(false);
       navigate("/home");
     });
@@ -123,58 +115,33 @@ function Deposit() {
       ) : (
         <div className="app-container">
           <header className="receive-center">
-            <button className="back-btn" onClick={() => navigate(-1)}>
+            <button className="back-btn" onClick={() => navigate("/home", { state: { isBusiness: false } })}>
               <img src={Index.back} alt="Back" />
             </button>
-            <div className="app-icon" style={{ marginLeft: "-26px" }}>
-              <img src={Index.pocketPi} alt="PocketPi" />
+            <div className="app-icon">
+              {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+               <img src={Index.logo} className="logo-header" alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>
 
-          {/* <Index.TabContainer
-        id="left-tabs-example"
-        defaultActiveKey="individual"
-        activeKey={tab}
-      >
-        <div className="wallet-tabs" style={{ width: "100%" }}>
-          <button
-            className={`tab-btn${tab === 1 ? " active" : ""}`}
-            data-tab="individual"
-            onClick={() => setTab(1)}
-          >
-            Waller Address
-          </button>
-          <button
-            className={`tab-btn${tab === 2 ? " active" : ""}`}
-            data-tab="business"
-            onClick={() => setTab(2)}
-          >
-            Scan QR
-          </button>
-        </div>
-        <Index.TabContent>
-          <Index.TabPane eventKey={1}></Index.TabPane>
-          <Index.TabPane eventKey={2}></Index.TabPane>
-        </Index.TabContent>
-      </Index.TabContainer> */}
           <Index.Formik
             initialValues={{
               amount: "",
             }}
             onSubmit={handleSubmitFunction}
-            validationSchema={Index.depositPiFormSchema}
+            validationSchema={Index.depositPiFormSchema(t)}
             innerRef={formRef}
           >
             {(formik) => (
-              <form onSubmit={formik.handleSubmit} className="send-form">
-                <div className="input-group">
-                  <div className="input-wrapper">
+              <form onSubmit={formik.handleSubmit}>
+                <div className="input-box">
+                  <div className="user-form-group">
                     <input
                       type="text"
-                      inputMode="numeric" // shows numeric keyboard on mobile
-                      className="notes-input"
-                      placeholder="Enter Amount"
+                      inputMode="numeric"
+                      className="user-form-control"
+                      placeholder={t("EnterAmount")}
                       name="amount"
                       value={formik.values.amount}
                       onChange={(e) => {
@@ -187,37 +154,26 @@ function Deposit() {
                       }}
                     />
                   </div>
-                  <div className="input-error">
+                  <p className="input-error">
                     {formik.errors?.amount && formik.touched?.amount
                       ? formik.errors?.amount
                       : null}
-                  </div>
+                  </p>
                 </div>
                 <div className="amount-section">
-                  <label>Enter Pi Amount</label>
-                  <div className="amount-display">
+                  <label>{t("EnterPiAmount")}</label>
+                  <p className="amount-display">
                     {formik.values.amount || "0"} Pi
-                  </div>
-                  {/* {formik.values.amount && typeTxn !== "business" ? (
-                    <label className="text-color">
-                      0.05 Pi will be deducted as platform fees
-                    </label>
-                  ) : (
-                    ""
-                  )} */}
+                  </p>
                 </div>
 
-                {/* <button className="action-btn full-width send-pi-btn" type="submit">
-              Deposit
-            </button> */}
                 <button
-                  className="action-btn full-width send-pi-btn"
+                  className="common-btn"
                   type="submit"
                   disabled={buttonLoader}
-                  // startIcon={buttonLoader ? <CircularProgress size={20} /> : null}
                 >
                   {/* {buttonLoader ? "Processing..." : "Deposit"} */}
-                  Deposit
+                  {t("Deposit")}
                 </button>
               </form>
             )}

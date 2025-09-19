@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Index from '../Index';
 
 const QrScanner = () => {
+  const { t } = Index.useTranslation();
   const location = Index.useLocation();
   const typeTxn = location?.state?.typeTxn;
   const [scannerResult, setScannerResult] = useState("");
@@ -48,16 +49,17 @@ const QrScanner = () => {
     <div className="app-container">
       <header className="receive-center">
         <button className="back-btn" onClick={() => navigate(-1)}>
-          <img src={Index.back} alt="Back" />
+          <img src={Index.back} alt={t("Back")} />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+        <div className="app-icon">
+          {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
+           <img src={Index.logo} className="logo-header" alt="PocketPi" />
         </div>
         <div className="header-right"></div>
       </header>
 
-      <div className='qr-scanner-main-div'>
-        <div id="qr-reader" style={{ width: '300px' }} />
+      <div className='qr-scanner-main'>
+        <div id="qr-reader" />
       </div>
     </div>
   );

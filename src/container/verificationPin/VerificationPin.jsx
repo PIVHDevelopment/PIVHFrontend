@@ -5,18 +5,19 @@ import * as Yup from "yup";
 import Index from "../Index";
 
 const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
+  const { t } = Index.useTranslation();
   const [showPin, setShowPin] = useState(false);
   const navigate = Index.useNavigate();
 
   const validationSchema = Yup.object().shape({
     pinFields: Yup.array()
-      .of(Yup.string().matches(/^\d$/, "Only digits allowed"))
-      .test("pin-required", "Please enter PIN", (arr) =>
+      .of(Yup.string().matches(/^\d$/, t("OnlyDigitsAllowed")))
+      .test("pin-required", t("PleaseEnterPIN"), (arr) =>
         arr.some((val) => val && val.trim() !== "")
       )
       .test(
         "pin-length",
-        "PIN must be 5 digits",
+        t("PINDigits"),
         (arr) => arr.filter((val) => val && val.trim() !== "").length === 5
       ),
   });
@@ -24,7 +25,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
   console.log("verifiction");
 
   const renderPinInputs = (values, setFieldValue) => (
-    <Box className="set-pin-row common-pin-flex">
+    <Box className="set-pin-row">
       {values.pinFields.map((val, idx) => (
         <input
           key={idx}
@@ -47,7 +48,7 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
               if (inputs[idx - 1]) inputs[idx - 1].focus();
             }
           }}
-          className="set-pin-input-box common-pin-input"
+          className="set-pin-input-box"
         />
       ))}
       <img
@@ -66,15 +67,16 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
         <button className="back-btn" onClick={() => setNextPage(false)}>
           <img src={Index.back} alt="Back" />
         </button>
-        <div className="app-icon" style={{ marginLeft: "-26px" }}>
-          <img src={Index.pocketPi} alt="PocketPi" />
+        <div className="app-icon">
+          {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+           <img src={Index.logo} className="logo-header" alt="PocketPi" />
         </div>
         <div className="header-right"></div>
       </header>
-      <div className="transaction-pin-details common-pin-details">
+      <div className="common-pin-details">
         <Formik
           initialValues={{ pinFields: ["", "", "", "", ""] }}
-          validationSchema={validationSchema}
+          validationSchema={Index.addVerificationPinSchema(t)}
           onSubmit={handleSubmitFunction}
         >
           {({
@@ -86,57 +88,44 @@ const VerificationPin = ({ handleSubmitFunction, setNextPage }) => {
             setTouched,
             validateForm,
           }) => (
-            <form className="p-20-0 set-pin-div" onSubmit={handleSubmit}>
-              <Box className="p-20">
+            <form onSubmit={handleSubmit}>
+              <>
                 <Box className="common-head-details">
-                  <Typography variant="h5" className="heading" gutterBottom>
-                    Verify PIN
+                  <Typography variant="h5" className="common-heading" gutterBottom>
+                    {t("VerifyPIN")}
                   </Typography>
                   <Typography
                     variant="h6"
-                    className="heading-note"
+                    className="common-para"
                     gutterBottom
                   >
-                    For your security, please enter your 5-digit transaction PIN
-                    to continue with this transaction.
+                    {t("ForPIN")}
                   </Typography>
                 </Box>
 
-                <Grid container spacing={4}>
-                  <Grid item xs={12} md={6} className="set-pin-box">
-                    <Typography variant="h6" className="text" gutterBottom>
-                      Enter PIN
-                    </Typography>
-                    {renderPinInputs(values, setFieldValue)}
 
-                    {touched.pinFields &&
-                      errors.pinFields &&
-                      typeof errors.pinFields === "string" && (
-                        <Typography color="error" variant="body2" mt={1}>
-                          {errors.pinFields}
-                        </Typography>
-                      )}
-                  </Grid>
-                </Grid>
+                <p variant="h6" className="user-form-lable" gutterBottom>
+                  {t("EnterPIN")}
+                </p>
+                {renderPinInputs(values, setFieldValue)}
 
-                <Box className="common-pin-btn-center">
+                {touched.pinFields &&
+                  errors.pinFields &&
+                  typeof errors.pinFields === "string" && (
+                    <p color="error" className="input-error">
+                      {errors.pinFields}
+                    </p>
+                  )}
+
+                <Box className="common-btn-space-main">
                   <button
                     type="submit"
-                    className="secondary-btn share-btn"
-                    // onClick={async () => {
-                    //   await setTouched({
-                    //     pinFields: [true, true, true, true, true],
-                    //   });
-                    //   const errors = await validateForm();
-                    //   if (!errors.pinFields) {
-                    //     handleSubmit();
-                    //   }
-                    // }}
+                    className="common-btn"
                   >
-                    Verify
+                    {t("Verify")}
                   </button>
                 </Box>
-              </Box>
+              </>
             </form>
           )}
         </Formik>

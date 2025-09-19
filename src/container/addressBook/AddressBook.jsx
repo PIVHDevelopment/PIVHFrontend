@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as Yup from "yup"; // For validation
 import Index from "../Index";
 import {
   Box,
@@ -12,6 +11,7 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import * as Yup from "yup";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useLocation } from "react-router-dom";
@@ -33,6 +33,9 @@ const initialValues = {
   id: "",
 };
 const AddressBook = () => {
+  const { t } = Index.useTranslation();
+  const language = localStorage.getItem("language");
+  let isRtl = language === "Ar" ? true : false;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -41,7 +44,7 @@ const AddressBook = () => {
     setId("");
     setSelectedData(initialValues);
   };
-
+  const [loading, setLoading] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [address, setAddress] = React.useState([]);
   const [buttonLoader, setButtonLoader] = React.useState(false);
@@ -71,7 +74,7 @@ const AddressBook = () => {
         userId: userData?._id,
       });
       if (res?.data?.status === 200 || res?.data?.status === 201) {
-        Index.toasterSuccess(res?.data?.message);
+        Index.toasterSuccess(res?.data?.message?.[language]);
         getAddress();
         handleClose();
       } else {
@@ -79,13 +82,15 @@ const AddressBook = () => {
       }
     } catch (error) {
       Index.toasterError(
-        error?.response?.data?.message || "An unexpected error occurred."
+        error?.response?.data?.message?.[language] ||
+        t("AnUnexpectedErrorOccurred")
       );
     } finally {
       setButtonLoader(false);
     }
   };
   const getAddress = async () => {
+    setLoading(true);
     Index.DataService.get(
       Index.Api.GET_ADDRESS + "/" + userData?._id + "/" + type
     ).then((res) => {
@@ -93,15 +98,18 @@ const AddressBook = () => {
         setAddress(res.data.data);
       }
     });
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
   };
   const handleDelete = async () => {
     setButtonLoader(true);
     Index.DataService.post(Index.Api.DELETE_ADDRESS + "/" + id).then((res) => {
       if (res?.data?.status) {
-        Index.toasterSuccess(res.data.message);
+        Index.toasterSuccess(res.data.message?.[language]);
         getAddress();
       } else {
-        Index.toasterError(res.data.message);
+        Index.toasterError(res.data.message?.[language]);
       }
     });
     setButtonLoader(false);
@@ -112,106 +120,124 @@ const AddressBook = () => {
   }, []);
   return (
     <>
-      <div className="app-container">
-        <header className="receive-center">
-          <button className="back-btn" onClick={() => navigate(-1)}>
-            <img src={Index.back} alt="Back" />
-          </button>
-          <div className="app-icon" style={{ marginLeft: "-26px" }}>
-            <img src={Index.pocketPi} alt="PocketPi" />
-          </div>
-          <div className="header-right"></div>
-        </header>
-
-        <Box className="address-book-details">
-          <Box className="address-book-head">
-            <Typography className="address-book-title">Address Book</Typography>
-            <button className="icon-btn" onClick={handleOpen}>
-              <img src={Index.Plusadd} alt="Setting" />
+      {loading ? (
+        <Index.Loader />
+      ) : (
+        <div className="app-container">
+          <header className="receive-center">
+            <button
+              className="back-btn"
+              onClick={() =>
+                navigate("/home", {
+                  state: { isBusiness },
+                })
+              }
+            >
+              <img src={Index.back} alt="Back" />
             </button>
-          </Box>
-          <Box className="address-book-listing">
-            <List className="list-ul-address">
-              {address.length ? (
-                address.map((item) => {
-                  return (
-                    <ListItem className="list-item-address">
-                      <Box className="flex-justify-gap-add">
-                        <Box className="address-left-contain">
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              Type :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.type}
-                            </Typography>
+            <div className="app-icon">
+              {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
+              <img src={Index.logo} className="logo-header" alt="PocketPi" />
+            </div>
+            <div className="header-right"></div>
+          </header>
+
+          <Box className="address-book-details">
+            <Box className="address-book-head">
+              <Typography className="address-book-title">
+                {t("AddressBook")}
+              </Typography>
+              <button className="icon-btn" onClick={handleOpen}>
+                <img src={Index.Plusadd} alt="Setting" />
+              </button>
+            </Box>
+            <Box className="address-book-listing">
+              <List className="list-ul-address">
+                {address.length ? (
+                  address.map((item) => {
+                    return (
+                      <ListItem
+                        className={`list-item-address ${isRtl ? "text-align-right" : ""
+                          }`}
+                      >
+                        <Box className="flex-justify-gap-add">
+                          <Box className="address-left-contain">
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Type")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.type}
+                              </Typography>
+                            </Box>
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Name")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.name}
+                              </Typography>
+                            </Box>
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Username")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.userName}
+                                <button
+                                  className="copy-btn ms-1"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(
+                                      item?.userName
+                                    );
+                                    Index.toasterSuccess(
+                                      t("UsernameCopiedToClipboard")
+                                    );
+                                  }}
+                                >
+                                  <img src={Index.copy} alt={t("Copy")} />
+                                </button>
+                              </Typography>
+                            </Box>
                           </Box>
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              Name :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.name}
-                            </Typography>
-                          </Box>
-                          <Box className="list-field-show">
-                            <Typography className="label-contain-address">
-                              Username :
-                            </Typography>
-                            <Typography className="field-contain-address">
-                              {item?.userName}
+
+                          <Box className="address-right-contain">
+                            <Box className="address-auth-details">
                               <button
-                                className="copy-btn ms-1"
+                                className="btn btn-edit-icons"
                                 onClick={() => {
-                                  navigator.clipboard.writeText(item?.userName);
-                                  Index.toasterSuccess(
-                                    "Username copied to clipboard!"
-                                  );
+                                  setSelectedData(item);
+                                  handleOpen();
+                                  setId(item?._id);
                                 }}
                               >
-                                <img src={Index.copy} alt="Copy" />
+                                <EditOutlinedIcon />
                               </button>
-                            </Typography>
+                              <button
+                                className="btn btn-delete-icons"
+                                onClick={() => handleOpenDelete(item?._id)}
+                              >
+                                <DeleteOutlineRoundedIcon />
+                              </button>
+                            </Box>
                           </Box>
                         </Box>
-
-                        <Box className="address-right-contain">
-                          <Box className="address-auth-details">
-                            <button
-                              className="btn btn-edit-icons"
-                              onClick={() => {
-                                setSelectedData(item);
-                                handleOpen();
-                                setId(item?._id);
-                              }}
-                            >
-                              <EditOutlinedIcon />
-                            </button>
-                            <button
-                              className="btn btn-delete-icons"
-                              onClick={() => handleOpenDelete(item?._id)}
-                            >
-                              <DeleteOutlineRoundedIcon />
-                            </button>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </ListItem>
-                  );
-                })
-              ) : (
-                <div className="no-address-book">
-                  {/* <img src={Index.addressbook} alt="addressbook" /> */}
-                  <Typography className="no-address-title">
-                    No Address Data Found
-                  </Typography>
-                </div>
-              )}
-            </List>
+                      </ListItem>
+                    );
+                  })
+                ) : (
+                  <div className="no-address-book">
+                    {/* <img src={Index.addressbook} alt="addressbook" /> */}
+                    <Typography className="no-address-title">
+                      {t("NoAddressDataFound")}
+                    </Typography>
+                  </div>
+                )}
+              </List>
+            </Box>
           </Box>
-        </Box>
-      </div>
-
+        </div>
+      )}
       <Modal
         className="address-modal common-modall"
         open={open}
@@ -221,7 +247,7 @@ const AddressBook = () => {
       >
         <Box sx={style} className="common-style-modal address-style">
           <Box className="modal-header-common address-modal-header">
-            <Typography className="add-title">Add Address </Typography>
+            <Typography className="add-title">{t("AddAddress")} </Typography>
             <button
               type="button"
               className="btn-close"
@@ -237,16 +263,13 @@ const AddressBook = () => {
               userName: selectedData?.userName || "",
             }}
             validationSchema={Yup.object({
-              type: Yup.string().required("Type is required"),
+              type: Yup.string().required(t("TypeRequired")),
               name: Yup.string()
-                .required("Name is required"),
-                // .matches(
-                //   /^\S.*\S$|^\S$/,
-                //   "Name cannot start or end with a space"
-                // ),
+                .required(t("NameRequired"))
+                .matches(/^\S.*\S$|^\S$/, t("NameSpace")),
               userName: Yup.string()
-                .required("Username is required")
-                .matches(/^\S+$/, "Username cannot contain spaces"),
+                .required(t("UsernameRequired"))
+                .matches(/^\S+$/, t("UsernameSpace")),
             })}
             onSubmit={(values) => {
               handleSubmit(values);
@@ -257,89 +280,90 @@ const AddressBook = () => {
                 <Box className="modal-body address-body">
                   <Box className="address-details">
                     <Box className="grid-row">
-                      <Box className="common-grid">
-                        <div className="flex-filed-details">
-                          <Typography className="label-field">Type</Typography>
-                          <RadioGroup
-                            className="radio-group-flex"
-                            name="type"
-                            value={formik.values.type}
-                            onChange={formik.handleChange}
-                          >
-                            <FormControlLabel
-                              className="radio-label"
-                              value="Individual"
-                              control={<Radio />}
-                              label="Individual"
-                            />
-                            <FormControlLabel
-                              className="radio-label"
-                              value="Business"
-                              control={<Radio />}
-                              label="Business"
-                            />
-                          </RadioGroup>
-                          {/* {formik.errors.type && formik.touched.type && (
-                            <Typography className="error-text">
-                              {formik.errors.type}
-                            </Typography>
-                          )} */}
-                        </div>
-                      </Box>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Type")}
+                        </p>
+                        <RadioGroup
+                          className="radio-group-flex"
+                          name="type"
+                          value={formik.values.type}
+                          onChange={formik.handleChange}
+                        >
+                          <FormControlLabel
+                            className="radio-label"
+                            value="Individual"
+                            control={<Radio />}
+                            label={t("Individual")}
+                          />
+                          <FormControlLabel
+                            className="radio-label"
+                            value="Business"
+                            control={<Radio />}
+                            label={t("Business")}
+                          />
+                        </RadioGroup>
+                      </div>
 
-                      <Box className="common-grid">
-                        <div className="input-wrapper">
-                          <Typography className="label-field">Name</Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Name")}
+                        </p>
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
-                            placeholder="Enter Name"
+                            className="user-form-control"
+                            placeholder={t("EnterName")}
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           />
-                          <div className="input-error">
-                            {formik.errors?.name && formik.touched?.name
-                              ? formik.errors?.name
-                              : null}
-                          </div>
                         </div>
-                      </Box>
+                        <p className="input-error">
+                          {formik.errors?.name && formik.touched?.name
+                            ? formik.errors?.name
+                            : null}
+                        </p>
+                      </div>
 
-                      <Box className="common-grid">
-                        <div className="input-wrapper">
-                          <Typography className="label-field">
-                            Username
-                          </Typography>
+                      <div className="input-box">
+                        <p className="user-form-lable">
+                          {t("Username")}
+                        </p>
+                        <div className="user-form-group">
                           <input
                             type="text"
-                            className="notes-input"
-                            placeholder="Enter Username"
+                            className="user-form-control"
+                            placeholder={t("EnterUserName")}
                             name="userName"
                             value={formik.values.userName}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                           />
-                          <div className="input-error">
+                          <p className="input-error">
                             {formik.errors?.userName && formik.touched?.userName
                               ? formik.errors?.userName
                               : null}
-                          </div>
+                          </p>
                         </div>
-                      </Box>
+                      </div>
                     </Box>
                   </Box>
                 </Box>
 
-                <Box className="modal-footer modal-footer-address">
+                <Box className="modal-footer">
                   <Box className="footer-address-center">
                     <button
-                      className="action-btn full-width send-pi-btn"
+                      className="common-btn"
                       type="submit"
                       disabled={buttonLoader}
                     >
-                      {buttonLoader ? <CircularProgress size={20} /> : "Submit"}
+                      {buttonLoader ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        t("Submit")
+                      )}
                     </button>
                   </Box>
                 </Box>
@@ -370,30 +394,30 @@ const AddressBook = () => {
           <Box className="modal-body address-body">
             <Box className="delete-modal-contain">
               <Typography className="are-you-sure-title">
-                Are you sure ?
+                {t("AreYouSure")}?
               </Typography>
               <Typography className="are-you-sure-desc  ">
-                Are you sure you want to delete address records.
+                {t("DeleteRecords")}
               </Typography>
             </Box>
           </Box>
 
-          <Box className="modal-footer modal-footer-address">
-            <Box className="footer-address-center delete-flex">
+          <Box className="modal-footer">
+            <Box className="footer-address-center">
               <button
-                className="action-btn-border  send-pi-btn"
+                className="common-btn"
                 type="button"
                 onClick={handleCloseDelete}
               >
-                Cancel
+                {t("Cancel")}
               </button>
               <button
-                className="action-btn full-width send-pi-btn"
+                className="border-btn"
                 type="button"
                 onClick={(e) => handleDelete(e.target.values)}
                 disabled={buttonLoader}
               >
-                {buttonLoader ? <CircularProgress size={20} /> : "Delete"}
+                {buttonLoader ? <CircularProgress size={20} /> : t("Delete")}
               </button>
             </Box>
           </Box>
