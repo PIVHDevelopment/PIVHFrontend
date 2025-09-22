@@ -129,6 +129,7 @@ import employeetask from "../assets/images/task-management.png";
 import salary from "../assets/images/salary.png";
 import comming from "../assets/images/comming.png";
 import pending from "../assets/images/pending.png";
+import suceessgif from "../assets/images/suceessgif.gif"
 
 
 const Index = {
@@ -260,7 +261,8 @@ const Index = {
   employeetask,
   salary,
   comming,
-  pending
+  pending,
+  suceessgif
 };
 
 export default Index;

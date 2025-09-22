@@ -146,7 +146,7 @@ function SendInvoice() {
   }, []);
 
   const today = new Date();
-  const options = { day: "2-digit", month: "short", year: "numeric" };
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
   const currentDate = today.toLocaleDateString("en-GB", options);
   return (
     <>
@@ -218,11 +218,11 @@ function SendInvoice() {
                     items: formValues?.items?.length
                       ? formValues.items
                       : [
-                          {
-                            title: "",
-                            amount: "",
-                          },
-                        ],
+                        {
+                          title: "",
+                          amount: "",
+                        },
+                      ],
                   }}
                   onSubmit={handleSubmit}
                   validationSchema={Index.createInvoiceSchema(t)}

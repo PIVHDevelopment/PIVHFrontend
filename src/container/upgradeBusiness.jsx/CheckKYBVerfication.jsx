@@ -51,7 +51,7 @@ function CheckKYBVerfication() {
           {!data?.status && <>{t("Start Process of KYB Verification")} </>}
         </button> */}
             {/* {data?.status === "approved" && */}
-            <div className="common-btn-space-main">
+            <div className="common-btn-space-main gap-btn-kyc">
               <button
                 className="common-btn"
                 disabled
