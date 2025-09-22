@@ -162,6 +162,7 @@ const WalletAddressBook = () => {
               <img src={Index.Plusadd} alt="Add" />
             </button>
           </Box>
+            <Box className="address-book-listing">
           <List className="list-ul-address">
             {wallets.length > 0 ? (
               wallets.map((wallet) => (
@@ -210,6 +211,7 @@ const WalletAddressBook = () => {
               </Box>
             )}
           </List>
+          </Box>
         </Box>
 
         <Modal open={open} onClose={handleClose} className="address-modal">

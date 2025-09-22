@@ -98,7 +98,7 @@ const FeedbackComplaint = () => {
             </button>
             <div className="app-icon">
               {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
-               <img src={Index.logo} className="logo-header" alt="PocketPi" />
+              <img src={Index.logo} className="logo-header" alt="PocketPi" />
             </div>
             <div className="header-right"></div>
           </header>
@@ -112,76 +112,76 @@ const FeedbackComplaint = () => {
                 <img src={Index.Plusadd} alt={t("Add")} />
               </button>
             </Box>
-            <List className="list-ul-address">
-              {feedbackData.length > 0 ? (
-                feedbackData.map((item, index) => (
-                  <ListItem
-                    key={index}
-                    className={`list-item-address ${
-                      isRtl ? "text-align-right" : ""
-                    }`}
-                  >
-                    <Box
-                      className={`flex-justify-gap-add ${
-                        item?.status !== "pending" ? "custom-align" : ""
-                      }`}
+            <Box className="address-book-listing">
+              <List className="list-ul-address">
+                {feedbackData.length > 0 ? (
+                  feedbackData.map((item, index) => (
+                    <ListItem
+                      key={index}
+                      className={`list-item-address ${isRtl ? "text-align-right" : ""
+                        }`}
                     >
-                      <Box className="address-left-contain">
-                        <Box className="list-field-show">
-                          <Typography className="label-contain-address">
-                            {t("Email")} :
-                          </Typography>
-                          <Typography className="field-contain-address">
-                            {item?.email}
-                          </Typography>
-                        </Box>
-                        <Box className="list-field-show">
-                          <Typography className="label-contain-address">
-                            {t("Description")} :
-                          </Typography>
-                          <Typography className="field-contain-address">
-                            {item?.description}
-                          </Typography>
-                        </Box>
-                        <Box className="list-field-show">
-                          <Typography className="label-contain-address">
-                            {t("Status")} :
-                          </Typography>
-                          <Typography className="field-contain-address custom-field-contain-status">
-                            {item?.status}
-                          </Typography>
-                        </Box>
-                        <Box className="list-field-show">
-                          <Typography className="label-contain-address">
-                            {t("Date")} :
-                          </Typography>
-                          <Typography className="field-contain-address custom-field-contain-status">
-                            {Index.moment(item?.createdAt).format(
-                              "DD/MM/YYYY hh:mm A"
-                            )}
-                          </Typography>
-                        </Box>
-                        {/* <Box className="list-field-show list-field-show-full"> */}
-                        {item?.status == "close" && (
+                      <Box
+                        className={`flex-justify-gap-add ${item?.status !== "pending" ? "custom-align" : ""
+                          }`}
+                      >
+                        <Box className="address-left-contain">
                           <Box className="list-field-show">
                             <Typography className="label-contain-address">
-                              {t("Reason")} :
+                              {t("Email")} :
                             </Typography>
                             <Typography className="field-contain-address">
-                              {item?.reason}
+                              {item?.email}
                             </Typography>
                           </Box>
-                        )}
+                          <Box className="list-field-show">
+                            <Typography className="label-contain-address">
+                              {t("Description")} :
+                            </Typography>
+                            <Typography className="field-contain-address">
+                              {item?.description}
+                            </Typography>
+                          </Box>
+                          <Box className="list-field-show">
+                            <Typography className="label-contain-address">
+                              {t("Status")} :
+                            </Typography>
+                            <Typography className="field-contain-address custom-field-contain-status">
+                              {item?.status}
+                            </Typography>
+                          </Box>
+                          <Box className="list-field-show">
+                            <Typography className="label-contain-address">
+                              {t("Date")} :
+                            </Typography>
+                            <Typography className="field-contain-address custom-field-contain-status">
+                              {Index.moment(item?.createdAt).format(
+                                "DD/MM/YYYY hh:mm A"
+                              )}
+                            </Typography>
+                          </Box>
+                          {/* <Box className="list-field-show list-field-show-full"> */}
+                          {item?.status == "close" && (
+                            <Box className="list-field-show">
+                              <Typography className="label-contain-address">
+                                {t("Reason")} :
+                              </Typography>
+                              <Typography className="field-contain-address">
+                                {item?.reason}
+                              </Typography>
+                            </Box>
+                          )}
+                        </Box>
                       </Box>
-                    </Box>
-                  </ListItem>
-                ))
-              ) : (
-                <Index.NoDataFound
-                  message={t("No Feedback And Complaint Found")}
-                />
-              )}
-            </List>
+                    </ListItem>
+                  ))
+                ) : (
+                  <Index.NoDataFound
+                    message={t("No Feedback And Complaint Found")}
+                  />
+                )}
+              </List>
+            </Box>
           </Box>
 
           {/* Add/Edit Modal */}
@@ -201,52 +201,54 @@ const FeedbackComplaint = () => {
               >
                 {(formik) => (
                   <form onSubmit={formik.handleSubmit}>
-                    <Box className="modal-body address-body">
-                      <Box className="grid-row">
-                        <div className="input-box">
-                          <p className="user-form-lable">{t("Email")}</p>
-                          <div className="user-form-group">
-                            <input
-                              type="text"
-                              className="user-form-control"
-                              placeholder={t("Enter Email")}
-                              name="email"
-                              value={formik.values.userName}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              maxLength={164}
-                            />
-                            <p className="input-error">
-                              {formik.errors.email && formik.touched.email
-                                ? t(formik.errors.email)
-                                : null}
-                            </p>
+                    <Box>
+                      <Box className="modal-body address-body">
+                        <Box className="grid-row">
+                          <div className="input-box">
+                            <p className="user-form-lable">{t("Email")}</p>
+                            <div className="user-form-group">
+                              <input
+                                type="text"
+                                className="user-form-control"
+                                placeholder={t("Enter Email")}
+                                name="email"
+                                value={formik.values.userName}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                maxLength={164}
+                              />
+                              <p className="input-error">
+                                {formik.errors.email && formik.touched.email
+                                  ? t(formik.errors.email)
+                                  : null}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <div className="input-box">
-                          <p className="user-form-lable">{t("Description")}</p>
-                          <div className="user-form-group">
-                            <TextField
-                              type="text"
-                              multiline
-                              rows={3}
-                              className="user-form-control-textarea"
-                              placeholder={t("EnterDescription")}
-                              name="description"
-                              value={formik.values.description}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              inputProps={{ maxLength: 512 }}
-                            />
+                          <div className="input-box">
+                            <p className="user-form-lable">{t("Description")}</p>
+                            <div className="user-form-group">
+                              <TextField
+                                type="text"
+                                multiline
+                                rows={3}
+                                className="user-form-control-textarea"
+                                placeholder={t("EnterDescription")}
+                                name="description"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                inputProps={{ maxLength: 512 }}
+                              />
 
-                            <p className="input-error">
-                              {formik.errors.description &&
-                              formik.touched.description
-                                ? t(formik.errors.description)
-                                : null}
-                            </p>
+                              <p className="input-error">
+                                {formik.errors.description &&
+                                  formik.touched.description
+                                  ? t(formik.errors.description)
+                                  : null}
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        </Box>
                       </Box>
                       <Box className="modal-footer">
                         <Box className="footer-address-center">

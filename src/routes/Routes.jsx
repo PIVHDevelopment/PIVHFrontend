@@ -114,7 +114,6 @@ const Routers = () => {
         {
           path: "/home",
           element: <Home />,
-          // element: <TransactionSuccess />,
         },
         {
           path: "/deposit",

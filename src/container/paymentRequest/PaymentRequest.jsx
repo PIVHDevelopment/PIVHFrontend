@@ -212,6 +212,7 @@ const PaymentRequest = () => {
                   )}
                 </Box>
                 {tab == 1 && (
+                    <Box className="address-book-listing">
                   <List className="list-ul-address">
                     {receivedData.length > 0 ? (
                       receivedData.map((item, index) => (
@@ -281,9 +282,11 @@ const PaymentRequest = () => {
                       <Index.NoDataFound message={t("No Request Found")} />
                     )}
                   </List>
+                  </Box>
                 )}
 
                 {tab == 2 && (
+                    <Box className="address-book-listing">
                   <List className="list-ul-address">
                     {requestData.length > 0 ? (
                       requestData.map((item, index) => (
@@ -338,6 +341,7 @@ const PaymentRequest = () => {
                       <Index.NoDataFound message={t("No Request Found")} />
                     )}
                   </List>
+                  </Box>
                 )}
               </Box>
 

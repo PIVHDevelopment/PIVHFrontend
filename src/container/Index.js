@@ -91,7 +91,7 @@ import paymentRequestIcon2 from "../assets/images/payementRequestIcon2.png";
 import successfullIcon from "../assets/images/succes-icon.svg";
 import piWallettImg from "../assets/images/pi-wallet.png";
 import complainIcon from "../assets/images/complain.png";
-import languageImg from "../assets/images/Vector.png";
+import languageImg from "../assets/images/vector.png";
 import downblackAarrow from "../assets/images/down-black-arrow.svg";
 // import pencil from "../assets/images/pencil.png";
 // import delete from "../assets/images/delete.png";
@@ -129,6 +129,7 @@ import employeetask from "../assets/images/task-management.png";
 import salary from "../assets/images/salary.png";
 import comming from "../assets/images/comming.png";
 import pending from "../assets/images/pending.png";
+import suceessgif from "../assets/images/suceessgif.gif"
 
 
 const Index = {
@@ -260,7 +261,8 @@ const Index = {
   employeetask,
   salary,
   comming,
-  pending
+  pending,
+  suceessgif
 };
 
 export default Index;

@@ -9,16 +9,17 @@ export default function TransactionSuccess() {
     <>
       <div className="app-container p-20-0">
         <div className="success-main">
-          <img src={Index.piCoiImg} class="character coin" />
-          <img src={Index.piWallettImg} class="character wallet" />
+          <img src={Index.suceessgif} class="sucess-gif" />
+          {/* <img src={Index.piCoiImg} class="character coin" /> */}
+          {/* <img src={Index.piWallettImg} class="character wallet" /> */}
 
-          <div className="success-icon">
+          {/* <div className="success-icon">
             <img
               src={Index.successfullIcon}
               alt="Success"
               className="success-icon"
             />
-          </div>
+          </div> */}
           <div className="success-message-box">
             <p className="success-message">
               {t("YourTransactionWasSuccessful")}
