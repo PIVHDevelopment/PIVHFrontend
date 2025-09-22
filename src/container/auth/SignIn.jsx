@@ -15,14 +15,14 @@ function SignIn() {
     });
   };
 
-    useEffect(()=>{
-      if (selectedLang == "Ar") {
-        document.body.classList.add("direction-rtl");
-      } else {
+  useEffect(() => {
+    if (selectedLang == "Ar") {
+      document.body.classList.add("direction-rtl");
+    } else {
       document.body.classList.remove("direction-rtl");
     }
-      i18n.changeLanguage(selectedLang);
-    },[selectedLang])
+    i18n.changeLanguage(selectedLang);
+  }, [selectedLang]);
 
   const signIn = async () => {
     setIsLoading(true);
@@ -39,7 +39,10 @@ function SignIn() {
   };
   const signInUser = (authResult) => {
     // alert("Hey : ");
-    Index.DataService.post(Index.Api.SIGN_IN, { authResult , language : selectedLang})
+    Index.DataService.post(Index.Api.SIGN_IN, {
+      authResult,
+      language: selectedLang,
+    })
       .then((res) => {
         let userData = res?.data?.data;
         sessionStorage.setItem("pi_user_data", JSON.stringify(userData));
@@ -67,21 +70,21 @@ function SignIn() {
         <Index.Loader />
       ) : (
         <div className="app-container signin-main">
-            <header className="signin-header">
-                <img src={Index.logo} alt="PocketPi" className="auth-logo"/>
-            </header>
-            <div className="sigin-body">
-              <button className="secondary-btn" onClick={signIn}>
-                {/* {isLoading ? (
+          <header className="signin-header">
+            <img src={Index.logo} alt="PocketPi" className="auth-logo" />
+          </header>
+          <div className="sigin-body">
+            <button className="secondary-btn" onClick={signIn}>
+              {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
-                {t("Sign In")}
-                {/* )} */}
-              </button>
-            </div>
+              {t("Sign In")}
+              {/* )} */}
+            </button>
+          </div>
 
           {/* Language Switcher */}
-          <div className="sigin-lang-footer">
+          <div className="sigin-lang-footer" style={{ display: "none" }}>
             {[
               { code: "En", label: "English" },
               { code: "Ar", label: "Arabic" },
@@ -104,7 +107,9 @@ function SignIn() {
             <p onClick={() => navigate("/term-conditions")}>
               {t("Terms & Conditions")}
             </p>
-            <p onClick={() => navigate("/privacy-policy")}>{t("Privacy Policy")}</p>
+            <p onClick={() => navigate("/privacy-policy")}>
+              {t("Privacy Policy")}
+            </p>
           </div>
         </div>
       )}
