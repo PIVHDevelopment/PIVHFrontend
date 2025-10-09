@@ -6,7 +6,7 @@ import {
 import PrivacyPolicy from "../container/privacyPolicy/PrivacyPolicy";
 import TermsAndConditions from "../container/termsAndConditions/TermsAndConditions";
 import Receive from "../container/receive/Receive";
-import Home from "../container/home/home";
+import Home from "../container/home/Home";
 import ReceiveMerchant from "../container/receiveMerchant/ReceiveMerchant";
 import Send from "../container/send/Send";
 import Shop from "../Shop";
