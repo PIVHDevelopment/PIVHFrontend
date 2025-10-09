@@ -119,8 +119,8 @@ function InvoiceRequest() {
             )}
 
             {data?.status === "pending" &&
-            // userData?._id != data?.sendReqUserId?._id && (
-              userData?._id == data?.sendReqUserId?._id && (
+            userData?._id != data?.sendReqUserId?._id && (
+              // userData?._id == data?.sendReqUserId?._id && (
                 <div className="common-btn-space-main">
                   <button
                     className="common-btn"
