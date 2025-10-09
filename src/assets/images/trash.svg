@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_27" data-name="Rectangle 27" width="15" height="15" transform="translate(1294 340)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_16" data-name="Mask Group 16" transform="translate(-1294 -340)" clip-path="url(#clip-path)">
+    <g id="__TEMP__SVG__" transform="translate(1293.114 339.063)">
+      <path id="Path_30" data-name="Path 30" d="M12.722,15.938H4.153a1.373,1.373,0,0,1-1.341-1.406V5.264H3.75v9.267a.436.436,0,0,0,.4.469h8.569a.436.436,0,0,0,.4-.469V5.264h.938v9.267A1.373,1.373,0,0,1,12.722,15.938Z" fill="#e4004d"/>
+      <path id="Path_31" data-name="Path 31" d="M14.428,4.219H2.344a.469.469,0,0,1,0-.937H14.428a.469.469,0,1,1,0,.938Z" fill="#e4004d"/>
+      <path id="Path_32" data-name="Path 32" d="M9.844,6.094h.938v7.031H9.844Z" fill="#e4004d"/>
+      <path id="Path_33" data-name="Path 33" d="M6.094,6.094h.938v7.031H6.094Z" fill="#e4004d"/>
+      <path id="Path_34" data-name="Path 34" d="M10.781,2.747H9.891V1.875H6.984v.872H6.094V1.875A.937.937,0,0,1,6.984.938H9.891a.937.937,0,0,1,.891.938Z" fill="#e4004d"/>
+    </g>
+  </g>
+</svg>

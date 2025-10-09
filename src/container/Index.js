@@ -71,7 +71,9 @@ import deposit from "../assets/images/deposit.png";
 import uparrow from "../assets/images/uparrow.png";
 import subscribedIcon from "../assets/images/subscribed.png";
 import copyLink from "../assets/images/copy-link.png";
-
+import Nominee from "../assets/images/nominee.png"
+import Privacy from "../assets/images/privacypolicy.png"
+import Terms from "../assets/images/termcondition.png"
 import wallet from "../assets/images/wallet.png";
 import send from "../assets/images/send.png";
 import downarrow from "../assets/images/receive.png";
@@ -93,8 +95,8 @@ import piWallettImg from "../assets/images/pi-wallet.png";
 import complainIcon from "../assets/images/complain.png";
 import languageImg from "../assets/images/vector.png";
 import downblackAarrow from "../assets/images/down-black-arrow.svg";
-// import pencil from "../assets/images/pencil.png";
-// import delete from "../assets/images/delete.png";
+import pencil from "../assets/images/pencil.svg";
+import trash from "../assets/images/trash.svg";
 import { Modal, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import DataService from "../utils/DataService";
@@ -183,8 +185,8 @@ const Index = {
   Plusadd,
   languageImg,
   downblackAarrow,
-  // pencil,
-  // delete,
+  pencil,
+  trash,
   addressbook,
   walletaddress,
   businessaddress,
@@ -262,7 +264,10 @@ const Index = {
   salary,
   comming,
   pending,
-  suceessgif
+  suceessgif,
+  Nominee,
+  Privacy,
+  Terms
 };
 
 export default Index;

@@ -146,7 +146,7 @@ function SendInvoice() {
   }, []);
 
   const today = new Date();
-  const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  const options = { day: "2-digit", month: "short", year: "numeric" };
   const currentDate = today.toLocaleDateString("en-GB", options);
   return (
     <>
@@ -218,11 +218,11 @@ function SendInvoice() {
                     items: formValues?.items?.length
                       ? formValues.items
                       : [
-                        {
-                          title: "",
-                          amount: "",
-                        },
-                      ],
+                          {
+                            title: "",
+                            amount: "",
+                          },
+                        ],
                   }}
                   onSubmit={handleSubmit}
                   validationSchema={Index.createInvoiceSchema(t)}
@@ -241,43 +241,61 @@ function SendInvoice() {
                         {/* Party Name */}
                         <Index.Box className="input-bg-white-party">
                           <div className="input-box">
-                            <div className="user-form-group">
-                              <Index.FormHelperText
-                                component="label"
-                                className="form-labels"
-                              >
-                                Party Name <span className="error-star">*</span>
-                              </Index.FormHelperText>
+                            {/* <div className="user-form-group"> */}
+                            <Index.FormHelperText
+                              component="label"
+                              className="form-labels"
+                            >
+                              Party Name <span className="error-star">*</span>
+                            </Index.FormHelperText>
 
-                              <Autocomplete
-                                options={userList}
-                                getOptionLabel={(option) => option.userName}
-                                className="kyb-autocomplete-input user-form-control"
-                                value={
-                                  userList.find(
-                                    (u) => u._id === formik.values.userId
-                                  ) || null
-                                }
-                                onChange={(e, value) =>
-                                  formik.setFieldValue(
-                                    "userId",
-                                    value?._id || ""
-                                  )
-                                }
-                                renderInput={(params) => (
-                                  <TextField
-                                    {...params}
-                                    name="userId"
-                                    className="dropdown-select"
-                                    placeholder="Select User"
-                                  />
-                                )}
-                              />
+                            <Autocomplete
+                              options={userList}
+                              getOptionLabel={(option) => option.userName}
+                              // className="kyb-autocomplete-input user-form-control"
+                              value={
+                                userList.find(
+                                  (u) => u._id === formik.values.userId
+                                ) || null
+                              }
+                              onChange={(e, value) =>
+                                formik.setFieldValue("userId", value?._id || "")
+                              }
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  name="userId"
+                                  className="user-form-control"
+                                  placeholder="Select User"
+                                  InputProps={{
+                                    ...params.InputProps,
+                                    style: {
+                                      height: "45px",
+                                      borderRadius: "12px",
+                                      padding: "10 20px",
+                                      color: "var(--text-color)",
+                                    },
+                                  }}
+                                  inputProps={{
+                                    ...params.inputProps,
+                                    style: {
+                                      fontSize: "14px",
+                                    },
+                                  }}
+                                  sx={{
+                                    "& .MuiInputBase-input::placeholder": {
+                                      fontSize: "14px",
+                                      opacity: 0.6,
+                                    },
+                                  }}
+                                />
+                              )}
+                            />
 
-                              <p className="input-error">
-                                {formik.touched.userId && formik.errors.userId}
-                              </p>
-                            </div>
+                            <p className="input-error">
+                              {formik.touched.userId && formik.errors.userId}
+                            </p>
+                            {/* </div> */}
                           </div>
 
                           {/* Items Section */}

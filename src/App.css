@@ -71,6 +71,23 @@ body {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.policy-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* background-image: url("./assets/images/Dash-Board-BG.png"); */
+  /* background-image: url("./assets/images/Dash-Board-BGnew.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  background-color: #6EC6F0;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Header Styles */
 header {
   display: flex;
@@ -2960,4 +2977,117 @@ span.error-star {
   height: 20px;
   width: 20px;
   filter: brightness(0) saturate(100%) invert(21%) sepia(98%) saturate(1336%) hue-rotate(196deg) brightness(91%) contrast(90%);
+  cursor: pointer;
+}
+
+.picker-control.user-form-group  input{
+  padding: 0px;
+}
+
+.input-box .picker-control.user-form-group .MuiFormControl-root {
+    width: 100%;
+}
+
+
+.picker-control.user-form-group button.MuiButtonBase-root{
+  padding: 0px;
+}
+
+
+.input-box .picker-control.user-form-group .MuiPickersInputBase-sectionsContainer {
+    padding: 0px;
+}
+
+.input-box .MuiAutocomplete-input {
+    padding: 0px 18px !important;
+}
+.picker-control.user-form-group  .MuiPickersInputBase-root {
+    padding: 10.5px 20px;
+    font-size: 15px;
+    line-height: 22px;
+    font-family: "Poppins";
+    font-weight: 400;
+    color: var(--white);
+    background: var(--dark-bg);
+    border: none;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    width: 100%;
+}
+
+.user-form-control {
+  height: 45px;
+  width: 150%;
+  border-radius: 12px;
+  padding: 0 20px;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  border: none;
+  outline: none;
+}
+
+/*popup signin css*/
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #92cbcf;
+  /* background: #ffffff; */
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cancel-btn,
+.close-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #000;
+}
+
+.close-btn {
+  background: #006eff;
+  color: #fff;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.popup-text {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #000;
 }

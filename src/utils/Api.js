@@ -1,6 +1,7 @@
 const Api = {
   SIGN_IN: "user/sign-in",
   SIGN_OUT: "user/sign-out",
+  CLOSE_POPUP: "user/close-popup",
 
   SET_PIN_QUESTION: "user/add-edit-usertxn-pin",
   SET_PIN_QUESTION_BUSINESS: "user/add-edit-businesstxn-pin",
@@ -65,6 +66,27 @@ const Api = {
   RELEASE_PAYMENT: "/user/release-payment",
   GET_INVOICE: "/user/get-invoice-list",
   GET_ONE_INVOICE: "/user/get-invoice",
+
+  ADD_USER_MANAGEMENT: "/user/add-edit-usermanagement",
+  GET_USER_MANAGEMENT: "/user/get-user-management-list",
+  DELETE_USER_MANAGEMENT: "/user/delete-user-management",
+  GET_USER_BY_ID: "/user/get-user-management",
+  GET_ALL_USER: "/user/get-all-user",
+
+  ADD_EDIT_PAYROLL: "/user/add-edit-payroll",
+  GET_PAYROLL: "/user/get-payroll-list",
+  DELETE_PAYROLL: "/user/delete-payroll",
+  GET_PAYROLL_BY_ID: "/user/get-payroll",
+
+  ADD_EDIT_EMPLOYEE_ROLE: "/user/add-edit-employeerole",
+  GET_EMPLOYEE_ROLE: "/user/get-employeerole-list",
+  DELETE_EMPLOYEE_ROLE: "/user/delete-employeerole",
+  GET_EMPLOYEE_ROLE_BY_ID: "/user/get-employeerole",
+
+  ADD_EDIT_NOMINEE: "/user/add-edit-nominee",
+  GET_NOMINEE: "/user/get-nominee-list",
+  DELETE_NOMINEE: "/user/delete-nominee",
+  GET_NOMINEE_BY_ID: "/user/get-nominee",
 };
 
 export default Api;

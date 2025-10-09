@@ -46,13 +46,17 @@ function Business({ balance }) {
             <img src={Index.bill} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Invoices / Billing</Index.Typography>
           </Link>
-          <Link to="/comming-soon" className=" business-box-main">
+          <Link to="/user-management" className=" business-box-main">
             <img src={Index.employeetask} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Employee Management</Index.Typography>
           </Link>
-           <Link to="/comming-soon"  className=" business-box-main">
+           <Link to="/payroll"  className=" business-box-main">
             <img src={Index.salary} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Payroll</Index.Typography>
+          </Link>
+          <Link to="/employee-roll"  className=" business-box-main">
+            <img src={Index.employeetask} alt="bill" className="business-icons" />
+            <Index.Typography className="business-title">Employee Roll</Index.Typography>
           </Link>
         </Index.Box>
       </Index.Box>

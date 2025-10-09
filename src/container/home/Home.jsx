@@ -4,7 +4,6 @@ import Business from "./business/Business";
 import Index from "../Index";
 import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
-
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
 
@@ -196,7 +195,7 @@ function Home() {
               data-bs-toggle="modal"
               data-bs-target="#exampleModalMerchant"
               onClick={handleOpen}
-            // onClick={() => navigate("/add-wallet")}
+              // onClick={() => navigate("/add-wallet")}
             >
               <img src={Index.setting} alt={t("Setting")} />
             </button>
@@ -211,7 +210,7 @@ function Home() {
             defaultActiveKey="individual"
             activeKey={tab}
           >
-            <div className="wallet-tabs">
+            {/* <div className="wallet-tabs">
               <button
                 className={`tab-btn${tab === 1 ? " active" : ""}`}
                 data-tab="individual"
@@ -232,14 +231,36 @@ function Home() {
                     {t("Business")}
                   </button>
                 )}
-            </div>
+            </div> */}
+
+            {userData?.businessTxn?.isPin &&
+              userData?.businessTxn?.isQuestion && (
+                <div className="wallet-tabs">
+                  <button
+                    className={`tab-btn${tab === 1 ? " active" : ""}`}
+                    data-tab="individual"
+                    onClick={() => setTab(1)}
+                  >
+                    {t("Individual")}
+                  </button>
+                  <button
+                    className={`tab-btn${tab === 2 ? " active" : ""}`}
+                    data-tab="business"
+                    onClick={() => setTab(2)}
+                  >
+                    {t("Business")}
+                  </button>
+                </div>
+              )}
 
             <Index.TabContent>
               <Index.TabPane eventKey={1}>
                 <div className="wallet-id">
                   <div className="tick-mark-icons">
                     <span id="walletAddress">
-                      {tab == 1 ? userData?.userName : userData?.businessUserName}
+                      {tab == 1
+                        ? userData?.userName
+                        : userData?.businessUserName}
                     </span>
                     {/* <div>
                   <img
@@ -249,7 +270,7 @@ function Home() {
                   />
                 </div> */}
                     {(tab === 2 && !userData?.isBusinessSubscription) ||
-                      (tab === 1 && !userData?.isIndividualSubscription) ? (
+                    (tab === 1 && !userData?.isIndividualSubscription) ? (
                       ""
                     ) : (
                       <div>
@@ -273,7 +294,9 @@ function Home() {
                   <p className="balance-label">{t("CurrentBalance")}</p>
                   <h1 className="balance-amount">
                     {parseFloat(tab == 2 ? businessBalance : balance) > 0
-                      ? parseFloat(tab == 2 ? businessBalance : balance).toFixed(5)
+                      ? parseFloat(
+                          tab == 2 ? businessBalance : balance
+                        ).toFixed(5)
                       : 0}{" "}
                     Pi
                   </h1>
@@ -288,8 +311,9 @@ function Home() {
 
           {transactionList?.length ? (
             <div
-              className={`transaction-section ${isExpanded ? "expanded" : "collapsed"
-                }`}
+              className={`transaction-section ${
+                isExpanded ? "expanded" : "collapsed"
+              }`}
             >
               <div className="toggle-arrow" onClick={toggleSection}>
                 {isExpanded ? (
@@ -317,9 +341,10 @@ function Home() {
                           <p className="transaction-title">
                             {transaction?.memo || transaction?.type}{" "}
                             {transaction?.receiver_name &&
-                              `(${transaction?.paymentType === "sent"
-                                ? transaction?.receiver_name
-                                : transaction?.user_name
+                              `(${
+                                transaction?.paymentType === "sent"
+                                  ? transaction?.receiver_name
+                                  : transaction?.user_name
                               })`}
                           </p>
                           <p className="transaction-time">
@@ -330,8 +355,9 @@ function Home() {
                         </div>
                       </div>
                       <div
-                        className={`transaction-amount ${isPositive ? "positive" : "negative"
-                          }`}
+                        className={`transaction-amount ${
+                          isPositive ? "positive" : "negative"
+                        }`}
                       >
                         <p className="transaction-amount">
                           {amountPrefix}
@@ -385,7 +411,7 @@ function Home() {
             <h6 className="setting-cont-title">{t("AddressBook")}</h6>
           </div>
           {(tab === 2 && userData?.isBusinessSubscription) ||
-            (tab === 1 && userData?.isIndividualSubscription) ? (
+          (tab === 1 && userData?.isIndividualSubscription) ? (
             ""
           ) : (
             <div
@@ -405,18 +431,18 @@ function Home() {
 
           {(!userData?.businessTxn?.isPin ||
             !userData?.businessTxn?.isQuestion) && (
-              <NavLink
-                className="setting-cont-box"
-                to={"/check-kyb-verification"}
-              >
-                <div className="setting-icon-box">
-                  <img src={Index.businessversion} alt="" />
-                </div>
-                <h6 className="setting-cont-title">
-                  {t("UpgradeToBusinessVersion")}
-                </h6>
-              </NavLink>
-            )}
+            <NavLink
+              className="setting-cont-box"
+              to={"/check-kyb-verification"}
+            >
+              <div className="setting-icon-box">
+                <img src={Index.businessversion} alt="" />
+              </div>
+              <h6 className="setting-cont-title">
+                {t("UpgradeToBusinessVersion")}
+              </h6>
+            </NavLink>
+          )}
 
           <div
             className="setting-cont-box"
@@ -528,6 +554,62 @@ function Home() {
               <h6 className="setting-cont-title">{t("InvoiceRequest")}</h6>
             </div>
           )}
+          {tab == 1 && (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/invoice-list", {
+                  state: { isBusiness: true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.withdraw} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("Invoice")}</h6>
+            </div>
+          )}
+          {tab == 1 && (
+            <div
+              className="setting-cont-box"
+              onClick={() =>
+                navigate("/nominee", {
+                  // state: { isBusiness: true },
+                })
+              }
+            >
+              <div className="setting-icon-box">
+                <img src={Index.Nominee} alt="" />
+              </div>
+              <h6 className="setting-cont-title">{t("Nominee")}</h6>
+            </div>
+          )}
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/privacy-policy", {
+                state: { typeTxn: tab == 1 ? "individual" : "business" },
+              })
+            }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.Privacy} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Privacy Policy")}</h6>
+          </div>
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/term-conditions", {
+                state: { typeTxn: tab == 1 ? "individual" : "business" },
+              })
+            }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.Terms} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Terms & Conditions")}</h6>
+          </div>
         </Index.Modal.Body>
       </Index.Modal>
     </>

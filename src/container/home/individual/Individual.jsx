@@ -24,7 +24,7 @@ function Individual({ balance }) {
         <button
           className="action-btn send-btn"
           id="sendBtn"
-          disabled={balance <= 0}
+          // disabled={balance <= 0}
           onClick={() =>
             navigate("/send", {
               state: { balance: balance, typeTxn: "individual" },

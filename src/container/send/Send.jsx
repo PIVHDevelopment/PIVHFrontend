@@ -173,7 +173,7 @@ function Send() {
                         <div className="user-form-group">
                           <Autocomplete
                             id="userName"
-                            className="user-form-control"
+                            // className="user-form-control"
                             freeSolo
                             options={users}
                             getOptionLabel={(option) =>
@@ -223,7 +223,7 @@ function Send() {
                               <TextField
                                 {...params}
                                 name="userName"
-                                className="user-form-control"
+                                className="user-form-control"  
                                 placeholder={
                                   formik?.values?.userName ? "" : t("EnterUserName")
                                 }

@@ -3,7 +3,7 @@ import Index from "../Index";
 
 const englishText = (t, navigate) => {
   return (
-    <div className="app-container settings-page">
+    <div className="policy-container settings-page">
       <header>
         <button className="back-btn" onClick={() => navigate(-1)}>
           ←

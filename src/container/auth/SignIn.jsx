@@ -9,7 +9,14 @@ function SignIn() {
   const navigate = Index.useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLang, setSelectedLang] = useState(language || "En");
+
+  // Disclaimer popup states
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [loggedUserData, setLoggedUserData] = useState(null);
+
   const onIncompletePaymentFound = (payment) => {
+    console.log("Incomplete payment found:", payment);
     return Index.DataService.post(Index.Api.PAYMENT_DEPOSITE_INCOMPLETE, {
       payment,
     });
@@ -31,27 +38,42 @@ function SignIn() {
       scopes,
       onIncompletePaymentFound
     );
+    console.log("authResult", authResult);
     signInUser(authResult);
     sessionStorage.setItem(
       "user_token",
       JSON.stringify(authResult.accessToken)
     );
   };
+
   const signInUser = (authResult) => {
-    // alert("Hey : ");
-    Index.DataService.post(Index.Api.SIGN_IN, {
-      authResult,
+    const payload = {
+      accessToken: authResult?.accessToken,
+      user: authResult?.user,
       language: selectedLang,
-    })
+    };
+
+    Index.DataService.post(Index.Api.SIGN_IN, payload)
       .then((res) => {
+        console.log("Backend response:", res);
         let userData = res?.data?.data;
+        setLoggedUserData(userData);
+        // let userData = res?.data?.data.user;
+        // let userToken = res?.data?.data.token;
+        // localStorage.setItem("user_token", JSON.stringify(userToken));
         sessionStorage.setItem("pi_user_data", JSON.stringify(userData));
-        if (!userData?.userTxn?.isPin) {
-          navigate("/set-txn-pin");
-        } else if (!userData?.userTxn.isQuestion) {
-          navigate("/set-recovery-pin-question");
+        // if (!userData?.userTxn?.isPin) {
+        //   navigate("/set-txn-pin");
+        // } else if (!userData?.userTxn.isQuestion) {
+        //   navigate("/set-recovery-pin-question");
+        // } else {
+        //   navigate("/home");
+        // }
+        if (!userData?.disclaimerPopup) {
+          setShowDisclaimer(true);
+          setUserId(userData?._id);
         } else {
-          navigate("/home");
+          navigateAfterLogin(userData);
         }
       })
       .catch((err) => {
@@ -62,6 +84,32 @@ function SignIn() {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+  // Navigation after sign-in or popup close
+  const navigateAfterLogin = (userData) => {
+    if (!userData?.userTxn?.isPin) {
+      navigate("/set-txn-pin");
+    } else if (!userData?.userTxn.isQuestion) {
+      navigate("/set-recovery-pin-question");
+    } else {
+      navigate("/home");
+    }
+  };
+
+   // Cancel button handler
+  const handleCancel = () => {
+    setShowDisclaimer(false);
+    navigateAfterLogin(loggedUserData);
+  };
+
+  const handleDoNotShowAgain = async () => {
+    try {
+      await Index.DataService.post(Index.Api.CLOSE_POPUP, { id: userId });
+      setShowDisclaimer(false);
+      navigateAfterLogin(loggedUserData);
+    } catch (err) {
+      console.error("Error closing popup:", err);
+    }
   };
 
   return (
@@ -74,7 +122,7 @@ function SignIn() {
             <img src={Index.logo} alt="PocketPi" className="auth-logo" />
           </header>
           <div className="sigin-body">
-            <button className="secondary-btn" onClick={signIn}>
+            <button className="secondary-btn" onClick={() => signIn()}>
               {/* {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : ( */}
@@ -110,6 +158,28 @@ function SignIn() {
             <p onClick={() => navigate("/privacy-policy")}>
               {t("Privacy Policy")}
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Disclaimer Popup */}
+      {showDisclaimer && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h4 className="popup-title">{t("Pocket Pi")}</h4>
+            <p className="popup-text">
+              {t(
+                "Please read the note carefully before using the application."
+              )}
+            </p>
+            <div className="popup-actions">
+              <button className="close-btn" onClick={handleCancel}>
+                {t("Cancel")}
+              </button>
+              <button className="close-btn" onClick={handleDoNotShowAgain}>
+                {t("Do Not Show Again")}
+              </button>
+            </div>
           </div>
         </div>
       )}

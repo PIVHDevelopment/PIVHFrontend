@@ -117,7 +117,11 @@ function Withdraw() {
                 </button>
                 <div className="app-icon">
                   {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
-                   <img src={Index.logo} className="logo-header" alt="PocketPi" />
+                  <img
+                    src={Index.logo}
+                    className="logo-header"
+                    alt="PocketPi"
+                  />
                 </div>
                 <div className="header-right"></div>
               </header>
@@ -172,7 +176,7 @@ function Withdraw() {
                         </p>
                       </div>
                       <div className="input-box">
-                        <div className="user-form-group">
+                        <div>
                           <Autocomplete
                             freeSolo
                             slotProps={{
@@ -183,10 +187,10 @@ function Withdraw() {
                                     options: { offset: [0, 8] },
                                   },
                                 ],
-                                className: "custom-dropdown-withdrow",
+                                // className: "custom-dropdown-withdrow",
                               },
                             }}
-                            className="user-form-control"
+                            // className="user-form-control"
                             options={
                               wallets?.map((item) => item?.walletAddress) || []
                             }
@@ -224,6 +228,27 @@ function Withdraw() {
                                 }
                                 variant="outlined"
                                 fullWidth
+                                InputProps={{
+                                  ...params.InputProps,
+                                  style: {
+                                    height: "45px",
+                                    borderRadius: "12px",
+                                    padding: "10 20px",
+                                    color: "var(--text-color)",
+                                  },
+                                }}
+                                inputProps={{
+                                  ...params.inputProps,
+                                  style: {
+                                    fontSize: "14px",
+                                  },
+                                }}
+                                sx={{
+                                  "& .MuiInputBase-input::placeholder": {
+                                    fontSize: "14px",
+                                    opacity: 0.6,
+                                  },
+                                }}
                               />
                             )}
                           />

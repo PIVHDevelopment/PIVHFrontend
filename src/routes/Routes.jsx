@@ -6,7 +6,7 @@ import {
 import PrivacyPolicy from "../container/privacyPolicy/PrivacyPolicy";
 import TermsAndConditions from "../container/termsAndConditions/TermsAndConditions";
 import Receive from "../container/receive/Receive";
-import Home from "../container/home/Home";
+import Home from "../container/home/home";
 import ReceiveMerchant from "../container/receiveMerchant/ReceiveMerchant";
 import Send from "../container/send/Send";
 import Shop from "../Shop";
@@ -36,8 +36,18 @@ import KYBVerification from "../container/kybVerification/KYBVerification";
 import SplashScreen from "../container/auth/SplashScreen";
 import InvoiceRequest from "../container/invoiceRequest/InvoiceRequest";
 import Invoice from "../container/invoiceRequest/Invoice";
+import InvoiceList from "../container/invoiceRequest/InvoiceList";
 import SendInvoice from "../container/invoiceRequest/SendInvoice";
 import CommingSoon from "../container/commingSoon/CommingSoon";
+import UserManagement from "../container/userManagement/UserManagement";
+import AddUser from "../container/userManagement/AddUser";
+import PayRoll from "../container/payRoll/PayRoll";
+import AddPayRoll from "../container/payRoll/AddPayRoll";
+import Pay from "../container/payRoll/Pay";
+import Nominee from "../container/nominee/Nominee";
+import AddNominee from "../container/nominee/AddNominee";
+import EmployeeRoll from "../container/employeeRoll/EmployeeRoll";
+import AddEmployeeRole from "../container/employeeRoll/AddEmployeeRole";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -90,10 +100,7 @@ const Routers = () => {
       path: "/shop",
       element: <Shop />,
     },
-    {
-      path: "/shop",
-      element: <Shop />,
-    },
+ 
     {
       path: "/privacy-policy",
       element: <PrivacyPolicy />,
@@ -106,7 +113,7 @@ const Routers = () => {
       path: "",
       element: (
         <PrivateRoutes>
-          <AdminLayOut />
+        <AdminLayOut />
         </PrivateRoutes>
       ),
       errorElement: <ErrorBoundary />,
@@ -173,6 +180,10 @@ const Routers = () => {
           element: <Invoice />,
         },
         {
+          path: "/invoice-list",
+          element: <InvoiceList />,
+        },
+        {
           path: "/invoice-request/:id",
           element: <InvoiceRequest />,
         },
@@ -196,9 +207,61 @@ const Routers = () => {
           path: "/kyb-verification",
           element: <KYBVerification />,
         },
+        {
+          path: "/user-management",
+          element: <UserManagement />,
+        },
+        {
+          path: "/add-user",
+          element: <AddUser />,
+        },
+        {
+          path: "/edit-user/:id",
+          element: <AddUser />,
+        },
+        {
+          path: "/payroll",
+          element: <PayRoll />,
+        },
+        {
+          path: "/add-payroll",
+          element: <AddPayRoll />,
+        },
+        {
+          path: "/edit-payroll/:id",
+          element: <AddPayRoll />,
+        },
+        {
+          path: "/pay/:id",
+          element: <Pay />,
+        },
+        {
+          path: "/nominee",
+          element: <Nominee />,
+        },
+        {
+          path: "/employee-roll",
+          element: <EmployeeRoll />,
+        },
+        {
+          path: "/add-employee-role",
+          element: <AddEmployeeRole />,
+        },
+        {
+          path: "/edit-employee-role/:id",
+          element: <AddEmployeeRole />,
+        },
+        {
+          path: "/add-nominee",
+          element: <AddNominee />,
+        },
+        {
+          path: "/edit-nominee/:id",
+          element: <AddNominee />,
+        },
       ],
     },
-      {
+    {
       path: "/comming-soon",
       element: <CommingSoon />,
     },
