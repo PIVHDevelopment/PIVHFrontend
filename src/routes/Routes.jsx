@@ -112,9 +112,9 @@ const Routers = () => {
     {
       path: "",
       element: (
-        <PrivateRoutes>
+        // <PrivateRoutes>
         <AdminLayOut />
-        </PrivateRoutes>
+        // </PrivateRoutes>
       ),
       errorElement: <ErrorBoundary />,
       children: [

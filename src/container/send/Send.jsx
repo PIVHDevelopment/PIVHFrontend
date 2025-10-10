@@ -169,7 +169,7 @@ function Send() {
 
                   return (
                     <form onSubmit={formik.handleSubmit}>
-                      <div className="input-box">
+                      <div className="input-box autocomplete-input-box">
                         <div className="user-form-group">
                           <Autocomplete
                             id="userName"

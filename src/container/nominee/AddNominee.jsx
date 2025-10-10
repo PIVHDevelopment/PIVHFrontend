@@ -158,7 +158,7 @@ function AddNominee() {
                   {formik.values.nominees.map((nominee, index) => (
                     <Grid container spacing={2} key={index} sx={{ mb: 2 }}>
                       {/* Name */}
-                      <Grid item xs={4}>
+                      <Grid item xs={12} className="common-col">
                         <Index.FormHelperText
                           component="label"
                           className="form-labels"
@@ -197,7 +197,7 @@ function AddNominee() {
                       </Grid>
 
                       {/* Percentage input */}
-                      <Grid item xs={4}>
+                      <Grid item xs={12}>
                         <Index.FormHelperText
                           component="label"
                           className="form-labels"
@@ -238,7 +238,7 @@ function AddNominee() {
 
                       {/* Remove button */}
                       {formik.values.nominees.length > 1 && (
-                        <Grid item xs={2}>
+                        <Grid item xs={12}>
                           <Button
                             color="error"
                             variant="outlined"
