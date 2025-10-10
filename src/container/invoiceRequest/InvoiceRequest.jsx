@@ -250,7 +250,7 @@ function InvoiceRequest() {
               <img src={Index.back} alt="Back" />
             </button>
             <div className="app-icon">
-              <img src={Index.logo} className="logo-header" alt="PocketPi" />
+              <img src={Index.logo} className="logo-header" alt="Pocket For Pi" />
             </div>
             <div className="header-right"></div>
           </header>

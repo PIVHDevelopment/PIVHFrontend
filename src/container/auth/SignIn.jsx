@@ -108,7 +108,7 @@ function SignIn() {
       ) : (
         <div className="app-container signin-main">
             <header className="signin-header">
-                <img src={Index.logo} alt="PocketPi" className="auth-logo"/>
+                <img src={Index.logo} alt="PocketForPi" className="auth-logo"/>
             </header>
             <div className="sigin-body">
               <button className="secondary-btn" onClick={signIn}>
@@ -153,7 +153,7 @@ function SignIn() {
       {showDisclaimer && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h4 className="popup-title">{t("Pocket Pi")}</h4>
+            <h4 className="popup-title">{t("Pocket For Pi")}</h4>
             <p className="popup-text">
               {t(
                 "Please read the note carefully before using the application."

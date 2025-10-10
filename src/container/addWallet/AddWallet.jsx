@@ -34,7 +34,7 @@ function AddWallet() {
         </button>
         <div className="app-icon">
           {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
-           <img src={Index.logo} className="logo-header" alt="PocketPi" />
+           <img src={Index.logo} className="logo-header" alt="PocketForPi" />
         </div>
         <div className="header-right"></div>
       </header>

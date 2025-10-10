@@ -27,7 +27,7 @@ export default function SplashScreen() {
       <div className="splash-box fade-in">
         <img
           src={Index.logo}
-          alt="PocketPi"
+          alt="PocketForPi"
           className="app-logo logo-animate"
         />
         {showButton && (

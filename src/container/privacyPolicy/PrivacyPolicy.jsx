@@ -23,7 +23,7 @@ const englishText = (t, navigate) => {
             ensuring transparency in how we collect, use, and store your data.
             This Privacy Policy outlines the type of personal and transactional
             information we may collect and how we use that information in
-            relation to the Pocket Pi application, built within the Pi Network
+            relation to the Pocket For Pi application, built within the Pi Network
             ecosystem.
           </p>
           <hr />
@@ -118,7 +118,7 @@ const englishText = (t, navigate) => {
 
           <p>● Access and review your personal and transactional data</p>
 
-          <p>● Request deletion of your Pocket Pi profile</p>
+          <p>● Request deletion of your Pocket For Pi profile</p>
 
           <p>● Opt-out of business services (for merchants)</p>
 
@@ -234,7 +234,7 @@ const hindiText = (t, navigate) => {
 
           <p>
             हम आपका डेटा <b>बेचते</b>, किराए पर देते या किसी भी तृतीय पक्ष के
-            साथ साझा <b>नहीं</b> करते हैं। डेटा का उपयोग केवल Pocket Pi की
+            साथ साझा <b>नहीं</b> करते हैं। डेटा का उपयोग केवल Pocket For Pi की
             सेवाओं के दायरे में किया जाता है और यह Pi Network वातावरण तक ही
             सीमित रहता है।
           </p>
@@ -314,7 +314,7 @@ const arabicText = (t, navigate) => {
             في <b>Pocket For Pi</b>، نحن ملتزمون بحماية خصوصيتك وضمان الشفافية في
             كيفية جمعنا واستخدامنا وتخزيننا لبياناتك. توضح سياسة الخصوصية هذه
             نوع المعلومات الشخصية والمعاملات التي قد نجمعها وكيفية استخدامنا
-            لتلك المعلومات فيما يتعلق بتطبيق Pocket Pi، المبني داخل نظام Pi
+            لتلك المعلومات فيما يتعلق بتطبيق Pocket For Pi، المبني داخل نظام Pi
             Network البيئي.
           </p>
           <hr />
