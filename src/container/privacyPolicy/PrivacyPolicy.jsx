@@ -19,7 +19,7 @@ const englishText = (t, navigate) => {
           </p>
 
           <p>
-            At <b>Pocket Pi</b>, we are committed to protecting your privacy and
+            At <b>Pocket For Pi</b>, we are committed to protecting your privacy and
             ensuring transparency in how we collect, use, and store your data.
             This Privacy Policy outlines the type of personal and transactional
             information we may collect and how we use that information in
@@ -30,7 +30,7 @@ const englishText = (t, navigate) => {
           <h5>1. Information We Collect</h5>
 
           <p>
-            We collect and process the following data when you use Pocket Pi:
+            We collect and process the following data when you use Pocket For Pi:
           </p>
 
           <h6>a. User Information</h6>
@@ -89,7 +89,7 @@ const englishText = (t, navigate) => {
 
           <p>
             We <b>do not sell</b>, rent, or share your data with any third
-            parties. Data is used strictly within the scope of Pocket Pi's
+            parties. Data is used strictly within the scope of Pocket For Pi's
             services and remains confined to the Pi Network environment.
           </p>
 
@@ -162,18 +162,18 @@ const hindiText = (t, navigate) => {
           </p>
 
           <p>
-            <b>Pocket Pi</b> में, हम आपकी गोपनीयता की सुरक्षा और यह सुनिश्चित
+            <b>Pocket For Pi</b> में, हम आपकी गोपनीयता की सुरक्षा और यह सुनिश्चित
             करने के लिए प्रतिबद्ध हैं कि हम आपके डेटा को कैसे एकत्रित, उपयोग और
             संग्रहित करते हैं। यह गोपनीयता नीति उस प्रकार की व्यक्तिगत और
             लेन-देन संबंधी जानकारी को रेखांकित करती है जिसे हम एकत्रित कर सकते
-            हैं और Pocket Pi एप्लिकेशन के संबंध में उसका उपयोग कैसे करते हैं, जो
+            हैं और Pocket For Pi एप्लिकेशन के संबंध में उसका उपयोग कैसे करते हैं, जो
             Pi Network पारिस्थितिकी तंत्र के भीतर बनाया गया है।
           </p>
           <hr />
           <h5>1. हम कौन सी जानकारी एकत्रित करते हैं</h5>
 
           <p>
-            जब आप Pocket Pi का उपयोग करते हैं, तो हम निम्नलिखित डेटा एकत्रित और
+            जब आप Pocket For Pi का उपयोग करते हैं, तो हम निम्नलिखित डेटा एकत्रित और
             संसाधित करते हैं:
           </p>
 
@@ -266,7 +266,7 @@ const hindiText = (t, navigate) => {
             ● अपनी व्यक्तिगत और लेन-देन संबंधी डेटा तक पहुंच और समीक्षा करना
           </p>
 
-          <p>● अपने Pocket Pi प्रोफ़ाइल को हटाने का अनुरोध करना</p>
+          <p>● अपने Pocket For Pi प्रोफ़ाइल को हटाने का अनुरोध करना</p>
 
           <p>● व्यावसायिक सेवाओं से बाहर निकलना (व्यापारियों के लिए)</p>
 
@@ -311,7 +311,7 @@ const arabicText = (t, navigate) => {
           </p>
 
           <p>
-            في <b>Pocket Pi</b>، نحن ملتزمون بحماية خصوصيتك وضمان الشفافية في
+            في <b>Pocket For Pi</b>، نحن ملتزمون بحماية خصوصيتك وضمان الشفافية في
             كيفية جمعنا واستخدامنا وتخزيننا لبياناتك. توضح سياسة الخصوصية هذه
             نوع المعلومات الشخصية والمعاملات التي قد نجمعها وكيفية استخدامنا
             لتلك المعلومات فيما يتعلق بتطبيق Pocket Pi، المبني داخل نظام Pi
@@ -320,7 +320,7 @@ const arabicText = (t, navigate) => {
           <hr />
           <h5>1. المعلومات التي نجمعها</h5>
 
-          <p>نجمع ونعالج البيانات التالية عند استخدامك لتطبيق Pocket Pi:</p>
+          <p>نجمع ونعالج البيانات التالية عند استخدامك لتطبيق Pocket For Pi:</p>
 
           <h6>أ. معلومات المستخدم</h6>
 
@@ -377,7 +377,7 @@ const arabicText = (t, navigate) => {
 
           <p>
             نحن <b>لا</b> نبيع أو نؤجر أو نشارك بياناتك مع أي أطراف ثالثة. يتم
-            استخدام البيانات فقط ضمن نطاق خدمات Pocket Pi وتبقى داخل بيئة شبكة
+            استخدام البيانات فقط ضمن نطاق خدمات Pocket For Pi وتبقى داخل بيئة شبكة
             Pi.
           </p>
 
@@ -406,7 +406,7 @@ const arabicText = (t, navigate) => {
 
           <p>● الوصول إلى بياناتك الشخصية والمعاملات ومراجعتها</p>
 
-          <p>● طلب حذف ملفك الشخصي في Pocket Pi</p>
+          <p>● طلب حذف ملفك الشخصي في Pocket For Pi</p>
 
           <p>● الانسحاب من الخدمات التجارية (للتجار)</p>
 

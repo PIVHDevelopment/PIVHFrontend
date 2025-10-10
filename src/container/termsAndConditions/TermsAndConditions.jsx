@@ -19,16 +19,16 @@ const englishText = (t, navigate) => {
           </p>
 
           <p>
-            Welcome to <b>Pocket Pi</b> – a non-custodial, Pi Network-integrated
+            Welcome to <b>Pocket For Pi</b> – a non-custodial, Pi Network-integrated
             platform designed to provide secure and seamless Pi transactions for
-            individuals and businesses. By accessing or using the Pocket Pi app,
+            individuals and businesses. By accessing or using the Pocket For Pi app,
             you agree to be bound by the following Terms of Service.
           </p>
           <hr />
 
           <h5>1. Acceptance of Terms</h5>
 
-          <p>By using Pocket Pi, you confirm that you:</p>
+          <p>By using Pocket For Pi, you confirm that you:</p>
 
           <p>● Are a verified Pi Network user.</p>
 
@@ -45,11 +45,11 @@ const englishText = (t, navigate) => {
           <hr />
           <h5>2. Platform Overview</h5>
 
-          <p>Pocket Pi provides the following services:</p>
+          <p>Pocket For Pi provides the following services:</p>
 
-          <p>● Peer-to-peer Pi transactions between users of Pocket Pi.</p>
+          <p>● Peer-to-peer Pi transactions between users of Pocket For Pi.</p>
 
-          <p>● Wallet-to-wallet transfers with Pocket Pi’s internal wallets.</p>
+          <p>● Wallet-to-wallet transfers with Pocket For Pi’s internal wallets.</p>
 
           <p>
             ● Controlled transfer to/from the official Pi Network wallet
@@ -85,7 +85,7 @@ const englishText = (t, navigate) => {
           <h5>4. Fees and Subscriptions</h5>
 
           <p>
-            ● Basic transactions within Pocket Pi wallets are free up to a daily
+            ● Basic transactions within Pocket For Pi wallets are free up to a daily
             limit.
           </p>
 
@@ -103,7 +103,7 @@ const englishText = (t, navigate) => {
           <h5>5. Data Usage</h5>
 
           <p>
-            Pocket Pi collects limited personal and transaction data, strictly
+            Pocket For Pi collects limited personal and transaction data, strictly
             as outlined in our Privacy Policy. We <b>do not access or store </b>
             private keys, and all interactions occur through{" "}
             <b>secure Pi Network APIs</b>.
@@ -124,7 +124,7 @@ const englishText = (t, navigate) => {
           <h5>7. Limitation of Liability</h5>
 
           <p>
-            Pocket Pi is provided on an “as-is” and “as-available” basis. While
+            Pocket For Pi is provided on an “as-is” and “as-available” basis. While
             we strive for reliability and uptime, we are <b>not liable</b> for:
           </p>
 
@@ -183,7 +183,7 @@ const hindiText = (t, navigate) => {
           </p>
 
           <p>
-            स्वागत है <b>Pocket Pi</b> में – यह एक गैर-कस्टोडियल, Pi
+            स्वागत है <b>Pocket For Pi</b> में – यह एक गैर-कस्टोडियल, Pi
             नेटवर्क-एकीकृत प्लेटफ़ॉर्म है जो व्यक्तिगत और व्यावसायिक
             उपयोगकर्ताओं के लिए सुरक्षित और सहज लेन-देन प्रदान करता है। ऐप का
             उपयोग करके, आप नीचे दिए गए नियमों से सहमत होते हैं।
@@ -191,7 +191,7 @@ const hindiText = (t, navigate) => {
           <hr />
 
           <h5>1. नियमों की स्वीकृति</h5>
-          <p>Pocket Pi का उपयोग करके आप पुष्टि करते हैं कि आप:</p>
+          <p>Pocket For Pi का उपयोग करके आप पुष्टि करते हैं कि आप:</p>
           <p>● एक सत्यापित Pi नेटवर्क उपयोगकर्ता हैं।</p>
           <p>● इन नियमों और लागू कानूनों का पालन करेंगे।</p>
           <p>
@@ -201,8 +201,8 @@ const hindiText = (t, navigate) => {
           <hr />
 
           <h5>2. प्लेटफ़ॉर्म अवलोकन</h5>
-          <p>Pocket Pi निम्न सेवाएं प्रदान करता है:</p>
-          <p>● Pocket Pi उपयोगकर्ताओं के बीच पीयर-टू-पीयर लेन-देन।</p>
+          <p>Pocket For Pi निम्न सेवाएं प्रदान करता है:</p>
+          <p>● Pocket For Pi उपयोगकर्ताओं के बीच पीयर-टू-पीयर लेन-देन।</p>
           <p>● आंतरिक वॉलेट के बीच ट्रांसफर।</p>
           <p>● सरकारी Pi वॉलेट के साथ सीमित ट्रांसफर।</p>
           <p>
@@ -225,7 +225,7 @@ const hindiText = (t, navigate) => {
           <hr />
 
           <h5>4. शुल्क और सदस्यता</h5>
-          <p>● Pocket Pi वॉलेट में सीमित मुफ्त लेन-देन।</p>
+          <p>● Pocket For Pi वॉलेट में सीमित मुफ्त लेन-देन।</p>
           <p>● उस सीमा से ऊपर मामूली शुल्क।</p>
           <p>● Pi नेटवर्क वॉलेट ट्रांसफर पर एक निर्धारित शुल्क।</p>
           <p>● वार्षिक सदस्यता शुल्क जो उपयोग बढ़ने पर घट सकता है।</p>
@@ -296,18 +296,18 @@ const arabicText = (t, navigate) => {
           </p>
 
           <p>
-            مرحبًا بك في <b>Pocket Pi</b> – منصة غير وصائية مدمجة مع شبكة Pi
+            مرحبًا بك في <b>Pocket For Pi</b> – منصة غير وصائية مدمجة مع شبكة Pi
             لتوفير معاملات آمنة وسلسة للمستخدمين الأفراد والشركات. باستخدام
             التطبيق، فإنك توافق على الشروط التالية.
           </p>
           <hr />
 
           <h5>1. قبول الشروط</h5>
-          <p>باستخدام Pocket Pi، فإنك تؤكد أنك:</p>
+          <p>باستخدام Pocket For Pi، فإنك تؤكد أنك:</p>
           <p>● مستخدم مُوثق في شبكة Pi.</p>
           <p>● توافق على الامتثال لهذه الشروط والقوانين المعمول بها.</p>
           <p>
-            ● تفهم أن Pocket Pi مخصص للاستخدام فقط داخل <b>Testnet/Mainnet</b>{" "}
+            ● تفهم أن Pocket For Pi مخصص للاستخدام فقط داخل <b>Testnet/Mainnet</b>{" "}
             لشبكة Pi.
           </p>
           <hr />
