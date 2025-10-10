@@ -108,7 +108,7 @@
   "EnterCustomeQuestion": "Please enter your custom question",
   "QuestionAlreasyExist": "This question already exists. Please enter a unique question",
   "ForPIN": "For your security, please enter your 5-digit transaction PIN to continue with this transaction.",
-  "PINContaint": "Your PIN will be securely saved with PocketPie. You will need to enter this PIN every time when you make the payment in application.",
+  "PINContaint": "Your PIN will be securely saved with PocketForPi. You will need to enter this PIN every time when you make the payment in application.",
   "Share": "Share",
   "ShareQRCode": "Share QR Code",
   "QRCode": "QR Code",
