@@ -178,7 +178,7 @@ export default function AddPayRoll() {
                     ...params.InputProps,
                     style: {
                       height: "45px",
-                      backgroundColor: "var(--dark-bg)",
+                      // backgroundColor: "var(--dark-bg)",
                       borderRadius: "12px",
                       padding: "10 20px",
                       color: "var(--text-color)",
