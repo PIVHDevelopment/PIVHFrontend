@@ -19,6 +19,7 @@ export default function AddPayRoll() {
     employeeId: "",
     date: null,
     amount: "",
+    agree: false,
     loginUserId: userData._id,
   });
 
@@ -33,6 +34,7 @@ export default function AddPayRoll() {
       .typeError(t("Amount must be a number"))
       .positive(t("Amount must be positive or greater than zero"))
       .required(t("Amount is required")),
+    agree: Yup.boolean().oneOf([true], t("You must agree before submitting")),
   });
 
   // Fetch employee list
@@ -247,12 +249,35 @@ export default function AddPayRoll() {
             </p>
           </div>
 
+          {/* Agreement Checkbox */}
+          <div className="input-box">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="agree"
+                checked={formik.values.agree}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={{ marginRight: "8px", height: "20px", width: "20px", marginTop: "5px" }}
+              />
+              {t("Sign agreat")}
+            </label>
+            {formik.touched.agree && formik.errors.agree && (
+              <p className="input-error">{formik.errors.agree}</p>
+            )}
+          </div>
+
           {/* Submit button */}
           <div className="common-btn-space-main">
             <button
               type="submit"
               className="common-btn primary-btn"
-              disabled={formik.isSubmitting || loading || !formik.isValid}
+              disabled={
+                formik.isSubmitting ||
+                loading ||
+                !formik.isValid ||
+                !formik.values.agree
+              }
             >
               {formik.isSubmitting || loading ? (
                 <CircularProgress size={24} color="inherit" />

@@ -21,9 +21,10 @@ const axiosClient = axios.create({
 
 function InvoiceList() {
   const { t } = Index.useTranslation();
+  const location = Index.useLocation();
   const language = localStorage.getItem("language");
   const [buttonLoader, setButtonLoader] = useState(false);
-  const isBusiness = location?.state?.isBusiness;
+  const isBusiness = location.state.isBusiness;
   let isRtl = language === "Ar" ? true : false;
   const [tab, setTab] = useState(1);
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
@@ -73,9 +74,7 @@ function InvoiceList() {
               className="back-btn"
               onClick={() =>
                 navigate("/home", {
-                  state: {
-                    state: { isBusiness },
-                  },
+                  state: { isBusiness: true },
                 })
               }
             >

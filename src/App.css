@@ -3127,3 +3127,10 @@ span.error-star {
 .autocomplete-input-box .MuiInputBase-root{
   height: 45px;
 }
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #000;
+}
