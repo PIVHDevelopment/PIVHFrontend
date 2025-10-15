@@ -73,9 +73,7 @@ function Invoice() {
               className="back-btn"
               onClick={() =>
                 navigate("/home", {
-                  state: {
-                    state: { isBusiness },
-                  },
+                  state: { isBusiness },
                 })
               }
             >
