@@ -19,7 +19,8 @@ function Home() {
   // const isBusiness = location;
   const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const [tab, setTab] = useState(isBusiness ? 2 : 1);
+  const [tab, setTab] = useState(location?.state?.activeTab ?? 1);
+
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = Index.useNavigate();
@@ -30,6 +31,12 @@ function Home() {
   let typeTxn = tab == 1 ? "individual" : "business";
   const selectedLanguage = localStorage.getItem("language") || "En";
   const [languageCh, setLanguageCh] = useState(selectedLanguage);
+
+  useEffect(() => {
+    if(location?.state?.activeTab){
+      setTab(+location?.state?.activeTab ?? 1);
+    }
+  }, [location]);
 
   const handleLanguageChange = (eventOrValue) => {
     const lang =
@@ -305,7 +312,7 @@ function Home() {
                 <Individual balance={balance} />
               </Index.TabPane>
               <Index.TabPane eventKey={2}>
-                <Business balance={businessBalance} />
+                <Business balance={businessBalance} activeTab={tab} />
               </Index.TabPane>
             </Index.TabContent>
           </Index.TabContainer>

@@ -9,6 +9,7 @@ import {
   ListItem,
   CircularProgress,
 } from "@mui/material";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const _window = window;
 const backendURL = _window.__ENV && _window.__ENV.backendURL;
@@ -20,6 +21,11 @@ const axiosClient = axios.create({
 });
 
 function Invoice() {
+
+  const location = useLocation()
+  const [searchParams] = useSearchParams(location?.search);
+  const activeTab = searchParams?.get("activeTab");
+
   const { t } = Index.useTranslation();
   const language = localStorage.getItem("language");
   const [buttonLoader, setButtonLoader] = useState(false);
@@ -73,7 +79,7 @@ function Invoice() {
               className="back-btn"
               onClick={() =>
                 navigate("/home", {
-                  state: { isBusiness },
+                  state: { isBusiness , activeTab },
                 })
               }
             >

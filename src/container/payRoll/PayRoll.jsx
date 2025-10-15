@@ -189,8 +189,6 @@
 
 // export default PayRoll;
 
-
-
 import React, { useEffect, useState } from "react";
 import Index from "../Index";
 import {
@@ -212,9 +210,14 @@ import {
   Button,
 } from "@mui/material";
 import { format } from "date-fns";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function PayRoll() {
   const navigate = Index.useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams(location?.search);
+  const activeTab = searchParams?.get("activeTab");
+  const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const { t } = Index.useTranslation();
   const [payrolls, setPayrolls] = useState([]);
@@ -294,7 +297,14 @@ function PayRoll() {
           {/* Header */}
           <header className="receive-center">
             <Index.Box className="flex-header-title">
-              <button className="back-btn" onClick={() => navigate("/home")}>
+              <button
+                className="back-btn"
+                onClick={() =>
+                  navigate("/home", {
+                    state: { isBusiness, activeTab },
+                  })
+                }
+              >
                 <img src={Index.back} alt="Back" />
               </button>
             </Index.Box>
@@ -323,7 +333,9 @@ function PayRoll() {
                 sx={{ mt: 2, p: 2, borderRadius: "12px", background: "#fff" }}
               >
                 {loading ? (
-                  <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", my: 2 }}
+                  >
                     <CircularProgress />
                   </Box>
                 ) : (
@@ -331,10 +343,18 @@ function PayRoll() {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell><b>{t("Employee")}</b></TableCell>
-                          <TableCell><b>{t("Date")}</b></TableCell>
-                          <TableCell><b>{t("Amount")}</b></TableCell>
-                          <TableCell><b>{t("Status")}</b></TableCell>
+                          <TableCell>
+                            <b>{t("Employee")}</b>
+                          </TableCell>
+                          <TableCell>
+                            <b>{t("Date")}</b>
+                          </TableCell>
+                          <TableCell>
+                            <b>{t("Amount")}</b>
+                          </TableCell>
+                          <TableCell>
+                            <b>{t("Status")}</b>
+                          </TableCell>
                           <TableCell align="center">{t("Actions")}</TableCell>
                         </TableRow>
                       </TableHead>
@@ -346,7 +366,9 @@ function PayRoll() {
                             sx={{ cursor: "pointer" }}
                             onClick={() => navigate(`/pay/${payroll._id}`)}
                           >
-                            <TableCell>{payroll?.employeeId?.name || "-"}</TableCell>
+                            <TableCell>
+                              {payroll?.employeeId?.name || "-"}
+                            </TableCell>
                             <TableCell>
                               {payroll.date
                                 ? format(new Date(payroll.date), "MMM yyyy")
@@ -361,7 +383,11 @@ function PayRoll() {
                                   navigate(`/edit-payroll/${payroll._id}`);
                                 }}
                               >
-                                <img src={Index.pencil} alt={t("Edit")} className="view-icon" />
+                                <img
+                                  src={Index.pencil}
+                                  alt={t("Edit")}
+                                  className="view-icon"
+                                />
                               </IconButton>
                               <IconButton
                                 onClick={(e) => {
@@ -369,7 +395,11 @@ function PayRoll() {
                                   handleOpenConfirm(payroll._id);
                                 }}
                               >
-                                <img src={Index.trash} alt={t("Delete")} className="view-icon" />
+                                <img
+                                  src={Index.trash}
+                                  alt={t("Delete")}
+                                  className="view-icon"
+                                />
                               </IconButton>
                             </TableCell>
                           </TableRow>

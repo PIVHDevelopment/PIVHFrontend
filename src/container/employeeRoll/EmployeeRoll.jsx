@@ -11,9 +11,14 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function EmployeeRoll() {
   const navigate = Index.useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams(location?.search);
+  const activeTab = searchParams?.get("activeTab");
+  const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const { t } = Index.useTranslation();
   const [employeeRolls, setEmployeeRolls] = useState([]);
@@ -97,7 +102,14 @@ function EmployeeRoll() {
         <div className="app-container">
           <header className="receive-center">
             <Index.Box className="flex-header-title">
-              <button className="back-btn" onClick={() => navigate("/home")}>
+              <button
+                className="back-btn"
+                onClick={() =>
+                  navigate("/home", {
+                    state: { isBusiness, activeTab },
+                  })
+                }
+              >
                 <img src={Index.back} alt="Back" />
               </button>
             </Index.Box>

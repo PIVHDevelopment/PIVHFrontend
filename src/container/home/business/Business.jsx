@@ -2,7 +2,7 @@ import React from "react";
 import Index from "../../Index";
 import { Link } from "react-router-dom";
 
-function Business({ balance }) {
+function Business({ balance , activeTab }) {
   const { t } = Index.useTranslation();
   const navigate = Index.useNavigate();
   return (
@@ -42,19 +42,19 @@ function Business({ balance }) {
 
       <Index.Box className="business-home-details">
         <Index.Box className="business-flex">
-          <Link to="/invoice" className=" business-box-main">
+          <Link to={`/invoice?activeTab=${activeTab}`} className=" business-box-main">
             <img src={Index.bill} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Invoices / Billing</Index.Typography>
           </Link>
-          <Link to="/user-management" className=" business-box-main">
+          <Link to={`/user-management?activeTab=${activeTab}`} className=" business-box-main">
             <img src={Index.employeetask} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Employee Management</Index.Typography>
           </Link>
-           <Link to="/payroll"  className=" business-box-main">
+           <Link to={`/payroll?activeTab=${activeTab}`}  className=" business-box-main">
             <img src={Index.salary} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Payroll</Index.Typography>
           </Link>
-          <Link to="/employee-roll"  className=" business-box-main">
+          <Link to={`/employee-roll?activeTab=${activeTab}`}  className=" business-box-main">
             <img src={Index.employeetask} alt="bill" className="business-icons" />
             <Index.Typography className="business-title">Employee Roll</Index.Typography>
           </Link>
