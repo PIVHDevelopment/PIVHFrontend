@@ -532,7 +532,7 @@ function Home() {
               <h6 className="setting-cont-title">{t("Deposit")}</h6>
             </div>
           )}
-          {tab == 2 && (
+          {/* {tab == 2 && (
             <div
               className="setting-cont-box"
               onClick={() =>
@@ -546,7 +546,7 @@ function Home() {
               </div>
               <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
             </div>
-          )}
+          )} */}
           {tab == 2 && (
             <div
               className="setting-cont-box"
@@ -557,7 +557,7 @@ function Home() {
               }
             >
               <div className="setting-icon-box">
-                <img src={Index.withdraw} alt="" />
+                <img src={Index.Invoice} alt="" />
               </div>
               <h6 className="setting-cont-title">{t("InvoiceRequest")}</h6>
             </div>
@@ -572,7 +572,7 @@ function Home() {
               }
             >
               <div className="setting-icon-box">
-                <img src={Index.withdraw} alt="" />
+                <img src={Index.Invoice} alt="" />
               </div>
               <h6 className="setting-cont-title">{t("Invoice")}</h6>
             </div>

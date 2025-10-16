@@ -71,9 +71,9 @@ import deposit from "../assets/images/deposit.png";
 import uparrow from "../assets/images/uparrow.png";
 import subscribedIcon from "../assets/images/subscribed.png";
 import copyLink from "../assets/images/copy-link.png";
-import Nominee from "../assets/images/nominee.png"
-import Privacy from "../assets/images/privacypolicy.png"
-import Terms from "../assets/images/termcondition.png"
+import Nominee from "../assets/images/nominee1.png"
+import Privacy from "../assets/images/privacypolicy1.png"
+import Terms from "../assets/images/termcondition1.png"
 import wallet from "../assets/images/wallet.png";
 import send from "../assets/images/send.png";
 import downarrow from "../assets/images/receive.png";
@@ -132,6 +132,8 @@ import salary from "../assets/images/salary.png";
 import comming from "../assets/images/comming.png";
 import pending from "../assets/images/pending.png";
 import suceessgif from "../assets/images/suceessgif.gif"
+import Invoice from "../assets/images/invoice1.png";
+import Role from "../assets/images/role1.png";
 
 
 const Index = {
@@ -267,7 +269,9 @@ const Index = {
   suceessgif,
   Nominee,
   Privacy,
-  Terms
+  Terms,
+  Invoice,
+  Role
 };
 
 export default Index;
