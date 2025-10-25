@@ -31,10 +31,16 @@ function AddNominee() {
               t("Nominee name invalid")
             )
             .required(t("Nominee name required")),
+          userName: Yup.string()
+            .matches(
+              /^(?! )[A-Za-z]+(?: [A-Za-z]+)*(?<! )$/,
+              t("Username invalid")
+            )
+            .required(t("Username required")),
           percentage: Yup.number()
             .min(1, t("at least 1%"))
             .max(100, t("max 100%"))
-            .required(t("percentage required")),
+            .required(t("Percentage required")),
         })
       )
       .test(
@@ -53,7 +59,7 @@ function AddNominee() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      nominees: [{ name: "", percentage: "" }],
+      nominees: [{ name: "", userName: "", percentage: "" }],
       loginUserId: userData?._id,
     },
     validationSchema: nomineeSchema,
@@ -192,6 +198,45 @@ function AddNominee() {
                           formik.errors.nominees?.[index]?.name && (
                             <p className="input-error">
                               {formik.errors.nominees[index].name}
+                            </p>
+                          )}
+                      </Grid>
+
+                      {/* userName */}
+                      <Grid item xs={12} className="common-col">
+                        <Index.FormHelperText
+                          component="label"
+                          className="form-labels"
+                        >
+                          {t("UserName")}{" "}
+                          <span
+                            className="error-star"
+                            style={{ marginRight: "20px" }}
+                          >
+                            *
+                          </span>
+                        </Index.FormHelperText>
+                        <input
+                          type="text"
+                          className="user-form-control"
+                          value={nominee.userName}
+                          onChange={(e) =>
+                            formik.setFieldValue(
+                              `nominees[${index}].userName`,
+                              e.target.value ? String(e.target.value) : ""
+                            )
+                          }
+                          placeholder="Enter user name"
+                          style={{
+                            height: 45,
+                            borderRadius: 12,
+                            padding: "0 10px",
+                          }}
+                        />
+                        {formik.touched.nominees?.[index]?.userName &&
+                          formik.errors.nominees?.[index]?.userName && (
+                            <p className="input-error">
+                              {formik.errors.nominees[index].userName}
                             </p>
                           )}
                       </Grid>

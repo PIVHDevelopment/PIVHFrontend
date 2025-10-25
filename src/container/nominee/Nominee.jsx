@@ -161,6 +161,7 @@ function Nominee() {
                             {item.nominees.map((n) => (
                               <div key={n._id} className="nominee-info">
                                 <p className="transaction-title">{n.name}</p>
+                                <p className="transaction-time">{n.userName}</p>
                                 <p className="transaction-time">
                                   {n.percentage}%
                                 </p>
