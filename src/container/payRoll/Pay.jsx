@@ -108,7 +108,7 @@ export default function Pay() {
             <strong>{t("Date")}:</strong> {payrollDetails.date ? format(new Date(payrollDetails.date), "MMMM yyyy") : "-"}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            <strong>{t("Amount")}:</strong> ₹{payrollDetails.amount}
+            <strong>{t("Amount")}:</strong> {payrollDetails.amount}π
           </Typography>
           <Typography variant="h6" gutterBottom>
             <strong>{t("Status")}:</strong> {payrollDetails.status}

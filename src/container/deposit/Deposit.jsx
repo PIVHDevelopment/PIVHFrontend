@@ -57,9 +57,17 @@ function Deposit() {
         onCancel,
         onError,
       };
-      await window.Pi.createPayment(paymentData, callbacks);
+      // await window.Pi.createPayment(paymentData, callbacks);
+      try {
+  const payment = await window.Pi.createPayment(paymentData, callbacks);
+  console.log("Payment completed successfully:", payment);
+} catch (error) {
+  console.error("Payment failed:", error);
+}
+      // console.log("paymentId",paymentId);
     }
   };
+  // paymentId  = "sdf";
   const onReadyForServerApproval = (paymentId) => {
     Index.DataService.post(Index.Api.PAYMENT_DEPOSITE, {
       amount,

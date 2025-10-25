@@ -374,7 +374,7 @@ function PayRoll() {
                                 ? format(new Date(payroll.date), "MMM yyyy")
                                 : "-"}
                             </TableCell>
-                            <TableCell>₹{payroll.amount}</TableCell>
+                            <TableCell>{payroll.amount}π</TableCell>
                             <TableCell>{payroll.status}</TableCell>
                             <TableCell align="center">
                               <IconButton
