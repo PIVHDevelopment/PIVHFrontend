@@ -3040,7 +3040,7 @@ span.error-star {
 
 .user-form-control {
   height: 45px;
-  width: 150%;
+  width: 100%;
   border-radius: 12px;
   padding: 0 20px;
   background-color: var(--dark-bg);
@@ -3133,4 +3133,7 @@ span.error-star {
   align-items: center;
   font-size: 14px;
   color: #000;
+}
+body .MuiGrid-root{
+  width: 100%;
 }
