@@ -43,7 +43,7 @@ const WalletAddressBook = () => {
   const [selectedData, setSelectedData] = useState({ walletAddress: "" });
   const [id, setId] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
   const location = Index.useLocation();
   const navigate = Index.useNavigate();
   const isBusiness = location?.state?.isBusiness;
@@ -148,7 +148,7 @@ const WalletAddressBook = () => {
           </button>
           <div className="app-icon">
             {/* <img src={Index.pocketPi} alt="PocketPi" /> */}
-             <img src={Index.logo} className="logo-header" alt="PocketPi" />
+            <img src={Index.logo} className="logo-header" alt="PocketPi" />
           </div>
           <div className="header-right"></div>
         </header>
@@ -162,55 +162,57 @@ const WalletAddressBook = () => {
               <img src={Index.Plusadd} alt="Add" />
             </button>
           </Box>
-            <Box className="address-book-listing">
-          <List className="list-ul-address">
-            {wallets.length > 0 ? (
-              wallets.map((wallet) => (
-                <ListItem key={wallet._id} className="list-item-address">
-                  <Box className="flex-justify-gap-add">
-                    <Box className="address-left-contain cus-address-left-contain">
-                      <Typography className="field-contain-address">
-                        {wallet.walletAddress}
+          <Box className="address-book-listing">
+            <List className="list-ul-address">
+              {wallets.length > 0 ? (
+                wallets.map((wallet) => (
+                  <ListItem key={wallet._id} className="list-item-address">
+                    <Box className="flex-justify-gap-add">
+                      <Box className="address-left-contain cus-address-left-contain">
+                        <Typography className="field-contain-address">
+                          {wallet.walletAddress}
+                          <button
+                            className="copy-btn ms-1"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                wallet.walletAddress
+                              );
+                              Index.toasterSuccess(t("CopiedToclipboard"));
+                            }}
+                          >
+                            <img src={Index.copy} alt={t("Copy")} />
+                          </button>
+                        </Typography>
+                      </Box>
+                      <Box className="custom-address-right-contain app-btn-flex">
                         <button
-                          className="copy-btn ms-1"
+                          className="btn-edit-icons app-icon-btn"
                           onClick={() => {
-                            navigator.clipboard.writeText(wallet.walletAddress);
-                            Index.toasterSuccess(t("CopiedToclipboard"));
+                            setSelectedData(wallet);
+                            setId(wallet._id);
+                            handleOpen();
                           }}
                         >
-                          <img src={Index.copy} alt={t("Copy")} />
+                          <EditOutlinedIcon className="app-icon" />
                         </button>
-                      </Typography>
+                        <button
+                          className="btn-delete-icons app-icon-btn"
+                          onClick={() => handleOpenDelete(wallet?._id)}
+                        >
+                          <DeleteOutlineRoundedIcon className="app-icon" />
+                        </button>
+                      </Box>
                     </Box>
-                    <Box className="custom-address-right-contain app-btn-flex">
-                      <button
-                        className="btn-edit-icons app-icon-btn"
-                        onClick={() => {
-                          setSelectedData(wallet);
-                          setId(wallet._id);
-                          handleOpen();
-                        }}
-                      >
-                        <EditOutlinedIcon className="app-icon" />
-                      </button>
-                      <button
-                        className="btn-delete-icons app-icon-btn"
-                        onClick={() => handleOpenDelete(wallet?._id)}
-                      >
-                        <DeleteOutlineRoundedIcon className="app-icon" />
-                      </button>
-                    </Box>
-                  </Box>
-                </ListItem>
-              ))
-            ) : (
-              <Box className="no-address-book">
-              <Typography className="no-address-title ">
-                {t("NoWalletAddressesFound")}
-              </Typography>
-              </Box>
-            )}
-          </List>
+                  </ListItem>
+                ))
+              ) : (
+                <Box className="no-address-book">
+                  <Typography className="no-address-title ">
+                    {t("NoWalletAddressesFound")}
+                  </Typography>
+                </Box>
+              )}
+            </List>
           </Box>
         </Box>
 
@@ -236,31 +238,29 @@ const WalletAddressBook = () => {
               {(formik) => (
                 <form onSubmit={formik.handleSubmit}>
                   <Box>
-                  <Box className="modal-body address-body">
-                    <div className="input-box">
-                      <p className="user-form-lable">
-                        {t("WalletAddress")}
-                      </p>
-                      <div className="user-form-group">
-                        <input
-                          type="text"
-                          className="user-form-control"
-                          placeholder={t("EnterWalletAddress")}
-                          name="walletAddress"
-                          value={formik.values.walletAddress}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          maxLength={132}
-                        />
-                        <p className="input-error">
-                          {formik.errors.walletAddress &&
+                    <Box className="modal-body address-body">
+                      <div className="input-box">
+                        <p className="user-form-lable">{t("WalletAddress")}</p>
+                        <div className="user-form-group">
+                          <input
+                            type="text"
+                            className="user-form-control"
+                            placeholder={t("EnterWalletAddress")}
+                            name="walletAddress"
+                            value={formik.values.walletAddress}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            maxLength={132}
+                          />
+                          <p className="input-error">
+                            {formik.errors.walletAddress &&
                             formik.touched.walletAddress
-                            ? formik.errors.walletAddress
-                            : null}
-                        </p>
+                              ? formik.errors.walletAddress
+                              : null}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Box>
+                    </Box>
                     <Box className="modal-footer">
                       <button
                         className="common-btn"
@@ -274,14 +274,14 @@ const WalletAddressBook = () => {
                         )}
                       </button>
                     </Box>
-                    </Box>
+                  </Box>
                 </form>
               )}
             </Index.Formik>
           </Box>
         </Modal>
       </div>
-      <Modal
+      {/* <Modal
         className="address-modal common-modall"
         open={openDelete}
         onClose={handleCloseDelete}
@@ -328,6 +328,114 @@ const WalletAddressBook = () => {
                 {buttonLoader ? <CircularProgress size={20} /> : t("Delete")}
               </button>
             </Box>
+          </Box>
+        </Box>
+      </Modal> */}
+      <Modal
+        className="address-modal common-modall"
+        open={openDelete}
+        onClose={handleCloseDelete}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            ...style,
+            bgcolor: "#fff", // Ensure white background
+            color: "#000", // Ensure black text
+            borderRadius: "10px",
+            padding: "20px",
+          }}
+          className="common-style-modal address-style"
+        >
+          {/* Modal Header */}
+          <Box
+            className="modal-header-common address-modal-header"
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={handleCloseDelete}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: "20px",
+                cursor: "pointer",
+              }}
+            >
+              ✕
+            </button>
+          </Box>
+
+          {/* Modal Body */}
+          <Box
+            className="modal-body address-body"
+            sx={{ textAlign: "center", marginTop: "10px" }}
+          >
+            <Typography
+              className="are-you-sure-title"
+              sx={{ fontWeight: 600, fontSize: "18px", mb: 1 }}
+            >
+              {t("AreYouSure")}?
+            </Typography>
+            <Typography
+              className="are-you-sure-desc"
+              sx={{ fontSize: "14px", color: "#555" }}
+            >
+              {t("AreYouSureYouWantToDeleteWalletAddressRecords")}.
+            </Typography>
+          </Box>
+
+          {/* Modal Footer */}
+          <Box
+            className="modal-footer"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "15px",
+              marginTop: "25px",
+            }}
+          >
+            <button
+              className="common-btn"
+              type="button"
+              onClick={handleCloseDelete}
+              style={{
+                background: "#0d6efd",
+                color: "#fff",
+                border: "none",
+                borderRadius: "25px",
+                padding: "8px 22px",
+                fontSize: "15px",
+                cursor: "pointer",
+              }}
+            >
+              {t("Cancel")}
+            </button>
+
+            <button
+              className="border-btn"
+              type="button"
+              onClick={handleDelete}
+              disabled={buttonLoader}
+              style={{
+                background: "transparent",
+                border: "1px solid #d32f2f",
+                color: "#d32f2f",
+                borderRadius: "25px",
+                padding: "8px 22px",
+                fontSize: "15px",
+                cursor: "pointer",
+              }}
+            >
+              {buttonLoader ? (
+                <CircularProgress size={20} color="error" />
+              ) : (
+                t("Delete")
+              )}
+            </button>
           </Box>
         </Box>
       </Modal>

@@ -1842,6 +1842,7 @@ body .success-btn {
   border: 0;
   cursor: pointer;
   background-color: #ffffff45;
+  position: relative;
 }
 
 .app-icon-btn .app-icon {
