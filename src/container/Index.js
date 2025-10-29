@@ -47,6 +47,7 @@ import pocketPi2 from "../assets/images/pocketPi2.png";
 import profile from "../assets/images/Profile.png";
 import scan from "../assets/images/Scan.png";
 import logout from "../assets/images/logout.png";
+import Notification from "../assets/images/notification.png";
 import setting from "../assets/images/Setting.png";
 import copy from "../assets/images/Copy.png";
 import income from "../assets/images/income.png";
@@ -134,6 +135,7 @@ import pending from "../assets/images/pending.png";
 import suceessgif from "../assets/images/suceessgif.gif"
 import Invoice from "../assets/images/invoice1.png";
 import Role from "../assets/images/role1.png";
+import Back1 from "../assets/images/back1.png";
 
 
 const Index = {
@@ -148,6 +150,7 @@ const Index = {
   pocketPi2,
   profile,
   logout,
+  Notification,
   logo,
   scan,
   toasterSuccess,
@@ -271,7 +274,8 @@ const Index = {
   Privacy,
   Terms,
   Invoice,
-  Role
+  Role,
+  Back1
 };
 
 export default Index;

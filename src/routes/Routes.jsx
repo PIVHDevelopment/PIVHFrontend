@@ -48,6 +48,7 @@ import Nominee from "../container/nominee/Nominee";
 import AddNominee from "../container/nominee/AddNominee";
 import EmployeeRoll from "../container/employeeRoll/EmployeeRoll";
 import AddEmployeeRole from "../container/employeeRoll/AddEmployeeRole";
+import Notification from "../container/notification/Notification";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -259,6 +260,10 @@ const Routers = () => {
           path: "/edit-nominee/:id",
           element: <AddNominee />,
         },
+        {
+          path: "/notification",
+          element: <Notification />,
+        }
       ],
     },
     {

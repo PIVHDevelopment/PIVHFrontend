@@ -87,6 +87,8 @@ const Api = {
   GET_NOMINEE: "/user/get-nominee-list",
   DELETE_NOMINEE: "/user/delete-nominee",
   GET_NOMINEE_BY_ID: "/user/get-nominee",
+
+  GET_NOTIFICATION: "/user/get-notification-list",
 };
 
 export default Api;

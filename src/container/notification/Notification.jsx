@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Individual from "./individual/Individual";
-import Business from "./business/Business";
 import Index from "../Index";
+import moment from "moment";
 import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
 const _window = window;
@@ -13,13 +12,13 @@ const axiosClient = axios.create({
   withCredentials: true,
 });
 
-function Home() {
+function Notification() {
   const { t, i18n } = Index.useTranslation();
   const location = useLocation();
   // const isBusiness = location;
   const isBusiness = location?.state?.isBusiness;
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
-  const [tab, setTab] = useState(location?.state?.activeTab ?? 1);
+  const [tab, setTab] = useState(location?.state?.activeTab ?? "All");
 
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
@@ -33,7 +32,7 @@ function Home() {
   const [languageCh, setLanguageCh] = useState(selectedLanguage);
 
   useEffect(() => {
-    if(location?.state?.activeTab){
+    if (location?.state?.activeTab) {
       setTab(+location?.state?.activeTab ?? 1);
     }
   }, [location]);
@@ -87,10 +86,6 @@ function Home() {
     setOpen(false);
   };
 
-  const handleNotification = () => {
-    navigate("/notification");
-  };
-
   const signOutUser = () => {
     return axiosClient.post(Index.Api.SIGN_OUT);
   };
@@ -99,33 +94,22 @@ function Home() {
     sessionStorage.clear();
     navigate("/signin");
   };
-  const handleGetTransactions = () => {
-    Index.DataService.get(
-      `${Index.Api.GET_TRANSACTIONS}/${userData?.uid}?typeTxn=${typeTxn}`
-    ).then((res) => {
-      console.log({ res });
-
-      setTransactionList(res?.data?.data?.updatedList);
-      setBalance(res?.data?.data?.balance);
-      setBusinessBalance(res?.data?.data?.businessBalance);
-      setBusinessUserName(res?.data?.data?.businessUserName);
-    });
+  const handleGetNotifications = async () => {
+    try {
+      const res = await Index.DataService.get(
+        `${Index.Api.GET_NOTIFICATION}?id=${userData?._id}`
+      );
+      setTransactionList(res?.data?.data || []);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
   };
 
-  // const handleGetBalance = () => {
-  //   axios
-  //     .get(`https://api.testnet.minepi.com/accounts/${userData?.walletAddress}`)
-  //     .then((res) => {
-  //       setBalance(res?.data?.balances[0]?.balance);
-  //     });
-  // };
-
   useEffect(() => {
-    handleGetTransactions();
-    // if (userData?.walletAddress) {
-    //   handleGetBalance();
-    // }
-  }, [typeTxn]);
+    if (userData?._id) {
+      handleGetNotifications();
+    }
+  }, [userData?._id]);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -137,29 +121,6 @@ function Home() {
     <>
       <div className="app-container">
         <header>
-          {/* <div className="profile-pic">
-                <img src={Index.profile} alt="Profile" />
-              </div>
-              {tab === 2 && <span className="upgrade-text">Upgrade Plan</span>} */}
-
-          {/* <div className="lang-dropdown-main">
-            <Index.FormControl>
-              <Index.Select
-                value={languageCh}
-                onChange={handleLanguageChange}
-              >
-                <Index.MenuItem value={"En"}>En</Index.MenuItem>
-                <Index.MenuItem value={"Hi"}>Hi</Index.MenuItem>
-                <Index.MenuItem value={"Ar"}>Ar</Index.MenuItem>
-              </Index.Select>
-            </Index.FormControl>
-            <img src={Index.languageImg} className="lang-change-icon" />
-            <img
-              src={Index.downblackAarrow}
-              className="search-down-arrow"
-              alt="Dropdown"
-            />
-          </div> */}
           <div className="outline-tabs-main">
             <button
               className="outline-tabs"
@@ -183,29 +144,6 @@ function Home() {
             <img src={Index.logo} alt={t("PocketPi")} className="logo-header" />
           </div>
           <div className="header-icons">
-            {/* <button className="icon-btn" id="syncBtn">
-                <img src={Index.scan} alt="Scan" />
-              </button> */}
-
-            {/* {(tab === 2 && !userData?.isBusinessSubscription) ||
-              (tab === 1 && !userData?.isIndividualSubscription) ? (
-                ""
-              ) : (
-                <button
-                  className="icon-btn subscrip-icon"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModalMerchant"
-                  // onClick={handleOpen}
-                  // onClick={() => navigate("/add-wallet")}
-                >
-                  <img src={Index.subscribedIcon} alt="Setting" />
-                </button>
-              )} */}
-
-            <button className="icon-btn" id="syncBtn" onClick={handleNotification}>
-              <img src={Index.Notification} alt="notification" />
-            </button>
-
             <button
               className="icon-btn"
               data-bs-toggle="modal"
@@ -221,177 +159,81 @@ function Home() {
           </div>
         </header>
         <div className="home-page-main">
-          <Index.TabContainer
-            id="left-tabs-example"
-            defaultActiveKey="individual"
-            activeKey={tab}
-          >
-            {/* <div className="wallet-tabs">
-              <button
-                className={`tab-btn${tab === 1 ? " active" : ""}`}
-                data-tab="individual"
-                onClick={() => setTab(1)}
-              >
-                {t("Individual")}
-              </button>
-              {
-                console.log("userData?.businessTxn?.isPin", userData?.businessTxn?.isPin, userData?.businessTxn?.isQuestion)
-              }
-              {userData?.businessTxn?.isPin &&
-                userData?.businessTxn?.isQuestion && (
-                  <button
-                    className={`tab-btn${tab === 2 ? " active" : ""}`}
-                    data-tab="business"
-                    onClick={() => setTab(2)}
-                  >
-                    {t("Business")}
-                  </button>
-                )}
-            </div> */}
-
-            {userData?.businessTxn?.isPin &&
-              userData?.businessTxn?.isQuestion && (
-                <div className="wallet-tabs">
-                  <button
-                    className={`tab-btn${tab === 1 ? " active" : ""}`}
-                    data-tab="individual"
-                    onClick={() => setTab(1)}
-                  >
-                    {t("Individual")}
-                  </button>
-                  <button
-                    className={`tab-btn${tab === 2 ? " active" : ""}`}
-                    data-tab="business"
-                    onClick={() => setTab(2)}
-                  >
-                    {t("Business")}
-                  </button>
-                </div>
-              )}
-
-            <Index.TabContent>
-              <Index.TabPane eventKey={1}>
-                <div className="wallet-id">
-                  <div className="tick-mark-icons">
-                    <span id="walletAddress">
-                      {tab == 1
-                        ? userData?.userName
-                        : userData?.businessUserName}
-                    </span>
-                    {/* <div>
-                  <img
-                    src={Index.verify}
-                    className="verify-icons"
-                    alt="verify"
-                  />
-                </div> */}
-                    {(tab === 2 && !userData?.isBusinessSubscription) ||
-                    (tab === 1 && !userData?.isIndividualSubscription) ? (
-                      ""
-                    ) : (
-                      <div>
-                        <img
-                          src={Index.verify}
-                          className="verify-icons"
-                          alt={t("verify")}
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <button className="copy-btn" onClick={handleCopy}>
-                    {copied ? (
-                      <span>✓</span>
-                    ) : (
-                      <img src={Index.copy} alt={t("Copy")} />
-                    )}
-                  </button>
-                </div>
-                <div className="balance-section">
-                  <p className="balance-label">{t("CurrentBalance")}</p>
-                  <h1 className="balance-amount">
-                    {parseFloat(tab == 2 ? businessBalance : balance) > 0
-                      ? parseFloat(
-                          tab == 2 ? businessBalance : balance
-                        ).toFixed(5)
-                      : 0}{" "}
-                    Pi
-                  </h1>
-                </div>
-                <Individual balance={balance} />
-              </Index.TabPane>
-              <Index.TabPane eventKey={2}>
-                <Business balance={businessBalance} activeTab={tab} />
-              </Index.TabPane>
-            </Index.TabContent>
-          </Index.TabContainer>
-
           {transactionList?.length ? (
             <div
               className={`transaction-section ${
-                isExpanded ? "expanded" : "collapsed"
+                isExpanded ? "collapsed" : "expanded"
               }`}
             >
-              <div className="toggle-arrow" onClick={toggleSection}>
-                {isExpanded ? (
-                  <span className="arrow-icon">↓</span>
-                ) : (
-                  <span className="arrow-icon">↑</span>
-                )}
+              {/* 🔽 Toggle Arrow */}
+              <div className="arrow">
+                <button className="back" onClick={() => navigate("/home", {})}>
+                  <img src={Index.Back1} alt="Back" />
+                </button>
               </div>
+
+              {/* 🔽 Dropdown Filter (instead of tabs) */}
+              <div className="post-filter-dropdown">
+                <select
+                  value={tab}
+                  onChange={(e) => setTab(e.target.value)}
+                  className="filter-select"
+                >
+                  <option value="All">{t("All")}</option>
+                  <option value="Invoices">{t("Invoices")}</option>
+                  <option value="Requests">{t("Requests")}</option>
+                  <option value="Tickets">{t("Tickets")}</option>
+                  <option value="Chats">{t("Chats")}</option>
+                  <option value="Jobs">{t("Jobs")}</option>
+                  <option value="Contracts">{t("Contracts")}</option>
+                </select>
+              </div>
+
+              {/* 🔽 Title */}
               <h2 className="transaction-section-title">
-                {t("TransactionHistory")}
+                {t(
+                  tab === "All" ? "All Notifications" : `${tab} Notifications`
+                )}
               </h2>
+
+              {/* 🔽 Filtered List */}
               <div className="transaction-list">
-                {transactionList?.map((transaction, index) => {
-                  const isPositive = transaction.paymentType === "received";
-                  const amountPrefix = isPositive ? "+" : "-";
-                  return (
+                {transactionList
+                  ?.filter((item) => {
+                    if (tab === "All") return true;
+                    const normalizedTab = tab.toLowerCase().replace(/s$/, "");
+                    return item.type?.toLowerCase() === normalizedTab;
+                  })
+                  ?.map((transaction, index) => (
                     <div className="transaction-main-box" key={index}>
                       <div className="transaction-details">
-                        <img
-                          src={isPositive ? Index.income : Index.expense}
-                          alt={t("expense")}
-                          className="transaction-icon"
-                        />
                         <div className="transaction-info">
                           <p className="transaction-title">
-                            {transaction?.memo || transaction?.type}{" "}
-                            {transaction?.receiver_name &&
-                              `(${
-                                transaction?.paymentType === "sent"
-                                  ? transaction?.receiver_name
-                                  : transaction?.user_name
-                              })`}
+                            <strong>Type:</strong> {transaction.type}
                           </p>
-                          <p className="transaction-time">
-                            {Index.moment(transaction.createdAt).format(
-                              "hh:mm A"
-                            )}
+                          <p className="transaction-title">
+                            <strong>Title:</strong> {transaction.title}
+                          </p>
+                          <p className="transaction-title">
+                            <strong>Description:</strong>{" "}
+                            {transaction.description}
                           </p>
                         </div>
                       </div>
-                      <div
-                        className={`transaction-amount ${
-                          isPositive ? "positive" : "negative"
-                        }`}
-                      >
-                        <p className="transaction-amount">
-                          {amountPrefix}
-                          {Math.abs(transaction.amount)?.toFixed(5)} Pi
+                      <div className="transaction-date-info">
+                        <p className="transaction-time">
+                          {moment(transaction.createdAt).format("hh:mm A")}
                         </p>
                         <p className="transaction-date">
-                          {Index.moment(transaction.createdAt).format(
-                            "DD MMM, YYYY"
-                          )}
+                          {moment(transaction.createdAt).format("DD MMM, YYYY")}
                         </p>
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
               </div>
             </div>
           ) : (
-            <></>
+            <p className="no-data-text">{t("No posts available")}</p>
           )}
         </div>
       </div>
@@ -540,21 +382,6 @@ function Home() {
               <h6 className="setting-cont-title">{t("Deposit")}</h6>
             </div>
           )}
-          {/* {tab == 2 && (
-            <div
-              className="setting-cont-box"
-              onClick={() =>
-                navigate("/payment-request", {
-                  // state: { isBusiness: true },
-                })
-              }
-            >
-              <div className="setting-icon-box">
-                <img src={Index.withdraw} alt="" />
-              </div>
-              <h6 className="setting-cont-title">{t("PaymentRequest")}</h6>
-            </div>
-          )} */}
           {tab == 2 && (
             <div
               className="setting-cont-box"
@@ -588,11 +415,7 @@ function Home() {
           {tab == 1 && (
             <div
               className="setting-cont-box"
-              onClick={() =>
-                navigate("/nominee", {
-                  // state: { isBusiness: true },
-                })
-              }
+              onClick={() => navigate("/nominee", {})}
             >
               <div className="setting-icon-box">
                 <img src={Index.Nominee} alt="" />
@@ -632,4 +455,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Notification;
