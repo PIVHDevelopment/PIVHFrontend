@@ -117,6 +117,77 @@ function Notification() {
     setIsExpanded(!isExpanded);
   };
 
+  const handleNotificationClick = async (notificationId) => {
+    try {
+      const res = await Index.DataService.get(
+        `${Index.Api.GET_NOTIFICATION_BY_ID}?id=${notificationId}`
+      );
+
+      if (res?.data?.status === 200) {
+        const notification = res.data.data;
+
+        // Extract type and ObjectId
+        const type = notification?.type?.toLowerCase();
+        const objectId = notification?.ObjectId;
+        
+        if (!objectId) {
+          Index.toasterError("No related ID found for this notification");
+          return;
+        }
+
+        // Redirect based on type
+        switch (type) {
+          case "invoice":
+          case "invoices":
+            navigate(`/invoice-list`, {
+              state: { notification },
+            });
+            break;
+
+          case "request":
+          case "requests":
+            navigate(`/payment-request`, {
+              state: { notification },
+            });
+            break;
+
+          case "chat":
+          case "chats":
+            navigate(`/chat`, {
+              state: { recieverId: objectId, notification },
+            });
+            break;
+
+          case "contract":
+          case "contracts":
+            navigate(`/payroll`, {
+              state: { notification },
+            });
+            break;
+
+          case "job":
+          case "jobs":
+            navigate(`/user-management`, { state: { notification } });
+            break;
+
+          case "ticket":
+          case "tickets":
+            navigate(`/ticket/${objectId}`, { state: { notification } });
+            break;
+
+          default:
+            Index.toasterInfo("No page found for this notification type");
+            break;
+        }
+      } else {
+        Index.toasterError("Failed to load notification details");
+      }
+    } catch (err) {
+      console.error("Error fetching notification details:", err);
+      Index.toasterError("Something went wrong");
+    }
+  };
+
   return (
     <>
       <div className="app-container">
@@ -205,7 +276,12 @@ function Notification() {
                     return item.type?.toLowerCase() === normalizedTab;
                   })
                   ?.map((transaction, index) => (
-                    <div className="transaction-main-box" key={index}>
+                    <div
+                      className="transaction-main-boxs"
+                      key={index}
+                      onClick={() => handleNotificationClick(transaction._id)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <div className="transaction-details">
                         <div className="transaction-info">
                           <p className="transaction-title">

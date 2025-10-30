@@ -2900,7 +2900,7 @@ body.direction-rtl .lang-dropdown-main .search-down-arrow {
   line-height: 20px;
 }
 
-.transaction-main-box .copy-btn img {
+.transaction-main-box .transaction-main-boxs .copy-btn img {
   filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(7500%)
     hue-rotate(345deg) brightness(105%) contrast(95%);
   -webkit-filter: brightness(0) saturate(100%) invert(0%) sepia(100%)
@@ -3244,4 +3244,18 @@ body .MuiGrid-root{
   background-color: #f1f1f1;
   color: black;
   align-self: flex-start;
+}
+
+.transaction-main-boxs:hover {
+  background-color: #f0f4ff;
+  transform: translateY(-2px);
+}
+
+.transaction-main-boxs {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px 10px 0px;
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #ced6d9;
 }
