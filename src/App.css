@@ -568,7 +568,7 @@ body .action-btn {
 
 /* Custom scrollbar */
 .transaction-list::-webkit-scrollbar {
-  width: 3px;
+  width: 6px;
 }
 
 .transaction-list::-webkit-scrollbar-track {
@@ -2531,6 +2531,33 @@ input:focus-visible {
 .transaction-list {
   max-height: 265px;
   overflow-y: auto;
+}
+
+.transaction-lists {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+.transaction-sections {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px);
+  
+  background: #fff;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  /* margin: auto; */
+  /* height: 30%; */
+  /* position: fixed; */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* max-width: 440px; */
+  /* transition: 0.3s ease-in-out; */
 }
 
 .transaction-item {

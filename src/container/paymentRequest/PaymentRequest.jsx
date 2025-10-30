@@ -26,7 +26,7 @@ const PaymentRequest = () => {
   const { t } = Index.useTranslation();
   const userData = JSON.parse(sessionStorage.getItem("pi_user_data"));
   const language = localStorage.getItem("language");
-  let isRtl = language === "Ar" ? true : false;
+  const isRtl = language === "Ar";
   const navigate = Index.useNavigate();
   const location = Index.useLocation();
   const [tab, setTab] = useState(1);
@@ -50,13 +50,13 @@ const PaymentRequest = () => {
     setLoading(true);
     try {
       const res = await Index.DataService.get(
-        `${Index.Api.GET_PAYMENT_REQUEST}?merchantId=${userData?._id
-        }&userName=${isBusiness ? userData?.businessUserName : userData?.userName
+        `${Index.Api.GET_PAYMENT_REQUEST}?merchantId=${userData?._id}&userName=${
+          isBusiness ? userData?.businessUserName : userData?.userName
         }`
       );
       if (res?.data?.status) {
-        setRequests(res?.data?.data?.sentRequests);
-        setReceivedData(res?.data?.data?.receivedRequests);
+        setRequests(res?.data?.data?.sentRequests || []);
+        setReceivedData(res?.data?.data?.receivedRequests || []);
       }
     } catch (err) {
       console.error(err);
@@ -67,13 +67,13 @@ const PaymentRequest = () => {
 
   const handleSubmit = async (values) => {
     try {
+      setButtonLoader(true);
       const payload = {
         ...values,
         merchantId: userData._id,
         merchantName: isBusiness
           ? userData?.businessUserName
           : userData?.userName,
-        // id,
       };
       const res = await Index.DataService.post(
         Index.Api.ADD_UPDATE_PAYMENT_REQUEST,
@@ -87,7 +87,7 @@ const PaymentRequest = () => {
     } catch (err) {
       Index.toasterError(err?.response?.data?.message?.[language]);
     } finally {
-      setLoading(false);
+      setButtonLoader(false);
     }
   };
 
@@ -98,6 +98,7 @@ const PaymentRequest = () => {
   const handleSubmitFunction = async (values) => {
     const pin = values.pinFields.join("");
     setButtonLoader(true);
+
     const paymentData = {
       amount: txnData?.amount,
       memo: "Pay Request",
@@ -119,10 +120,10 @@ const PaymentRequest = () => {
         id: txnData?._id,
         transactionId: res?.data?.data,
       });
-
+      
       if (res?.data?.status) {
         navigate("/transaction-success", {
-          state: { isBusiness: type == "business" ? true : false },
+          state: { isBusiness: isBusiness ? true : false },
         });
         fetchRequests();
         setNextPage(false);
@@ -133,7 +134,6 @@ const PaymentRequest = () => {
       setButtonLoader(false);
     }
   };
-  console.log({ txnData });
 
   const handleSubmitPin = (values) => {
     setTxnData(values);
@@ -153,198 +153,213 @@ const PaymentRequest = () => {
             />
           ) : (
             <>
+              {/* Header */}
               <header className="receive-center">
                 <button
                   className="back-btn"
                   onClick={() =>
-                    navigate("/home", {
-                      state: { isBusiness },
-                    })
+                    navigate("/home", { state: { isBusiness } })
                   }
                 >
                   <img src={Index.back} alt="Back" />
                 </button>
                 <div className="app-icon">
-                  {/* <img src={Index.pocketPi} alt={t("PocketPi")} /> */}
-                   <img src={Index.logo} className="logo-header" alt="PocketPi" />
+                  <img
+                    src={Index.logo}
+                    className="logo-header"
+                    alt="PocketPi"
+                  />
                 </div>
                 <div className="header-right"></div>
               </header>
 
-              {isBusiness && (
-                <Index.TabContainer
-                  id="left-tabs-example"
-                  defaultActiveKey="individual"
-                  activeKey={tab}
-                >
-                  <div className="wallet-tabs payment-request-tabs">
-                    <button
-                      className={`tab-btn${tab === 1 ? " active" : ""}`}
-                      data-tab="individual"
-                      onClick={() => setTab(1)}
-                    >
-                      {t("Receive")}
-                    </button>
+              {/* Tabs */}
+              <Index.TabContainer
+                id="left-tabs-example"
+                defaultActiveKey="individual"
+                activeKey={tab}
+              >
+                <div className="wallet-tabs payment-request-tabs">
+                  <button
+                    className={`tab-btn${tab === 1 ? " active" : ""}`}
+                    onClick={() => setTab(1)}
+                  >
+                    {t("Receive")}
+                  </button>
 
-                    <button
-                      className={`tab-btn${tab === 2 ? " active" : ""}`}
-                      data-tab="business"
-                      onClick={() => setTab(2)}
-                    >
-                      {t("Sent")}
-                    </button>
-                  </div>
-                </Index.TabContainer>
-              )}
+                  <button
+                    className={`tab-btn${tab === 2 ? " active" : ""}`}
+                    onClick={() => setTab(2)}
+                  >
+                    {t("Sent")}
+                  </button>
+                </div>
+              </Index.TabContainer>
 
+              {/* Payment Requests */}
               <Box className="address-book-details">
                 <Box className="address-book-head">
                   <Typography
-                    className={`address-book-title ${isRtl ? "text-align-right" : ""
-                      }`}
+                    className={`address-book-title ${
+                      isRtl ? "text-align-right" : ""
+                    }`}
                   >
                     {t("PaymentRequest")}
                   </Typography>
-                  {tab == 2 && (
+
+                  {tab === 2 && (
                     <button className="icon-btn" onClick={handleOpen}>
                       <img src={Index.Plusadd} alt={t("Add")} />
                     </button>
                   )}
                 </Box>
-                {tab == 1 && (
-                    <Box className="address-book-listing">
-                  <List className="list-ul-address">
-                    {receivedData.length > 0 ? (
-                      receivedData.map((item, index) => (
-                        <ListItem key={index} className="list-item-address">
-                          <Box
-                            className={`flex-justify-gap-add ${item?.status !== "pending" ? "custom-align" : ""
+
+                {/* Receive Tab */}
+                {tab === 1 && (
+                  <Box className="address-book-listing">
+                    <List className="list-ul-address">
+                      {receivedData.length > 0 ? (
+                        receivedData.map((item, index) => (
+                          <ListItem key={index} className="list-item-address">
+                            <Box
+                              className={`flex-justify-gap-add ${
+                                item?.status !== "pending"
+                                  ? "custom-align"
+                                  : ""
                               }`}
-                          >
-                            <Box className="address-left-contain">
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("RequestBy")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.merchantName}
-                                </Typography>
+                            >
+                              <Box className="address-left-contain">
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("RequestBy")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.merchantName}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Amount")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.amount}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Description")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.description}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Status")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address custom-field-contain-status">
+                                    {item?.status}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Date")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address custom-field-contain-status">
+                                    {Index.moment(item?.createdAt).format(
+                                      "DD/MM/YYYY hh:mm A"
+                                    )}
+                                  </Typography>
+                                </Box>
                               </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Amount")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.amount}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Description")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.description}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Status")} :
-                                </Typography>
-                                <Typography className="field-contain-address custom-field-contain-status">
-                                  {item?.status}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Date")} :
-                                </Typography>
-                                <Typography className="field-contain-address custom-field-contain-status">
-                                  {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
-                                </Typography>
-                              </Box>
-                            </Box>
-                            <Box className=" request-payment-pay-btn-box">
-                              <button
-                                className={`${item?.status === "pending"
-                                  ? "request-payment-pay-btn request-payment-pay-pending-btn"
-                                  : "request-payment-pay-btn request-payment-pay-success-btn"
+
+                              <Box className="request-payment-pay-btn-box">
+                                <button
+                                  className={`${
+                                    item?.status === "pending"
+                                      ? "request-payment-pay-btn request-payment-pay-pending-btn"
+                                      : "request-payment-pay-btn request-payment-pay-success-btn"
                                   }`}
-                                onClick={() => handleSubmitPin(item)}
-                                disabled={item?.status == "pending" ? false : true}
-                              >
-                                {item?.status == "pending" ? t("Pay") : t("Paid")}
-                              </button>
+                                  onClick={() => handleSubmitPin(item)}
+                                  disabled={item?.status !== "pending"}
+                                >
+                                  {item?.status === "pending"
+                                    ? t("Pay")
+                                    : t("Paid")}
+                                </button>
+                              </Box>
                             </Box>
-                          </Box>
-                        </ListItem>
-                      ))
-                    ) : (
-                      <Index.NoDataFound message={t("No Request Found")} />
-                    )}
-                  </List>
+                          </ListItem>
+                        ))
+                      ) : (
+                        <Index.NoDataFound message={t("No Request Found")} />
+                      )}
+                    </List>
                   </Box>
                 )}
 
-                {tab == 2 && (
-                    <Box className="address-book-listing">
-                  <List className="list-ul-address">
-                    {requestData.length > 0 ? (
-                      requestData.map((item, index) => (
-                        <ListItem key={index} className="list-item-address">
-                          <Box className="flex-justify-gap-add">
-                            <Box className="address-left-contain">
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Username")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.userName}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Amount")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.amount}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Description")} :
-                                </Typography>
-                                <Typography className="field-contain-address">
-                                  {item?.description}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Status")} :
-                                </Typography>
-                                <Typography className="field-contain-address custom-field-contain-status">
-                                  {item?.status}
-                                </Typography>
-                              </Box>
-                              <Box className="list-field-show">
-                                <Typography className="label-contain-address">
-                                  {t("Date")} :
-                                </Typography>
-                                <Typography className="field-contain-address custom-field-contain-status">
-                                  {Index.moment(item?.createdAt).format("DD/MM/YYYY hh:mm A")}
-                                </Typography>
+                {/* Sent Tab */}
+                {tab === 2 && (
+                  <Box className="address-book-listing">
+                    <List className="list-ul-address">
+                      {requestData.length > 0 ? (
+                        requestData.map((item, index) => (
+                          <ListItem key={index} className="list-item-address">
+                            <Box className="flex-justify-gap-add">
+                              <Box className="address-left-contain">
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Username")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.userName}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Amount")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.amount}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Description")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address">
+                                    {item?.description}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Status")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address custom-field-contain-status">
+                                    {item?.status}
+                                  </Typography>
+                                </Box>
+                                <Box className="list-field-show">
+                                  <Typography className="label-contain-address">
+                                    {t("Date")} :
+                                  </Typography>
+                                  <Typography className="field-contain-address custom-field-contain-status">
+                                    {Index.moment(item?.createdAt).format(
+                                      "DD/MM/YYYY hh:mm A"
+                                    )}
+                                  </Typography>
+                                </Box>
                               </Box>
                             </Box>
-                          </Box>
-                        </ListItem>
-                      ))
-                    ) : (
-                      <Index.NoDataFound message={t("No Request Found")} />
-                    )}
-                  </List>
+                          </ListItem>
+                        ))
+                      ) : (
+                        <Index.NoDataFound message={t("No Request Found")} />
+                      )}
+                    </List>
                   </Box>
                 )}
               </Box>
-
 
               {/* Add/Edit Modal */}
               <Modal open={open} onClose={handleClose} className="address-modal">
@@ -357,6 +372,7 @@ const PaymentRequest = () => {
                     </Typography>
                     <button className="btn-close" onClick={handleClose}></button>
                   </Box>
+
                   <Index.Formik
                     initialValues={{
                       userName: "",
@@ -380,6 +396,7 @@ const PaymentRequest = () => {
                       <form onSubmit={formik.handleSubmit}>
                         <Box className="modal-body address-body">
                           <Box className="grid-row">
+                            {/* Username */}
                             <div className="input-box">
                               <p className="user-form-lable">
                                 {t("Username")}
@@ -392,10 +409,7 @@ const PaymentRequest = () => {
                                   name="userName"
                                   value={formik.values.userName}
                                   onChange={(e) => {
-                                    const noSpaces = e.target.value.replace(
-                                      /\s/g,
-                                      ""
-                                    );
+                                    const noSpaces = e.target.value.replace(/\s/g, "");
                                     formik.setFieldValue("userName", noSpaces);
                                   }}
                                   onBlur={formik.handleBlur}
@@ -403,11 +417,14 @@ const PaymentRequest = () => {
                                 />
                               </div>
                               <p className="input-error">
-                                {formik.errors.userName && formik.touched.userName
+                                {formik.errors.userName &&
+                                formik.touched.userName
                                   ? formik.errors.userName
                                   : null}
                               </p>
                             </div>
+
+                            {/* Amount */}
                             <div className="input-box">
                               <p className="user-form-lable">
                                 {t("Amount")}
@@ -420,7 +437,7 @@ const PaymentRequest = () => {
                                   name="amount"
                                   value={formik.values.amount}
                                   onChange={(e) => {
-                                    const value = e?.target?.value;
+                                    const value = e.target.value;
                                     if (/^\d*\.?\d*$/.test(value)) {
                                       formik.setFieldValue("amount", value);
                                     }
@@ -428,13 +445,16 @@ const PaymentRequest = () => {
                                   onBlur={formik.handleBlur}
                                   maxLength={12}
                                 />
-                                <p className="input-error">
-                                  {formik.errors.amount && formik.touched.amount
-                                    ? formik.errors.amount
-                                    : null}
-                                </p>
                               </div>
+                              <p className="input-error">
+                                {formik.errors.amount &&
+                                formik.touched.amount
+                                  ? formik.errors.amount
+                                  : null}
+                              </p>
                             </div>
+
+                            {/* Description */}
                             <div className="input-box">
                               <p className="user-form-lable">
                                 {t("Description")}
@@ -450,15 +470,17 @@ const PaymentRequest = () => {
                                   onBlur={formik.handleBlur}
                                   maxLength={164}
                                 />
-                                <p className="input-error">
-                                  {formik.errors.description &&
-                                    formik.touched.description
-                                    ? formik.errors.description
-                                    : null}
-                                </p>
                               </div>
+                              <p className="input-error">
+                                {formik.errors.description &&
+                                formik.touched.description
+                                  ? formik.errors.description
+                                  : null}
+                              </p>
                             </div>
                           </Box>
+
+                          {/* Footer */}
                           <Box className="modal-footer">
                             <Box className="footer-address-center">
                               <button

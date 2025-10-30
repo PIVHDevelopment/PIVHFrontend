@@ -197,7 +197,7 @@ function Notification() {
               </h2>
 
               {/* Filtered List */}
-              <div className="transaction-list">
+              <div className="transaction-lists">
                 {transactionList
                   ?.filter((item) => {
                     if (tab === "All") return true;

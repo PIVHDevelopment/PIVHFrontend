@@ -44,7 +44,7 @@ const Api = {
   DELETE_WALLET_ADDRESS: "/user/delete-wallet-address",
 
   ADD_UPDATE_PAYMENT_REQUEST: "/payments/create-payment-request",
-  GET_PAYMENT_REQUEST: "/payments/  ",
+  GET_PAYMENT_REQUEST: "/payments/fetch-payment-request",
   ACCEPT_PAYMENT_REQUEST: "/payments/accept-payment-request",
 
   ADD_FEEDBACK: "/user/add-feedback",
