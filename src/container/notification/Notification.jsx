@@ -165,14 +165,14 @@ function Notification() {
                 isExpanded ? "collapsed" : "expanded"
               }`}
             >
-              {/* 🔽 Toggle Arrow */}
+              {/* Toggle Arrow */}
               <div className="arrow">
                 <button className="back" onClick={() => navigate("/home", {})}>
                   <img src={Index.Back1} alt="Back" />
                 </button>
               </div>
 
-              {/* 🔽 Dropdown Filter (instead of tabs) */}
+              {/* Dropdown Filter (instead of tabs) */}
               <div className="post-filter-dropdown">
                 <select
                   value={tab}
@@ -189,14 +189,14 @@ function Notification() {
                 </select>
               </div>
 
-              {/* 🔽 Title */}
+              {/* Title */}
               <h2 className="transaction-section-title">
                 {t(
                   tab === "All" ? "All Notifications" : `${tab} Notifications`
                 )}
               </h2>
 
-              {/* 🔽 Filtered List */}
+              {/* Filtered List */}
               <div className="transaction-list">
                 {transactionList
                   ?.filter((item) => {
@@ -423,6 +423,19 @@ function Notification() {
               <h6 className="setting-cont-title">{t("Nominee")}</h6>
             </div>
           )}
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/chat", {
+                state: { typeTxn: tab == 1 ? "individual" : "business" },
+              })
+            }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.Phone} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Chat")}</h6>
+          </div>
           <div
             className="setting-cont-box"
             onClick={() =>

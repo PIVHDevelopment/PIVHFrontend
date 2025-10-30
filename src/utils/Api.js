@@ -44,7 +44,7 @@ const Api = {
   DELETE_WALLET_ADDRESS: "/user/delete-wallet-address",
 
   ADD_UPDATE_PAYMENT_REQUEST: "/payments/create-payment-request",
-  GET_PAYMENT_REQUEST: "/payments/fetch-payment-request",
+  GET_PAYMENT_REQUEST: "/payments/  ",
   ACCEPT_PAYMENT_REQUEST: "/payments/accept-payment-request",
 
   ADD_FEEDBACK: "/user/add-feedback",
@@ -89,6 +89,12 @@ const Api = {
   GET_NOMINEE_BY_ID: "/user/get-nominee",
 
   GET_NOTIFICATION: "/user/get-notification-list",
+  GET_NOTIFICATION_BY_ID: "/user/get-notification-by-id",
+  READ_NOTIFICATION: "/user/read-notification",
+
+  ADD_CHAT: "/user/add-chat",
+  GET_CHAT_USERS: "/user/get-chat-users",
+  GET_CHAT_MESSAGES: "/user/chat-messages",
 };
 
 export default Api;

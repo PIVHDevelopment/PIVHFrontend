@@ -31,9 +31,11 @@ function Home() {
   let typeTxn = tab == 1 ? "individual" : "business";
   const selectedLanguage = localStorage.getItem("language") || "En";
   const [languageCh, setLanguageCh] = useState(selectedLanguage);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    if(location?.state?.activeTab){
+    if (location?.state?.activeTab) {
       setTab(+location?.state?.activeTab ?? 1);
     }
   }, [location]);
@@ -111,6 +113,28 @@ function Home() {
       setBusinessUserName(res?.data?.data?.businessUserName);
     });
   };
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await Index.DataService.get(
+        `${Index.Api.GET_NOTIFICATION}?id=${userData._id}`
+      );
+      if (res?.data?.status === 200) {
+        const data = res.data.data || [];
+        setNotifications(data);
+        const unread = data.filter((n) => !n.isRead).length;
+        setUnreadCount(unread);
+      }
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   // const handleGetBalance = () => {
   //   axios
@@ -202,9 +226,32 @@ function Home() {
                 </button>
               )} */}
 
-            <button className="icon-btn" id="syncBtn" onClick={handleNotification}>
-              <img src={Index.Notification} alt="notification" />
-            </button>
+            <div style={{ position: "relative" }}>
+              <button
+                className="icon-btn"
+                id="syncBtn"
+                onClick={handleNotification}
+              >
+                <img src={Index.Notification} alt="notification" />
+              </button>
+              {unreadCount > 0 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-4px",
+                    right: "-4px",
+                    background: "blue",
+                    color: "white",
+                    borderRadius: "50%",
+                    padding: "2px 6px",
+                    fontSize: "10px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {unreadCount}
+                </span>
+              )}
+            </div>
 
             <button
               className="icon-btn"
@@ -600,6 +647,19 @@ function Home() {
               <h6 className="setting-cont-title">{t("Nominee")}</h6>
             </div>
           )}
+          <div
+            className="setting-cont-box"
+            onClick={() =>
+              navigate("/chat", {
+                state: { typeTxn: tab == 1 ? "individual" : "business" },
+              })
+            }
+          >
+            <div className="setting-icon-box">
+              <img src={Index.Phone} alt="" />
+            </div>
+            <h6 className="setting-cont-title">{t("Chat")}</h6>
+          </div>
           <div
             className="setting-cont-box"
             onClick={() =>

@@ -49,6 +49,8 @@ import AddNominee from "../container/nominee/AddNominee";
 import EmployeeRoll from "../container/employeeRoll/EmployeeRoll";
 import AddEmployeeRole from "../container/employeeRoll/AddEmployeeRole";
 import Notification from "../container/notification/Notification";
+import Chat from "../container/chat/Chat";
+import UserChat from "../container/chat/UserChat";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -263,7 +265,15 @@ const Routers = () => {
         {
           path: "/notification",
           element: <Notification />,
-        }
+        },
+        {
+          path: "/chat",
+          element: <Chat />,
+        },
+        {
+          path: "/user-chat/:id",
+          element: <UserChat />,
+        },
       ],
     },
     {

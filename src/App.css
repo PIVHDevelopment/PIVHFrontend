@@ -3211,3 +3211,15 @@ body .MuiGrid-root{
   color: #000;
   margin: 0;
 }
+
+.chat-bubble.sent {
+  background-color: #1976d2;
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-bubble.received {
+  background-color: #f1f1f1;
+  color: black;
+  align-self: flex-start;
+}
