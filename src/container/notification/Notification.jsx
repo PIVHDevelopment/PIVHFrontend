@@ -119,6 +119,13 @@ function Notification() {
 
   const handleNotificationClick = async (notificationId) => {
     try {
+      // Mark notification as read
+      await Index.DataService.post(
+        `${Index.Api.READ_NOTIFICATION}?id=${notificationId}`
+      );
+
+      await handleGetNotifications();
+
       const res = await Index.DataService.get(
         `${Index.Api.GET_NOTIFICATION_BY_ID}?id=${notificationId}`
       );
@@ -129,7 +136,7 @@ function Notification() {
         // Extract type and ObjectId
         const type = notification?.type?.toLowerCase();
         const objectId = notification?.ObjectId;
-        
+
         if (!objectId) {
           Index.toasterError("No related ID found for this notification");
           return;
