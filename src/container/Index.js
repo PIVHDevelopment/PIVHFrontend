@@ -137,6 +137,7 @@ import Invoice from "../assets/images/invoice1.png";
 import Role from "../assets/images/role1.png";
 import Back1 from "../assets/images/back1.png";
 import Phone from "../assets/images/phone.png";
+import send1 from "../assets/images/send1.png";
 
 
 const Index = {
@@ -277,7 +278,8 @@ const Index = {
   Invoice,
   Role,
   Back1,
-  Phone
+  Phone,
+  send1
 };
 
 export default Index;

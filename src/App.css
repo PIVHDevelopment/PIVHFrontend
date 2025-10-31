@@ -3257,5 +3257,14 @@ body .MuiGrid-root{
   padding: 10px 0px 10px 0px;
   background: transparent;
   border-radius: 0;
-  border-bottom: 1px solid #ced6d9;
+  border-bottom: 1px solid #9da0a1;
 }
+
+.unread-notification {
+  background-color: #ffffff;
+}
+
+.read-notification {
+  background-color: #dddcdc;
+  opacity: 0.85;
+} 

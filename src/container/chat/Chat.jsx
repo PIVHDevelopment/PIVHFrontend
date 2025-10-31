@@ -31,7 +31,9 @@ function Chat() {
 
   const fetchChatUsers = async () => {
     try {
-      const res = await Index.DataService.get(`${Index.Api.GET_CHAT_USERS}/${userData._id}`);
+      const res = await Index.DataService.get(
+        `${Index.Api.GET_CHAT_USERS}/${userData._id}`
+      );
       if (res?.data?.status === 200) setChatUsers(res.data.data);
       else Index.toasterError(res?.data?.message);
     } catch (err) {
@@ -47,14 +49,18 @@ function Chat() {
 
       const normalizeId = (u) => {
         const rawId =
-          typeof u._id === "object" ? u._id?.$oid || u._id?.toString?.() : u._id;
+          typeof u._id === "object"
+            ? u._id?.$oid || u._id?.toString?.()
+            : u._id;
         return { ...u, _id: rawId };
       };
 
       if (status === 200 || status === 201) {
-        const filtered = users.map(normalizeId).filter((u) => u._id !== userData._id);
+        const filtered = users
+          .map(normalizeId)
+          .filter((u) => u._id !== userData._id);
         setUserList(filtered);
-        setFilteredUsers(filtered); 
+        setFilteredUsers(filtered);
         setOpenUserDialog(true);
         return;
       }
@@ -117,39 +123,101 @@ function Chat() {
               {t("No chats yet")}
             </Typography>
           ) : (
-            <List
+            // <List
+            //   sx={{
+            //     mt: 1,
+            //     bgcolor: "background.paper",
+            //     borderRadius: 2,
+            //     boxShadow: 1,
+            //     overflow: "hidden",
+            //   }}
+            // >
+            //   {chatUsers.map((user, idx) => (
+            //     <React.Fragment key={user._id}>
+            //       <ListItemButton
+            //         onClick={() =>
+            //           navigate(`/user-chat/${user._id}`, {
+            //             state: { recieverId: user._id },
+            //           })
+            //         }
+            //       >
+            //         <ListItemAvatar>
+            //           <Avatar
+            //             src={user.profilePic || Index.defaultAvatar}
+            //             sx={{ width: 40, height: 40 }}
+            //           />
+            //         </ListItemAvatar>
+            //         <ListItemText
+            //           style={{ color: "black" }}
+            //           primary={user.userName || user.name || t("Unknown User")}
+            //         />
+            //       </ListItemButton>
+            //       {idx < chatUsers.length - 1 && <Divider component="li" />}
+            //     </React.Fragment>
+            //   ))}
+            // </List>
+            <Box
               sx={{
-                mt: 1,
-                bgcolor: "background.paper",
-                borderRadius: 2,
-                boxShadow: 1,
-                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                mt: 2,
               }}
             >
-              {chatUsers.map((user, idx) => (
-                <React.Fragment key={user._id}>
-                  <ListItemButton
-                    onClick={() =>
-                      navigate(`/user-chat/${user._id}`, {
-                        state: { recieverId: user._id },
-                      })
-                    }
+              {chatUsers.map((user) => (
+                <Box
+                  key={user._id}
+                  onClick={() =>
+                    navigate(`/user-chat/${user._id}`, {
+                      state: { recieverId: user._id },
+                    })
+                  }
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    bgcolor: "white",
+                    borderRadius: 3,
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                    px: 2,
+                    py: 1.5,
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      transform: "translateY(-3px)",
+                      boxShadow: "0 6px 16px rgba(0,0,0,0.15)",
+                      bgcolor: "#f8f9fa",
+                    },
+                  }}
+                >
+                  <Avatar
+                    src={user.profilePic || Index.defaultAvatar}
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      mr: 2,
+                      border: "2px solid #e3e6eb",
+                      bgcolor: "#d8eafd",
+                    }}
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontWeight: 600,
+                      color: "#1a1d29",
+                      textTransform: "capitalize",
+                    }}
                   >
-                    <ListItemAvatar>
-                      <Avatar
-                        src={user.profilePic || Index.defaultAvatar}
-                        sx={{ width: 40, height: 40 }}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      style={{ color: "black" }}
-                      primary={user.userName || user.name || t("Unknown User")}
-                    />
-                  </ListItemButton>
-                  {idx < chatUsers.length - 1 && <Divider component="li" />}
-                </React.Fragment>
+                    {user.userName || user.name || t("Unknown User")}
+                  </Typography>
+                </Box>
               ))}
-            </List>
+
+              {chatUsers.length === 0 && (
+                <Typography sx={{ mt: 3, textAlign: "center", color: "white" }}>
+                  {t("No chats yet")}
+                </Typography>
+              )}
+            </Box>
           )}
         </Box>
       </Box>
@@ -248,9 +316,7 @@ function Chat() {
                 </React.Fragment>
               ))
             ) : (
-              <Typography
-                sx={{ textAlign: "center", py: 2, color: "white" }}
-              >
+              <Typography sx={{ textAlign: "center", py: 2, color: "white" }}>
                 {t("No users found")}
               </Typography>
             )}

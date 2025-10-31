@@ -102,10 +102,10 @@ export default function Pay() {
 
         <Paper elevation={1} sx={{ mt: 2, p: 3, borderRadius: "12px", background: "#fff" }}>
           <Typography variant="h6" gutterBottom>
-            <strong>{t("Employee")}:</strong> {payrollDetails.employeeId?.userName || "-"}
+            <strong>{t("Employee")}:</strong> {payrollDetails.employeeId?.name || "-"}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            <strong>{t("Date")}:</strong> {payrollDetails.date ? format(new Date(payrollDetails.date), "MMMM yyyy") : "-"}
+            <strong>{t("Date")}:</strong> {payrollDetails.date ? format(new Date(payrollDetails.date), "dd MMMM yyyy") : "-"}
           </Typography>
           <Typography variant="h6" gutterBottom>
             <strong>{t("Amount")}:</strong> {payrollDetails.amount}π

@@ -4,7 +4,7 @@ import { Box, TextField, Button, Typography } from "@mui/material";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 function UserChat() {
-  const { recieverId: recieverParam } = useParams();
+  const { id: recieverParam } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -146,8 +146,7 @@ function UserChat() {
                           color: "#555",
                           mb: 0.3,
                         }}
-                      >
-                      </Typography>
+                      ></Typography>
                     )}
                   </Box>
                 </Box>
@@ -175,7 +174,15 @@ function UserChat() {
             onClick={sendMessage}
             disabled={sending || !message.trim()}
           >
-            {sending ? "Sending..." : "Send"}
+            {sending ? (
+              "..."
+            ) : (
+              <img
+                src={Index.send1}
+                alt="Send"
+                style={{ width: 30, height: 30 }}
+              />
+            )}
           </Button>
         </Box>
       </Box>

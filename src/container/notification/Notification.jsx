@@ -135,19 +135,14 @@ function Notification() {
 
         // Extract type and ObjectId
         const type = notification?.type?.toLowerCase();
-        const objectId = notification?.ObjectId;
-
-        if (!objectId) {
-          Index.toasterError("No related ID found for this notification");
-          return;
-        }
+        const chatId = notification?.senderId;
 
         // Redirect based on type
         switch (type) {
           case "invoice":
           case "invoices":
-            navigate(`/invoice-list`, {
-              state: { notification },
+            navigate(`/invoice`, {
+              state: { data: notification },
             });
             break;
 
@@ -160,26 +155,26 @@ function Notification() {
 
           case "chat":
           case "chats":
-            navigate(`/chat`, {
-              state: { recieverId: objectId, notification },
+            navigate(`/user-chat/${chatId}`, {
+              state: { notification },
             });
             break;
 
           case "contract":
           case "contracts":
-            navigate(`/payroll`, {
+            navigate(`/contract/${notification?.objectId}`, {
               state: { notification },
             });
             break;
 
           case "job":
           case "jobs":
-            navigate(`/user-management`, { state: { notification } });
+            navigate(`/job-request/${notification?.objectId}`, { state: { notification } });
             break;
 
           case "ticket":
           case "tickets":
-            navigate(`/ticket/${objectId}`, { state: { notification } });
+            navigate(`/ticket`, { state: { notification } });
             break;
 
           default:
@@ -284,7 +279,11 @@ function Notification() {
                   })
                   ?.map((transaction, index) => (
                     <div
-                      className="transaction-main-boxs"
+                      className={`transaction-main-boxs ${
+                        transaction.isRead
+                          ? "read-notification"
+                          : "unread-notification"
+                      }`}
                       key={index}
                       onClick={() => handleNotificationClick(transaction._id)}
                       style={{ cursor: "pointer" }}

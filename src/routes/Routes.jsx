@@ -51,6 +51,8 @@ import AddEmployeeRole from "../container/employeeRoll/AddEmployeeRole";
 import Notification from "../container/notification/Notification";
 import Chat from "../container/chat/Chat";
 import UserChat from "../container/chat/UserChat";
+import JobRequest from "../container/userManagement/JobRequest";
+import Contract from "../container/payRoll/Contract";
 
 function ErrorBoundary() {
   const error = useRouteError(); // Assuming useRouteError is defined somewhere
@@ -223,6 +225,10 @@ const Routers = () => {
           element: <AddUser />,
         },
         {
+          path: "/job-request/:id",
+          element: <JobRequest />,
+        },
+        {
           path: "/payroll",
           element: <PayRoll />,
         },
@@ -237,6 +243,10 @@ const Routers = () => {
         {
           path: "/pay/:id",
           element: <Pay />,
+        },
+        {
+          path: "/contract/:id",
+          element: <Contract />,
         },
         {
           path: "/nominee",
