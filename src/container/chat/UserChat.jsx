@@ -28,7 +28,7 @@ function UserChat() {
     if (!recieverId) return;
     fetchMessages();
     if (pollRef.current) clearInterval(pollRef.current);
-    pollRef.current = setInterval(fetchMessages, 5000);
+    pollRef.current = setInterval(fetchMessages, 3000);
     return () => {
       if (pollRef.current) clearInterval(pollRef.current);
     };
