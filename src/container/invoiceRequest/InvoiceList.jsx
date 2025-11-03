@@ -140,11 +140,6 @@ function InvoiceList() {
                                     onClick={() => {
                                       navigate(
                                         "/invoice-request/" + transaction?._id,
-                                        {
-                                          state: {
-                                            data: transaction,
-                                          },
-                                        }
                                       );
                                     }}
                                   />

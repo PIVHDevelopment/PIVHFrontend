@@ -40,14 +40,19 @@ function UserChat() {
 
   const fetchMessages = async () => {
     try {
+      const senderId = getIdString(userData?._id);
+      const receiverId = getIdString(recieverId);
+      if (!senderId || !receiverId) return;
+
       const res = await Index.DataService.get(
-        `${Index.Api.GET_CHAT_MESSAGES}/${getIdString(
-          userData?._id
-        )}/${recieverId}`
+        `${Index.Api.GET_CHAT_MESSAGES}/${senderId}/${receiverId}`
       );
-      if (res?.data?.status === 200) setMessages(res.data.data || []);
+
+      if (res?.data?.status === 200) {
+        setMessages(res.data.data || []);
+      }
     } catch (err) {
-      // ignore polling errors
+      console.error("Error fetching messages:", err);
     }
   };
 

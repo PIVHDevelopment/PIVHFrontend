@@ -39,6 +39,8 @@ const PaymentRequest = () => {
   const [loading, setLoading] = useState(false);
   const [buttonLoader, setButtonLoader] = useState(false);
   const [txnData, setTxnData] = useState({});
+  const [declineConfirmOpen, setDeclineConfirmOpen] = useState(false);
+  const [selectedDeclineItem, setSelectedDeclineItem] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -50,7 +52,9 @@ const PaymentRequest = () => {
     setLoading(true);
     try {
       const res = await Index.DataService.get(
-        `${Index.Api.GET_PAYMENT_REQUEST}?merchantId=${userData?._id}&userName=${
+        `${Index.Api.GET_PAYMENT_REQUEST}?merchantId=${
+          userData?._id
+        }&userName=${
           isBusiness ? userData?.businessUserName : userData?.userName
         }`
       );
@@ -120,7 +124,7 @@ const PaymentRequest = () => {
         id: txnData?._id,
         transactionId: res?.data?.data,
       });
-      
+
       if (res?.data?.status) {
         navigate("/transaction-success", {
           state: { isBusiness: isBusiness ? true : false },
@@ -140,6 +144,41 @@ const PaymentRequest = () => {
     setNextPage(true);
   };
 
+  const openDeclineConfirm = (item) => {
+    setSelectedDeclineItem(item);
+    setDeclineConfirmOpen(true);
+  };
+
+  const confirmDecline = async () => {
+    try {
+      setButtonLoader(true);
+      const res = await Index.DataService.post(
+        Index.Api.DECLINE_PAYMENT_REQUEST,
+        {
+          id: selectedDeclineItem?._id,
+        }
+      );
+
+      if (res?.data?.status) {
+        Index.toasterSuccess(res?.data?.message?.[language]);
+        fetchRequests();
+        setDeclineConfirmOpen(false);
+        setSelectedDeclineItem(null);
+      }
+    } catch (err) {
+      Index.toasterError(err?.response?.data?.message?.[language]);
+    } finally {
+      setButtonLoader(false);
+    }
+  };
+
+  const handleChat = (item) => {
+    const receiver = item?.merchantId || item?._id;
+    navigate(`/user-chat/${receiver}`, {
+      state: { recieverId: receiver },
+    });
+  };
+
   return (
     <>
       {loading ? (
@@ -157,9 +196,7 @@ const PaymentRequest = () => {
               <header className="receive-center">
                 <button
                   className="back-btn"
-                  onClick={() =>
-                    navigate("/home", { state: { isBusiness } })
-                  }
+                  onClick={() => navigate("/home", { state: { isBusiness } })}
                 >
                   <img src={Index.back} alt="Back" />
                 </button>
@@ -223,9 +260,7 @@ const PaymentRequest = () => {
                           <ListItem key={index} className="list-item-address">
                             <Box
                               className={`flex-justify-gap-add ${
-                                item?.status !== "pending"
-                                  ? "custom-align"
-                                  : ""
+                                item?.status !== "pending" ? "custom-align" : ""
                               }`}
                             >
                               <Box className="address-left-contain">
@@ -273,20 +308,52 @@ const PaymentRequest = () => {
                                 </Box>
                               </Box>
 
-                              <Box className="request-payment-pay-btn-box">
-                                <button
-                                  className={`${
-                                    item?.status === "pending"
-                                      ? "request-payment-pay-btn request-payment-pay-pending-btn"
-                                      : "request-payment-pay-btn request-payment-pay-success-btn"
-                                  }`}
-                                  onClick={() => handleSubmitPin(item)}
-                                  disabled={item?.status !== "pending"}
-                                >
-                                  {item?.status === "pending"
-                                    ? t("Pay")
-                                    : t("Paid")}
-                                </button>
+                              <Box
+                                className="request-payment-pay-btn-box"
+                                display="flex"
+                                gap={1}
+                              >
+                                {/* Pay or Paid */}
+                                {item?.status === "pending" && (
+                                  <button
+                                    className="request-payment-pay-btn request-payment-pay-pending-btn"
+                                    onClick={() => handleSubmitPin(item)}
+                                  >
+                                    {t("Pay")}
+                                  </button>
+                                )}
+
+                                {item?.status === "success" && (
+                                  <button className="request-payment-pay-btn request-payment-pay-success-btn">
+                                    {t("Paid")}
+                                  </button>
+                                )}
+
+                                {item?.status === "rejected" && (
+                                  <button className="request-payment-pay-btn request-payment-pay-decline-btn">
+                                    {t("Declined")}
+                                  </button>
+                                )}
+
+                                {/* Decline (only if pending) */}
+                                {item?.status === "pending" && (
+                                  <button
+                                    className="request-payment-pay-btn request-payment-pay-decline-btn"
+                                    onClick={() => openDeclineConfirm(item)}
+                                  >
+                                    {t("Decline")}
+                                  </button>
+                                )}
+
+                                {/* Chat (only if pending) */}
+                                {item?.status === "pending" && (
+                                  <button
+                                    className="request-payment-pay-btn request-payment-chat-btn"
+                                    onClick={() => handleChat(item)}
+                                  >
+                                    {t("Chat")}
+                                  </button>
+                                )}
                               </Box>
                             </Box>
                           </ListItem>
@@ -361,16 +428,79 @@ const PaymentRequest = () => {
                 )}
               </Box>
 
+              {/* Decline Modal */}
+              <Modal
+                open={declineConfirmOpen}
+                onClose={() => setDeclineConfirmOpen(false)}
+              >
+                <Box
+                  sx={modalStyle}
+                  className="common-style-modal address-style"
+                >
+                  <Box className="modal-header-common address-modal-header">
+                    <Typography className="add-title">
+                      {t("Confirm Decline")}
+                    </Typography>
+                    <button
+                      className="btn-close"
+                      onClick={() => setDeclineConfirmOpen(false)}
+                    ></button>
+                  </Box>
+                  <Box className="modal-body address-body">
+                    <Typography
+                      sx={{ textAlign: "center", mb: 2, color: "#000" }}
+                    >
+                      {t(
+                        "Are you sure you want to decline this payment request?"
+                      )}
+                    </Typography>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "center", gap: 2 }}
+                    >
+                      <button
+                        className="common-btn"
+                        onClick={confirmDecline}
+                        disabled={buttonLoader}
+                        style={{ marginBottom: "5px" }}
+                      >
+                        {buttonLoader ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          t("Decline")
+                        )}
+                      </button>
+                      <button
+                        className="common-btn cancel-btn"
+                        style={{ marginBottom: "5px" }}
+                        onClick={() => setDeclineConfirmOpen(false)}
+                      >
+                        {t("Cancel")}
+                      </button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Modal>
+
               {/* Add/Edit Modal */}
-              <Modal open={open} onClose={handleClose} className="address-modal">
-                <Box sx={modalStyle} className="common-style-modal address-style">
+              <Modal
+                open={open}
+                onClose={handleClose}
+                className="address-modal"
+              >
+                <Box
+                  sx={modalStyle}
+                  className="common-style-modal address-style"
+                >
                   <Box className="modal-header-common address-modal-header">
                     <Typography className="add-title">
                       {id
                         ? `${t("Edit")} ${t("PaymentRequest")}`
                         : `${t("Add")} ${t("PaymentRequest")}`}
                     </Typography>
-                    <button className="btn-close" onClick={handleClose}></button>
+                    <button
+                      className="btn-close"
+                      onClick={handleClose}
+                    ></button>
                   </Box>
 
                   <Index.Formik
@@ -398,9 +528,7 @@ const PaymentRequest = () => {
                           <Box className="grid-row">
                             {/* Username */}
                             <div className="input-box">
-                              <p className="user-form-lable">
-                                {t("Username")}
-                              </p>
+                              <p className="user-form-lable">{t("Username")}</p>
                               <div className="user-form-group">
                                 <input
                                   type="text"
@@ -409,7 +537,10 @@ const PaymentRequest = () => {
                                   name="userName"
                                   value={formik.values.userName}
                                   onChange={(e) => {
-                                    const noSpaces = e.target.value.replace(/\s/g, "");
+                                    const noSpaces = e.target.value.replace(
+                                      /\s/g,
+                                      ""
+                                    );
                                     formik.setFieldValue("userName", noSpaces);
                                   }}
                                   onBlur={formik.handleBlur}
@@ -426,9 +557,7 @@ const PaymentRequest = () => {
 
                             {/* Amount */}
                             <div className="input-box">
-                              <p className="user-form-lable">
-                                {t("Amount")}
-                              </p>
+                              <p className="user-form-lable">{t("Amount")}</p>
                               <div className="user-form-group">
                                 <input
                                   type="text"
@@ -447,8 +576,7 @@ const PaymentRequest = () => {
                                 />
                               </div>
                               <p className="input-error">
-                                {formik.errors.amount &&
-                                formik.touched.amount
+                                {formik.errors.amount && formik.touched.amount
                                   ? formik.errors.amount
                                   : null}
                               </p>

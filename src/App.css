@@ -3268,3 +3268,42 @@ body .MuiGrid-root{
   background-color: #dddcdc;
   opacity: 0.85;
 } 
+
+.request-payment-pay-btn-box {
+  display: flex;
+  gap: 8px;
+}
+
+.request-payment-pay-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+/* Pay */
+.request-payment-pay-pending-btn {
+  background-color: #007bff;
+}
+
+.request-payment-pay-success-btn {
+  background-color: #28a745;
+}
+
+/* Decline */
+.request-payment-pay-decline-btn {
+  background-color: #dc3545;
+}
+
+/* Chat */
+.request-payment-chat-btn {
+  background-color: #6f42c1;
+}
+
+.request-payment-pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

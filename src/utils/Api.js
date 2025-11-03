@@ -46,6 +46,7 @@ const Api = {
   ADD_UPDATE_PAYMENT_REQUEST: "/payments/create-payment-request",
   GET_PAYMENT_REQUEST: "/payments/fetch-payment-request",
   ACCEPT_PAYMENT_REQUEST: "/payments/accept-payment-request",
+  DECLINE_PAYMENT_REQUEST: "/payments/reject-payment-request",
 
   ADD_FEEDBACK: "/user/add-feedback",
   GET_USER_FEEDBACK: "/user/get-feedback",
@@ -65,7 +66,7 @@ const Api = {
   CREATE_INVOICE: "/user/create-invoice",
   RELEASE_PAYMENT: "/user/release-payment",
   GET_INVOICE: "/user/get-invoice-list",
-  GET_ONE_INVOICE: "/user/get-invoice",
+  GET_INVOICE_BY_ID: "/user/get-invoice",
 
   ADD_USER_MANAGEMENT: "/user/add-edit-usermanagement",
   GET_USER_MANAGEMENT: "/user/get-user-management-list",

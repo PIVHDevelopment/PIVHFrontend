@@ -132,7 +132,7 @@ function Notification() {
 
       if (res?.data?.status === 200) {
         const notification = res.data.data;
-
+        
         // Extract type and ObjectId
         const type = notification?.type?.toLowerCase();
         const chatId = notification?.senderId;
@@ -141,9 +141,7 @@ function Notification() {
         switch (type) {
           case "invoice":
           case "invoices":
-            navigate(`/invoice`, {
-              state: { data: notification },
-            });
+            navigate(`/invoice-request/${notification?.ObjectId}`);
             break;
 
           case "request":
@@ -155,9 +153,7 @@ function Notification() {
 
           case "chat":
           case "chats":
-            navigate(`/user-chat/${chatId}`, {
-              state: { notification },
-            });
+            navigate(`/user-chat/${chatId}`);
             break;
 
           case "contract":
